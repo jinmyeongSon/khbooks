@@ -43,5 +43,4 @@ public class Test {
 		return mav;
 	}
 	
->>>>>>> branch 'master' of https://github.com/jinmyeongSon/khbooks.git
 }
