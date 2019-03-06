@@ -5,8 +5,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class Test {
+<<<<<<< HEAD
 	@RequestMapping("index.kh")
 	public String index() {
 		return "index";
 	}
+=======
+  String str;
+  int in;
+
+>>>>>>> branch 'master' of https://github.com/jinmyeongSon/khbooks.git
 }
