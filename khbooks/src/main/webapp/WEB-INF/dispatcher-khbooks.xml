@@ -19,19 +19,15 @@
 
 	<!-- controller -->
 	<bean class="test.Test" />
+	<bean class="controller.BookListController"/>
 	
-	<!-- webSocket 등록 -->
-	<!-- <bean id="chatWebSocketHandler" class="part01.ChatWebSocketHandler" />
-	
-	<websocket:handlers>
-		<websocket:mapping handler="chatWebSocketHandler" path="/chatws.do"/>
-	</websocket:handlers> -->
+
 	
 	<!-- viewResolver -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />
-		<property name="suffix" value=".htm" />
+		<property name="suffix" value=".jsp" />
 	</bean>
 
 </beans>
