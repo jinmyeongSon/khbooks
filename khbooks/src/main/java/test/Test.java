@@ -16,7 +16,7 @@ public class Test {
 	
 	@RequestMapping("index.kh")
 	public String index() {
-		return "index";
+		return "signUp";
 	}
 	
 

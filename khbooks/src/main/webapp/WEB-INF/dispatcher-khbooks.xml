@@ -11,6 +11,7 @@
 
 	<!-- controller -->
 	<bean class="test.Test" />
+	<bean class="controller.UserController"/>
 	
 	<!-- webSocket 등록 -->
 	<!-- <bean id="chatWebSocketHandler" class="part01.ChatWebSocketHandler" />
