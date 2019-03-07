@@ -3,16 +3,29 @@ package controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
-//http://localhost:8090/khbook/booklist.kh
+import service.BookService;
+
+//http://localhost:8090/khbook/bookMain.kh
 
 
 @Controller
 public class BookListController {
+	BookService service;
 	
-	@RequestMapping(value="/booklist", method=RequestMethod.GET)
-	public String index() {
-		return "booklist";
+	public void setService(BookService service) {
+		this.service = service;
+	}
+	
+	@RequestMapping(value="/bookMain", method=RequestMethod.GET)
+	public ModelAndView index() {
+		ModelAndView mav = new ModelAndView();
+		System.out.println(service.genreListProcess().get(1).getGname());
+		mav.addObject("bList", service.bookListProcess());
+		mav.addObject("gList", service.genreListProcess());
+		mav.setViewName("bookMain");
+		return mav;
 	}
 	
 

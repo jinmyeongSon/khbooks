@@ -1,6 +1,7 @@
 package dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class SerialDTO {
 	int upno;
@@ -12,6 +13,13 @@ public class SerialDTO {
 	int auno;
 	String stitle;
 	int sgrade;
+	List<ReviewCommentDTO> rList;
+	public List<ReviewCommentDTO> getrList() {
+		return rList;
+	}
+	public void setrList(List<ReviewCommentDTO> rList) {
+		this.rList = rList;
+	}
 	public int getUpno() {
 		return upno;
 	}

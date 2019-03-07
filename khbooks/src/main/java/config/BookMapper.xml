@@ -21,5 +21,9 @@
 		insert into book
 		values(book_bno_seq.nextval, #{bname}, #{gno}, sysdate, 0, 0, #{bthumb}, #{binfo})
 	</insert>
+	
+	<select id="genreList" resultType="dto.GenreDTO">
+		select * from genre order by gno
+	</select>
 
 </mapper>

@@ -19,9 +19,35 @@
 
 	<!-- controller -->
 	<bean class="test.Test" />
-	<bean class="controller.BookListController"/>
+	<bean class="controller.BookListController">
+		<property name="service" ref="serviceBook" />
+	</bean>
 	
+	
+	<!-- [2] SqlSessionFactoryBean 빈 선언 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:config/BookMapper.xml</value>
+			</list>
+		</property>
+	</bean>
 
+	<!-- [3] SqlSessionTemplate 빈 선언 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+
+    <!-- DAO -->
+	<bean id="daoBook" class="dao.BookDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+	
+	<!-- [5] Service -->
+	<bean id="serviceBook" class="service.BookServiceImp">
+		<property name="dao" ref="daoBook" />
+	</bean>
 	
 	<!-- viewResolver -->
 	<bean
