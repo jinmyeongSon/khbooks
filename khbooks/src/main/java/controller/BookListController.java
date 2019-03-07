@@ -21,7 +21,7 @@ public class BookListController {
 	@RequestMapping(value="/bookMain", method=RequestMethod.GET)
 	public ModelAndView index() {
 		ModelAndView mav = new ModelAndView();
-		System.out.println(service.genreListProcess().get(1).getGname());
+		
 		mav.addObject("bList", service.bookListProcess());
 		mav.addObject("gList", service.genreListProcess());
 		mav.setViewName("bookMain");

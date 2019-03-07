@@ -167,8 +167,8 @@
             	<c:forEach items="${gList}" var="genrelist">
             		<li><a href="#"><i class="icon-plus-sign"></i>${genrelist.gname}</a></li>
             	</c:forEach>
-
             </ul>
+            <div> ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅣ;;ㅓㅏㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ</div> 
 
             <!--Tabbed Content-->
             <section class="visible-desktop">
