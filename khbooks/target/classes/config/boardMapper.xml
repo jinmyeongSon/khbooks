@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+	<select id="count" resultType="int">
+		select count(*) from board
+	</select>
+
+	<select id="list" parameterType="dto.PageDTO" resultType="dto.BoardDTO">   
+   <![CDATA[
+	 select b.* from
+     (select rownum as rm, a.*from(
+     select * from board order by bonum desc)a)b
+     
+	]]>
+	</select>
+
+	<update id="readCount" parameterType="int">
+		update board
+		set	bcount=bcount+1
+		where bonum=#{bonum}
+	</update>
+	
+	<select id="content" parameterType="int" resultType="dto.BoardDTO">
+		select *
+		from board
+		where bonum=#{bonum}
+	</select>
+	
+	<update id="reStepCount" parameterType="dto.BoardDTO">
+     <![CDATA[
+         update board set re_step=re_step+1 
+         where ref=#{ref} and re_step>#{re_step}
+     ]]>
+	</update>
+	
+	<insert id="save" parameterType="dto.BoardDTO">
+	    insert into
+		board(num,writer,email,subject,reg_date,
+		readcount,ref,re_step,re_level,content,ip,upload)
+		values(board_seq.nextval,#{writer},
+		#{email},#{subject},sysdate,0,
+		<choose>
+			<when test="ref==0"> <!-- 제목글 일 때 -->
+				board_seq.nextval
+			</when>
+			<otherwise> <!-- 답변글 일 때 -->
+				#{ref}
+			</otherwise>
+		</choose>
+		,#{re_step},#{re_level},#{content},#{ip},
+		#{upload,jdbcType=VARCHAR})
+	</insert>
+	
+	
+	<select id="uploadFile" parameterType="int" resultType="String">
+		select upload from board where num=#{num}
+	</select>
+
+	<update id="update" parameterType="dto.BoardDTO">
+		update board set subject=#{subject},
+		email=#{email},content=#{content}
+		<if test="upload!=null">
+			,upload=#{upload}
+		</if>
+		where num=#{num}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from board where	num=#{num}
+	</delete>
+</mapper>
+

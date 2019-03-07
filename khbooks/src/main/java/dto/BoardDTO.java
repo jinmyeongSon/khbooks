@@ -2,25 +2,17 @@ package dto;
 
 import java.util.Date;
 
-import org.springframework.web.multipart.MultipartFile;
-
 /*
  * readcount : 조회수
- * bref : 게시물과 댓글의 그룹, 게시글이 늘어날 때마다 +1
- * bre_step : 댓글 끼리 순서
+ * bref : 어떤 게시물에 대한 댓글인지 번호
+ * bre_step : 댓글 끼리 순서 1,2,3,4,...
  * bre_level : 댓글 계층, 댓글-1 대댓글-2...
  * */
 
 public class BoardDTO {
-	private int bonum, readcount, bref, bre_step, bre_level;
-	private String btitle, bcontent;
-	private Date breg_date;
-	
-	// board테이블의 파일첨부를 처리해주는 멤버변수
-	private String upload;
-
-	// form 페이지에서 파일첨부를 받아 처리해주는 멤버변수
-	private MultipartFile filename;
+	private int bonum, bcount;
+	private String bname, btext, id;
+	private Date bdate;
 	
 	public BoardDTO() {
 		
@@ -34,75 +26,44 @@ public class BoardDTO {
 		this.bonum = bonum;
 	}
 
-	public int getReadcount() {
-		return readcount;
+	public int getBcount() {
+		return bcount;
 	}
 
-	public void setReadcount(int readcount) {
-		this.readcount = readcount;
+	public void setBcount(int bcount) {
+		this.bcount = bcount;
 	}
 
-	public int getBref() {
-		return bref;
+	public String getBname() {
+		return bname;
 	}
 
-	public void setBref(int bref) {
-		this.bref = bref;
+	public void setBname(String bname) {
+		this.bname = bname;
 	}
 
-	public int getBre_step() {
-		return bre_step;
+	public String getBtext() {
+		return btext;
 	}
 
-	public void setBre_step(int bre_step) {
-		this.bre_step = bre_step;
+	public void setBtext(String btext) {
+		this.btext = btext;
 	}
 
-	public int getBre_level() {
-		return bre_level;
+	public Date getBdate() {
+		return bdate;
 	}
 
-	public void setBre_level(int bre_level) {
-		this.bre_level = bre_level;
+	public void setBdate(Date bdate) {
+		this.bdate = bdate;
 	}
 
-	public String getBtitle() {
-		return btitle;
+	public String getId() {
+		return id;
 	}
 
-	public void setBtitle(String btitle) {
-		this.btitle = btitle;
+	public void setId(String id) {
+		this.id = id;
 	}
-
-	public String getBcontent() {
-		return bcontent;
-	}
-
-	public void setBcontent(String bcontent) {
-		this.bcontent = bcontent;
-	}
-
-	public Date getBreg_date() {
-		return breg_date;
-	}
-
-	public void setBreg_date(Date breg_date) {
-		this.breg_date = breg_date;
-	}
-
-	public String getUpload() {
-		return upload;
-	}
-
-	public void setUpload(String upload) {
-		this.upload = upload;
-	}
-
-	public MultipartFile getFilename() {
-		return filename;
-	}
-
-	public void setFilename(MultipartFile filename) {
-		this.filename = filename;
-	}
+	
 }
