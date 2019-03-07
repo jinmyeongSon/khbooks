@@ -16,5 +16,10 @@
 	<select id="bookListByView" resultType="dto.BookDTO">
 		select * from book order by bview
 	</select>
+	
+	<insert id="BookIns" parameterType="dto.BookDTO">
+		insert into book
+		values(book_bno_seq.nextval, #{bname}, #{gno}, sysdate, 0, 0, #{bthumb}, #{binfo})
+	</insert>
 
 </mapper>
