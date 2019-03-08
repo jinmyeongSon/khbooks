@@ -6,13 +6,14 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import dto.BookDTO;
 import dto.GenreDTO;
+import dto.PageDTO;
 
 public class BookDaoImp implements BookDAO{
 	SqlSessionTemplate sqlSession; 
 	
 	@Override
-	public List<BookDTO> bookList() {
-		return sqlSession.selectList("book.bookList");
+	public List<BookDTO> bookList(PageDTO dto) {
+		return sqlSession.selectList("book.bookList", dto);
 	}
 	
 	@Override
@@ -27,6 +28,16 @@ public class BookDaoImp implements BookDAO{
 	
 	public void setSqlSession(SqlSessionTemplate sqlSession) {
 		this.sqlSession = sqlSession;
+	}
+
+	@Override
+	public int getBookCount() {
+		return sqlSession.selectOne("book.bookCount");
+	}
+
+	@Override
+	public int getBookGenreCount(int sortgenre) {
+		return sqlSession.selectOne("book.bookGenreCount", sortgenre);
 	}
 
 }

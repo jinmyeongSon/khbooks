@@ -3,8 +3,8 @@ package dto;
 public class PageDTO {
 	private int currentPage; // 현재페이지
 	private int totalCount; // 총 레코드수
-	private int blockCount = 5; // 한 페이지에 보여줄 레코드수
-	private int blockPage = 9; // 한 블록에 보여줄 페이지수
+	private int blockCount = 9; // 한 페이지에 보여줄 레코드수
+	private int blockPage = 5; // 한 블록에 보여줄 페이지수
 	private int totalPage; // 총 페이지수
 	private int startRow; // 시작 레코드 번호
 	private int endRow; // 끝 레코드번호
@@ -13,9 +13,24 @@ public class PageDTO {
 	private int number;
 	private String searchKey;
 	private String searchWord;
+	private int sortkey;
+	private int sortgenre;
 
 	public PageDTO() {
 
+	}
+	
+	public PageDTO(int currentPage, int totalCount, int sortkey, String searchWord) {
+	       this(currentPage,totalCount);
+	       this.sortkey=sortkey;
+	       this.searchWord=searchWord;
+	}
+	
+	public PageDTO(int currentPage, int totalCount, int sortgenre, int sortkey, String searchWord) {
+	       this(currentPage,totalCount);
+	       this.sortkey=sortkey;
+	       this.sortgenre=sortgenre;
+	       this.searchWord=searchWord;
 	}
 
 	public PageDTO(int currentPage, int totalCount, String searchKey, String searchWord) {
@@ -147,6 +162,23 @@ public class PageDTO {
 
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
+	}
+	
+	public int getSortkey() {
+		return sortkey;
+	}
+	
+	public void setSortkey(int sortkey) {
+		this.sortkey = sortkey;
+	}
+	
+
+	public int getSortgenre() {
+		return sortgenre;
+	}
+	
+	public void setSortgenre(int sortgenre) {
+		this.sortgenre = sortgenre;
 	}
 
 }

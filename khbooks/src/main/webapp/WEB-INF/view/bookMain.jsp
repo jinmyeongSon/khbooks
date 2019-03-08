@@ -170,9 +170,7 @@
             </ul> --%>
             <div>
             	<c:forEach items="${gList}" var="glist">
-            		<div style="display:inline; width:50%;">
-            			<a href="#"><i class="icon-plus-sign"></i>${glist.gname}</a>
-            		</div>
+            		<a href="bookMain.kh?sortkey=${pdto.sortkey}&sortgenre=${glist.gno}" style="display:inline-block; width:45%;"><i class="icon-plus-sign"></i>${glist.gname}</a>
             	</c:forEach>
 			</div>
             <!--Tabbed Content-->
