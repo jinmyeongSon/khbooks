@@ -49,6 +49,9 @@ li.span2 .project-details {
 .sidebar iframe {width:300px;}
 .post-data-3 {display:none;}
 .post-data li {padding: 0px 7px;}
+ .clearfix p {
+ 	text-overflow: ellipsis;
+ }
 
 
 /*** MISC ***/

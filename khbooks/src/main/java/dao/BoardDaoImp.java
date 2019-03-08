@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import dto.BoardDTO;
 import dto.PageDTO;
+import dto.ReplyDTO;
 
 public class BoardDaoImp implements BoardDAO {
 	private SqlSessionTemplate sqlSession;
@@ -30,7 +31,7 @@ public class BoardDaoImp implements BoardDAO {
 	
 	@Override
 	public void readCount(int num) {
-		sqlSession.update("board.readCount");
+		sqlSession.update("board.readCount", num);
 	}
 	
 	@Override
@@ -38,4 +39,33 @@ public class BoardDaoImp implements BoardDAO {
 		return sqlSession.selectOne("board.content", bonum);
 	}
 	
+/////////////////////////////////////////////////////////////
+
+	@Override
+	public int replyCount() {
+		return sqlSession.selectOne("reply.count");
+	}
+
+	@Override
+	public List<ReplyDTO> replyListMethod(int bonum) {
+		return sqlSession.selectList("reply.list", bonum);
+	}
+
+	@Override
+	public void replyInsertMethod(ReplyDTO rdto) {
+		sqlSession.insert("reply.insert", rdto);
+	}
+
+	@Override
+	public void replyUpdateMethod(ReplyDTO rdto) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void replyDeleteMethod(int rno) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

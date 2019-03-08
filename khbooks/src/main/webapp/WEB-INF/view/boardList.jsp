@@ -16,6 +16,15 @@
 <link rel="stylesheet" href="css/bootstrap-responsive.css">
 <link rel="stylesheet" href="css/jquery.lightbox-0.5.css">
 <link rel="stylesheet" href="css/custom-styles.css">
+<style type="text/css">
+ .clearfix p {
+ overflow: hidden; 
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 300px;
+  height: 20px;
+ }
+</style>
 
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -34,6 +43,7 @@
 <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.custom.js"></script>
+
 
 <!-- download -->
 <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
@@ -156,15 +166,14 @@
             <c:forEach items="${aList }" var="dto">
             <article class="clearfix">
                 <a href=""><img src="img/gallery/gallery-img-1-4col.jpg" alt="Post Thumb" class="align-left"></a>
-                <h4 class="title-bg"><a href="boardView.kh?currentPage=${pdto.currentPage }&&bonum=${dto.bonum }">${dto.bname }</a></h4>
+                <h4 class="title-bg">${dto.bname }</h4>
                     <p>${dto.btext }</p>
-                    <button class="btn btn-mini btn-inverse" type="button">Read more</button>
+                    <a href="boardView.kh?currentPage=${pdto.currentPage }&bonum=${dto.bonum }"><button class="btn btn-mini btn-inverse" type="button">자세히</button></a>
                     <div class="post-summary-footer">
                         <ul class="post-data-3">
                             <li><i class="icon-calendar"></i><fmt:formatDate pattern="yy/MM/dd" dateStyle="short" value="${dto.bdate }" /></li>
                             <li><i class="icon-user"></i> <a href="#">${dto.id }</a></li>
-                            <li><i class="icon-comment"></i> <a href="#">5 Comments</a></li>
-                            <li><i class="icon-tags"></i> <a href="#">photoshop</a>, <a href="#">tutorials</a></li>
+                            <li><i class="icon-comment"></i> <a href="#">댓글&#91;${commentRecord}&#93;</a></li>
                         </ul>
                     </div>
             </article>

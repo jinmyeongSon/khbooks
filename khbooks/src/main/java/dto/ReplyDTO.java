@@ -2,57 +2,82 @@ package dto;
 
 import java.util.Date;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class ReplyDTO { //게시판 댓글
-	private int rno;
-	private int bno;
-	private String replytext;
-	private String replyer;
-	private Date regdate;
-
+	private int bonum; //게시글 번호
+	private int bcno; //댓글 번호
+	private String id;
+	private String bctext;
+	private int bcstep; //댓글 간 순서
+	private int bclevel; // 댓글 계층 댓글=1, 대댓=2 ...
+	private int bcfor; //ref
+	private Date bcdate;
+	
 	public ReplyDTO() {
 
 	}
 
-	public int getRno() {
-		return rno;
+	public int getBonum() {
+		return bonum;
 	}
 
-	public void setRno(int rno) {
-		this.rno = rno;
+	public void setBonum(int bonum) {
+		this.bonum = bonum;
 	}
 
-	public int getBno() {
-		return bno;
+	public int getBcno() {
+		return bcno;
 	}
 
-	public void setBno(int bno) {
-		this.bno = bno;
+	public void setBcno(int bcno) {
+		this.bcno = bcno;
 	}
 
-	public String getReplytext() {
-		return replytext;
+	public String getId() {
+		return id;
 	}
 
-	public void setReplytext(String replytext) {
-		this.replytext = replytext;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getReplyer() {
-		return replyer;
+	public String getBctext() {
+		return bctext;
 	}
 
-	public void setReplyer(String replyer) {
-		this.replyer = replyer;
+	public void setBctext(String bctext) {
+		this.bctext = bctext;
 	}
 
-	public Date getRegdate() {
-		return regdate;
+	public int getBcstep() {
+		return bcstep;
 	}
 
-	public void setRegdate(Date regdate) {
-		this.regdate = regdate;
+	public void setBcstep(int bcstep) {
+		this.bcstep = bcstep;
 	}
 
+	public int getBclevel() {
+		return bclevel;
+	}
+
+	public void setBclevel(int bclevel) {
+		this.bclevel = bclevel;
+	}
+
+	public int getBcfor() {
+		return bcfor;
+	}
+
+	public void setBcfor(int bcfor) {
+		this.bcfor = bcfor;
+	}
+	
+	public Date getBcdate() {
+		return bcdate;
+	}
+	
+	public void setBcdate(Date bcdate) {
+		this.bcdate = bcdate;
+	}
+	
 }// end class

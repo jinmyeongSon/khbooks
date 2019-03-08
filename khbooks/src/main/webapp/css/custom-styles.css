@@ -383,6 +383,7 @@ a.item-details-link:hover {background: #d8450b url(../img/gallery-item-icons.png
 .blog article h3 a:hover, .blog article h4 a:hover {color:#333333; text-decoration: none;}
 .blog h4 {line-height: 26px;}
 
+
 /* Mobile Landscape Size */
 @media only screen and (max-width: 479px) {
 	.blog h4 {width:260px;}
@@ -462,6 +463,17 @@ ul.post-data li:last-child {padding-right: 0px;}
 	.blog-post-hover {width:220px; height:179px;}
 	.blog-post-hover a{ font-size: 20px; line-height: 24px;}
 	}
+	
+	
+#replyUpt, #replyDel {
+	float : right;
+	padding: 0px 10px;
+	
+}
+
+#replyUpt {
+	border-left: 1px dotted #a9a9a9;
+}	
 
 /* All Mobile Sizes */
 @media only screen and (max-width: 767px) {

@@ -11,7 +11,7 @@
 
 	<!-- controller -->
 	<bean class="test.Test" />
-	<bean class="blog.controller.BoardController">
+	<bean class="board.controller.BoardController">
 		<property name="service" ref="service" />
 	</bean>	
 	
@@ -40,6 +40,7 @@
 		<property name="mapperLocations">
 			<list>
 				<value>classpath:config/boardMapper.xml</value>
+				<value>classpath:config/replyMapper.xml</value>
 			</list>
 		</property>
 		<!-- <property name="configLocation" value="classpath:config/boardMapper.xml"/> -->

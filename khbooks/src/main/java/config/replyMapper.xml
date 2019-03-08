@@ -4,23 +4,28 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="reply">
-	<insert id="r_insert" parameterType="dto.ReplyDTO">
-		insert into tbl_reply
-		values(reply_rno_seq.nextval,#{bno},#{replytext},#{replyer},sysdate,#{rupload,jdbcType=VARCHAR})
-	</insert>
- 
-	<select id="r_list" parameterType="int" resultType="dto.ReplyDTO">
-		select * from
-		tbl_reply where bno=#{bno} order by rno desc
+
+	<select id="count" resultType="int">
+		select count(*) from board_comment
 	</select>
 	
-	<delete id="r_delete" parameterType="int" >
-	  delete from tbl_reply
+	<select id="list" parameterType="int" resultType="dto.ReplyDTO">
+		select * from
+		board_comment where bonum=#{bonum} order by bcno desc
+	</select>
+
+	<insert id="insert" parameterType="dto.ReplyDTO">
+		insert into board_comment
+		values(comment_seq.nextval,#{bonum},#{id},#{bctext},#{bcstep},#{bclevel},#{bcfor},sysdate)
+	</insert>
+	
+	<delete id="delete" parameterType="int" >
+	  delete from board_comment
 	  where rno=#{rno}
 	</delete>
 	
-	<update id="r_update" parameterType="dto.ReplyDTO">
-	  update tbl_reply set replytext=#{replytext}
+	<update id="update" parameterType="dto.ReplyDTO">
+	  update board_comment set replytext=#{replytext}
 	  where rno=#{rno}
 	</update>
 </mapper>  
