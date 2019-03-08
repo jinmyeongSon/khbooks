@@ -138,12 +138,36 @@
             <!-- Pagination -->
             <div class="pagination">
                 <ul>
-                <li class="active"><a href="#">Prev</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">Next</a></li>
+                <c:choose>
+                	<c:when test="${pdto.currentPage==1}">
+                		<li class="active"><a href="bookMain.kh?currentPage=1">Prev</a></li>
+                	</c:when>
+                	<c:otherwise>
+                		<li><a href="bookMain.kh?currentPage=${pdto.currentPage-1}">Prev</a></li>
+                	</c:otherwise>
+                </c:choose>
+                <c:forEach var="i" begin="${-blockPage/2}" end="${pdto.blockPage/2}" step="1" >
+                	<c:if test="${(pdto.currentPage+i-1)>0 && ((pdto.currentPage+i-2)<(pdto.endPage))}">
+                		<c:choose>
+                			<c:when test="${(i+pdto.currentPage-1) == pdto.currentPage}">
+                				<li class="active">
+                			</c:when>
+                			<c:otherwise>
+                				<li>
+                			</c:otherwise>
+                		</c:choose>
+                		<a href="bookMain.kh?currentPage=${pdto.currentPage + (i - 1)}">${pdto.currentPage + (i-1)}</a></li>
+                	</c:if>
+                </c:forEach>
+             
+                <c:choose>
+                	<c:when test="${pdto.currentPage==pdto.endPage}">
+                		<li class="active"><a href="bookMain.kh?currentPage=${pdto.endPage}">Next</a></li>
+                	</c:when>
+                	<c:otherwise>
+                		<li><a href="bookMain.kh?currentPage=${pdto.currentPage+1}">Next</a></li>
+                	</c:otherwise>
+                </c:choose>
                 </ul>
             </div>
         </div>
