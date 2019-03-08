@@ -18,7 +18,13 @@ public class BookServiceImp implements BookService {
 		return dao.genreList();
 	}
 	
+	@Override
+	public BookDTO bookDetailProcess(int bno) {
+		return dao.bookDetail(bno);
+	}
+	
 	public void setDao(BookDAO dao) {
 		this.dao = dao;
 	}
+	
 }

@@ -20,6 +20,11 @@ public class BookDaoImp implements BookDAO{
 		return sqlSession.selectList("book.genreList");
 	}
 	
+	@Override
+	public BookDTO bookDetail(int bno) {
+		return sqlSession.selectOne("book.bookDetail", bno);
+	}
+	
 	public void setSqlSession(SqlSessionTemplate sqlSession) {
 		this.sqlSession = sqlSession;
 	}

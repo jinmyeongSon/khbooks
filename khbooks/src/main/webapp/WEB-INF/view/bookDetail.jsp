@@ -1,24 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=UTF-8">
-<title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!-- CSS
 ================================================== -->
 <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/bootstrap-responsive.css">
-<link rel="stylesheet" href="css/jquery.lightbox-0.5.css">
+<link rel="stylesheet" href="css/prettyPhoto.css" />
 <link rel="stylesheet" href="css/custom-styles.css">
-<link rel="stylesheet" href="css/_button-group.css">
-<link rel="stylesheet" href="css/_buttons.css">
-
-
-
 
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -32,15 +26,14 @@
 <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
 <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
 
-
 <!-- JS
 ================================================== -->
-<!-- <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script> -->
+<script src="js/jquery.easing.1.3.js"></script>
 <script src="js/bootstrap.js"></script>
-<script src="js/button.js"></script>
+<script src="js/jquery.prettyPhoto.js"></script>
+<script src="js/jquery.quicksand.js"></script>
 <script src="js/jquery.custom.js"></script>
-
-
+<title>Insert title here</title>
 </head>
 <body>
 	<div class="color-bar-1"></div>
@@ -81,7 +74,7 @@
                     <li><a href="page-double-sidebar.htm">Double Sidebar</a></li>
                 </ul>
             </li>
-             <li class="dropdown">
+             <li class="dropdown active">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="gallery-4col.htm">Gallery <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="gallery-3col.htm">Gallery 3 Column</a></li>
@@ -91,7 +84,7 @@
                     <li><a href="gallery-single.htm">Gallery Single</a></li>
                 </ul>
              </li>
-             <li class="dropdown active">
+             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="blog-style1.htm">Blog <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="blog-style1.htm">Blog Style 1</a></li>
@@ -105,115 +98,82 @@
             </ul>
            
             </div>
+
+            <!-- Mobile Nav
+            ================================================== -->
+            <form action="#" id="mobile-nav" class="visible-phone">
+                <div class="mobile-nav-select">
+                <select onchange="window.open(this.options[this.selectedIndex].value,'_top')">
+                    <option value="">Navigate...</option>
+                    <option value="index.htm">Home</option>
+                        <option value="index.htm">- Full Page</option>
+                        <option value="index-gallery.htm">- Gallery Only</option>
+                        <option value="index-slider.htm">- Slider Only</option>
+                    <option value="features.htm">Features</option>
+                    <option value="page-full-width.htm">Pages</option>
+                        <option value="page-full-width.htm">- Full Width</option>
+                        <option value="page-right-sidebar.htm">- Right Sidebar</option>
+                        <option value="page-left-sidebar.htm">- Left Sidebar</option>
+                        <option value="page-double-sidebar.htm">- Double Sidebar</option>
+                    <option value="gallery-4col.htm">Gallery</option>
+                        <option value="gallery-3col.htm">- 3 Column</option>
+                        <option value="gallery-4col.htm">- 4 Column</option>
+                        <option value="gallery-6col.htm">- 6 Column</option>
+                        <option value="gallery-4col-circle.htm">- Gallery 4 Col Round</option>
+                        <option value="gallery-single.htm">- Gallery Single</option>
+                    <option value="blog-style1.htm">Blog</option>
+                        <option value="blog-style1.htm">- Blog Style 1</option>
+                        <option value="blog-style2.htm">- Blog Style 2</option>
+                        <option value="blog-style3.htm">- Blog Style 3</option>
+                        <option value="blog-style4.htm">- Blog Style 4</option>
+                        <option value="blog-single.htm">- Blog Single</option>
+                    <option value="page-contact.htm">Contact</option>
+                </select>
+                </div>
+                </form>
+            
         </div>
 
       </div><!-- End Header -->
      
-    <!-- Blog Content
+    <!-- Page Content
     ================================================== --> 
     <div class="row">
 
-        <!-- Blog Posts
+        <!-- Gallery Items
         ================================================== --> 
-        <div class="span9 blog">
-			<div class ="check">
-				<p>장르 체크</p>
-			</div>
-            <div class="row clearfix">
-                <ul class="blog-post-grid">
+        <div class="span12 gallery-single">
 
-					<c:forEach items="${bList}" var="list" >
-                    <li class="span3 blog-post-item">
-                        <div class="blog-post-hover hidden-phone hidden-tablet">
-                            <p><a href="bookDetail.kh?bno=${list.bno}" class="clearfix">${list.bname}</a>
-                            posted on 9/01/15<br /> 12 comments<br /> posted in photoshop</p>
-                        </div>
-                        <a href="blog-single.htm"><img src="img/gallery/gallery-img-1-4col.jpg" alt="Post Thumb"></a>
-                    </li>
-                    </c:forEach>
-
-                </ul>
-            </div>
-
-            <!-- Pagination -->
-            <div class="pagination">
-                <ul>
-                <li class="active"><a href="#">Prev</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">Next</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Blog Sidebar
-        ================================================== --> 
-        <div class="span3 sidebar">
-
-            <!--Search-->
-            <section>
-                <div class="input-append">
-                    <form action="#">
-                        <input id="appendedInputButton" size="16" type="text" placeholder="Search"><button class="btn" type="button"><i class="icon-search"></i></button>
-                    </form>
+            <div class="row">
+                <div class="span6">
+                    <img src="img/gallery/gallery-img-1-full.jpg" class="align-left thumbnail" alt="image">
                 </div>
-            </section>
-
-            <!--Categories-->
-            <h5 class="title-bg">장르별</h5>
-            <%-- <ul class="post-category-list">
-            	<c:forEach items="${gList}" var="genrelist">
-            		<li><a href="#"><i class="icon-plus-sign"></i>${genrelist.gname}</a></li>
-            	</c:forEach>
-            </ul> --%>
-            <div>
-            	<c:forEach items="${gList}" var="glist">
-            		<div style="display:inline; width:50%;">
-            			<a href="#"><i class="icon-plus-sign"></i>${glist.gname}</a>
-            		</div>
-            	</c:forEach>
-			</div>
-            <!--Tabbed Content-->
-            <section class="visible-desktop">
-            <h5 class="title-bg">More Info</h5>
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#comments" data-toggle="tab">Comments</a></li>
-                <li><a href="#tweets" data-toggle="tab">Tweets</a></li>
-                <li><a href="#about" data-toggle="tab">About</a></li>
-            </ul>
-
-            <div class="tab-content">
-                <div class="tab-pane active" id="comments">
-                     <ul>
-                        <li><i class="icon-comment"></i>admin on <a href="#">Lorem ipsum dolor sit amet</a></li>
-                        <li><i class="icon-comment"></i>admin on <a href="#">Consectetur adipiscing elit</a></li>
-                        <li><i class="icon-comment"></i>admin on <a href="#">Ipsum dolor sit amet consectetur</a></li>
-                        <li><i class="icon-comment"></i>admin on <a href="#">Aadipiscing elit varius elementum</a></li>
-                        <li><i class="icon-comment"></i>admin on <a href="#">ulla iaculis mattis lorem</a></li>
+                <div class="span6">
+                    <h2>Custom Illustration</h2>
+                    <p class="lead">For an international ad campaign. Nulla iaculis mattis lorem, quis gravida nunc iaculis ac. Proin tristique tellus in est vulputate luctus</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla iaculis mattis lorem, quis gravida nunc iaculis ac. Proin tristique tellus in est vulputate luctus fermentum ipsum molestie. Vivamus tincidunt sem eu magna varius elementum. Maecenas felis tellus, fermentum vitae laoreet vitae, volutpat et urna. Nulla faucibus ligula eget ante varius ac euismod odio placerat. Nam sit amet felis non lorem faucibus rhoncus vitae id dui.</p>
+					<p>textTesttestTestsetesttttest</p>
+					<p>${book.binfo}</p>
+					<c:forEach items="${book.sList}" var="list">
+						<p>${list.stitle}</p>
+					</c:forEach>
+					<p>textTesttestTestsetesttttest</p>
+                    <ul class="project-info">
+                        <li><h6>Date:</h6> 09/12/15</li>
+                        <li><h6>Client:</h6> John Doe, Inc.</li>
+                        <li><h6>Services:</h6> Design, Illustration</li>
+                        <li><h6>Art Director:</h6> Jane Doe</li>
+                        <li><h6>Designer:</h6> Jimmy Doe</li>
                     </ul>
-                </div>
-                <div class="tab-pane" id="tweets">
-                    <ul>
-                        <li><a href="#"><i class="icon-share-alt"></i>@room122</a> Vivamus tincidunt sem eu magna varius elementum. Maecenas felis tellus, fermentum vitae laoreet vitae, volutpat et urna.</li>
-                        <li><a href="#"> <i class="icon-share-alt"></i>@room122</a> Nulla faucibus ligula eget ante varius ac euismod odio placerat.</li>
-                        <li><a href="#"> <i class="icon-share-alt"></i>@room122</a> Pellentesque iaculis lacinia leo. Donec suscipit, lectus et hendrerit posuere, dui nisi porta risus, eget adipiscing</li>
-                        <li><a href="#"> <i class="icon-share-alt"></i>@room122</a> Vivamus augue nulla, vestibulum ac ultrices posuere, vehicula ac arcu.</li>
-                        <li><a href="#"> <i class="icon-share-alt"></i>@room122</a> Sed ac neque nec leo condimentum rhoncus. Nunc dapibus odio et lacus.</li>
-                    </ul>
-                </div>
-                <div class="tab-pane" id="about">
-                    <p>Enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.</p>
 
-                    Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                    <button class="btn btn-inverse pull-left" type="button">Visit Website</button>
+                    <a href="#" class="pull-right"><i class="icon-arrow-left"></i>Back to Gallery</a>
                 </div>
             </div>
-            </section>
 
-        </div>
+        </div><!-- End gallery-single-->
 
-    </div>
+    </div><!-- End container row -->
     
     </div> <!-- End Container -->
 

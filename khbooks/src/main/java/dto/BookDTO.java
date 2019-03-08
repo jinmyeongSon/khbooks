@@ -1,6 +1,7 @@
 package dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class BookDTO {
 	int bno;
@@ -11,6 +12,13 @@ public class BookDTO {
 	int bview;
 	String bthumb;
 	String binfo;
+	List<SerialDTO> sList;
+	public List<SerialDTO> getsList() {
+		return sList;
+	}
+	public void setsList(List<SerialDTO> sList) {
+		this.sList = sList;
+	}
 	public int getBno() {
 		return bno;
 	}

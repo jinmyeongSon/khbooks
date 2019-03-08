@@ -9,5 +9,5 @@ import dto.GenreDTO;
 public interface BookDAO {
 	public List<BookDTO> bookList();
 	public List<GenreDTO> genreList();
-
+	public BookDTO bookDetail(int bno);
 }

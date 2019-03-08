@@ -18,13 +18,21 @@ public class BookListController {
 		this.service = service;
 	}
 	
-	@RequestMapping(value="/bookMain", method=RequestMethod.GET)
-	public ModelAndView index() {
+	@RequestMapping(value="/bookMain.kh", method=RequestMethod.GET)
+	public ModelAndView bookMain() {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("bList", service.bookListProcess());
 		mav.addObject("gList", service.genreListProcess());
 		mav.setViewName("bookMain");
+		return mav;
+	}
+	
+	@RequestMapping(value="/bookDetail.kh", method=RequestMethod.GET)
+	public ModelAndView bookDetail(int bno) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("book", service.bookDetailProcess(bno));
+		mav.setViewName("bookDetail");
 		return mav;
 	}
 	

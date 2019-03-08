@@ -22,6 +22,38 @@
 		values(book_bno_seq.nextval, #{bname}, #{gno}, sysdate, 0, 0, #{bthumb}, #{binfo})
 	</insert>
 	
+	<resultMap type="dto.BookDTO" id="asdf" autoMapping="false" >
+		<result column="bbno" property="bno" />
+		<result column="bname" property="bname" />
+		<result column="gno" property="gno" />
+		<result column="bupdate" property="bupdate" />
+		<result column="bgrade" property="bgrade" />
+		<result column="bview" property="bview" />
+		<result column="bthumb" property="bthumb" />
+		<result column="binfo" property="binfo" />
+		<collection property="sList" javaType="java.util.List"
+			ofType="dto.SerialDTO"  autoMapping="false" >
+			<id column="rno" property="rno" />
+			<result column="upno" property="upno" />
+			<result column="sbno" property="bno" />
+			<result column="sdate" property="sdate" />
+			<result column="scontent" property="scontent" />
+			<result column="sprice" property="sprice" />
+			<result column="ncount" property="ncount" />
+			<result column="auno" property="auno" />
+			<result column="stitle" property="stitle" />
+			<result column="sgrade" property="sgrade" />
+		</collection>
+	</resultMap>
+	
+	<select id="bookDetail" parameterType="int" resultMap="asdf">
+		select b.bno as bbno, b.*,  s.bno as sbno, s.*
+		from book b, serial s
+		where b.bno=s.bno(+)
+		and b.bno=#{bno}
+		order by s.upno desc
+	</select>
+	
 	<select id="genreList" resultType="dto.GenreDTO">
 		select * from genre order by gno
 	</select>
