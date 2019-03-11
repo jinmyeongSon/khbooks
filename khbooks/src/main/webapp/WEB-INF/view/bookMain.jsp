@@ -142,6 +142,9 @@
                 	<c:when test="${pdto.currentPage==1}">
                 		<li class="active"><a href="bookMain.kh?currentPage=1">Prev</a></li>
                 	</c:when>
+					<c:when test="${pdto.currentPage>1&&pdto.currentPage<pdto.blockPage/2+2}">
+                		<li><a href="bookMain.kh?currentPage=1">Prev</a></li>
+                	</c:when>
                 	<c:otherwise>
                 		<li><a href="bookMain.kh?currentPage=${pdto.currentPage-1}">Prev</a></li>
                 	</c:otherwise>
@@ -164,8 +167,11 @@
                 	<c:when test="${pdto.currentPage==pdto.endPage}">
                 		<li class="active"><a href="bookMain.kh?currentPage=${pdto.endPage}">Next</a></li>
                 	</c:when>
+                	<c:when test="${pdto.endPage-pdto.currentPage > 0 && pdto.endPage-pdto.currentPage<pdto.blockPage/2}">
+                		<li><a href="bookMain.kh?currentPage=${pdto.endPage}">Next</a></li>
+                	</c:when>
                 	<c:otherwise>
-                		<li><a href="bookMain.kh?currentPage=${pdto.currentPage+1}">Next</a></li>
+                		<li><a href="bookMain.kh?currentPage=${pdto.currentPage+pdto.blockPage/2+1}">Next</a></li>
                 	</c:otherwise>
                 </c:choose>
                 </ul>
