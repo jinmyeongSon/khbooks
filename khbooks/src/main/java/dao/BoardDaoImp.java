@@ -42,8 +42,8 @@ public class BoardDaoImp implements BoardDAO {
 /////////////////////////////////////////////////////////////
 
 	@Override
-	public int replyCount() {
-		return sqlSession.selectOne("reply.count");
+	public int replyCount(int bonum) {
+		return sqlSession.selectOne("reply.count", bonum);
 	}
 
 	@Override
@@ -58,14 +58,12 @@ public class BoardDaoImp implements BoardDAO {
 
 	@Override
 	public void replyUpdateMethod(ReplyDTO rdto) {
-		// TODO Auto-generated method stub
-		
+		sqlSession.update("reply.update", rdto);
 	}
 
 	@Override
-	public void replyDeleteMethod(int rno) {
-		// TODO Auto-generated method stub
-		
+	public void replyDeleteMethod(int bcno) {
+		sqlSession.delete("reply.delete", bcno);
 	}
 
 }

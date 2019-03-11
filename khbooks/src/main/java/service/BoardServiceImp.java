@@ -37,8 +37,8 @@ public class BoardServiceImp implements BoardService {
 	/////////////댓글//////////////////////////////////////////////////////////////////////////
 	
 	@Override
-	public int replyCountProcess() {
-		return dao.replyCount();
+	public int replyCountProcess(int bonum) {
+		return dao.replyCount(bonum);
 	}
 
 	@Override
@@ -53,14 +53,14 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public List<ReplyDTO> replyDeleteProcess(ReplyDTO rdto) {
-		// TODO Auto-generated method stub
-		return null;
+		dao.replyDeleteMethod(rdto.getBcno());
+		return dao.replyListMethod(rdto.getBonum());
 	}
 
 	@Override
 	public List<ReplyDTO> replyUpdateProcess(ReplyDTO rdto) {
-		// TODO Auto-generated method stub
-		return null;
+		dao.replyUpdateMethod(rdto);
+		return dao.replyListMethod(rdto.getBonum());
 	}
 
 }//end class

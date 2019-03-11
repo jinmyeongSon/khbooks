@@ -3,8 +3,8 @@ package board.controller;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -12,7 +12,6 @@ import dto.BoardDTO;
 import dto.PageDTO;
 import dto.ReplyDTO;
 import service.BoardService;
-
 
 //http://localhost:8090/khbook/boardList.kh
 
@@ -33,10 +32,14 @@ public class BoardController {
 	@RequestMapping("/boardList.kh")
 	public ModelAndView list(PageDTO pdto) {
 		ModelAndView mav = new ModelAndView();
+		List<BoardDTO> aList = service.listProcess(pdto);
 		int totalRecord = service.countProcess();
-		int commentRecord = service.replyCountProcess();
 		System.out.println("totalRecord : " + totalRecord);
 		
+		for(int i=totalRecord; i>0; i--) {
+			aList.get(totalRecord-i).setReplyCount(service.replyCountProcess(i));
+			System.out.println(service.replyCountProcess(i) + "    " + i);
+		}
 		
 		if(totalRecord >= 1) {
 			if(pdto.getCurrentPage() == 0) {
@@ -45,10 +48,9 @@ public class BoardController {
 				currentPage = pdto.getCurrentPage();
 			} 
 			pdto = new PageDTO(currentPage, totalRecord);
-		
+			System.out.println("현재 페이지 : " + currentPage);
 			mav.addObject("pdto", pdto);
-			mav.addObject("commentRecord", commentRecord);
-			mav.addObject("aList", service.listProcess(pdto));
+			mav.addObject("aList", aList);	
 		}
 		mav.setViewName("boardList");
 		
@@ -59,7 +61,7 @@ public class BoardController {
 	@RequestMapping("/boardView.kh")
 	public ModelAndView view(int currentPage, int bonum, ReplyDTO rdto) {
 		ModelAndView mav = new ModelAndView();
-		int commentRecord = service.replyCountProcess();
+		int commentRecord = service.replyCountProcess(bonum);
 		System.out.println("commentRecord : " + commentRecord);
 		
 		mav.addObject("bdto", service.contentProcess(bonum)); //BoardDTO
@@ -73,16 +75,21 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/commentInsert.kh")
-	public @ResponseBody ModelAndView commentInsert(ReplyDTO rdto) {
-		ModelAndView mav = new ModelAndView();
-		System.out.println("commentInsert");
-		System.out.println(rdto.getId());
+	public @ResponseBody List<ReplyDTO> commentInsert(ReplyDTO rdto) {
 		service.replyInsertProcess(rdto);
-		mav.addObject("ReplyDTO", service.replyListProcess(rdto));
-		System.out.println(rdto.getBctext());
-		System.out.println("commentInsert");
-		return mav;
+		return service.replyListProcess(rdto);
 	}
+	
+	@RequestMapping(value="/commentUpdate.kh", method=RequestMethod.GET)
+	public @ResponseBody List<ReplyDTO> commentUpdate(ReplyDTO rdto) {
+		return service.replyUpdateProcess(rdto);
+	}
+	
+	@RequestMapping(value="/commentDelete.kh", method=RequestMethod.GET)
+	public @ResponseBody List<ReplyDTO> commentDelete(ReplyDTO rdto) {
+		return service.replyDeleteProcess(rdto);
+	}
+	
 	
 	
 }//end class

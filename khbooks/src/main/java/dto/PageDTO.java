@@ -43,6 +43,7 @@ public class PageDTO {
 
 		// 리스트페이지에 출력번호
 		number = totalCount - (currentPage - 1) * blockCount;
+		//number2 = (currentPage - 1) * blockCount;
 	}
 
 	public PageDTO(int currentPage, int totalCount, String searchKey, String searchWord) {
@@ -50,6 +51,14 @@ public class PageDTO {
 		this.searchKey = searchKey;
 		this.searchWord = searchWord;
 	}
+	
+	/*public int getNumber2() {
+		return number2;
+	}
+	
+	public void setNumber2(int number2) {
+		this.number2 = number2;
+	}*/
 
 	public int getNumber() {
 		return number;

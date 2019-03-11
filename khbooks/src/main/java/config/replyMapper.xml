@@ -5,13 +5,14 @@
 
 <mapper namespace="reply">
 
-	<select id="count" resultType="int">
-		select count(*) from board_comment
+	<select id="count" parameterType="int" resultType="int">
+		select count(*) from board_comment where bonum=#{bonum}
 	</select>
 	
 	<select id="list" parameterType="int" resultType="dto.ReplyDTO">
 		select * from
-		board_comment where bonum=#{bonum} order by bcno desc
+		board_comment 
+		where bonum=#{bonum} order by bcno desc
 	</select>
 
 	<insert id="insert" parameterType="dto.ReplyDTO">
@@ -21,12 +22,12 @@
 	
 	<delete id="delete" parameterType="int" >
 	  delete from board_comment
-	  where rno=#{rno}
+	  where bcno=#{bcno}
 	</delete>
 	
 	<update id="update" parameterType="dto.ReplyDTO">
-	  update board_comment set replytext=#{replytext}
-	  where rno=#{rno}
+	  update board_comment set bctext=#{bctext}, bcdate=sysdate
+	  where bcno=#{bcno}
 	</update>
 </mapper>  
 

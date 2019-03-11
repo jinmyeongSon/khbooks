@@ -13,7 +13,16 @@ public class BoardDTO {
 	private int bonum, bcount;
 	private String bname, btext, id;
 	private Date bdate;
+	private int replyCount;
 	
+	public int getReplyCount() {
+		return replyCount;
+	}
+
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
+	}
+
 	public BoardDTO() {
 		
 	}

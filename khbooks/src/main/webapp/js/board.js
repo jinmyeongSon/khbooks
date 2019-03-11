@@ -1,7 +1,25 @@
+var upbcno = ''; //수정 댓글 번호
+
 $(document).ready(function(){
+	//수정 모달 숨기기
+	$('#modifyModal').addClass('modifyHide');
 	
 	//댓글 추가에 이벤트 연결
 	$('#addComment').on('click', comment_list);
+	
+	//댓글 수정, 삭제 이벤트
+	$(document).on('click', '.listUl button', comment_update_delete);
+	
+	//댓글  수정 이벤트
+	$('#modifyModal #btnModify').on('click', comment_update_send);
+	
+	//댓글 닫기 이벤트
+	$('#btnClose').on('click', function(){
+		$('#modifyModal').removeClass('modifyShow');
+		$('#modifyModal').addClass('modifyHide');
+		$(document).on('click', '.listUl button', comment_update_delete);
+	})
+	
 	
 });// end ready
 
@@ -13,25 +31,65 @@ function comment_list(){
 		dataType : 'json',
 		url : 'commentInsert.kh',
 		data : 'bonum=22&id=hana&bctext='+$('.span6').val(),
-		success : function(data) {
-			
-			$.each(data, function(index, value){
-				var source = '<li id="commList" id="{{bcno}}">'
-					+ '<img src="img/user-avatar.jpg" alt="Image" />'
-					+ '<span class="comment-name">{{id}}</span>'
-					+ '<span>&nbsp;&nbsp;</span>'
-					+ '<span class="comment-date">{{newDate bcdate}}</span>'
-					+ '<div class="comment-content">{{bctex}}</div>'
-					+ '<button id="{{bcno}}">수정</button>'
-					+ '<button id="{{bcno}}">수정</button></li>'
-					
-				var template = Handlebars.compile(source);
-				$('.listUl').append(template(value));
-			});
-		}
-		
+		success : comment_list_result 
 	});
 }//end comment_list
+
+function comment_update_delete(){
+	
+	if($(this).text() == '수정') {
+		upbcno = $(this).prop("id");
+		alert('수정 댓글 번호 : ' + upbcno);
+		
+		var stop = $(window).scrollTop();
+		$('#modifyModal').css('top', 50+stop);
+		$('#modifyModal').removeClass('modifyHide').addClass('modifyShow');
+		$(document).off('click', 'listUl button');
+		
+	} else if($(this).text() == '삭제') {
+		var delbcno = $(this).prop("id");
+		alert('삭제 댓글 번호 ' + delbcno);
+		$.ajax({
+			type : 'GET',
+			dataType : 'json',
+			url : 'commentDelete.kh?bonum=22&bcno='+delbcno,
+			success : comment_list_result
+		})
+	}
+}//end comment_update_delete
+
+function comment_update_send() {
+	
+	$.ajax({
+		type : 'GET',
+		dataType : 'json',
+		url : 'commentUpdate.kh?bonum=22&bcno='+upbcno+'&bctext='+$('#updateReplyText').val(),
+		success : comment_list_result
+	});
+	
+	$('#updateReplyText').val('');
+	$('#modifyModal').removeClass('modifyShow').addClass('modifyHide');
+}//end comment_update_send
+
+function comment_list_result(res) {
+		$('.listUl .commList').remove();
+		
+		
+		$.each(data, function(index, value){
+			var source = '<li id="commList" id="{{bcno}}">'
+				+ '<img src="img/user-avatar.jpg" alt="Image" />'
+				+ '<span class="comment-name">{{id}}</span>'
+				+ '<span>&nbsp;&nbsp;</span>'
+				+ '<span class="comment-date">{{newDate bcdate}}</span>'
+				+ '<div class="comment-content">{{bctex}}</div>'
+				+ '<button id="{{bcno}}">수정</button>'
+				+ '<button id="{{bcno}}">수정</button></li>'
+				
+			var template = Handlebars.compile(source);
+			$('.listUl').append(template(value));
+		});
+	
+}//end comment_list_result
 
 
 Handlebars.registerHelper("newDate",function(timeValue){ //function 함수에서 처리해준 결과값을 newDate에서 받음

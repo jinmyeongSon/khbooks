@@ -173,7 +173,7 @@
                         <ul class="post-data-3">
                             <li><i class="icon-calendar"></i><fmt:formatDate pattern="yy/MM/dd" dateStyle="short" value="${dto.bdate }" /></li>
                             <li><i class="icon-user"></i> <a href="#">${dto.id }</a></li>
-                            <li><i class="icon-comment"></i> <a href="#">댓글&#91;${commentRecord}&#93;</a></li>
+                            <li><i class="icon-comment"></i> <a href="#">댓글&#91;${dto.replyCount}&#93;</a></li>
                         </ul>
                     </div>
             </article>

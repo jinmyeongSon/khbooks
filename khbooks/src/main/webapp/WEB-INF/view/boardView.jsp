@@ -7,9 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
-<script src="js/board.js"></script>
+
 <!-- CSS
 ================================================== -->
 <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
@@ -18,14 +16,31 @@
 <link rel="stylesheet" href="css/jquery.lightbox-0.5.css">
 <link rel="stylesheet" href="css/custom-styles.css">
 <style type="text/css">
+
 #replyUpt, #replyDel {
 	float : right;
 }
+
+.modifyShow {
+	display : block;
+	position: absolute;
+	left: 200px;
+	width: 400px;
+	height: 150px;
+	z-index: 1000;
+	border: 1px solid black;
+	background-color: yellow;
+	text-align: center;
+}
+
+.modifyHide {
+	visibility:hidden;
+	width:0px; 
+	height:0px;	
+}
+
+
 </style>
-<!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <link rel="stylesheet" href="css/style-ie.css"/>
-<![endif]--> 
 
 <!-- Favicons
 ================================================== -->
@@ -36,10 +51,12 @@
 
 <!-- JS
 ================================================== -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+<script src="js/board.js"></script>
 <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.custom.js"></script>
-
 </head>
 
 <body>
@@ -176,7 +193,7 @@
         <!-- Post Comments
         ================================================== --> 
             <section class="comments">
-                <h4 class="title-bg"><a name="comments"></a>댓글&#91;${commentRecord}&#93;</h4>
+                <h4 class="title-bg" id="replycntSmall"><a name="comments"></a>댓글&#91;${commentRecord}&#93;</h4>
                
                <!-- 댓글 리스트 --> 
                <ul class="listUl">
@@ -213,6 +230,19 @@
                     </form>
                 </div>
         </section><!-- Close comments section-->
+        
+        <!-- Model -->
+		<!-- Modal -->
+		<div id="modifyModal">			
+			<p>
+				<label for="updateReplyText">Reply Text</label> 
+				<input class="form-control" type="text" placeholder="REPLY TEXT" id="updateReplyText">
+			</p>
+			<p>			    
+				<button id="btnModify">수정</button>
+				<button id="btnClose">닫기</button>
+			</p>
+		</div>
 
         </div><!--Close container row-->
 

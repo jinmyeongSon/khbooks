@@ -12,7 +12,7 @@ public interface BoardDAO {
 	public void readCount(int num);
 	public BoardDTO content(int num);
 	/////////////////////////////////
-	public int replyCount();
+	public int replyCount(int bonum);
 	public List<ReplyDTO> replyListMethod(int bno);
 	public void replyInsertMethod(ReplyDTO rdto);
 	public void replyUpdateMethod(ReplyDTO rdto);
