@@ -32,14 +32,8 @@ public class BoardController {
 	@RequestMapping("/boardList.kh")
 	public ModelAndView list(PageDTO pdto) {
 		ModelAndView mav = new ModelAndView();
-		List<BoardDTO> aList = service.listProcess(pdto);
 		int totalRecord = service.countProcess();
 		System.out.println("totalRecord : " + totalRecord);
-		
-		for(int i=totalRecord; i>0; i--) {
-			aList.get(totalRecord-i).setReplyCount(service.replyCountProcess(i));
-			System.out.println(service.replyCountProcess(i) + "    " + i);
-		}
 		
 		if(totalRecord >= 1) {
 			if(pdto.getCurrentPage() == 0) {
@@ -49,6 +43,13 @@ public class BoardController {
 			} 
 			pdto = new PageDTO(currentPage, totalRecord);
 			System.out.println("현재 페이지 : " + currentPage);
+			
+			List<BoardDTO> aList = service.listProcess(pdto);
+			for(int i=aList.size(); i>0; i--) {
+				aList.get(aList.size()-i).setReplyCount(service.replyCountProcess(aList.get(aList.size()-i).getBonum()));
+				System.out.println(service.replyCountProcess(i) + "    " + i);
+			}
+			
 			mav.addObject("pdto", pdto);
 			mav.addObject("aList", aList);	
 		}
@@ -74,7 +75,7 @@ public class BoardController {
 		return mav;
 	}
 	
-	@RequestMapping("/commentInsert.kh")
+	@RequestMapping(value="/commentInsert.kh", method=RequestMethod.POST)
 	public @ResponseBody List<ReplyDTO> commentInsert(ReplyDTO rdto) {
 		service.replyInsertProcess(rdto);
 		return service.replyListProcess(rdto);

@@ -51,14 +51,6 @@ public class PageDTO {
 		this.searchKey = searchKey;
 		this.searchWord = searchWord;
 	}
-	
-	/*public int getNumber2() {
-		return number2;
-	}
-	
-	public void setNumber2(int number2) {
-		this.number2 = number2;
-	}*/
 
 	public int getNumber() {
 		return number;

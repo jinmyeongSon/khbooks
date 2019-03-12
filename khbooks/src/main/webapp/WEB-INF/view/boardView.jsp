@@ -172,7 +172,7 @@
             <article>
                 <h3 class="title-bg"><a href="#">${bdto.bname }</a></h3>
                 <div class="post-content">
-                    <a href="#"><img src="img/gallery/post-img-1.jpg" alt="Post Thumb"></a>
+                    <a href="#"><img src="img/gallery/notice.jpg" alt="Post Thumb"></a>
 
                     <div class="post-body">
                         <p>${bdto.btext }</p>
@@ -182,9 +182,9 @@
                         <ul class="post-data">
                             <li><i class="icon-calendar"></i><fmt:formatDate pattern="yy/MM/dd" dateStyle="short" value="${bdto.bdate }" /></li>
                             <li><i class="icon-user"></i> <a href="#">${bdto.id }</a></li>
-                            <li><button type="button" class="btn btn-outline-dark" id="upt">수정</button></li>
-                            <li><button type="button" class="btn btn-outline-dark" id="del">삭제</button></li>
-                            <li><button type="button" class="btn btn-outline-dark" id="li"  onclick="my()">목록</button></li>
+                            <li><button type="button" class="btn btn-outline-dark" id="${bdto.bonum }">수정</button></li>
+                            <li><button type="button" class="btn btn-outline-dark" id="${bdto.bonum }">삭제</button></li>
+                            <li><button type="button" class="btn btn-outline-dark" id="li"  onclick="javascript:history.go(-1)">목록</button></li>
                         </ul>
                     </div>
                 </div>
@@ -194,7 +194,7 @@
         ================================================== --> 
             <section class="comments">
                 <h4 class="title-bg" id="replycntSmall"><a name="comments"></a>댓글&#91;${commentRecord}&#93;</h4>
-               
+               <button id="test">adadad</button>
                <!-- 댓글 리스트 --> 
                <ul class="listUl">
                	<c:forEach items="${ReplyDTO }" var="rdto">

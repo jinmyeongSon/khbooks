@@ -50,7 +50,7 @@ public class BoardServiceImp implements BoardService {
 	public void replyInsertProcess(ReplyDTO rdto) {
 		dao.replyInsertMethod(rdto);
 	}
-
+	
 	@Override
 	public List<ReplyDTO> replyDeleteProcess(ReplyDTO rdto) {
 		dao.replyDeleteMethod(rdto.getBcno());

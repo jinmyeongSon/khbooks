@@ -18,13 +18,20 @@ $(document).ready(function(){
 		$('#modifyModal').removeClass('modifyShow');
 		$('#modifyModal').addClass('modifyHide');
 		$(document).on('click', '.listUl button', comment_update_delete);
-	})
+	});
 	
+//////////게시글///////////////////////////////////////////////////////////////////////	
+	
+	//게시글 수정, 삭제 이벤트
+	$(document).on('click', '.post-data button', board_update_delete);
 	
 });// end ready
 
+function board_update_delete(){
+	 
+}
+
 function comment_list(){
-	alert('');
 	
 	$.ajax({
 		type : 'POST',
@@ -33,6 +40,9 @@ function comment_list(){
 		data : 'bonum=22&id=hana&bctext='+$('.span6').val(),
 		success : comment_list_result 
 	});
+	
+	$('.span6').val('');
+	
 }//end comment_list
 
 function comment_update_delete(){
@@ -46,15 +56,16 @@ function comment_update_delete(){
 		$('#modifyModal').removeClass('modifyHide').addClass('modifyShow');
 		$(document).off('click', 'listUl button');
 		
-	} else if($(this).text() == '삭제') {
+	} else if($(this).text() == "삭제") {
 		var delbcno = $(this).prop("id");
 		alert('삭제 댓글 번호 ' + delbcno);
+		
 		$.ajax({
 			type : 'GET',
 			dataType : 'json',
 			url : 'commentDelete.kh?bonum=22&bcno='+delbcno,
 			success : comment_list_result
-		})
+		});
 	}
 }//end comment_update_delete
 
@@ -71,24 +82,25 @@ function comment_update_send() {
 	$('#modifyModal').removeClass('modifyShow').addClass('modifyHide');
 }//end comment_update_send
 
+
+
 function comment_list_result(res) {
 		$('.listUl .commList').remove();
 		
-		
-		$.each(data, function(index, value){
-			var source = '<li id="commList" id="{{bcno}}">'
-				+ '<img src="img/user-avatar.jpg" alt="Image" />'
-				+ '<span class="comment-name">{{id}}</span>'
-				+ '<span>&nbsp;&nbsp;</span>'
-				+ '<span class="comment-date">{{newDate bcdate}}</span>'
-				+ '<div class="comment-content">{{bctex}}</div>'
-				+ '<button id="{{bcno}}">수정</button>'
-				+ '<button id="{{bcno}}">수정</button></li>'
+		$.each(res, function(index, value){
+			var source = '<li class="commList" id="{{bcno}}">'
+				+'<img src="img/user-avatar.jpg" alt="Image" />'
+				+'<span class="comment-name">{{id}}</span>'
+				+'<span>&nbsp;&nbsp;</span>'
+				+'<span class="comment-date">{{newDate bcdate}}</span>'
+				+'<div class="comment-content">{{bctext}}</div>'
+				+'<button id="{{bcno}}">수정</button>'
+				+'<button id="{{bcno}}">삭제</button></li>';
 				
 			var template = Handlebars.compile(source);
 			$('.listUl').append(template(value));
+
 		});
-	
 }//end comment_list_result
 
 

@@ -7,8 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="ajaxsrc/jquery01.js"></script>
 <!-- CSS
 ================================================== -->
 <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
@@ -24,13 +22,8 @@
   width: 300px;
   height: 20px;
  }
+ 
 </style>
-
-<!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <link rel="stylesheet" href="css/style-ie.css"/>
-<![endif]--> 
-
 <!-- Favicons
 ================================================== -->
 <link rel="shortcut icon" href="img/favicon.ico">
@@ -40,17 +33,10 @@
 
 <!-- JS
 ================================================== -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.custom.js"></script>
-
-
-<!-- download -->
-<!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
- -->
 
 </head>
 
@@ -174,6 +160,7 @@
                             <li><i class="icon-calendar"></i><fmt:formatDate pattern="yy/MM/dd" dateStyle="short" value="${dto.bdate }" /></li>
                             <li><i class="icon-user"></i> <a href="#">${dto.id }</a></li>
                             <li><i class="icon-comment"></i> <a href="#">댓글&#91;${dto.replyCount}&#93;</a></li>
+                            <li>조회수&nbsp;${dto.bcount}</li>
                         </ul>
                     </div>
             </article>
@@ -185,7 +172,7 @@
                 <ul>
                 <!-- 이전 출력 -->
                 <c:if test="${pdto.startPage > 1 }">
-                <li class="active"><a href="boardView.kh?currentPage=${pdto.startPage-pdto.blockPage }">이전</a></li>
+                <li class="active"><a href="boardList.kh?currentPage=${pdto.startPage-pdto.blockPage }">이전</a></li>
                 </c:if>
                 <!-- 페이지 출력 -->
                 <c:forEach begin="${pdto.startPage }" end="${pdto.endPage }" var="i">
