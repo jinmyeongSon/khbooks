@@ -101,6 +101,31 @@
 		<if test="sortkey==3">
 			order by bview desc<!-- 조회수 순 -->
 		</if>
+		<!-- 장르, 검색 -->
+		<choose>
+			<when test='sortgenre!=0 and searchWord==""'>
+				where gno=#{sortgenre}
+			</when>
+			<when test='sortgenre==0 and searchWord!=""'>
+				where bname like #{searchWord}
+			</when>
+			<when test='sortgenre!=0 and searchWord!=""'>
+				where gno=#{sortgenre}
+				and bname like #{searchWord}
+			</when>
+		</choose>
+		<!-- 정렬방식 -->
+		<choose>
+			<when test="sortkey==1">
+				order by bupdate<!-- 날짜 순 -->
+			</when>
+			<when test="sortkey==2">
+				order by bgrade<!-- 점수 순 -->
+			</when>
+			<when test="sortkey==3">
+				order by bview<!-- 조회수 순 -->
+			</when>
+		</choose>
 		)a)b
 		<![CDATA[where b.rm>=#{startRow} and b.rm <=#{endRow}]]>
 	</select>
