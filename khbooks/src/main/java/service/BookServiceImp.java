@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 
 import dao.BookDAO;
 import dto.BookDTO;
@@ -37,5 +38,16 @@ public class BookServiceImp implements BookService {
 	public int getBookGenreCountProcess(int sortgenre) {
 		return dao.getBookGenreCount(sortgenre);
 	}
+
+	@Override
+	public List<BookDTO> bookSearchProcess(PageDTO dto) {
+		return dao.getBookSearchList(dto);
+	}
+
+	@Override
+	public int getBookSearchCountProcess(Map<String, Object> map) {
+		return dao.getBookSearchCount(map);
+	}
+
 	
 }

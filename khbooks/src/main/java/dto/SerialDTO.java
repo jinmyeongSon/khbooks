@@ -4,16 +4,16 @@ import java.util.Date;
 import java.util.List;
 
 public class SerialDTO {
-	int upno;
-	int bno;
-	Date sdate;
-	String scontent;
-	int sprice;
-	int ncount;
-	int auno;
-	String stitle;
-	int sgrade;
-	List<ReviewCommentDTO> rList;
+	private int upno;
+	private int bno;
+	private Date sdate;
+	private String scontent;
+	private int sprice;
+	private int ncount;
+	private int auno;
+	private String stitle;
+	private int sgrade;
+	private List<ReviewCommentDTO> rList;
 	public List<ReviewCommentDTO> getrList() {
 		return rList;
 	}

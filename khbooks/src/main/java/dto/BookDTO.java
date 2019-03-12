@@ -4,15 +4,22 @@ import java.util.Date;
 import java.util.List;
 
 public class BookDTO {
-	int bno;
-	String bname;
-	int gno;
-	Date bupdate;
-	int bgrade;
-	int bview;
-	String bthumb;
-	String binfo;
-	List<SerialDTO> sList;
+	private int bno;
+	private String bname;
+	private int gno;
+	private Date bupdate;
+	private int bgrade;
+	private int bview;
+	private String bthumb;
+	private String binfo;
+	private List<AuthorDTO> aList;
+	private List<SerialDTO> sList;
+	public List<AuthorDTO> getaList() {
+		return aList;
+	}
+	public void setaList(List<AuthorDTO> aList) {
+		this.aList = aList;
+	}
 	public List<SerialDTO> getsList() {
 		return sList;
 	}
