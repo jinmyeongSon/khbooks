@@ -34,6 +34,26 @@ public class BoardServiceImp implements BoardService {
 		return dao.content(bonum);
 	}
 	
+	@Override
+	public void insertProcess(BoardDTO dto) {
+		
+	}
+	
+	@Override
+	public BoardDTO updateSelectProcess(int bonum) {
+		return dao.updateNum(bonum);
+	}
+	
+	@Override
+	public void updateProcess(BoardDTO dto) {
+		dao.update(dto);
+	}
+	
+	@Override
+	public void deleteProcess(int bonum) {
+		dao.delete(bonum);
+	}
+	
 	/////////////댓글//////////////////////////////////////////////////////////////////////////
 	
 	@Override

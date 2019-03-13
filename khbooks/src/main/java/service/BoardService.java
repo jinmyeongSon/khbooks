@@ -10,6 +10,10 @@ public interface BoardService {
 	public int countProcess(); 
 	public List<BoardDTO> listProcess(PageDTO pdto);
 	public BoardDTO contentProcess(int bonum);
+	public void insertProcess(BoardDTO dto);
+	public BoardDTO updateSelectProcess(int num);
+	public void updateProcess(BoardDTO dto);
+	public void deleteProcess(int num);
 	
 	public int replyCountProcess(int bonum);
 	public void replyInsertProcess(ReplyDTO rdto);

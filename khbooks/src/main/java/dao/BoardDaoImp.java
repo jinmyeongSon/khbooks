@@ -39,6 +39,27 @@ public class BoardDaoImp implements BoardDAO {
 		return sqlSession.selectOne("board.content", bonum);
 	}
 	
+	@Override
+	public void insert(BoardDTO dto) {
+		
+	}
+	
+	@Override
+	public void update(BoardDTO dto) {
+		sqlSession.update("board.update", dto);
+	}
+	
+	@Override
+	public BoardDTO updateNum(int bonum) {
+		return sqlSession.selectOne("board.content", bonum);
+	}
+	
+	@Override
+	public void delete(int bonum) {
+		sqlSession.delete("board.delete", bonum);
+	}
+	
+	
 /////////////////////////////////////////////////////////////
 
 	@Override

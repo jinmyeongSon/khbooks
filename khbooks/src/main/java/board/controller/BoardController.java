@@ -40,11 +40,12 @@ public class BoardController {
 				currentPage = 1;
 			} else {
 				currentPage = pdto.getCurrentPage();
+				
 			} 
 			pdto = new PageDTO(currentPage, totalRecord);
 			System.out.println("현재 페이지 : " + currentPage);
 			
-			List<BoardDTO> aList = service.listProcess(pdto);
+			List<BoardDTO> aList = service.listProcess(pdto); //BoardDTO
 			for(int i=aList.size(); i>0; i--) {
 				aList.get(aList.size()-i).setReplyCount(service.replyCountProcess(aList.get(aList.size()-i).getBonum()));
 				System.out.println(service.replyCountProcess(i) + "    " + i);
@@ -64,16 +65,61 @@ public class BoardController {
 		ModelAndView mav = new ModelAndView();
 		int commentRecord = service.replyCountProcess(bonum);
 		System.out.println("commentRecord : " + commentRecord);
+		mav.addObject("commentRecord", commentRecord);
 		
 		mav.addObject("bdto", service.contentProcess(bonum)); //BoardDTO
-		mav.addObject("currentPage", currentPage);
-		mav.addObject("commentRecord", commentRecord);
-		mav.addObject("ReplyDTO", service.replyListProcess(rdto)); //댓글 리스트 ReplyDTO
+		System.out.println("bdto의 bonum : " + service.contentProcess(bonum).getBonum());
 		
+		mav.addObject("currentPage", currentPage);
+		System.out.println("currentPage : " + currentPage);
+		
+		mav.addObject("ReplyDTO", service.replyListProcess(rdto)); //댓글 리스트 ReplyDTO
 		mav.setViewName("boardView");
 		
 		return mav;
 	}
+	
+	@RequestMapping("/boardDelete.kh")
+	public @ResponseBody List<BoardDTO> boardDelete(int bonum, PageDTO pv) {
+		ModelAndView mav = new ModelAndView();
+		
+		service.deleteProcess(bonum);
+		
+		pv = new PageDTO(bonum, service.countProcess());
+		if(pv.getTotalPage() < currentPage) {
+			mav.addObject("currentPage", pv.getTotalPage());
+		} else {
+			mav.addObject("currentPage", currentPage);
+		}
+		
+		//mav.setViewName("redirect:/boardList.kh");
+		
+		return service.listProcess(pv);
+	}//end boardDelete()
+	
+	
+	@RequestMapping("/boardUpdate.kh")
+	public ModelAndView boardUpdate(int bonum, PageDTO pv, ReplyDTO rdto) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("dto", service.updateSelectProcess(bonum));
+		mav.addObject("currentPage", pv.getCurrentPage());
+		mav.addObject("ReplyDTO", service.replyListProcess(rdto));
+		mav.setViewName("boardUpdateForm");
+		return mav;
+	}
+	
+	@RequestMapping("/boardUpdatePro.kh")
+	public @ResponseBody List<BoardDTO> boardUpdatePro(BoardDTO dto, PageDTO pv) {
+		ModelAndView mav = new ModelAndView();
+		service.updateProcess(dto);
+		mav.addObject("currentPage", currentPage);
+		
+		return service.listProcess(pv);
+		
+	}
+	
+	
+	
 	
 	@RequestMapping(value="/commentInsert.kh", method=RequestMethod.POST)
 	public @ResponseBody List<ReplyDTO> commentInsert(ReplyDTO rdto) {

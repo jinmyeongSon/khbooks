@@ -164,20 +164,19 @@
 
             <!-- Blog Post 1 -->
             <article>
-                <h3 class="title-bg">${bdto.bname }</h3>
+                <h3 class="title-bg"><input type="text" value="${dto.bname }"></h3>
                 <div class="post-content">
-                    <img src="img/gallery/notice.jpg" alt="Post Thumb">
+                    <a href="#"><img src="img/gallery/notice.jpg" alt="Post Thumb"></a>
 
                     <div class="post-body">
-                        <p>${bdto.btext }</p>
+                        <p><textarea id="boardUp" style="width:556px; height:150px;">${dto.btext }</textarea></p>
                     </div>
 
                     <div class="post-summary-footer">
                         <ul class="post-data">
-                            <li><i class="icon-calendar"></i><fmt:formatDate pattern="yy/MM/dd" dateStyle="short" value="${bdto.bdate }" /></li>
-                            <li><i class="icon-user"></i> <a href="#">${bdto.id }</a></li>
-                            <li><button type="button" class="btn btn-outline-dark" id="${bdto.bonum }">수정</button></li>
-                            <li><button type="button" class="btn btn-outline-dark" id="${bdto.bonum }">삭제</button></li>
+                            <li><i class="icon-calendar"></i><fmt:formatDate pattern="yy/MM/dd" dateStyle="short" value="${dto.bdate }" /></li>
+                            <li><i class="icon-user"></i> <a href="#">${dto.id }</a></li>
+                            <li><button type="button" class="btn btn-outline-dark" id="${dto.bonum }">수정</button></li>
                             <li><button type="button" class="btn btn-outline-dark" id="li"  onclick="javascript:history.go(-1)">목록</button></li>
                         </ul>
                     </div>
@@ -205,14 +204,14 @@
                <!-- 댓글 리스트 끝 -->
             
                 <!-- Comment Form -->
-                <div class="comment-form-container">
+                <%-- <div class="comment-form-container">
                     <h6>Leave a Comment</h6>
                     <form action="commentInsert.kh" method="post" id="comment-form">
                         <div class="input-prepend">
                             <span class="add-on"><i class="icon-user"></i></span>
-                            <%-- <c:forEach items="${ReplyDTO }" var="rdto"> --%>
+                            <c:forEach items="${ReplyDTO }" var="rdto">
                             	<input class="span4" id="prependedInput" size="16" type="text" value="hana" readonly>
-                           <%--  </c:forEach> --%>
+                            </c:forEach>
                         </div>
                        <textarea class="span6" placeholder="댓글을 입력해주세요"></textarea>     
                         <div class="row">
@@ -221,7 +220,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
+                </div> --%>
         </section><!-- Close comments section-->
         
         <!-- Model -->

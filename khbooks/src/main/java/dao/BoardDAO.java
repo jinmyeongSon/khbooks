@@ -11,6 +11,10 @@ public interface BoardDAO {
 	public List<BoardDTO> list(PageDTO pdto);
 	public void readCount(int num);
 	public BoardDTO content(int num);
+	public void insert(BoardDTO dto);
+	public BoardDTO updateNum(int num);
+	public void update( BoardDTO dto);
+	public void delete(int num);
 	/////////////////////////////////
 	public int replyCount(int bonum);
 	public List<ReplyDTO> replyListMethod(int bno);
