@@ -22,6 +22,9 @@
 	<bean class="controller.BookListController">
 		<property name="service" ref="serviceBook" />
 	</bean>
+	<bean class="controller.SerialController">
+		<property name="service" ref="serviceSerial" />
+	</bean>
 	
 	
 	<!-- [2] SqlSessionFactoryBean 빈 선언 -->
@@ -30,6 +33,7 @@
 		<property name="mapperLocations">
 			<list>
 				<value>classpath:config/BookMapper.xml</value>
+				<value>classpath:config/SerialMapper.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -43,10 +47,16 @@
 	<bean id="daoBook" class="dao.BookDaoImp">
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
+	<bean id="daoSerial" class="dao.SerialDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
 	
 	<!-- [5] Service -->
 	<bean id="serviceBook" class="service.BookServiceImp">
 		<property name="dao" ref="daoBook" />
+	</bean>
+	<bean id="serviceSerial" class="service.SerialServiceImp">
+		<property name="dao" ref="daoSerial" />
 	</bean>
 	
 	<!-- viewResolver -->

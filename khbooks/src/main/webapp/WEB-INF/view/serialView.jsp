@@ -4,14 +4,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<meta charset=UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="ajaxsrc/jquery01.js"></script>
+
 <!-- CSS
 ================================================== -->
 <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/bootstrap-responsive.css">
-<link rel="stylesheet" href="css/prettyPhoto.css" />
+<link rel="stylesheet" href="css/jquery.lightbox-0.5.css">
 <link rel="stylesheet" href="css/custom-styles.css">
 
 <!--[if lt IE 9]>
@@ -28,13 +31,12 @@
 
 <!-- JS
 ================================================== -->
-<script src="js/jquery.easing.1.3.js"></script>
 <script src="js/bootstrap.js"></script>
-<script src="js/jquery.prettyPhoto.js"></script>
-<script src="js/jquery.quicksand.js"></script>
 <script src="js/jquery.custom.js"></script>
-<title>Insert title here</title>
+
+
 </head>
+
 <body>
 	<div class="color-bar-1"></div>
     <div class="color-bar-2 color-bg"></div>
@@ -55,7 +57,7 @@
         <div class="span7 navigation">
             <div class="navbar hidden-phone">
             
-            <ul class="nav">
+           <ul class="nav">
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="index.htm">Home <b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -65,7 +67,7 @@
                 </ul>
             </li>
            <li><a href="features.htm">Features</a></li>
-            <li class="dropdown">
+            <li class="dropdown active">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="page-full-width.htm">Pages <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="page-full-width.htm">Full Width</a></li>
@@ -74,7 +76,7 @@
                     <li><a href="page-double-sidebar.htm">Double Sidebar</a></li>
                 </ul>
             </li>
-             <li class="dropdown active">
+             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="gallery-4col.htm">Gallery <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="gallery-3col.htm">Gallery 3 Column</a></li>
@@ -133,38 +135,92 @@
                 </form>
             
         </div>
-
+        
       </div><!-- End Header -->
      
     <!-- Page Content
     ================================================== --> 
-    <div class="row">
+    <div class="row"><!--Container row-->
 
-        <!-- Gallery Items
+        <!-- Page Sidebar
         ================================================== --> 
-        <div class="span12 gallery-single">
+        <div class="span4 sidebar page-sidebar"><!-- Begin sidebar column -->
+
+            <!--Latest News-->
+            <h5 class="title-bg">Latest News</h5>
+            <ul class="popular-posts">
+                <li>
+                    <a href="#"><img src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post"></a>
+                    <h6><a href="#">Lorem ipsum dolor sit amet consectetur adipiscing elit</a></h6>
+                    <em>Posted on 09/01/15</em>
+                </li>
+                <li>
+                    <a href="#"><img src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post"></a>
+                    <h6><a href="#">Nulla iaculis mattis lorem, quis gravida nunc iaculis</a></h6>
+                    <em>Posted on 09/01/15</em>
+                <li>
+                    <a href="#"><img src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post"></a>
+                    <h6><a href="#">Vivamus tincidunt sem eu magna varius elementum maecenas felis</a></h6>
+                    <em>Posted on 09/01/15</em>
+                </li>
+            </ul>
+
+            <!--Progress Bars-->
+            <h5 class="title-bg">Progress Bars</h5> 
+            <div class="progress progress-info progress-striped">
+                <div class="bar" style="width: 20%"></div>
+            </div>
+            <div class="progress progress-success progress-striped">
+                <div class="bar" style="width: 40%"></div>
+            </div>
+            <div class="progress progress-warning progress-striped">
+                <div class="bar" style="width: 60%"></div>
+            </div>
+            <div class="progress progress-danger progress-striped">
+                <div class="bar" style="width: 80%"></div>
+            </div>
+
+            <!--Testimonials-->
+            <h5 class="title-bg">Testimonials</h5>
+    
+            <p class="quote-text side">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. In interdum felis fermentum ipsum molestie sed porttitor ligula rutrum."<cite>- Client Name, Big Company</cite></p>
+        
+            <p class="quote-text side">"Adipiscing elit. In interdum felis fermentum ipsum molestie sed porttitor ligula rutrum. Morbi blandit ultricies ultrices."<cite>- Another Client Name, Big Company</cite></p>
+                
+
+        </div><!-- End sidebar column -->
+
+        <!-- Page Content
+        ================================================== --> 
+        <div class="span8"><!--Begin page content column-->
+
+            <h2 class="title-bg">Left Sidebar Example</h2>
+
+            <p>${bno}</p>
+            <p>${upno}</p>
+            <p>${text}</p>
+            <p>${myCount} / ${totalCount}</p>
+            
+            <c:forEach items="${comment}" var="comm">
+            	<p>${comm.rtext}</p>
+            </c:forEach>
+            
+            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla iaculis mattis lorem, quis gravida nunc iaculis ac. Proin tristique tellus in est vulputate luctus fermentum ipsum molestie.</p>
 
             <div class="row">
-                <div class="span6">
-                    <img src="img/gallery/gallery-img-1-full.jpg" style="width: 150px; height: 200px;" class="align-left thumbnail" alt="image">
-                    <h2>${book.bname}</h2>
-                    <p class="lead">${book.binfo}</p>
-                    <ul style="width:100%; clear: both;" class="project-info">
-                        <li><h6>장르:</h6> ${genre}</li>
-                        <li><h6>작가:</h6> <c:forEach items="${book.aList}" var="author">${author.auname} </c:forEach></li>
-                        <li><h6>최신 연재일:</h6> ${book.bupdate}</li>
-                        <li><h6>별점:</h6> ${book.bgrade}</li>
-                        <li><h6>조회수:</h6> ${book.bview}</li>
-                    </ul>
+                <div class="span4">
+                    <h5>2 Column Layout</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla iaculis mattis lorem, quis gravida nunc iaculis ac. Proin tristique tellus in est vulputate luctus fermentum ipsum molestie. Vivamus tincidunt sem eu magna varius elementum. Maecenas felis tellus, fermentum vitae laoreet vitae, volutpat et urna. Nulla faucibus ligula eget ante varius ac euismod odio placerat. Nam sit amet felis non lorem faucibus rhoncus vitae id dui.</p>
+                    <button class="btn btn-mini btn-inverse" type="button">Read more</button>
                 </div>
-                <div class="span6">
-                <c:forEach items="${serial}" var="serial">
-					<a href="serialView.kh?bno=${book.bno}&upno=${serial.upno}&rm=0">${serial.stitle}</a>
-				</c:forEach>
+                <div class="span4">
+                    <h5>2 Column Layout</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla iaculis mattis lorem, quis gravida nunc iaculis ac. Proin tristique tellus in est vulputate luctus fermentum ipsum molestie. Vivamus tincidunt sem eu magna varius elementum. Maecenas felis tellus, fermentum vitae laoreet vitae, volutpat et urna. Nulla faucibus ligula eget ante varius ac euismod odio placerat. Nam sit amet felis non lorem faucibus rhoncus vitae id dui.</p>
+                    <button class="btn btn-mini btn-inverse" type="button">Read more</button>
                 </div>
             </div>
 
-        </div><!-- End gallery-single-->
+        </div> <!--End page content column--> 
 
     </div><!-- End container row -->
     
@@ -172,6 +228,7 @@
 
     <!-- Footer Area
         ================================================== -->
+
 	<div class="footer-container"><!-- Begin Footer -->
     	<div class="container">
         	<div class="row footer-row">

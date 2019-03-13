@@ -22,9 +22,24 @@
 		</collection>
 	</resultMap>
 
-	<select id="bookSearchList" parameterType="dto.PageDTO" resultMap="book_and_author">
+	<select id="bookSearchList" parameterType="dto.BookPageDTO" resultMap="book_and_author">
 		select rownum, bc.*
-		from(select rownum as rm, ac.*
+		from(select DENSE_RANK() OVER (
+		<choose>
+			<when test="sortkey==1">
+				order by ac.bupdate desc, ac.bno desc
+			</when>
+			<when test="sortkey==2">
+				order by ac.bgrade desc, ac.bno desc
+			</when>
+			<when test="sortkey==3">
+				order by ac.bview desc, ac.bno desc
+			</when>
+			<otherwise>
+				order by ac.bno desc
+			</otherwise>
+		</choose>
+		) rm, ac.*
 		from(select b.*, a.*
 		from  book b, book_author ba, author a
 		where b.bno=ba.bno
@@ -46,15 +61,6 @@
 				and gno = #{sortgenre}
 			</when>
 		</choose>
-		<if test="sortkey==1">
-			order by bupdate desc<!-- 날짜 순 -->
-		</if>
-		<if test="sortkey==2">
-			order by bgrade desc<!-- 점수 순 -->
-		</if>
-		<if test="sortkey==3">
-			order by bview desc<!-- 조회수 순 -->
-		</if>
 		)ac)bc
 		<![CDATA[where bc.rm>=#{startRow} and bc.rm <=#{endRow}]]>
 	</select>
@@ -83,7 +89,7 @@
 		</choose>
 	</select>
 	
-	<select id="bookList" parameterType="dto.PageDTO" resultType="dto.BookDTO">
+	<select id="bookList" parameterType="dto.BookPageDTO" resultType="dto.BookDTO">
 		select rownum, b.*
 		from(select rownum as rm, a.*
 		from(select * from book
@@ -116,41 +122,27 @@
 		select count(*) from book where gno = #{sortgenre}
 	</select>
 	
+	<select id="bookGenre" parameterType="int" resultType="String">
+		select g.gname from genre g, book b where b.bno = #{bno} and g.gno=b.gno
+	</select>
+	
 	<insert id="BookIns" parameterType="dto.BookDTO">
 		insert into book
 		values(book_bno_seq.nextval, #{bname}, #{gno}, sysdate, 0, 0, #{bthumb}, #{binfo})
 	</insert>
 	
-	<resultMap type="dto.BookDTO" id="asdf" autoMapping="false" >
-		<result column="bbno" property="bno" />
-		<result column="bname" property="bname" />
-		<result column="gno" property="gno" />
-		<result column="bupdate" property="bupdate" />
-		<result column="bgrade" property="bgrade" />
-		<result column="bview" property="bview" />
-		<result column="bthumb" property="bthumb" />
-		<result column="binfo" property="binfo" />
-		<collection property="sList" javaType="java.util.List"
-			ofType="dto.SerialDTO"  autoMapping="false" >
-			<id column="rno" property="rno" />
-			<result column="upno" property="upno" />
-			<result column="sbno" property="bno" />
-			<result column="sdate" property="sdate" />
-			<result column="scontent" property="scontent" />
-			<result column="sprice" property="sprice" />
-			<result column="ncount" property="ncount" />
-			<result column="auno" property="auno" />
-			<result column="stitle" property="stitle" />
-			<result column="sgrade" property="sgrade" />
-		</collection>
-	</resultMap>
+	<select id="bookDetail" parameterType="int" resultMap="book_and_author">
+		select b.*, a.*
+		from  book b, book_author ba, author a
+		where ba.bno = #{bno}
+		and a.auno=ba.auno
+		and b.bno=ba.bno
+	</select>
 	
-	<select id="bookDetail" parameterType="int" resultMap="asdf">
-		select b.bno as bbno, b.*,  s.bno as sbno, s.*
-		from book b, serial s
-		where b.bno=s.bno(+)
-		and b.bno=#{bno}
-		order by s.upno desc
+	<select id="serialList" parameterType="int" resultType="dto.SerialDTO">
+		select upno, stitle from serial
+		where bno=#{bno}
+		order by upno desc
 	</select>
 	
 	<select id="genreList" resultType="dto.GenreDTO">

@@ -6,12 +6,13 @@ import java.util.Map;
 import dao.BookDAO;
 import dto.BookDTO;
 import dto.GenreDTO;
-import dto.PageDTO;
+import dto.SerialDTO;
+import dto.BookPageDTO;
 
 public class BookServiceImp implements BookService {
 	BookDAO dao;
 	
-	public List<BookDTO> bookListProcess(PageDTO dto){
+	public List<BookDTO> bookListProcess(BookPageDTO dto){
 		return dao.bookList(dto);
 	};
 	
@@ -40,13 +41,23 @@ public class BookServiceImp implements BookService {
 	}
 
 	@Override
-	public List<BookDTO> bookSearchProcess(PageDTO dto) {
+	public List<BookDTO> bookSearchProcess(BookPageDTO dto) {
 		return dao.getBookSearchList(dto);
 	}
 
 	@Override
 	public int getBookSearchCountProcess(Map<String, Object> map) {
 		return dao.getBookSearchCount(map);
+	}
+
+	@Override
+	public String getBookGenreProcess(int bno) {
+		return dao.getBookGenre(bno);
+	}
+
+	@Override
+	public List<SerialDTO> getSerialListProcess(int bno) {
+		return dao.getSerialList(bno);
 	}
 
 	

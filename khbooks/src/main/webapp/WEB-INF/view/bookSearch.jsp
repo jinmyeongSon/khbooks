@@ -147,9 +147,9 @@
         <div class="span12 gallery">
 
             <ul id="filterOptions" class="gallery-cats clearfix"> 
-                	<li><a href="bookMain.kh?sortkey=1&sortgenre=${pdto.sortgenre}&searchWord=${pdto.searchWord}">날짜순 정렬</a></li>
-                	<li><a href="bookMain.kh?sortkey=2&sortgenre=${pdto.sortgenre}&searchWord=${pdto.searchWord}">점수순 정렬</a></li>
-                	<li><a href="bookMain.kh?sortkey=3&sortgenre=${pdto.sortgenre}&searchWord=${pdto.searchWord}">조회순 정렬</a></li>
+                	<li><a href="bookSearch.kh?sortkey=1&sortgenre=${pdto.sortgenre}&searchWord=${pdto.searchWord}">날짜순 정렬</a></li>
+                	<li><a href="bookSearch.kh?sortkey=2&sortgenre=${pdto.sortgenre}&searchWord=${pdto.searchWord}">점수순 정렬</a></li>
+                	<li><a href="bookSearch.kh?sortkey=3&sortgenre=${pdto.sortgenre}&searchWord=${pdto.searchWord}">조회순 정렬</a></li>
             	</ul>
 
             <div class="row clearfix">
@@ -176,10 +176,10 @@
                 <ul>
                 <c:choose>
                 	<c:when test="${pdto.currentPage==1}">
-                		<li class="active"><a href="bookMain.kh?currentPage=1">Prev</a></li>
+                		<li class="active"><a href="bookSearch.kh?searchWord=${pdto.searchWord}&sortgenre=${pdto.sortgenre}&sortkey=${pdto.sortkey}&currentPage=1">Prev</a></li>
                 	</c:when>
                 	<c:otherwise>
-                		<li><a href="bookMain.kh?currentPage=${pdto.currentPage-1}">Prev</a></li>
+                		<li><a href="bookSearch.kh?searchWord=${pdto.searchWord}&sortgenre=${pdto.sortgenre}&sortkey=${pdto.sortkey}&currentPage=${pdto.currentPage-1}">Prev</a></li>
                 	</c:otherwise>
                 </c:choose>
                 <c:forEach var="i" begin="${-blockPage/2}" end="${pdto.blockPage/2}" step="1" >
@@ -192,16 +192,16 @@
                 				<li>
                 			</c:otherwise>
                 		</c:choose>
-                		<a href="bookMain.kh?currentPage=${pdto.currentPage + (i - 1)}">${pdto.currentPage + (i-1)}</a></li>
+                		<a href="bookSearch.kh?searchWord=${pdto.searchWord}&sortgenre=${pdto.sortgenre}&sortkey=${pdto.sortkey}&currentPage=${pdto.currentPage + (i - 1)}">${pdto.currentPage + (i-1)}</a></li>
                 	</c:if>
                 </c:forEach>
              
                 <c:choose>
                 	<c:when test="${pdto.currentPage==pdto.endPage}">
-                		<li class="active"><a href="bookMain.kh?currentPage=${pdto.endPage}">Next</a></li>
+                		<li class="active"><a href="bookSearch.kh?searchWord=${pdto.searchWord}&sortgenre=${pdto.sortgenre}&sortkey=${pdto.sortkey}&currentPage=${pdto.endPage}">Next</a></li>
                 	</c:when>
                 	<c:otherwise>
-                		<li><a href="bookMain.kh?currentPage=${pdto.currentPage+1}">Next</a></li>
+                		<li><a href="bookSearch.kh?searchWord=${pdto.searchWord}&sortgenre=${pdto.sortgenre}&sortkey=${pdto.sortkey}&currentPage=${pdto.currentPage+1}">Next</a></li>
                 	</c:otherwise>
                 </c:choose>
                 </ul>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="serial">
+
+	<select id="content" parameterType="int" resultType="String">
+		select scontent from serial where upno=#{upno}
+	</select>
+	
+	<select id="count" parameterType="int" resultType="int">
+		select count(upno) from serial where bno=#{bno}
+	</select>
+	
+	<select id="myCount" parameterType="map" resultType="int">
+		select rm
+		from (
+			select rownum as rm, a.* 
+			from (
+				select *
+				from serial 
+				where bno=#{bno}
+				order by upno
+				)a
+			)b
+		where b.upno=#{upno}
+	</select>
+	
+	<select id="upno" parameterType="map" resultType="int">
+		select b.upno
+		from (
+			select rownum as rm, a.* 
+			from (
+				select *
+				from serial 
+				where bno=#{bno}
+				order by upno
+				)a
+			)b
+		where rm=#{rm}
+	</select>
+	
+	<select id="reviewList" parameterType="int" resultType="dto.ReviewCommentDTO">
+		select *
+		from review_comment
+		where upno=#{upno}
+		order by rdate desc
+	</select>
+
+</mapper>

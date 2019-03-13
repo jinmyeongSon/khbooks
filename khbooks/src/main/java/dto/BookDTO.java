@@ -1,6 +1,6 @@
 package dto;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public class BookDTO {
@@ -13,18 +13,11 @@ public class BookDTO {
 	private String bthumb;
 	private String binfo;
 	private List<AuthorDTO> aList;
-	private List<SerialDTO> sList;
 	public List<AuthorDTO> getaList() {
 		return aList;
 	}
 	public void setaList(List<AuthorDTO> aList) {
 		this.aList = aList;
-	}
-	public List<SerialDTO> getsList() {
-		return sList;
-	}
-	public void setsList(List<SerialDTO> sList) {
-		this.sList = sList;
 	}
 	public int getBno() {
 		return bno;

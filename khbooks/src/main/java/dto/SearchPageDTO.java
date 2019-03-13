@@ -1,9 +1,9 @@
 package dto;
 
-public class PageDTO {
+public class SearchPageDTO {
 	private int currentPage; // 현재페이지
 	private int totalCount; // 총 레코드수
-	private int blockCount = 9; // 한 페이지에 보여줄 레코드수
+	private int blockCount = 8; // 한 페이지에 보여줄 레코드수
 	private int blockPage = 5; // 한 블록에 보여줄 페이지수
 	private int totalPage; // 총 페이지수
 	private int startRow; // 시작 레코드 번호
@@ -16,30 +16,30 @@ public class PageDTO {
 	private int sortkey;
 	private int sortgenre;
 
-	public PageDTO() {
+	public SearchPageDTO() {
 
 	}
 	
-	public PageDTO(int currentPage, int totalCount, int sortkey, String searchWord) {
+	public SearchPageDTO(int currentPage, int totalCount, int sortkey, String searchWord) {
 	       this(currentPage,totalCount);
 	       this.sortkey=sortkey;
 	       this.searchWord=searchWord;
 	}
 	
-	public PageDTO(int currentPage, int totalCount, int sortgenre, int sortkey, String searchWord) {
+	public SearchPageDTO(int currentPage, int totalCount, int sortgenre, int sortkey, String searchWord) {
 	       this(currentPage,totalCount);
 	       this.sortkey=sortkey;
 	       this.sortgenre=sortgenre;
 	       this.searchWord=searchWord;
 	}
 
-	public PageDTO(int currentPage, int totalCount, String searchKey, String searchWord) {
+	public SearchPageDTO(int currentPage, int totalCount, String searchKey, String searchWord) {
        this(currentPage,totalCount);
        this.searchKey=searchKey;
        this.searchWord=searchWord;
 	}
 
-	public PageDTO(int currentPage, int totalCount) {
+	public SearchPageDTO(int currentPage, int totalCount) {
 		this.currentPage = currentPage;
 		this.totalCount = totalCount;
 
