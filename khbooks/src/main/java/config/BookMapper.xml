@@ -60,7 +60,7 @@
 	</select>
 	
 	<select id="bookSearchCount" parameterType="string" resultType="int">
-		select count(b.bno)
+		select count(DISTINCT b.bno)
 		from  book b, book_author ba, author a
 		where b.bno=ba.bno
 		and a.auno=ba.auno
