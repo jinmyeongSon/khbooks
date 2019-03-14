@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,6 +36,185 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.custom.js"></script>
 
+<script type="text/javascript">
+var urno='';
+var fileList='';
+
+$(document).ready(function(){
+	// 수정 모달 숨기기
+	$('#modifyModal').addClass('modifyHide');
+	// 댓글추가
+	$("#replyAddBtn").on("click", reply_list);
+	$('#btnModify').on("click", function() {
+		$.ajax({
+			type : 'POST',
+			dataType : 'json',
+			url : 'replyUpdate.do',
+			data : 'bno=${boardDTO.bno}&rno=' + urno + '&replytext=' + $('#updateReplyText').val(),
+			success : reply_list_result
+		});
+		$('#updateReplyText').val('');
+		$('#modifyModal').removeClass();
+		$('#modifyModal').addClass('modifyHide');
+	});
+	$('#btnClose').on("click", function() {
+		$('#updateReplyText').val('');
+		$('#modifyModal').removeClass();
+		$('#modifyModal').addClass('modifyHide');
+	});
+	// 수정 삭제 이벤트 동적 추가
+	$(document).on('click', '.timeline button', reply_update_delete);
+	
+	//모달창에 수정버튼
+	$('#btnModify').on('click',reply_update_send);
+	
+	//내 pc 첨부파일 시작///
+	var userfile='';
+	$('#userpc').on('click',function(){
+		userfile=$('<input type="file" id="userfile"/>');
+		userfile.click();
+		userfile.change(function(){
+			console.log($(userfile[0]).val());
+			var partname=$(userfile[0]).val().substring($(userfile[0]).val().lastIndexOf("\\")+1);
+			console.log("partname",partname);
+			var str='<p><input type="checkbox"/>'+partname+'</p>'
+			$('.fileDrop').empty();//초기화
+			$('.fileDrop').append(str);
+			var dataList=userfile[0].files[0];
+			console.kog(dataList);
+			fileList=dataList;
+		});
+	})
+	//내  pc 첨부 파일 끝//
+	
+	//첨부 파일 드래그 시작///
+	var obj=$('.fileDrop');
+	obj.on('dragover',function(e){
+		e.preventDefault();
+		$(this).css('border','2px solid #0B85A1');
+	//dragover drag중 mouse가 현재 위치한 element
+	});
+	
+	obj.on('drop',function(e){
+		e.preventDefault();
+		$(obj).empty();
+		var files=e.originalEvent.dataTransfer.files;
+		obj.append('<p><input type="checkbox"/>'+files[0].name+'</p>');
+		fileList=files[0];
+	});
+	//첨부 파일 드래그 끝////
+	
+	$(document).on('click', '.fileDrop input[type="checkbox"]', function(){
+		//$(obj).empty();
+		$(this).parent().remove();
+		fileList='';
+	});
+	
+	
+});
+// 수정 , 삭제 버튼 이벤트
+function reply_update_send(){
+	$.ajax({
+		type : 'GET',
+		dataType : 'json',
+		url : 'replyUpdate.do?bno=${boardDTO.bno}&rno='+urno+"&replytext="+$('#updateReplyText').val(),
+		success : reply_list_result
+	});
+	$('#updateReplyText').val('');
+/* 	$('#modifyModal').removeClass('modifyShow');
+	$('#modifyModal').addClass('modifyHide'); */
+	$('#modifyModal').removeClass('modifyShow').addClass('modifyHide');
+	$(document).on('click','.timeline button',reply_update_delete);
+	urno='';
+}
+
+function reply_update_delete() {
+	// alert($(this).text());
+	if($(this).text() == 'delete'){
+		$.ajax({
+			type : 'POST',
+			dataType : 'json',
+			url : 'replyDelete.do',
+			data : 'bno=${boardDTO.bno}&rno=' + this.getAttribute("id"),
+			success : reply_list_result
+		});
+	}else if($(this).text() == 'update'){
+		$('#modifyModal').removeClass();
+		$('#modifyModal').addClass('modifyShow');
+		$('#updateReplyText').focus();
+		urno = this.getAttribute("id");
+	}
+}
+
+function reply_list() {
+	var replytext = $('#newReplyText').val();
+	if(replytext == ''){
+		alert('reply text를 작성하세요.');
+		return false;
+	}
+	
+	var form_data=new FormData();
+	form_data.append('bno','${boardDTO.bno}');
+	form_data.append('replytext',$('#newReplyText').val());
+	
+/* 	console.log('filename',$('#filename')[0].files[0]);
+	if($('#filename')[0].files[0]!=undefined){
+		form_data.append('filename',$('#filename')[0].files[0]);
+	} */
+	
+	
+	$.ajax({
+		type : 'POST',
+		dataType : 'json',
+		url : 'replyInsertList.do',
+		data:form_data,
+		contentType:false,
+		enctype:'multipart/form-data',
+		processData:false,
+		success : reply_list_result
+	});
+	$('#newReplyWriter').val('');
+	$('#newReplyText').val('');
+	$('.fileDrop').empty();
+}
+
+// http://handlebarsjs.com/
+// config 패키지 안에 있는 test 파일
+Handlebars.registerHelper("newDate",function(timeValue){
+	var dateObj = new Date(timeValue);
+	var year = dateObj.getFullYear();
+	var month = dateObj.getMonth() + 1;
+	if(month < 10){
+		month = "0" + month;
+	}
+	var date = dateObj.getDate();
+	return year + "/" +  month + "/" +  date;
+});
+
+Handlebars.registerHelper("newUpload",function(uploadFile){
+	if(uploadFile!=null)
+		return uploadFile.substring(uploadFile.indexOf("_")+1);
+	else
+		return uploadFile;
+})
+
+function reply_list_result(res) {
+	$('.timeline .time_sub').remove();
+	$('#replycntSmall').text('[ ' + res.length + ' ]');
+	
+	$.each(res, function(index, value) {
+		var source = '<li class="time_sub" id="{{rno}}">'
+			+'<p>{{replyer}}</p>'
+			+'<p>{{replytext}}</p>'
+			+'<p>{{newDate regdate}}</p>'
+			+'<p>{{newUpload rupload}}</p>'
+			+'<p><button id="{{rno}}">delete</button> '
+			+'<button id="{{rno}}">update</button></p></li>';
+		var template = Handlebars.compile(source);
+		$('.timeline').append(template(value));
+	});
+}
+</script>
 
 </head>
 
@@ -201,24 +382,27 @@
             <p>${text}</p>
             <p>${myCount} / ${totalCount}</p>
             
-            <c:forEach items="${comment}" var="comm">
-            	<p>${comm.rtext}</p>
-            </c:forEach>
             
-            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla iaculis mattis lorem, quis gravida nunc iaculis ac. Proin tristique tellus in est vulputate luctus fermentum ipsum molestie.</p>
-
-            <div class="row">
-                <div class="span4">
-                    <h5>2 Column Layout</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla iaculis mattis lorem, quis gravida nunc iaculis ac. Proin tristique tellus in est vulputate luctus fermentum ipsum molestie. Vivamus tincidunt sem eu magna varius elementum. Maecenas felis tellus, fermentum vitae laoreet vitae, volutpat et urna. Nulla faucibus ligula eget ante varius ac euismod odio placerat. Nam sit amet felis non lorem faucibus rhoncus vitae id dui.</p>
-                    <button class="btn btn-mini btn-inverse" type="button">Read more</button>
-                </div>
-                <div class="span4">
-                    <h5>2 Column Layout</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla iaculis mattis lorem, quis gravida nunc iaculis ac. Proin tristique tellus in est vulputate luctus fermentum ipsum molestie. Vivamus tincidunt sem eu magna varius elementum. Maecenas felis tellus, fermentum vitae laoreet vitae, volutpat et urna. Nulla faucibus ligula eget ante varius ac euismod odio placerat. Nam sit amet felis non lorem faucibus rhoncus vitae id dui.</p>
-                    <button class="btn btn-mini btn-inverse" type="button">Read more</button>
-                </div>
-            </div>
+	  <ul class="timeline">				
+		<li class="time-label" id="repliesDiv">
+	 	  <span class="bg-green">댓글 
+	 	  <small id='replycntSmall'> 
+	 	   [ ${fn:length(review)} ] 
+	 	  </small></span>
+	 	</li>
+	 	
+	   <c:forEach items="${review}" var="rev">
+		<li class="time_sub"  id="${rev.rno}">
+		 <p>${rev.id}</p>
+		 <p>${rev.rtext}</p>
+		 <p><fmt:formatDate pattern="yyyy/MM/dd" dateStyle="short"
+			    			value="${rev.rdate}" /></p>
+		 <p>
+		   <button id="${rev.rno}">delete</button>
+		   <button id="${rev.rno}">update</button></p>
+	   </li>
+	  </c:forEach> 
+	  </ul>
 
         </div> <!--End page content column--> 
 

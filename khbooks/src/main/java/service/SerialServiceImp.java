@@ -5,17 +5,13 @@ import java.util.Map;
 
 import dao.SerialDAO;
 import dto.ReviewCommentDTO;
+import dto.SerialDTO;
 
 public class SerialServiceImp implements SerialService {
 	SerialDAO dao;
 	
 	public void setDao(SerialDAO dao) {
 		this.dao = dao;
-	}
-
-	@Override
-	public String getSerialContentProcess(int upno) {
-		return dao.getSerialContent(upno);
 	}
 
 	@Override
@@ -36,6 +32,11 @@ public class SerialServiceImp implements SerialService {
 	@Override
 	public List<ReviewCommentDTO> getReviewCommentProcess(int upno) {
 		return dao.getReviewComment(upno);
+	}
+
+	@Override
+	public SerialDTO getSerialProcess(Map<String, Object> map) {
+		return dao.getSerial(map);
 	}
 	
 }

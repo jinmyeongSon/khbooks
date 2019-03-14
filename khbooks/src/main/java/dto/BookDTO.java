@@ -13,6 +13,13 @@ public class BookDTO {
 	private String bthumb;
 	private String binfo;
 	private List<AuthorDTO> aList;
+	private int count;
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public List<AuthorDTO> getaList() {
 		return aList;
 	}

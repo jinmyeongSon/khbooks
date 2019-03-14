@@ -5,8 +5,10 @@
 
 <mapper namespace="serial">
 
-	<select id="content" parameterType="int" resultType="String">
-		select scontent from serial where upno=#{upno}
+	<select id="getSerial" parameterType="map" resultType="dto.SerialDTO">
+		select rownum, a.*
+		from (select rownum as rm, serial.* from serial where bno=#{bno})a
+		where a.rm=#{rm}
 	</select>
 	
 	<select id="count" parameterType="int" resultType="int">
@@ -24,21 +26,7 @@
 				order by upno
 				)a
 			)b
-		where b.upno=#{upno}
-	</select>
-	
-	<select id="upno" parameterType="map" resultType="int">
-		select b.upno
-		from (
-			select rownum as rm, a.* 
-			from (
-				select *
-				from serial 
-				where bno=#{bno}
-				order by upno
-				)a
-			)b
-		where rm=#{rm}
+		where upno=#{upno}
 	</select>
 	
 	<select id="reviewList" parameterType="int" resultType="dto.ReviewCommentDTO">

@@ -6,17 +6,13 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import dto.ReviewCommentDTO;
+import dto.SerialDTO;
 
 public class SerialDaoImp implements SerialDAO {
 	SqlSessionTemplate sqlSession;
 	
 	public void setSqlSession(SqlSessionTemplate sqlSession) {
 		this.sqlSession = sqlSession;
-	}
-
-	@Override
-	public String getSerialContent(int upno) {
-		return sqlSession.selectOne("serial.content", upno);
 	}
 
 	@Override
@@ -37,5 +33,10 @@ public class SerialDaoImp implements SerialDAO {
 	@Override
 	public List<ReviewCommentDTO> getReviewComment(int upno) {
 		return sqlSession.selectList("serial.reviewList", upno);
+	}
+
+	@Override
+	public SerialDTO getSerial(Map<String, Object> map) {
+		return sqlSession.selectOne("serial.getSerial", map);
 	}
 }

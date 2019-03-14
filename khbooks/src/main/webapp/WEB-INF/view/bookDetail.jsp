@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -143,12 +144,14 @@
         <!-- Gallery Items
         ================================================== --> 
         <div class="span12 gallery-single">
-
             <div class="row">
                 <div class="span6">
-                    <img src="img/gallery/gallery-img-1-full.jpg" style="width: 150px; height: 200px;" class="align-left thumbnail" alt="image">
+                <div style="width: 420px; margin-left: 100px">
+                	<div style="width: 100%; height: 200px;">
+                    <img src="img/gallery/gallery-img-1-full.jpg" style="width: 150px; height: 100%;" class="align-left thumbnail" alt="image">
                     <h2>${book.bname}</h2>
-                    <p class="lead">${book.binfo}</p>
+                    <p style="word-break: break-word" class="lead">${book.binfo}</p>
+                    </div>
                     <ul style="width:100%; clear: both;" class="project-info">
                         <li><h6>장르:</h6> ${genre}</li>
                         <li><h6>작가:</h6> <c:forEach items="${book.aList}" var="author">${author.auname} </c:forEach></li>
@@ -157,10 +160,15 @@
                         <li><h6>조회수:</h6> ${book.bview}</li>
                     </ul>
                 </div>
+                </div>
                 <div class="span6">
-                <c:forEach items="${serial}" var="serial">
-					<a href="serialView.kh?bno=${book.bno}&upno=${serial.upno}&rm=0">${serial.stitle}</a>
+                	<ul>
+                	<c:set var="count" value="${fn:length(serial)}"/>
+                <c:forEach items="${serial}" var="serial" varStatus="index">
+					<li style="list-style:none;  width: 90%; margin-left: 5%; font:5; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; border-bottom: 1px dashed #a9a9a9;">
+						<a href="serialView.kh?bno=${book.bno}&rm=${index.index}"><c:out value="${count-index.index}"/>${serial.stitle}</a></li>
 				</c:forEach>
+					</ul>
                 </div>
             </div>
 

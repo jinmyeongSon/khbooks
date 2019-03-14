@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.ReviewCommentDTO;
+import dto.SerialDTO;
 import service.SerialService;
 
 @Controller
@@ -24,26 +25,18 @@ public class SerialController {
 		this.service = service;
 	}
 	
+	
+	
 	@RequestMapping(value="/serialView.kh")
-	public ModelAndView serialView(int bno, int upno, int rm) {
+	public ModelAndView serialView(int bno, int rm) {
 		ModelAndView mav = new ModelAndView();
 		Map<String, Object> map = new HashMap<String, Object>();
 		String fileName = "";
-		int myCount = 0;
-		int newno = 0;
 		map.put("bno", bno);
-		if(rm != 0) {
-			map.put("rm", rm);
-			newno = service.getUpnoProcess(map);
-			map.put("upno", newno);
-			fileName = service.getSerialContentProcess(newno);
-			myCount = service.getSerialMyCountProcess(map);
-		}else {
-			newno = upno;
-			map.put("upno", upno);
-			fileName = service.getSerialContentProcess(upno);
-			myCount = service.getSerialMyCountProcess(map);
-		}
+		map.put("rm", rm);
+		SerialDTO sdto = service.getSerialProcess(map);
+		map.put("upno", sdto.getUpno());
+		fileName = sdto.getScontent();
 		/*파일 내용 가져오기*/
 
 		String text = "";
@@ -66,12 +59,13 @@ public class SerialController {
             System.out.println(e);
         }
 		int totalCount = service.getSerialCountProcess(bno);
-		List<ReviewCommentDTO> rcdto = service.getReviewCommentProcess(newno);
+		System.out.println(sdto.getUpno());
+		List<ReviewCommentDTO> rcdto = service.getReviewCommentProcess(sdto.getUpno());
 		mav.addObject("bno", bno);
-		mav.addObject("upno", newno);
+		mav.addObject("rm", rm);
 		mav.addObject("text", text);
 		mav.addObject("totalCount", totalCount);
-		mav.addObject("myCount", myCount);
+		mav.addObject("myCount", service.getSerialMyCountProcess(map));
 		mav.addObject("review", rcdto);
 		mav.setViewName("serialView");
 		return mav;
