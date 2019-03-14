@@ -41,7 +41,7 @@ public class BoardDaoImp implements BoardDAO {
 	
 	@Override
 	public void insert(BoardDTO dto) {
-		
+		sqlSession.insert("board.insert", dto);
 	}
 	
 	@Override

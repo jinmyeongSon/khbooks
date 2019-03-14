@@ -36,7 +36,7 @@ public class BoardServiceImp implements BoardService {
 	
 	@Override
 	public void insertProcess(BoardDTO dto) {
-		
+		dao.insert(dto);
 	}
 	
 	@Override
@@ -48,7 +48,7 @@ public class BoardServiceImp implements BoardService {
 	public void updateProcess(BoardDTO dto) {
 		dao.update(dto);
 	}
-	
+
 	@Override
 	public void deleteProcess(int bonum) {
 		dao.delete(bonum);

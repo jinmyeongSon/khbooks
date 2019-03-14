@@ -394,6 +394,7 @@ a.item-details-link:hover {background: #d8450b url(../img/gallery-item-icons.png
 .post-summary-footer {margin: 0px; padding:0px 20px;}
 .post-summary-footer button {margin: 0px; float:left;}
 ul.post-data {float:right;}
+ul.post-data2 {float:right;}
 ul.post-data-3 {margin-top:20px;}
 ul.post-data li, ul.post-data-3 li {
 	list-style: none; 

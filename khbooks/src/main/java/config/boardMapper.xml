@@ -9,7 +9,6 @@
 		select count(*) from board
 	</select>
 
-	
 	<select id="list" parameterType="dto.PageDTO" resultType="dto.BoardDTO">   
    		<![CDATA[
 	 	select rownum, b.* from
@@ -18,6 +17,11 @@
      	where b.rm>=#{startRow} and b.rm<=#{endRow}
 		]]>
 	</select>
+	
+	<insert id="insert" parameterType="dto.BoardDTO">
+	    insert into	board
+		values(board_seq.nextval,#{id},#{bname},#{btext},sysdate,0)
+	</insert>
 
 	<update id="readCount" parameterType="int">
 		update board
@@ -32,8 +36,8 @@
 	</select>
 	
 	<update id="update" parameterType="dto.BoardDTO">
-		update board set bname=#{bname},
-		btext=#{btext},bdate=sysdate
+		update board 
+		set bname=#{bname}, btext=#{btext}, bdate=sysdate, bcount=#{bcount}
 		where bonum=#{bonum}
 	</update>
 	
@@ -47,25 +51,6 @@
          where ref=#{ref} and re_step>#{re_step}
      ]]>
 	</update>
-	
-	<insert id="insert" parameterType="dto.BoardDTO">
-	    insert into
-		board(num,writer,email,subject,reg_date,
-		readcount,ref,re_step,re_level,content,ip,upload)
-		values(board_seq.nextval,#{writer},
-		#{email},#{subject},sysdate,0,
-		<choose>
-			<when test="ref==0"> <!-- 제목글 일 때 -->
-				board_seq.nextval
-			</when>
-			<otherwise> <!-- 답변글 일 때 -->
-				#{ref}
-			</otherwise>
-		</choose>
-		,#{re_step},#{re_level},#{content},#{ip},
-		#{upload,jdbcType=VARCHAR})
-	</insert>
-	
 	
 	<select id="uploadFile" parameterType="int" resultType="String">
 		select upload from board where num=#{num}

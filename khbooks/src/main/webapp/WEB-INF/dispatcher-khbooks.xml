@@ -10,8 +10,11 @@
 	<mvc:annotation-driven></mvc:annotation-driven>
 
 	<!-- controller -->
-	<bean class="board.controller.BoardController">
+	<bean class="controller.BoardController">
 		<property name="service" ref="service" />
+	</bean>
+	<bean class="controller.NoticeController">
+		
 	</bean>	
 	
 	

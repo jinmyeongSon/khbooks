@@ -27,11 +27,18 @@ $(document).ready(function(){
 	
 });// end ready
 
+
+
+function board_list() {
+	location.href = 'boardList.kh'
+}
+
 function board_update_delete(){
 	
 	if($(this).text() == "삭제") {
 		var delbonum = $(this).prop("id");
 		alert(delbonum);
+		
 		$.ajax({
 			type : 'GET',
 			dataType : 'json',
@@ -41,37 +48,25 @@ function board_update_delete(){
 				location.href = 'boardList.kh'
 			}
 		});
+		
 	} else if($(this).text() == "수정") {
 		var upbonum = $(this).prop("id");
-		alert(upbonum);
+		alert("뷰페이지 수정 번호 : " + upbonum);
 		location.href = 'boardUpdate.kh?bonum='+upbonum
-
-	}
-}//end board_update_delete()
-
-function board_update_result(res) {
-	alert('수정 창이 뜰것이다ㅏㅏㅏ');
-	/*$('.span8 blog article').remove();
-	
-	$.each(res, function(index, value){
-		var source = '<article>'
-			+'<h3 class="title-bg">{{bname}}</h3>'
-			+'<div class="post-content">'
-			+'<a href="#"><img src="img/gallery/notice.jpg" alt="Post Thumb" readonly></a>'
-			+'<div class="post-body"><p>{{btext}}</p></div>'
-			+'<div class="post-summary-footer">'
-			+'<ul class="post-data">'
-			+'<li><i class="icon-calendar"></i>{{newDate bdate}}</li>'
-			+'<li><i class="icon-user"></i> <a href="#">{{id}}</a></li>'
-			+'<li><button type="button" class="btn btn-outline-dark" id="{{bonum}}">수정</button></li>'
-			+'<li><button type="button" class="btn btn-outline-dark" id="li"  onclick="javascript:history.go(-1)">목록</button></li>'
-			+'</ul></div></div></article>';
 		
-		var template = Handlebars.compile(source);
-		$('.span8 blog').append(template(value));
-	});*/
-}//end board_update_result
+	} else if($(this).text() == "등록") {
+		//var upProbonum = $(this).prop("id");
+		//alert("upProbonum : " + upProbonum);
+		//location.href = 'boardUpdatePro.kh?bonum='+upProbonum
+		
+		$('#boardUp').val($('#boardUp').val().replace(/\n/gi, '<br/>'));
+		$('#frm').attr('action', 'boardUpdatePro.kh').submit();
 
+	} else if($(this).text() == "글쓰기") {
+		$('#frm').attr('action', 'boardWritePro.kh').submit();
+	}	
+		
+}//end board_update_delete()
 
 function comment_list(){
 	var bonum = $(this).parent().prop("id");

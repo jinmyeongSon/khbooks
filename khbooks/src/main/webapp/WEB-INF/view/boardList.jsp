@@ -151,7 +151,7 @@
             <!-- Blog Post 1 -->
             <c:forEach items="${aList }" var="dto">
             <article class="clearfix">
-                <a href=""><img src="img/gallery/gallery-img-1-4col.jpg" alt="Post Thumb" class="align-left"></a>
+               <a href=""><img src="img/gallery/gallery-img-1-4col.jpg" alt="Post Thumb" class="align-left"></a>
                 <h4 class="title-bg">${dto.bname }</h4>
                     <p>${dto.btext }</p>
                     <a href="boardView.kh?currentPage=${pdto.currentPage }&bonum=${dto.bonum }"><button class="btn btn-mini btn-inverse" type="button">자세히</button></a>
@@ -174,6 +174,7 @@
                 <c:if test="${pdto.startPage > 1 }">
                 <li class="active"><a href="boardList.kh?currentPage=${pdto.startPage-pdto.blockPage }">이전</a></li>
                 </c:if>
+                
                 <!-- 페이지 출력 -->
                 <c:forEach begin="${pdto.startPage }" end="${pdto.endPage }" var="i">
                 	<c:choose>
@@ -190,6 +191,7 @@
                 	</c:choose>
                 </c:forEach>
                 
+                <!-- 다음 출력 -->
                 <c:if test="${pdto.endPage < pdto.totalPage }">
                 	<li><a href="boardList.kh?currentPage=${pdto.startPage+pdto.blockPage }">다음</a></li>
                 </c:if>	
@@ -205,11 +207,19 @@
             <section>
                 <div class="input-append">
                     <form action="#">
-                        <input id="appendedInputButton" size="16" type="text" placeholder="Search"><button class="btn" type="button"><i class="icon-search"></i></button>
-                    </form>
+                        <input id="appendedInputButton" size="16" type="text" placeholder="Search"><button class="btn" type="button"><i class="icon-search"></i></button></form>
                 </div>
             </section>
-
+            
+            <!-- 글쓰기 -->
+            <c:choose>
+            <c:when test="${sessionScope.id == null }">
+              	<button class="btn" type="button" onclick="alert('로그인 먼저 해주세요')"><i>글쓰기</i></button>
+            </c:when>
+            <c:otherwise>
+             	<button class="btn" type="button" onclick="javascript:location.href='boardWrite.kh"><i>글쓰기</i></button>
+			</c:otherwise>
+			</c:choose>
             <!--Categories-->
             <h5 class="title-bg">Categories</h5>
             <ul class="post-category-list">

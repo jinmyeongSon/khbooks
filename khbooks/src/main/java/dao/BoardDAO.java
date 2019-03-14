@@ -13,7 +13,7 @@ public interface BoardDAO {
 	public BoardDTO content(int num);
 	public void insert(BoardDTO dto);
 	public BoardDTO updateNum(int num);
-	public void update( BoardDTO dto);
+	public void update(BoardDTO dto);
 	public void delete(int num);
 	/////////////////////////////////
 	public int replyCount(int bonum);
