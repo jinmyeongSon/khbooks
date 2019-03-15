@@ -161,12 +161,12 @@
                     </ul>
                 </div>
                 </div>
-                <div class="span6">
-                	<ul>
+                <div class="span6"  >
+                	<ul style="border: 2px solid #a9a9a9; border-radius: 2px;"  >
                 	<c:set var="count" value="${fn:length(serial)}"/>
                 <c:forEach items="${serial}" var="serial" varStatus="index">
 					<li style="list-style:none;  width: 90%; margin-left: 5%; font:5; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; border-bottom: 1px dashed #a9a9a9;">
-						<a href="serialView.kh?bno=${book.bno}&rm=${index.index}"><c:out value="${count-index.index}"/>${serial.stitle}</a></li>
+						<a href="serialView.kh?bno=${book.bno}&rm=${index.index+1}"><c:out value="${count-index.index}"/>${serial.stitle}</a></li>
 				</c:forEach>
 					</ul>
                 </div>
@@ -201,11 +201,7 @@
                 </div>
                 <div class="span3 footer-col">
                     <h5>Latest Tweets</h5>
-                    <ul>
-                        <li><a href="#">@room122</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                        <li><a href="#">@room122</a> In interdum felis fermentum ipsum molestie sed porttitor ligula rutrum. Morbi blandit ultricies ultrices.</li>
-                        <li><a href="#">@room122</a> Vivamus nec lectus sed orci molestie molestie. Etiam mattis neque eu orci rutrum aliquam.</li>
-                    </ul>
+
                 </div>
                 <div class="span3 footer-col">
                     <h5>Latest Posts</h5>

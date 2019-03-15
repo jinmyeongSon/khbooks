@@ -218,21 +218,13 @@
 
             <div class="tab-content">
                 <div class="tab-pane active" id="comments">
-                     <ul>
-                        <li><i class="icon-comment"></i>admin on <a href="#">Lorem ipsum dolor sit amet</a></li>
-                        <li><i class="icon-comment"></i>admin on <a href="#">Consectetur adipiscing elit</a></li>
-                        <li><i class="icon-comment"></i>admin on <a href="#">Ipsum dolor sit amet consectetur</a></li>
-                        <li><i class="icon-comment"></i>admin on <a href="#">Aadipiscing elit varius elementum</a></li>
-                        <li><i class="icon-comment"></i>admin on <a href="#">ulla iaculis mattis lorem</a></li>
-                    </ul>
+	
                 </div>
                 <div class="tab-pane" id="tweets">
                     <ul>
-                        <li><a href="#"><i class="icon-share-alt"></i>@room122</a> Vivamus tincidunt sem eu magna varius elementum. Maecenas felis tellus, fermentum vitae laoreet vitae, volutpat et urna.</li>
-                        <li><a href="#"> <i class="icon-share-alt"></i>@room122</a> Nulla faucibus ligula eget ante varius ac euismod odio placerat.</li>
-                        <li><a href="#"> <i class="icon-share-alt"></i>@room122</a> Pellentesque iaculis lacinia leo. Donec suscipit, lectus et hendrerit posuere, dui nisi porta risus, eget adipiscing</li>
-                        <li><a href="#"> <i class="icon-share-alt"></i>@room122</a> Vivamus augue nulla, vestibulum ac ultrices posuere, vehicula ac arcu.</li>
-                        <li><a href="#"> <i class="icon-share-alt"></i>@room122</a> Sed ac neque nec leo condimentum rhoncus. Nunc dapibus odio et lacus.</li>
+                    	<c:forEach items="${tweet}" var="tweet">
+                    	<li><a href="#">@${tweet.user.screenName}</a> ${tweet.text}</li>
+                    	</c:forEach>
                     </ul>
                 </div>
                 <div class="tab-pane" id="about">
@@ -272,11 +264,7 @@
                 </div>
                 <div class="span3 footer-col">
                     <h5>Latest Tweets</h5>
-                    <ul>
-                        <li><a href="#">@room122</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                        <li><a href="#">@room122</a> In interdum felis fermentum ipsum molestie sed porttitor ligula rutrum. Morbi blandit ultricies ultrices.</li>
-                        <li><a href="#">@room122</a> Vivamus nec lectus sed orci molestie molestie. Etiam mattis neque eu orci rutrum aliquam.</li>
-                    </ul>
+
                 </div>
                 <div class="span3 footer-col">
                     <h5>Latest Posts</h5>

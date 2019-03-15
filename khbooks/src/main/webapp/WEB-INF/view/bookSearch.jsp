@@ -150,8 +150,15 @@
                 	<li><a href="bookSearch.kh?sortkey=1&sortgenre=${pdto.sortgenre}&searchWord=${pdto.searchWord}">날짜순 정렬</a></li>
                 	<li><a href="bookSearch.kh?sortkey=2&sortgenre=${pdto.sortgenre}&searchWord=${pdto.searchWord}">점수순 정렬</a></li>
                 	<li><a href="bookSearch.kh?sortkey=3&sortgenre=${pdto.sortgenre}&searchWord=${pdto.searchWord}">조회순 정렬</a></li>
-            	</ul>
-
+            </ul>
+            
+            <c:choose>
+            <c:when test="${pdto.endRow==0}">
+            <div class="row clearfix">
+            	<div style="margin-left: 3%; font: 20px bold;" >검색 결과가 없습니다</div>
+            </div>
+            </c:when>
+            <c:otherwise>
             <div class="row clearfix">
                 <ul class="gallery-post-grid holder">
 
@@ -207,8 +214,11 @@
                 </ul>
             </div>
 
-        </div><!-- End gallery list-->
-
+        </c:otherwise>
+        </c:choose>
+     </div><!-- End gallery list-->
+        
+            
     </div><!-- End container row -->
     
     </div> <!-- End Container -->

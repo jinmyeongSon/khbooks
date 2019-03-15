@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -10,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dto.BookPageDTO;
 import service.BookService;
-
+import twitter4j.*;
 //http://localhost:8090/khbook/bookMain.kh
 
 
@@ -48,6 +49,16 @@ public class BookListController {
 			totalCount = service.getBookCountProcess();
 			dto = new BookPageDTO(currentPage, totalCount, 0, sortKey, "", 9);
 		}
+		
+	    try {
+	        Twitter twitter = TwitterFactory.getSingleton();
+	        Paging page = new Paging (1, 5);
+	        List<Status> tweet = twitter.getUserTimeline(page);
+			mav.addObject("tweet", tweet);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	
 		mav.addObject("bList", service.bookListProcess(dto));
 		mav.addObject("gList", service.genreListProcess());
 		mav.addObject("pdto", dto);
