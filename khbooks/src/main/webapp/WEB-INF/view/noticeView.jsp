@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>   
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>         
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <!-- CSS
 ================================================== -->
 <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
@@ -14,16 +16,6 @@
 <link rel="stylesheet" href="css/bootstrap-responsive.css">
 <link rel="stylesheet" href="css/jquery.lightbox-0.5.css">
 <link rel="stylesheet" href="css/custom-styles.css">
-<style type="text/css">
- .clearfix p {
- overflow: hidden; 
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 300px;
-  height: 20px;
- }
- 
-</style>
 <!-- Favicons
 ================================================== -->
 <link rel="shortcut icon" href="img/favicon.ico">
@@ -34,10 +26,11 @@
 <!-- JS
 ================================================== -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+<script src="js/notice.js"></script>
 <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.custom.js"></script>
-
 </head>
 
 <body>
@@ -104,7 +97,7 @@
            
             </div>
 
-            <!-- Mobile Nav
+             <!-- Mobile Nav
             ================================================== -->
             <form action="#" id="mobile-nav" class="visible-phone">
                 <div class="mobile-nav-select">
@@ -136,68 +129,52 @@
                 </select>
                 </div>
                 </form>
-                
+            
         </div>
 
       </div><!-- End Header -->
-     
     <!-- Blog Content
     ================================================== --> 
-    <div class="row">
-        <!-- Blog Posts
+    <div class="row"><!--Container row-->
+
+        <!-- Blog Full Post
         ================================================== --> 
         <div class="span8 blog">
-           
+
             <!-- Blog Post 1 -->
-            <c:forEach items="${aList }" var="dto">
-            <article class="clearfix">
-               <a href=""><img src="img/gallery/gallery-img-1-4col.jpg" alt="Post Thumb" class="align-left"></a>
-                <h4 class="title-bg">${dto.bname }</h4>
-                    <%-- <p>${dto.btext }</p> --%>
-                    <a href="boardView.kh?currentPage=${pdto.currentPage }&bonum=${dto.bonum }"><button class="btn btn-mini btn-inverse" type="button">자세히</button></a>
+            <article>
+                <h3 class="title-bg">${noticeView.bname }</h3>
+                <div class="post-content">
+                    <!-- <img src="img/gallery/notice.jpg" alt="Post Thumb">  -->
+                    <div class="post-body">
+                        <p>${noticeView.btext }</p>
+                        <c:if test="${!empty NoticeDTO.uList }">
+                        	<c:forEach items="${NoticeDTO.uList }" var="up">
+                        		<p>
+                        		<c:set var="numload" value="${(fn:indexOf(up.upname,'_'))+1}" />
+                        		<c:set var="strlength" value="${fn:length(up.upname)}"/>
+                        		${fn:substring(up.upname,numload,strlength)}</p>
+                        	</c:forEach>
+                        </c:if>
+                    </div>
+
                     <div class="post-summary-footer">
-                        <ul class="post-data-3">
-                            <li><i class="icon-calendar"></i><fmt:formatDate pattern="yy/MM/dd" dateStyle="short" value="${dto.bdate }" /></li>
-                            <li><i class="icon-user"></i> <a href="#">${dto.id }</a></li>
-                            <li><i class="icon-comment"></i> <a href="#">댓글&#91;${dto.replyCount}&#93;</a></li>
-                            <li>조회수&nbsp;${dto.bcount}</li>
+                        <ul class="post-data">
+                            <li><i class="icon-calendar"></i><fmt:formatDate pattern="yy/MM/dd" dateStyle="short" value="${noticeView.ndate }" /></li>
+                            <li><i class="icon-user"></i>${noticeView.aid }</a></li>
+                            <li><button type="button" class="btn btn-outline-dark" id="${noticeView.nnum }">수정</button></li>
+                            <li><button type="button" class="btn btn-outline-dark" id="${noticeView.nnum }">삭제</button></li>
+                            <li><button type="button" class="btn btn-outline-dark" id="li"  onclick="javascript:history.go(-1)">목록</button></li>
+                            
                         </ul>
                     </div>
+                </div>
             </article>
-            </c:forEach>
-         
 
-            <!-- Pagination -->
-            <div class="pagination">
-                <ul>
-                <!-- 이전 출력 -->
-                <c:if test="${pdto.startPage > 1 }">
-                <li class="active"><a href="boardList.kh?currentPage=${pdto.startPage-pdto.blockPage }">이전</a></li>
-                </c:if>
-                
-                <!-- 페이지 출력 -->
-                <c:forEach begin="${pdto.startPage }" end="${pdto.endPage }" var="i">
-                	<c:choose>
-                		<c:when test="${i == pdto.currentPage }">
-                			<li class="active">
-                				<a href="boardList.kh?currentPage=${i }">${i }</a>
-               				 </li>
-                		</c:when>
-                		<c:otherwise>
-                			<li class="active">
-                				<a href="boardList.kh?currentPage=${i }">${i }</a>
-               				 </li>
-                		</c:otherwise>
-                	</c:choose>
-                </c:forEach>
-                
-                <!-- 다음 출력 -->
-                <c:if test="${pdto.endPage < pdto.totalPage }">
-                	<li><a href="boardList.kh?currentPage=${pdto.startPage+pdto.blockPage }">다음</a></li>
-                </c:if>	
-                </ul>
-            </div>
-        </div>
+       
+
+
+        </div><!--Close container row-->
 
         <!-- Blog Sidebar
         ================================================== --> 
@@ -207,20 +184,11 @@
             <section>
                 <div class="input-append">
                     <form action="#">
-                        <input id="appendedInputButton" size="16" type="text" placeholder="Search"><button class="btn" type="button"><i class="icon-search"></i></button></form>
+                        <input id="appendedInputButton" size="16" type="text" placeholder="Search"><button class="btn" type="button"><i class="icon-search"></i></button>
+                    </form>
                 </div>
             </section>
-            
-            <!-- 글쓰기 -->
-           <%--  <c:choose>
-            <c:when test="${sessionScope.id == null }">
-              	<button class="btn" type="button" onclick="alert('로그인 먼저 해주세요')"><i>글쓰기</i></button>
-            </c:when>
-            <c:otherwise>
-             	<button class="btn" type="button" onclick="javascript:location.href='boardWrite.kh'"><i>글쓰기</i></button>
-			</c:otherwise>
-			</c:choose>  --%>
-			<button class="btn" type="button" onclick="javascript:location.href='boardWrite.kh'"><i>글쓰기</i></button>
+
             <!--Categories-->
             <h5 class="title-bg">Categories</h5>
             <ul class="post-category-list">
@@ -234,16 +202,16 @@
             <h5 class="title-bg">Popular Posts</h5>
             <ul class="popular-posts">
                 <li>
-                    <a href="blog-single.htm"><img src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post"></a>
+                    <a href="#"><img src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post"></a>
                     <h6><a href="#">Lorem ipsum dolor sit amet consectetur adipiscing elit</a></h6>
                     <em>Posted on 09/01/15</em>
                 </li>
                 <li>
-                    <a href="blog-single.htm"><img src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post"></a>
+                    <a href="#"><img src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post"></a>
                     <h6><a href="#">Nulla iaculis mattis lorem, quis gravida nunc iaculis</a></h6>
                     <em>Posted on 09/01/15</em>
                 <li>
-                    <a href="blog-single.htm"><img src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post"></a>
+                    <a href="#"><img src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post"></a>
                     <h6><a href="#">Vivamus tincidunt sem eu magna varius elementum maecenas felis</a></h6>
                     <em>Posted on 09/01/15</em>
                 </li>
@@ -369,5 +337,6 @@
     <!-- Scroll to Top -->  
     <div id="toTop" class="hidden-phone hidden-tablet">Back to Top</div>
     
+
 </body>
 </html>

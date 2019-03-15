@@ -40,7 +40,6 @@ public class BoardController {
 				currentPage = 1;
 			} else {
 				currentPage = pdto.getCurrentPage();
-				
 			} 
 			pdto = new PageDTO(currentPage, totalRecord);
 			//System.out.println("현재 페이지 : " + currentPage);

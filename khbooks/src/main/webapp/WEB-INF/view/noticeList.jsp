@@ -30,6 +30,7 @@
 ================================================== -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+<script src="js/notice.js"></script>
 <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.custom.js"></script>
@@ -101,7 +102,7 @@
 
             <!-- Mobile Nav
             ================================================== -->
-            <form action="#" id="mobile-nav" class="visible-phone">
+            <form action="boardList.kh" id="mobile-nav" class="visible-phone">
                 <div class="mobile-nav-select">
                 <select onchange="window.open(this.options[this.selectedIndex].value,'_top')">
                     <option value="">Navigate...</option>
@@ -124,7 +125,7 @@
                     <option value="blog-style1.htm">Blog</option>
                         <option value="blog-style1.htm">- Blog Style 1</option>
                         <option value="blog-style2.htm">- Blog Style 2</option>
-                        <option value="blog-style3.htm">- Blog Style 3</option>
+                        <option value="boardList.jsp">- Blog Style 3</option>
                         <option value="blog-style4.htm">- Blog Style 4</option>
                         <option value="blog-single.htm">- Blog Single</option>
                     <option value="page-contact.htm">Contact</option>
@@ -145,68 +146,55 @@
         <div class="span8 blog">
 
             <!-- Blog Post 1 -->
-            <article>
-                <h3 class="title-bg"><a href="blog-single.htm">A subject that is beautiful in itself</a></h3>
-                <div class="post-summary">
-                    <a href="blog-single.htm"><img src="img/gallery/post-img-1.jpg" alt="Post Thumb"></a>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla iaculis mattis lorem, quis gravida nunc iaculis ac. Proin tristique tellus in est vulputate luctus fermentum ipsum molestie. Vivamus tincidunt sem eu magna varius elementum. Maecenas felis tellus, fermentum vitae laoreet vitae, volutpat et urna. Nulla faucibus ligula eget ante varius ac euismod odio placerat. Nam sit amet felis non lorem faucibus rhoncus vitae id dui.</p>
+            <c:forEach items="${noticeList }" var="ndto">
+            <article id="article">
+                <h3 class="title-bg"><a href="noticeView.kh?currentPage=${pdto.currentPage }&nnum=${ndto.nnum }">&nbsp; &nbsp; ${ndto.bname } </a>
+                <span id="noticeCalendar">${ndto.ndate }</span>
+                <span id="noticeAdmin">${ndto.aid }</span>
+                </h3>
+                <%--<div class="post-summary">
+                     <a href="blog-single.htm"><img src="img/gallery/post-img-1.jpg" alt="Post Thumb"></a>
+                    <p>${ndto.btext }</p>
                     <div class="post-summary-footer">
                         <button class="btn btn-small btn-inverse" type="button">Read more</button>
                         <ul class="post-data">
-                            <li><i class="icon-calendar"></i> 09/04/15</li>
-                            <li><i class="icon-user"></i> <a href="#">Admin</a></li>
-                            <li><i class="icon-comment"></i> <a href="#">5 Comments</a></li>
-                            <li><i class="icon-tags"></i> <a href="#">photoshop</a>, <a href="#">tutorials</a>, <a href="#">illustration</a></li>
+                            <li><i class="icon-calendar"></i>${ndto.ndate }</li>
+                            <li><i class="icon-user"></i>${ndto.aid }</li>
                         </ul>
-                    </div>
-                </div>
+                    </div>  
+                </div> --%>
             </article>
+            </c:forEach>
 
-            <!-- Blog Post 2 -->
-             <article>
-                <h3 class="title-bg"><a href="blog-single.htm">A great artist is always before his time</a></h3>
-                <div class="post-summary">
-                    <a href="blog-single.htm"><img src="img/gallery/post-img-1.jpg" alt="Post Thumb"></a>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla iaculis mattis lorem, quis gravida nunc iaculis ac. Proin tristique tellus in est vulputate luctus fermentum ipsum molestie. Vivamus tincidunt sem eu magna varius elementum. Maecenas felis tellus, fermentum vitae laoreet vitae, volutpat et urna. Nulla faucibus ligula eget ante varius ac euismod odio placerat. Nam sit amet felis non lorem faucibus rhoncus vitae id dui.</p>
-                    <div class="post-summary-footer">
-                        <button class="btn btn-small btn-inverse" type="button">Read more</button>
-                        <ul class="post-data">
-                            <li><i class="icon-calendar"></i> 09/04/15</li>
-                            <li><i class="icon-user"></i> <a href="#">Admin</a></li>
-                            <li><i class="icon-comment"></i> <a href="#">5 Comments</a></li>
-                            <li><i class="icon-tags"></i> <a href="#">photoshop</a>, <a href="#">tutorials</a>, <a href="#">illustration</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </article>
-
-             <!-- Blog Post 3 -->
-             <article>
-                <h3 class="title-bg"><a href="blog-single.htm">Is art everything to anybody?</a></h3>
-                <div class="post-summary">
-                    <a href="blog-single.htm"><img src="img/gallery/post-img-1.jpg" alt="Post Thumb"></a>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla iaculis mattis lorem, quis gravida nunc iaculis ac. Proin tristique tellus in est vulputate luctus fermentum ipsum molestie. Vivamus tincidunt sem eu magna varius elementum. Maecenas felis tellus, fermentum vitae laoreet vitae, volutpat et urna. Nulla faucibus ligula eget ante varius ac euismod odio placerat. Nam sit amet felis non lorem faucibus rhoncus vitae id dui.</p>
-                    <div class="post-summary-footer">
-                        <button class="btn btn-small btn-inverse" type="button">Read more</button>
-                        <ul class="post-data">
-                            <li><i class="icon-calendar"></i> 09/04/15</li>
-                            <li><i class="icon-user"></i> <a href="#">Admin</a></li>
-                            <li><i class="icon-comment"></i> <a href="#">5 Comments</a></li>
-                            <li><i class="icon-tags"></i> <a href="#">photoshop</a>, <a href="#">tutorials</a>, <a href="#">illustration</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </article>
 
             <!-- Pagination -->
             <div class="pagination">
-                <ul>
-                <li class="active"><a href="#">Prev</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">Next</a></li>
+                <ul class="noticeListUl">
+                <!-- 이전 출력 -->
+                <c:if test="${pdto.startPage > 1 }">
+                <li class="active"><a href="noticeList.kh?currentPage=${pdto.startPage-pdto.blockPage }">이전</a></li>
+                </c:if>
+                
+                <!-- 페이지 출력 -->
+                <c:forEach begin="${pdto.startPage }" end="${pdto.endPage }" var="i">
+                	<c:choose>
+                		<c:when test="${i == pdto.currentPage }">
+                			<li class="active">
+                				<a href="noticeList.kh?currentPage=${i }">${i }</a>
+               				 </li>
+                		</c:when>
+                		<c:otherwise>
+                			<li class="active">
+                				<a href="noticeList.kh?currentPage=${i }">${i }</a>
+               				 </li>
+                		</c:otherwise>
+                	</c:choose>
+                </c:forEach>
+                
+                <!-- 다음 출력 -->
+                <c:if test="${pdto.endPage < pdto.totalPage }">
+                	<li><a href="noticeList.kh?currentPage=${pdto.startPage+pdto.blockPage }">다음</a></li>
+                </c:if>	
                 </ul>
             </div>
         </div>
@@ -223,7 +211,10 @@
                     </form>
                 </div>
             </section>
-
+            
+            <c:forEach items="${noticeList }" var="ndto">
+            	<button class="btn" type="button" onclick="javascript:location.href='noticeWrite.kh?nnum='+${ndto.nnum}"><i>글쓰기</i></button>
+			</c:forEach>
             <!--Categories-->
             <h5 class="title-bg">Categories</h5>
             <ul class="post-category-list">

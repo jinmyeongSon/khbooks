@@ -55,10 +55,6 @@ function board_update_delete(){
 		location.href = 'boardUpdate.kh?bonum='+upbonum
 		
 	} else if($(this).text() == "등록") {
-		//var upProbonum = $(this).prop("id");
-		//alert("upProbonum : " + upProbonum);
-		//location.href = 'boardUpdatePro.kh?bonum='+upProbonum
-		
 		$('#boardUp').val($('#boardUp').val().replace(/\n/gi, '<br/>'));
 		$('#frm').attr('action', 'boardUpdatePro.kh').submit();
 

@@ -35,6 +35,34 @@ h2 small {font-size: 30px;}
 h5 small {font-size: 14px;}
 h6 small {font-size: 12px;}
 
+/*제목글 css 적용 안되게*/
+#noticeCalendar:not(article) {
+	float : right;
+	font-size : 15px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color : black;
+	text-shadow : 0;
+}
+
+#noticeAdmin:not(article) {
+	float : right;
+	font-size : 15px;
+	margin-right : 10px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color : black;
+	text-shadow : 0 important;
+}
+
+#noticeCalendar:not(h3) {
+	text-shadow : 0;
+}
+
+#noticeAdmin:not(h3) {
+	text-shadow : 0;
+}
+
+/*적용 x 끝*/
+
 h5.title-bg button {
 	float: right; 
 	text-transform: none;
@@ -377,7 +405,7 @@ a.item-details-link:hover {background: #d8450b url(../img/gallery-item-icons.png
 
 /*** Blog List Page ***/
 .blog article,
-.blog section {margin-bottom: 40px;}
+.blog section {margin-bottom: 0px;}
 .blog article h3 {margin-top: 0px;}
 .blog article h3 a, .blog article h4 a,
 .blog article h3 a:hover, .blog article h4 a:hover {color:#333333; text-decoration: none;}

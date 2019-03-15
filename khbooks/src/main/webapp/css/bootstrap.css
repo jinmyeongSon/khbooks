@@ -8,8 +8,12 @@
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
  
-.pagination a:hover {
-	background-color : black;
+.pagination ul li a:hover {
+	background-color : skyblue;
+}
+
+.noticeListUl {
+	margin-left : 300px;
 }
 
 article,

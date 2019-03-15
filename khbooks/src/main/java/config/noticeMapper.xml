@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="notice">
+
+	<select id="count" resultType="int">
+		select count(*) from notice
+	</select>
+
+	<select id="list" parameterType="dto.PageDTO" resultType="dto.NoticeDTO">   
+   		<![CDATA[
+	 	select rownum, b.* from
+     	(select rownum as rm, a.*
+     	from(select * from notice order by nnum desc)a)b
+     	where b.rm>=#{startRow} and b.rm<=#{endRow}
+		]]>
+	</select>
+	
+	<insert id="insert" parameterType="dto.NoticeDTO">
+	   insert into notice
+		values(nnum_seq.nextval,#{aid},#{bname},#{btext},sysdate, #{ncount})
+		<selectKey keyProperty="rno" resultType="Integer" order="AFTER"> 
+			SELECT nnum_seq.currval FROM dual 
+		</selectKey>
+	</insert>
+
+	<update id="readCount" parameterType="int">
+		update notice
+		set	ncount=ncount+1
+		where nnum=#{nnum}
+	</update>
+	
+	<select id="view" parameterType="int" resultMap="notice_upload_view">
+		select n.ndate as ndate, n.*, u.nnum as unnum, u.*
+		from notice n, upload u
+		where n.nnum=u.upno(+)
+		and n.nnum=#{nnum}
+	</select>
+	
+	<resultMap type="dto.NoticeDTO" id="notice_upload_view" autoMapping="false">
+		<result column="nnum" property="nnum" />
+		<result column="aid" property="aid" />
+		<result column="bname" property="bname" />
+		<result column="btext" property="btext" />
+		<result column="ndate" property="ndate" />
+		<result column="ncount" property="ncount" />
+		<collection property="uList" javaType="java.util.List" ofType="dto.UploadDTO" autoMapping="false">
+			<id column="upno" property="upno" />
+			<id column="nnum" property="nnum" />
+			<id column="aid" property="aid" />
+			<id column="upname" property="upname" />
+		</collection>
+	</resultMap> 
+	
+	<update id="update" parameterType="dto.BoardDTO">
+		update board 
+		set bname=#{bname}, btext=#{btext}, bdate=sysdate, bcount=#{bcount}
+		where bonum=#{bonum}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from notice where nnum=#{nnum}
+	</delete>
+	
+	<update id="reStepCount" parameterType="dto.BoardDTO">
+     <![CDATA[
+         update board set re_step=re_step+1 
+         where ref=#{ref} and re_step>#{re_step}
+     ]]>
+	</update>
+	
+	<select id="uploadFile" parameterType="int" resultType="String">
+		select upload from board where num=#{num}
+	</select>
+
+</mapper>
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="upload">
+
+	<select id="u_list" parameterType="int" resultType="dto.UploadDTO">
+		select * from tbl_upload
+		where rno_upload=#{rno}
+	</select>
+	
+	<insert id="u_insert">
+		insert into tbl_upload
+		select upload_uno_seq.nextval, A.* from(
+			<foreach collection="list" item="upload" separator="union all">
+				select #{upload.rno} as rno_upload, #{upload.rupload} as rupload
+ 				from dual
+			</foreach>
+		)A
+	</insert>
+	
+	<delete id="u_delete" parameterType="int">
+		delete from tbl_upload
+		where uno=#{uno}
+	</delete>
+
+</mapper>

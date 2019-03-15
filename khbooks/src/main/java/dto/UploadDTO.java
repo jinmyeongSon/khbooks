@@ -1,45 +1,54 @@
 package dto;
 
 public class UploadDTO { //공지사항 첨부파일
-	private int rno;
-	private int uno;
-	private String rupload;
+	private int nnum; //공지사항 게시글 번호
+	private int upnum;
+	private String upname;
+	private String aid;
 	
 	public UploadDTO() {
 		
 	}
 	
-	public UploadDTO(String rupload) {
-		this.rupload = rupload;
+	public UploadDTO(String upname) {
+		this.upname = upname;
 	}
 	
-	public UploadDTO(int rno, String rupload) {
-		this.rno = rno;
-		this.rupload = rupload;
+	public UploadDTO(int nnum, String upname) {
+		this.nnum = nnum;
+		this.upname = upname;
 	}
 
-	public int getRno() {
-		return rno;
+	public int getNnum() {
+		return nnum;
 	}
 
-	public void setRno(int rno) {
-		this.rno = rno;
+	public void setNnum(int nnum) {
+		this.nnum = nnum;
 	}
 
-	public int getUno() {
-		return uno;
+	public int getUpnum() {
+		return upnum;
 	}
 
-	public void setUno(int uno) {
-		this.uno = uno;
+	public void setUpnum(int upnum) {
+		this.upnum = upnum;
 	}
 
-	public String getRupload() {
-		return rupload;
+	public String getUpname() {
+		return upname;
 	}
 
-	public void setRupload(String rupload) {
-		this.rupload = rupload;
+	public void setFname(String fname) {
+		this.upname = fname;
+	}
+
+	public String getAid() {
+		return aid;
+	}
+
+	public void setAid(String aid) {
+		this.aid = aid;
 	}
 	
 }

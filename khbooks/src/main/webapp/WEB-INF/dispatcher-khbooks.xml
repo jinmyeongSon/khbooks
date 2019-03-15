@@ -14,7 +14,8 @@
 		<property name="service" ref="service" />
 	</bean>
 	<bean class="controller.NoticeController">
-		
+		<property name="nservice" ref="nservice" />
+		<property name="path" ref="path" />
 	</bean>	
 	
 	
@@ -22,10 +23,16 @@
 	<bean class="dao.BoardDaoImp" id="dao">
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
+	<bean class="dao.NoticeDaoImp" id="ndao">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
 	
 	<!-- Service -->
 	<bean class="service.BoardServiceImp" id="service">
 		<property name="dao" ref="dao"></property>
+	</bean>
+	<bean class="service.NoticeServiceImp" id="nservice">
+		<property name="ndao" ref="ndao" />
 	</bean>
 	
 	<!-- [1] DataSource빈 선언 -->
@@ -43,6 +50,8 @@
 			<list>
 				<value>classpath:config/boardMapper.xml</value>
 				<value>classpath:config/replyMapper.xml</value>
+				<value>classpath:config/noticeMapper.xml</value>
+				<value>classpath:config/uploadMapper.xml</value>
 			</list>
 		</property>
 		<!-- <property name="configLocation" value="classpath:config/boardMapper.xml"/> -->
@@ -54,12 +63,17 @@
 	</bean>
 	
 	
-	<!-- webSocket 등록 -->
-	<!-- <bean id="chatWebSocketHandler" class="part01.ChatWebSocketHandler" />
+	<!-- 첨부파일을 임시기억 저장소에 저장한다. -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- <property name="uploadTempDir" ref="uploadDirResource" -->
+		<property name="maxUploadSize" value="100000000"/>
+	</bean>
 	
-	<websocket:handlers>
-		<websocket:mapping handler="chatWebSocketHandler" path="/chatws.do"/>
-	</websocket:handlers> -->
+	<!-- 첨부파일 경로 -->
+	<bean id="path" class="java.lang.String">
+		<constructor-arg value="c:/khNotice/" />
+	</bean>
+	
 	
 	<!-- viewResolver -->
 	<bean
@@ -67,5 +81,15 @@
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
+	
+	
+	<!-- webSocket 등록 -->
+	<!-- <bean id="chatWebSocketHandler" class="part01.ChatWebSocketHandler" />
+	
+	<websocket:handlers>
+		<websocket:mapping handler="chatWebSocketHandler" path="/chatws.do"/>
+	</websocket:handlers> -->
+	
+	
 
 </beans>

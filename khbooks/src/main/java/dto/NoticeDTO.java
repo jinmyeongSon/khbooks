@@ -1,14 +1,19 @@
 package dto;
 
 import java.sql.Date;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 public class NoticeDTO {
 	private int nnum;
 	private String aid;
-	private String nname;
-	private String ntext;
+	private String bname;
+	private String btext;
 	private Date ndate;
 	private int ncount;
+	private List<UploadDTO> uList;
+	private List<MultipartFile> filename;
 	
 	public NoticeDTO() {
 		
@@ -30,20 +35,20 @@ public class NoticeDTO {
 		this.aid = aid;
 	}
 
-	public String getNname() {
-		return nname;
+	public String getBname() {
+		return bname;
 	}
 
-	public void setNname(String nname) {
-		this.nname = nname;
+	public void setBname(String bname) {
+		this.bname = bname;
 	}
 
-	public String getNtext() {
-		return ntext;
+	public String getBtext() {
+		return btext;
 	}
 
-	public void setNtext(String ntext) {
-		this.ntext = ntext;
+	public void setBtext(String btext) {
+		this.btext = btext;
 	}
 
 	public Date getNdate() {
@@ -60,6 +65,22 @@ public class NoticeDTO {
 
 	public void setNcount(int ncount) {
 		this.ncount = ncount;
+	}
+	
+	public List<UploadDTO> getuList() {
+		return uList;
+	}
+	
+	public void setuList(List<UploadDTO> uList) {
+		this.uList = uList;
+	}
+	
+	public List<MultipartFile> getFilename() {
+		return filename;
+	}
+	
+	public void setFilename(List<MultipartFile> filename) {
+		this.filename = filename;
 	}
 
 }

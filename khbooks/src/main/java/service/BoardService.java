@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import dto.BoardDTO;
+import dto.NoticeDTO;
 import dto.PageDTO;
 import dto.ReplyDTO;
 
