@@ -382,9 +382,23 @@ function reply_list_result(res) {
             <p>${text}</p>
             <p>${myCount} / ${totalCount}</p>
             
+      		<!-- box box-success 시작 -->
+	  <div class="box box-success">
+	   <div class="box-header">
+		 <h3 class="box-title" style="margin-left:3%;">리뷰 코멘트</h3>
+	   </div>
+	   <div class="box-body">
+	     <label for="newReplyText" style="margin-left:3%;">Reply	Text</label> 
+	     <input class="form-control" type="text" placeholder="REPLY TEXT" id="newReplyText" style="width: 95%; height: 100px; margin-left:3%;">
+		<div class="box-footer" style="margin-left:3%;">
+		 <button class="btn" type="button" id="replyAddBtn">ADD REPLY</button>
+		</div>		
+	  </div>
+	  <!-- box box-success 끝 -->
+            
             
 	  <ul class="timeline">				
-		<li class="time-label" id="repliesDiv">
+		<li class="time-label" id="repliesDiv" style="list-style: none;">
 	 	  <span class="bg-green">댓글 
 	 	  <small id='replycntSmall'> 
 	 	   [ ${fn:length(review)} ] 
@@ -392,14 +406,13 @@ function reply_list_result(res) {
 	 	</li>
 	 	
 	   <c:forEach items="${review}" var="rev">
-		<li class="time_sub"  id="${rev.rno}">
-		 <p>${rev.id}</p>
-		 <p>${rev.rtext}</p>
-		 <p><fmt:formatDate pattern="yyyy/MM/dd" dateStyle="short"
-			    			value="${rev.rdate}" /></p>
+		<li class="time_sub"  id="${rev.rno}" style="list-style: none;">
+		 <div style="float:left; font-size:25px;"> <i class="icon-leaf"></i>${rev.id}</div>
+		 <div style="float:right"><fmt:formatDate pattern="yyyy/MM/dd" dateStyle="short" value="${rev.rdate}" /></div>
+		 <div style="clear:both; font-size:18px; ">${rev.rtext}</div>
 		 <p>
-		   <button id="${rev.rno}">delete</button>
-		   <button id="${rev.rno}">update</button></p>
+		   <button class="btn btn-mini" type="button" id="${rev.rno}">delete</button>
+		   <button class="btn btn-mini" type="button" id="${rev.rno}">update</button></p>
 	   </li>
 	  </c:forEach> 
 	  </ul>

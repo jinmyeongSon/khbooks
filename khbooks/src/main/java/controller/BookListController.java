@@ -58,7 +58,6 @@ public class BookListController {
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
-	
 		mav.addObject("bList", service.bookListProcess(dto));
 		mav.addObject("gList", service.genreListProcess());
 		mav.addObject("pdto", dto);
