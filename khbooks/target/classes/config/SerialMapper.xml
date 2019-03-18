@@ -7,7 +7,7 @@
 
 	<select id="getSerial" parameterType="map" resultType="dto.SerialDTO">
 		select rownum, a.*
-		from (select rownum as rm, serial.* from serial where bno=#{bno} order by upno desc)a
+		from (select rownum as rm, serial.* from serial where bno=#{bno} order by upno)a
 		where a.rm=#{rm} 
 	</select>
 	

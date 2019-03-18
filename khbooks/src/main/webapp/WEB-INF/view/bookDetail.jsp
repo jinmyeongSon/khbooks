@@ -166,7 +166,7 @@
                 	<c:set var="count" value="${fn:length(serial)}"/>
                 <c:forEach items="${serial}" var="serial" varStatus="index">
 					<li style="list-style:none; line-height:35px;  width: 96%; margin-left: 2%;  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; border-bottom: 1px dashed #a9a9a9;  padding-top: 4px;">
-						<a href="serialView.kh?bno=${book.bno}&rm=${index.index+1}" style="font-size:15px; color:#333333;  ">&nbsp; <c:out value="${count-index.index}"/>. ${serial.stitle}</a></li>
+						<a href="serialView.kh?bno=${book.bno}&rm=${count-index.index}" style="font-size:15px; color:#333333;  ">&nbsp; <c:out value="${count-index.index}"/>. ${serial.stitle}</a></li>
 				</c:forEach>
 					</ul>
                 </div>

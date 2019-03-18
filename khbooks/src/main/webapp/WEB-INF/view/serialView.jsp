@@ -8,7 +8,8 @@
 <head>
 <meta charset=UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
 <script type="ajaxsrc/jquery01.js"></script>
 
 <!-- CSS
@@ -16,8 +17,12 @@
 <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/bootstrap-responsive.css">
-<link rel="stylesheet" href="css/jquery.lightbox-0.5.css">
 <link rel="stylesheet" href="css/custom-styles.css">
+<style type="text/css">
+div::-webkit-scrollbar { 
+    display: none; 
+}
+</style>
 
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -39,8 +44,38 @@
 <script type="text/javascript">
 var urno='';
 var fileList='';
+var bno='';
+var rm='';
+var totalCount='';
 
 $(document).ready(function(){
+	bno=${bno};
+	rm=${rm};
+	totalCount=${totalCount};
+	
+	$('#prev').on('click', function() {
+		if(rm == 1){
+			alert('첫화임 ㅅㄱ');
+		} else{
+			rm--;
+			serial_move();
+		}
+	});
+	
+	$('#next').on('click', function() {
+		if(rm == totalCount){
+			alert('막화임 ㅅㄱ');
+		} else{
+			rm++;
+			serial_move();
+		}
+	});
+	
+	$('#go').on('click', function() {
+		rm = $('#sesel').val();
+		serial_move();
+	});
+	
 	// 수정 모달 숨기기
 	$('#modifyModal').addClass('modifyHide');
 	// 댓글추가
@@ -68,47 +103,7 @@ $(document).ready(function(){
 	//모달창에 수정버튼
 	$('#btnModify').on('click',reply_update_send);
 	
-	//내 pc 첨부파일 시작///
-	var userfile='';
-	$('#userpc').on('click',function(){
-		userfile=$('<input type="file" id="userfile"/>');
-		userfile.click();
-		userfile.change(function(){
-			console.log($(userfile[0]).val());
-			var partname=$(userfile[0]).val().substring($(userfile[0]).val().lastIndexOf("\\")+1);
-			console.log("partname",partname);
-			var str='<p><input type="checkbox"/>'+partname+'</p>'
-			$('.fileDrop').empty();//초기화
-			$('.fileDrop').append(str);
-			var dataList=userfile[0].files[0];
-			console.kog(dataList);
-			fileList=dataList;
-		});
-	})
-	//내  pc 첨부 파일 끝//
-	
-	//첨부 파일 드래그 시작///
-	var obj=$('.fileDrop');
-	obj.on('dragover',function(e){
-		e.preventDefault();
-		$(this).css('border','2px solid #0B85A1');
-	//dragover drag중 mouse가 현재 위치한 element
-	});
-	
-	obj.on('drop',function(e){
-		e.preventDefault();
-		$(obj).empty();
-		var files=e.originalEvent.dataTransfer.files;
-		obj.append('<p><input type="checkbox"/>'+files[0].name+'</p>');
-		fileList=files[0];
-	});
-	//첨부 파일 드래그 끝////
-	
-	$(document).on('click', '.fileDrop input[type="checkbox"]', function(){
-		//$(obj).empty();
-		$(this).parent().remove();
-		fileList='';
-	});
+
 	
 	
 });
@@ -126,6 +121,56 @@ function reply_update_send(){
 	$('#modifyModal').removeClass('modifyShow').addClass('modifyHide');
 	$(document).on('click','.timeline button',reply_update_delete);
 	urno='';
+}
+
+function serial_move(){
+	$.ajax({
+		type:'GET',
+		dataType:'json',
+		url: 'serialMove.kh?bno='+bno+'&rm='+rm,
+		success : change_serial
+	});
+}
+
+function change_serial(res) {
+	$('#secnt').text(rm + ' / ${totalCount}');
+	$('#sesel').val(rm);
+	$('#novel').html('');
+	var source = '{{{scontent}}}';
+	var template = Handlebars.compile(source);
+	$('#novel').html(template(res));
+	$('#stitle').html('');
+	source = '{{stitle}}';
+	template2 = Handlebars.compile(source);
+	$('#stitle').html(template2(res));
+	source = '{{upno}}';
+	template3 = Handlebars.compile(source);
+	var upno = template3(res);
+	$.ajax({
+		type:'GET',
+		dataType:'json',
+		url: 'getComment.kh?upno='+upno,
+		success : change_comment
+	});
+}
+
+function change_comment(res) {
+	// 코멘트 바꾸기.
+	$('.timeline .time_sub').remove();
+	$('#comment').text('Comment (' + res.length + ')');
+	
+	$.each(res, function(index, value) {
+		var source = '<li class="time_sub"  id="{{rno}}" style="list-style: none;">'
+		 +'<div style="float:left; font-size:25px;"> <i class="icon-leaf"></i>{{id}}</div>'
+		 +'<div style="float:right">{{newDate rdate}}</div>'
+		 +'<div style="clear:both; font-size:18px; ">{{rtext}}</div>'
+		 +'<p>'
+		 +'<button class="btn btn-mini" type="button" id="{{rno}}">delete</button>'
+		 +'<button class="btn btn-mini" type="button" id="{rno}}">update</button></p>'
+	     +'</li>';
+		var template = Handlebars.compile(source);
+		$('.timeline').append(template(value));
+	});
 }
 
 function reply_update_delete() {
@@ -176,6 +221,8 @@ function reply_list() {
 	$('#newReplyWriter').val('');
 	$('#newReplyText').val('');
 	$('.fileDrop').empty();
+	
+	
 }
 
 // http://handlebarsjs.com/
@@ -196,24 +243,7 @@ Handlebars.registerHelper("newUpload",function(uploadFile){
 		return uploadFile.substring(uploadFile.indexOf("_")+1);
 	else
 		return uploadFile;
-})
-
-function reply_list_result(res) {
-	$('.timeline .time_sub').remove();
-	$('#replycntSmall').text('[ ' + res.length + ' ]');
-	
-	$.each(res, function(index, value) {
-		var source = '<li class="time_sub" id="{{rno}}">'
-			+'<p>{{replyer}}</p>'
-			+'<p>{{replytext}}</p>'
-			+'<p>{{newDate regdate}}</p>'
-			+'<p>{{newUpload rupload}}</p>'
-			+'<p><button id="{{rno}}">delete</button> '
-			+'<button id="{{rno}}">update</button></p></li>';
-		var template = Handlebars.compile(source);
-		$('.timeline').append(template(value));
-	});
-}
+});
 </script>
 
 </head>
@@ -375,36 +405,60 @@ function reply_list_result(res) {
         ================================================== --> 
         <div class="span8"><!--Begin page content column-->
 
-            <h2 class="title-bg">Left Sidebar Example</h2>
+            <h2 class="title-bg" id="stitle">${sdto.stitle}</h2>
 
-            <p>${bno}</p>
-            <p>${upno}</p>
-            <p>${text}</p>
-            <p>${myCount} / ${totalCount}</p>
+			<div style="width: 100%;">
+				<div style="width: 65%; height:650px; margin-left:15px; float: left; border: 2px solid #a9a9a9; background-color:#CEFBC9; overflow: scroll; word-wrap:break-word; font-size: 16px; user-select:none;" oncontextmenu="return false" id="novel">
+					${sdto.scontent}
+				</div>
+				<div style="width: 25%; height: 300px; margin-left:30px; float: left; border: 2px solid black;">
+            		<div align="center" id="secnt">${myCount} / ${totalCount}</div>
+            		<div align="center">
+            			<select style="width: 30%;" id="sesel">
+            				<c:forEach begin="1" end="${totalCount}" var="i">
+            					<c:choose>
+            						<c:when test="${i == myCount}">
+            							<option value="${i}" selected="selected">${i}</option>
+            						</c:when>
+            						<c:otherwise>
+            							<option value="${i}">${i}</option>
+            						</c:otherwise>
+            					</c:choose>
+            				</c:forEach>
+            			</select>
+            			<button class="btn btn-mini" style="margin-bottom: 8px;" id="go">GO</button>
+            		</div>
+            		<div align="center">
+            			<select style="width: 30%;">
+            					<option selected="selected">5</option>
+            					<option>4</option>
+            					<option>3</option>
+            					<option>2</option>
+            					<option>1</option>
+            			</select>
+            			<button class="btn btn-mini" style="margin-bottom: 8px;">별점 주기</button>
+            		</div>
+            		<div align="center"><button class="btn btn-mini" id="prev">이전화</button><button class="btn btn-mini" id="next">다음화</button></div>
+            		<div align="center"><button class="btn btn-mini" id="add">나의 서재에 추가</button></div>
+            		<div align="center"><a href="" id="myBook">나의 서재로 이동하기</a></div>
+				</div>
+			</div>
             
       		<!-- box box-success 시작 -->
-	  <div class="box box-success">
+	  <div class="box box-success" style="clear: both;">
 	   <div class="box-header">
-		 <h3 class="box-title" style="margin-left:3%;">리뷰 코멘트</h3>
+		 <h3 class="box-title" style="margin-left:3%; text-shadow: none;" id="comment">Comment (${fn:length(review)})</h3>
 	   </div>
 	   <div class="box-body">
-	     <label for="newReplyText" style="margin-left:3%;">Reply	Text</label> 
-	     <input class="form-control" type="text" placeholder="REPLY TEXT" id="newReplyText" style="width: 95%; height: 100px; margin-left:3%;">
-		<div class="box-footer" style="margin-left:3%;">
-		 <button class="btn" type="button" id="replyAddBtn">ADD REPLY</button>
+	     <input class="form-control" type="text" placeholder="REPLY TEXT" id="newReplyText" style="width: 78%; height: 100px; margin-left:3%; float:left;">
+		<div class="box-footer" style="float:left; width: 17%;">
+		 <button class="btn" type="button" id="replyAddBtn" style=" width:100%; height: 110px;">ADD REPLY</button>
 		</div>		
 	  </div>
 	  <!-- box box-success 끝 -->
             
             
-	  <ul class="timeline">				
-		<li class="time-label" id="repliesDiv" style="list-style: none;">
-	 	  <span class="bg-green">댓글 
-	 	  <small id='replycntSmall'> 
-	 	   [ ${fn:length(review)} ] 
-	 	  </small></span>
-	 	</li>
-	 	
+	  <ul class="timeline" style="clear: both;">
 	   <c:forEach items="${review}" var="rev">
 		<li class="time_sub"  id="${rev.rno}" style="list-style: none;">
 		 <div style="float:left; font-size:25px;"> <i class="icon-leaf"></i>${rev.id}</div>
