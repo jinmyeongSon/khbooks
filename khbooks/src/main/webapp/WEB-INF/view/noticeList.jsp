@@ -212,9 +212,9 @@
                 </div>
             </section>
             
-            <c:forEach items="${noticeList }" var="ndto">
-            	<button class="btn" type="button" onclick="javascript:location.href='noticeWrite.kh?nnum='+${ndto.nnum}"><i>글쓰기</i></button>
-			</c:forEach>
+            
+            <button class="btn" type="button" onclick="javascript:location.href='noticeWrite.kh'"><i>글쓰기</i></button>
+			
             <!--Categories-->
             <h5 class="title-bg">Categories</h5>
             <ul class="post-category-list">

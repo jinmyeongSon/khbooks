@@ -16,6 +16,11 @@
 <link rel="stylesheet" href="css/bootstrap-responsive.css">
 <link rel="stylesheet" href="css/jquery.lightbox-0.5.css">
 <link rel="stylesheet" href="css/custom-styles.css">
+<style type="text/css">
+.file p {
+	color : tomato;
+}
+</style>
 <!-- Favicons
 ================================================== -->
 <link rel="shortcut icon" href="img/favicon.ico">
@@ -143,32 +148,37 @@
 
             <!-- Blog Post 1 -->
             <article>
-                <h3 class="title-bg">${noticeView.bname }</h3>
+            <c:forEach items="${noticeView }" var="view">
+                <h3 class="title-bg">${view.bname }</h3>
                 <div class="post-content">
                     <!-- <img src="img/gallery/notice.jpg" alt="Post Thumb">  -->
                     <div class="post-body">
-                        <p>${noticeView.btext }</p>
-                        <c:if test="${!empty NoticeDTO.uList }">
-                        	<c:forEach items="${NoticeDTO.uList }" var="up">
-                        		<p>
-                        		<c:set var="numload" value="${(fn:indexOf(up.upname,'_'))+1}" />
-                        		<c:set var="strlength" value="${fn:length(up.upname)}"/>
-                        		${fn:substring(up.upname,numload,strlength)}</p>
-                        	</c:forEach>
-                        </c:if>
+                        <p>${view.btext }</p>
                     </div>
 
                     <div class="post-summary-footer">
                         <ul class="post-data">
-                            <li><i class="icon-calendar"></i><fmt:formatDate pattern="yy/MM/dd" dateStyle="short" value="${noticeView.ndate }" /></li>
-                            <li><i class="icon-user"></i>${noticeView.aid }</a></li>
-                            <li><button type="button" class="btn btn-outline-dark" id="${noticeView.nnum }">수정</button></li>
-                            <li><button type="button" class="btn btn-outline-dark" id="${noticeView.nnum }">삭제</button></li>
+                            <li><i class="icon-calendar"></i><fmt:formatDate pattern="yy/MM/dd" dateStyle="short" value="${view.ndate }" /></li>
+                            <li><i class="icon-user"></i>${view.aid }</a></li>
+                            <li><button type="button" class="btn btn-outline-dark" id="${view.nnum }">수정</button></li>
+                            <li><button type="button" class="btn btn-outline-dark" id="${view.nnum }">삭제</button></li>
                             <li><button type="button" class="btn btn-outline-dark" id="li"  onclick="javascript:history.go(-1)">목록</button></li>
-                            
                         </ul>
                     </div>
-                </div>
+            	</div>
+            	
+            	<div class="file">
+                    	<c:if test="${!empty view.uList }">
+                        	<c:forEach items="${view.uList }" var="up">
+                        		<p>
+                        		<c:set var="numload" value="${(fn:indexOf(up.upname,'_'))+1}" />
+                        		<c:set var="strlength" value="${fn:length(up.upname)}"/>
+                        		● ${fn:substring(up.upname,numload,strlength)}</p>
+                        	</c:forEach>
+                        </c:if>
+                    </div>
+                    
+               </c:forEach>
             </article>
 
        

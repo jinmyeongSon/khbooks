@@ -3,7 +3,6 @@ package service;
 import java.util.List;
 
 import dao.NoticeDAO;
-import dto.BoardDTO;
 import dto.NoticeDTO;
 import dto.PageDTO;
 
@@ -29,7 +28,7 @@ public class NoticeServiceImp implements NoticeService {
 	}
 
 	@Override
-	public NoticeDTO noticeViewPro(int nnum) {
+	public List<NoticeDTO> noticeViewPro(int nnum) {
 		ndao.noticeReadCount(nnum);
 		return ndao.noticeView(nnum);
 	}
@@ -51,7 +50,7 @@ public class NoticeServiceImp implements NoticeService {
 
 	@Override
 	public void noticeDeletePro(int nnum) {
-		
+		ndao.noticeDelete(nnum);
 	}
 
 }

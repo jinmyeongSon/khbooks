@@ -21,7 +21,7 @@
 	<insert id="insert" parameterType="dto.NoticeDTO">
 	   insert into notice
 		values(nnum_seq.nextval,#{aid},#{bname},#{btext},sysdate, #{ncount})
-		<selectKey keyProperty="rno" resultType="Integer" order="AFTER"> 
+		<selectKey keyProperty="nnum" resultType="Integer" order="AFTER"> 
 			SELECT nnum_seq.currval FROM dual 
 		</selectKey>
 	</insert>
@@ -33,9 +33,9 @@
 	</update>
 	
 	<select id="view" parameterType="int" resultMap="notice_upload_view">
-		select n.ndate as ndate, n.*, u.nnum as unnum, u.*
+		select n.*, u.nnum as unnum, u.aid as uaid, u.*
 		from notice n, upload u
-		where n.nnum=u.upno(+)
+		where n.nnum=u.nnum(+)
 		and n.nnum=#{nnum}
 	</select>
 	
@@ -48,8 +48,8 @@
 		<result column="ncount" property="ncount" />
 		<collection property="uList" javaType="java.util.List" ofType="dto.UploadDTO" autoMapping="false">
 			<id column="upno" property="upno" />
-			<id column="nnum" property="nnum" />
-			<id column="aid" property="aid" />
+			<id column="unnum" property="nnum" />
+			<id column="uaid" property="aid" />
 			<id column="upname" property="upname" />
 		</collection>
 	</resultMap> 

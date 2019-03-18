@@ -9,7 +9,7 @@ public interface NoticeDAO {
 	public int noticeCount();
 	public List<NoticeDTO> noticeList(PageDTO pdto);
 	public void noticeReadCount(int nnum);
-	public NoticeDTO noticeView(int nnum);
+	public List<NoticeDTO> noticeView(int nnum);
 	public void	noticeInsert(NoticeDTO ndto);
 	public	NoticeDTO noticeUpdateNum(int nnum);
 	public void noticeUpdate(NoticeDTO ndto);

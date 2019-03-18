@@ -44,12 +44,39 @@ $(document).ready(function(){
 	});
 	
 	
+	////////////////////////////게시글 수정 삭제//////////////////////////
+	//게시글 삭제,수정 이벤트
+	$(document).on('click', '.post-data button', notice_update_delete);
+	
+	
 });//end ready
+
+
+function notice_update_delete() {
+	if($(this).text() == "삭제") {
+		var delnum = $(this).prop("id");
+		alert("삭제번호 : " + delnum);
+		
+		$.ajax({
+			type : 'GET',
+			dataType : 'json',
+			url : 'noticeDelete.kh?nnum='+delnum,
+			success : function(res){
+				alert('삭제 성공');
+				location.href = 'noticeList.kh';
+			}
+		});
+		
+	} else if($(this).text() == "수정") {
+		var upnnum = $(this).prop("id");
+		alert("수정 번호 : " + upnnum);
+		location.href = 'noticeUpdate.kh?nnum='+upnnum
+	}
+}
 
 
 
 function notice_list(){
-	alert('nnum' + $())
 	var text = $('#btext').val();
 	if(text == '') {
 		alert('내용을 입력해주세요.');
@@ -57,9 +84,10 @@ function notice_list(){
 	}
 	
 	var form_data = new FormData();
-	form_data.append('nnum', nnum);
-	form_data.append('bname', bname);
-	form_data.append('btext', btext);
+	form_data.append('aid', $('#aid').val());
+	form_data.append('bname', $('#bname').val());
+	form_data.append('btext', $('#btext').val());
+	
 	
 	if(fileList) {
 		for(var index in fileList) {
@@ -88,26 +116,9 @@ function notice_list(){
 
 
 function notice_list_result(res) {
-	
-	$.each(res, function(index, value){
-		var source = '<h3 class="title-bg">{{bname}}</h3>'
-			+'<div class="post-content">'
-			+'<div class="post-body">'
-			+'<p>${{btext}}</p>'
-			+'{{{newUpload uList}}}'
-			+'</div>'
-			+'<div class="post-summary-footer">'
-			+'<ul class="post-data">'
-			+'<li><i class="icon-calendar"></i>{{newDate ndate}}</li>'
-			+'<li><i class="icon-user"></i>{{aid}}</li>'
-			+'<li><button type="button" class="btn btn-outline-dark" id="{{nnum}}">수정</button></li>'
-			+'<li><button type="button" class="btn btn-outline-dark" id="{{nnum}}">삭제</button></li>'
-			+'<li><button type="button" class="btn btn-outline-dark" id="li"  onclick="javascript:history.go(-1)">목록</button></li>'
-			+'</ul></div></div>';
-			
-		var template = Handlebars.compile(source);
-		$('#article').append(template(value));
-	});
+	alert('업로드 성공');
+
+	location.href = 'noticeList.kh';
 	
 }//end notice_list_result()
 

@@ -9,7 +9,7 @@ import dto.PageDTO;
 public interface NoticeService {
 	public int noticeCountPro(); 
 	public List<NoticeDTO> noticeListPro(PageDTO pdto);
-	public NoticeDTO noticeViewPro(int nnum);
+	public List<NoticeDTO> noticeViewPro(int nnum);
 	public void noticeInsertPro(NoticeDTO dto);
 	public NoticeDTO noticeUpdateSelectPro(int nnum);
 	public void noticeUpdatePro(NoticeDTO dto);

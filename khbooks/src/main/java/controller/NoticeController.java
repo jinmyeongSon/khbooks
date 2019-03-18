@@ -77,27 +77,22 @@ public class NoticeController {
 	public ModelAndView noticeView(int nnum, int currentPage) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("currentPage", currentPage);
-		mav.addObject("noticeView", nservice.noticeViewPro(nnum)); //NoticeDTO
+		mav.addObject("noticeView", nservice.noticeViewPro(nnum)); //List<NoticeDTO>
 		mav.setViewName("noticeView");
 		return mav;
 	}//end noticeView()
 	
 	@RequestMapping("/noticeWrite.kh")
-	public ModelAndView noticeWrite(int nnum) {
+	public ModelAndView noticeWrite() {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("nnum", nnum);
 		mav.setViewName("noticeWrite");
 		return mav;
 	}
 	
 	@RequestMapping("/noticeWritePro.kh")
 	public @ResponseBody List<NoticeDTO> noticeWritePro(NoticeDTO ndto, HttpServletRequest req, PageDTO pv) {
-		ModelAndView mav = new ModelAndView();
-		List<MultipartFile> files = ndto.getFilename();
-		for(MultipartFile mf : files) {
-			System.out.println("파일 이름 : " + mf.getOriginalFilename());
-		}
 		
+		List<MultipartFile> files = ndto.getFilename();
 		List<UploadDTO> uList = new ArrayList<UploadDTO>();
 		
 		if(files != null) {
@@ -124,20 +119,35 @@ public class NoticeController {
 		}
 		
 		nservice.noticeInsertPro(ndto);
-		int totalRecord = nservice.noticeCountPro();
 		
-		if(totalRecord >= 1) {
-			if(pv.getCurrentPage() == 0) {
-				currentPage = 1;
-			} else {
-				currentPage = pv.getCurrentPage();
-			}
-			
-			pdto = new PageDTO(currentPage, totalRecord);
-		}
 		
-		return nservice.noticeListPro(pdto);
+		
+		return nservice.noticeListPro(pv);
 		
 	}//end noticeWritePro()
+	
+	
+	@RequestMapping("/noticeDelete.kh")
+	public @ResponseBody List<NoticeDTO> noticeDelete(int nnum, PageDTO pv) {
+		ModelAndView mav = new ModelAndView();
+
+		
+		nservice.noticeDeletePro(nnum);
+		
+		
+		pv = new PageDTO(nnum, nservice.noticeCountPro());
+		if(pv.getTotalPage() < currentPage) {
+			mav.addObject("currentPage", pv.getTotalPage());
+		} else {
+			mav.addObject("currentPage", currentPage);
+		}
+		
+		return nservice.noticeListPro(pv);
+		
+	}//end noticeDelete()
+	
+	
+	//@RequestMapping("/noticeUpdate.kh")
+	
 
 }//end class

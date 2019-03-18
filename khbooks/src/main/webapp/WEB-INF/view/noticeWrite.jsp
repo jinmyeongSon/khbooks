@@ -7,6 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+.fileDrop {
+	height : 100px;
+	border : 1px solid red;
+}
+</style>
 
 <!-- CSS
 ================================================== -->
@@ -142,7 +148,6 @@
         <div class="span8 blog">
         <form id="frm">
         <input type="hidden" name="aid" id="aid" value="admin">
-        <input type="hidden" name="nnum" value="${nnum }">
             <!-- Blog Post 1 -->
             <article>
                 <h3 class="title-bg"><input type="text" name="bname" id="bname" style="width:500px"></h3>

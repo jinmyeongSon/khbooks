@@ -5,24 +5,23 @@
     
 <mapper namespace="upload">
 
-	<select id="u_list" parameterType="int" resultType="dto.UploadDTO">
-		select * from tbl_upload
-		where rno_upload=#{rno}
+	<select id="list" parameterType="int" resultType="dto.UploadDTO">
+		select * from upload
+		where nnum=#{nnum}
 	</select>
 	
-	<insert id="u_insert">
-		insert into tbl_upload
-		select upload_uno_seq.nextval, A.* from(
+	<insert id="insert">
+		insert into upload
+		select upno_seq.nextval, A.* from(
 			<foreach collection="list" item="upload" separator="union all">
-				select #{upload.rno} as rno_upload, #{upload.rupload} as rupload
+				select #{upload.nnum} as nnum, #{upload.aid} as aid, #{upload.upname} as upname
  				from dual
 			</foreach>
 		)A
 	</insert>
 	
-	<delete id="u_delete" parameterType="int">
-		delete from tbl_upload
-		where uno=#{uno}
+	<delete id="delete" parameterType="int">
+		delete from upload where upno=#{upno}
 	</delete>
 
 </mapper>
