@@ -16,11 +16,67 @@
 		<property name="username" value="hr" />
 		<property name="password" value="a1234" />
 	</bean>
+	
+	<!-- [2] SqlSessionFactoryBean 빈 선언 -->
+
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:config/memberInforMapper.xml</value>
+				<value>classpath:config/FavBookMapper.xml</value>
+				<value>classpath:config/FavAuthorMapper.xml</value>
+			</list>
+		</property>
+		<!-- property name="configLocation" value="classpath:config/configuration.xml"/> -->
+	</bean>
+	
+	<!-- [3] SqlSessionTemplate 빈 선언 -->
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- [7] DAO 빈 선언 -->
+
+	<bean id="MemInfordao" class="dao.MemInforDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+		<!-- <constructor-arg> <ref bean="sqlSession/></constructor-arg> -->
+	</bean>
+	
+	<bean id="FavBookdao" class="dao.FavBookDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+		<!-- <constructor-arg> <ref bean="sqlSession/></constructor-arg> -->
+	</bean>
+	<bean id="FavAuthordao" class="dao.FavAuthorDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+		<!-- <constructor-arg> <ref bean="sqlSession/></constructor-arg> -->
+	</bean>
+
+	<!-- [8] Service 빈 선언 -->
+	<bean id="MemInforservice" class="service.MemInforServiceImp">
+		<property name="dao" ref="MemInfordao"/>
+	</bean>
+	<bean id="FavBookservice" class="service.FavBookServiceImp">
+		<property name="dao" ref="FavBookdao"/>
+	</bean>
+	<bean id="FavAuthorservice" class="service.FavAuthorServiceImp">
+		<property name="dao" ref="FavAuthordao"/>
+	</bean>
 
 	<!-- controller -->
 	<bean class="test.Test" />
 	<bean class="controller.BookListController"/>
-	
+	<bean class="controller.MemberController">
+		<property name="service" ref="MemInforservice"/>
+	</bean>
+	<bean class="controller.FavBookController">
+		<property name="service" ref="FavBookservice"/>
+	</bean>
+	<bean class="controller.FavAuthorController">
+		<property name="service" ref="FavAuthorservice"/>
+	</bean>
 
 	
 	<!-- viewResolver -->
