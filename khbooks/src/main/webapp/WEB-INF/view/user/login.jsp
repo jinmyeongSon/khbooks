@@ -48,7 +48,7 @@
 			
 			<div class="form-group">
 			     <label for="useCookie">
-			         <input type="checkbox" id="useCookie" name="useCookie" value="true" /> Rememeber Me
+			         <input type="checkbox" id="rememberId" name="rememberId" value="true" /> Rememeber Me
 			     </label>
 			</div>
 		

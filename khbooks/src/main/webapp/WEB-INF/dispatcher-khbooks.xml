@@ -43,7 +43,6 @@
 	</bean>
 
 
-
 	<!-- [1] DataSource빈 선언 -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -87,10 +86,6 @@
 		</property>
 	</bean>
 	
-	
-
-
-
 
 
 
