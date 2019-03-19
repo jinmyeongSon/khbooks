@@ -14,5 +14,6 @@ public interface SerialService {
 	List<ReviewCommentDTO> getReviewCommentProcess(int upno);
 	SerialDTO getSerialProcess(Map<String, Object> map);
 	void insertReviewCommentProcess(ReviewCommentDTO rdto);
+	void deleteReviewCommentProcess(ReviewCommentDTO rdto);
 	
 }

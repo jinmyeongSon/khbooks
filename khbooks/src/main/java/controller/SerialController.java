@@ -34,10 +34,14 @@ public class SerialController {
 	@RequestMapping(value="/insertComment.kh")
 	public @ResponseBody List<ReviewCommentDTO> insertComment(ReviewCommentDTO rdto){
 		service.insertReviewCommentProcess(rdto);
-		
-		
 		return service.getReviewCommentProcess(rdto.getUpno());
-		
+	}
+	
+	@RequestMapping(value="/deleteComment.kh")
+	public @ResponseBody List<ReviewCommentDTO> deleteComment(ReviewCommentDTO rdto){
+		service.deleteReviewCommentProcess(rdto);
+		System.out.println(rdto.getUpno());
+		return service.getReviewCommentProcess(rdto.getUpno());
 	}
 	
 	@RequestMapping(value="/serialMove.kh")

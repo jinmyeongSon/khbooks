@@ -44,4 +44,9 @@ public class SerialDaoImp implements SerialDAO {
 	public void insertReviewComment(ReviewCommentDTO rdto) {
 		sqlSession.insert("serial.insertReviewComment", rdto);
 	}
+
+	@Override
+	public void deleteReviewComment(ReviewCommentDTO rdto) {
+		sqlSession.delete("serial.deleteReviewComment", rdto);
+	}
 }

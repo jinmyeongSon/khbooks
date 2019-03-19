@@ -175,20 +175,20 @@ function change_comment(res) {
 }
 
 function reply_update_delete() {
-	// alert($(this).text());
+	alert($(this).text());
 	if($(this).text() == 'delete'){
 		$.ajax({
 			type : 'POST',
 			dataType : 'json',
-			url : 'replyDelete.do',
-			data : 'bno=${boardDTO.bno}&rno=' + this.getAttribute("id"),
-			success : reply_list_result
+			url : 'deleteComment.kh',
+			data : 'bno=${bno}&rno=' + this.getAttribute("id")+'&upno=${sdto.upno}',
+			success : change_comment
 		});
 	}else if($(this).text() == 'update'){
 		$('#modifyModal').removeClass();
 		$('#modifyModal').addClass('modifyShow');
 		$('#updateReplyText').focus();
-		urno = this.getAttribute("id");
+		rno = this.getAttribute("id");
 	}
 }
 
@@ -199,19 +199,15 @@ function reply_insert() {
 		return false;
 	}
 	
-	var form_data=new FormData();
-	form_data.append('bno','${bno}');
-	form_data.append('upno','${upno}');
-	form_data.append('rtext',$('#newReplyText').val());
-	form_data.append('id', 'aa');
 	
 	$.ajax({
 		type : 'POST',
 		dataType : 'json',
 		url : 'insertComment.kh',
-		data:form_data,
+		data:'bno=${bno}&upno=${sdto.upno}&rtext='+$('#newReplyText').val()+'&id=a',
 		success : change_comment
 	});
+	alert('입력까지옴')
 	$('#newReplyText').val('');
 	
 	

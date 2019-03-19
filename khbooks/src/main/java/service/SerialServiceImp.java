@@ -43,5 +43,10 @@ public class SerialServiceImp implements SerialService {
 	public void insertReviewCommentProcess(ReviewCommentDTO rdto) {
 		dao.insertReviewComment(rdto);
 	}
+
+	@Override
+	public void deleteReviewCommentProcess(ReviewCommentDTO rdto) {
+		dao.deleteReviewComment(rdto);
+	}
 	
 }

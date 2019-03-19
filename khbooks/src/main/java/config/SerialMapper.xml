@@ -40,5 +40,11 @@
 		insert into review_comment
 		values(REVIEW_COMMENT_RNO_SEQ.nextval,#{id},#{upno},#{bno},#{rtext},sysdate)
 	</insert>
+	
+	<delete id="deleteReviewComment" parameterType="dto.ReviewCommentDTO">
+		delete from review_comment
+		where rno=#{rno} and upno=#{upno} and bno=#{bno}
+	</delete>
+
 
 </mapper>

@@ -19,5 +19,7 @@ public interface SerialDAO {
 	SerialDTO getSerial(Map<String, Object> map);
 
 	void insertReviewComment(ReviewCommentDTO rdto);
+
+	void deleteReviewComment(ReviewCommentDTO rdto);
 	
 }
