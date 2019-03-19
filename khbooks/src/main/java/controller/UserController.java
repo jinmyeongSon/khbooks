@@ -30,6 +30,7 @@ import dto.UserDTO;
 import service.UserService;
 
 //http://localhost:8090/khbook/signUp.kh
+//http://localhost:8090/khbook/loginForm.kh
 
 @Controller
 public class UserController {
@@ -82,11 +83,10 @@ public class UserController {
 	public void loginPost(UserDTO udto, Model model, HttpSession session) throws Exception {
 		UserDTO dto = service.login(udto);
 		if (dto == null) {
-			model.addAttribute("loginResult", "Login Fail!!");
+			model.addAttribute("msg", "Login Fail!!");
 		} else {
-			service.login(udto);
-			model.addAttribute("udto", dto);
-		}	
+			session.setAttribute("id", dto.getId());
+		}
 	}
 	
 	

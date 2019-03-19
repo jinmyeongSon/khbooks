@@ -42,7 +42,7 @@
 			</div>
 
 			<div class="form-group">
-				<input type="password" name="upwd" id="upwd"
+				<input type="password" name="upass" id="upass"
 					class="form-control" placeholder="Password..."/>
 			</div>
 			
