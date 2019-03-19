@@ -11,9 +11,15 @@ public class SerialDTO {
 	private int sprice;
 	private int ncount;
 	private int auno;
+<<<<<<< HEAD
 	private String stitle;
 	private int sgrade;
 	private List<ReviewCommentDTO> rList;
+=======
+	String stitle;
+	int sgrade;
+	List<ReviewCommentDTO> rList;
+>>>>>>> branch 'meminfor' of https://github.com/jinmyeongSon/khbooks.git
 	public List<ReviewCommentDTO> getrList() {
 		return rList;
 	}
