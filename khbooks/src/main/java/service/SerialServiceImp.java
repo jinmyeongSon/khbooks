@@ -38,5 +38,10 @@ public class SerialServiceImp implements SerialService {
 	public SerialDTO getSerialProcess(Map<String, Object> map) {
 		return dao.getSerial(map);
 	}
+
+	@Override
+	public void insertReviewCommentProcess(ReviewCommentDTO rdto) {
+		dao.insertReviewComment(rdto);
+	}
 	
 }

@@ -39,4 +39,9 @@ public class SerialDaoImp implements SerialDAO {
 	public SerialDTO getSerial(Map<String, Object> map) {
 		return sqlSession.selectOne("serial.getSerial", map);
 	}
+
+	@Override
+	public void insertReviewComment(ReviewCommentDTO rdto) {
+		sqlSession.insert("serial.insertReviewComment", rdto);
+	}
 }

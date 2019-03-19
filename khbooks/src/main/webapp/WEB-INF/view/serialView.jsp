@@ -76,10 +76,11 @@ $(document).ready(function(){
 		serial_move();
 	});
 	
+	
 	// 수정 모달 숨기기
 	$('#modifyModal').addClass('modifyHide');
 	// 댓글추가
-	$("#replyAddBtn").on("click", reply_list);
+	$("#replyAddBtn").on("click", reply_insert);
 	$('#btnModify').on("click", function() {
 		$.ajax({
 			type : 'POST',
@@ -191,7 +192,7 @@ function reply_update_delete() {
 	}
 }
 
-function reply_list() {
+function reply_insert() {
 	var replytext = $('#newReplyText').val();
 	if(replytext == ''){
 		alert('reply text를 작성하세요.');
@@ -199,28 +200,19 @@ function reply_list() {
 	}
 	
 	var form_data=new FormData();
-	form_data.append('bno','${boardDTO.bno}');
-	form_data.append('replytext',$('#newReplyText').val());
-	
-/* 	console.log('filename',$('#filename')[0].files[0]);
-	if($('#filename')[0].files[0]!=undefined){
-		form_data.append('filename',$('#filename')[0].files[0]);
-	} */
-	
+	form_data.append('bno','${bno}');
+	form_data.append('upno','${upno}');
+	form_data.append('rtext',$('#newReplyText').val());
+	form_data.append('id', 'aa');
 	
 	$.ajax({
 		type : 'POST',
 		dataType : 'json',
-		url : 'replyInsertList.do',
+		url : 'insertComment.kh',
 		data:form_data,
-		contentType:false,
-		enctype:'multipart/form-data',
-		processData:false,
-		success : reply_list_result
+		success : change_comment
 	});
-	$('#newReplyWriter').val('');
 	$('#newReplyText').val('');
-	$('.fileDrop').empty();
 	
 	
 }

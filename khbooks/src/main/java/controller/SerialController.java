@@ -31,6 +31,15 @@ public class SerialController {
 		return service.getReviewCommentProcess(upno);
 	}
 	
+	@RequestMapping(value="/insertComment.kh")
+	public @ResponseBody List<ReviewCommentDTO> insertComment(ReviewCommentDTO rdto){
+		service.insertReviewCommentProcess(rdto);
+		
+		
+		return service.getReviewCommentProcess(rdto.getUpno());
+		
+	}
+	
 	@RequestMapping(value="/serialMove.kh")
 	public @ResponseBody SerialDTO serialMove(int bno, int rm){
 		Map<String, Object> map = new HashMap<String, Object>();

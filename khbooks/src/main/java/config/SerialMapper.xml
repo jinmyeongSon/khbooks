@@ -35,5 +35,10 @@
 		where upno=#{upno}
 		order by rdate desc
 	</select>
+	
+	<insert id="insertReviewComment" parameterType="dto.ReviewCommentDTO">
+		insert into review_comment
+		values(REVIEW_COMMENT_RNO_SEQ.nextval,#{id},#{upno},#{bno},#{rtext},sysdate)
+	</insert>
 
 </mapper>

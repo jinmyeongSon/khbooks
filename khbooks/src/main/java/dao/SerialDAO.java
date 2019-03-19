@@ -17,5 +17,7 @@ public interface SerialDAO {
 	List<ReviewCommentDTO> getReviewComment(int upno);
 
 	SerialDTO getSerial(Map<String, Object> map);
+
+	void insertReviewComment(ReviewCommentDTO rdto);
 	
 }
