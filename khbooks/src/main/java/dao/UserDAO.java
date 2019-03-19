@@ -1,11 +1,19 @@
 package dao;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import dto.UserDTO;
 
 public interface UserDAO {
-	//public List<UserDTO> userListMethod();
-	public void userInsertMethod(UserDTO udto);
-	public void userDeleteMethod(UserDTO id);
-	public void userUpdateMethod(UserDTO udto);
+	//회원가입
+	public void register(UserDTO udto);
 	
+	// 로그인 
+	public UserDTO login(UserDTO udto);
+	
+	//아이디 중복체크
+	public int CheckDuplication(String id);
+
 }//end interface

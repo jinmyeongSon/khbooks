@@ -1,38 +1,48 @@
 package dao;
 
+
+import javax.servlet.http.HttpSession;
+
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
 
 import dto.UserDTO;
 
+
+@Repository
 public class UserDaoImp implements UserDAO{
 	private SqlSessionTemplate sqlSession;
+	
 	
 	public UserDaoImp() {
 	
 	}
+	
 	
 	public void setSqlSession(SqlSessionTemplate sqlSession) {
 		this.sqlSession = sqlSession;
 	}
 
 	@Override
-	public void userInsertMethod(UserDTO udto) {
-		sqlSession.insert("user.u_insert", udto);
-		
+	public void register(UserDTO udto) {
+		sqlSession.insert("user.u_ins", udto);
+	}
+	
+
+	@Override
+	public UserDTO login(UserDTO udto) {
+		return sqlSession.selectOne("user.login", udto);
 	}
 
-	
+
 	@Override
-	public void userUpdateMethod(UserDTO udto) {
-		sqlSession.update("user.u_update", udto);
-		
+	public int CheckDuplication(String id) {
+		return sqlSession.selectOne("user.id_chk", id);
 	}
+
+
 	
-	@Override
-	public void userDeleteMethod(UserDTO id) {
-		sqlSession.delete("user.u_delete", id);
-		
-	}
+
 
 	
 	
