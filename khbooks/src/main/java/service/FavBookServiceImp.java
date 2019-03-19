@@ -27,8 +27,8 @@ public class FavBookServiceImp implements FavBookService{
 	}
 
 	@Override
-	public int countprocess() {
-		return dao.count();
+	public int countprocess(String id) {
+		return dao.count(id);
 	}
 	
 }

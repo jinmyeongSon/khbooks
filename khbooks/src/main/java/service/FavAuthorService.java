@@ -6,6 +6,6 @@ import dto.AuthorDTO;
 
 public interface FavAuthorService {
 	public List<AuthorDTO> listprocess(Map<String,Object>map);
-	public int countprocess();
+	public int countprocess(String id);
 	public void deleteprocess(int num);
 }

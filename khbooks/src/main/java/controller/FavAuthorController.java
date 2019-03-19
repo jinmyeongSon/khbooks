@@ -3,6 +3,8 @@ package controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,10 +28,10 @@ public class FavAuthorController {
 	}
 	
 	@RequestMapping("/favAuthorList.kh")
-	public ModelAndView favAuthorList(String id,PageDTO pv) {
+	public ModelAndView favAuthorList(HttpSession session,PageDTO pv) {
 		ModelAndView mav = new ModelAndView();
 		Map<String, Object> map = new HashMap<String,Object>();
-		int totalRecord = service.countprocess();
+		int totalRecord = service.countprocess((String)session.getAttribute("id"));
 		if(totalRecord >=1) {
 			if(pv.getCurrentPage()==0) {
 				currentPage=1;
@@ -37,8 +39,8 @@ public class FavAuthorController {
 				currentPage = pv.getCurrentPage();
 			}
 			pdto= new PageDTO(currentPage,totalRecord);
-			id= "a";
-			map.put("id", id);
+			//id= "a";
+			map.put("id",(String)session.getAttribute("id"));
 			map.put("pdto",pdto);
 			
 			mav.addObject("pv",pdto);

@@ -16,8 +16,8 @@
 	]]>
 	</select>
 	
-	<select id="count" resultType="int">
-		select count(*) from FAV_Author
+	<select id="count" parameterType="String" resultType="int">
+		select count(*) from FAV_Author where id=#{id}
 	</select>
 	
 	<delete id="delete" parameterType="int">

@@ -2,15 +2,9 @@ package dto;
 
 public class PageDTO {
 	private int currentPage; // 현재페이지
-<<<<<<< HEAD
 	private int totalCount; // 총 레코드수
 	private int blockCount = 5; // 한 페이지에 보여줄 레코드수
 	private int blockPage = 5; // 한 블록에 보여줄 페이지수
-=======
-	private int totalCount; // 총 레코드수
-	private int blockCount = 5; // 한 페이지에 보여줄 레코드수
-	private int blockPage = 3; // 한 블록에 보여줄 페이지수
->>>>>>> branch '0319merge' of https://github.com/jinmyeongSon/khbooks.git
 	private int totalPage; // 총 페이지수
 	private int startRow; // 시작 레코드 번호
 	private int endRow; // 끝 레코드번호

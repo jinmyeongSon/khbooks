@@ -18,8 +18,8 @@ public class FavAuthorDaoImp implements FavAuthorDAO{
 	}
 
 	@Override
-	public int count() {
-		return sqlSession.selectOne("FavAuthor.count");
+	public int count(String id) {
+		return sqlSession.selectOne("FavAuthor.count",id);
 	}
 	@Override
 	public List<AuthorDTO> FavList(Map<String, Object> map) {

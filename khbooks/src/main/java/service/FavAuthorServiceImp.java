@@ -22,8 +22,8 @@ public class FavAuthorServiceImp implements FavAuthorService {
 	}
 
 	@Override
-	public int countprocess() {
-		return dao.count();
+	public int countprocess(String id) {
+		return dao.count(id);
 	}
 
 	@Override
