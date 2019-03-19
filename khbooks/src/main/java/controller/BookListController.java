@@ -1,5 +1,6 @@
 package controller;
 
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.Map;
 
@@ -97,5 +98,22 @@ public class BookListController {
 		mav.setViewName("bookSearch");
 		return mav;
 	}
+=======
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+//http://localhost:8090/khbook/booklist.kh
+
+
+@Controller
+public class BookListController {
+	
+	@RequestMapping(value="/booklist", method=RequestMethod.GET)
+	public String index() {
+		return "booklist";
+	}
+	
+>>>>>>> branch 'userLogin' of https://github.com/jinmyeongSon/khbooks.git
 
 }
