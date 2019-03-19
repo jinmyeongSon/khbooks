@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 
 import dto.NoticeDTO;
 import dto.PageDTO;
@@ -15,5 +16,4 @@ public interface NoticeService {
 	public void noticeUpdatePro(NoticeDTO dto);
 	public void noticeDeletePro(int nnum);
 	public List<UploadDTO> uploadList(UploadDTO udto);
-
 }

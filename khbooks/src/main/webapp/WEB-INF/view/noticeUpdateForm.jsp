@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>         
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>         
 <!DOCTYPE html>
 <html>
 <head>
@@ -149,25 +150,37 @@
         <form id="frm">
         <c:forEach items="${updateList }" var="update">
         <input type="hidden" name="aid" id="aid" value="admin">
+        <input type="hidden" id="nnum" value="${update.nnum }">
             <!-- Blog Post 1 -->
             <article>
                 <h3 class="title-bg"><input type="text" name="bname" id="bname" value="${update.bname }" style="width:500px"></h3>
                 <div class="post-content">
 
                     <div class="post-body">
-                        <p><textarea name="btext" id="btext" value="${update.btext }" style="width:700px; height:300px;"></textarea></p>
+                        <p><textarea name="btext" id="btext" style="width:700px; height:300px;">${update.btext }</textarea></p>
                     </div>
 
                     <div class="post-summary-footer">
                         <ul class="post-data">
                         	<li><span id="userpc" style="cursor:pointer">파일 첨부</span></li>
-                            <li><button type="button" class="btn btn-outline-dark" id="write">등록</button></li>
+                            <li><button type="button" class="btn btn-outline-dark" id="upload">등록</button></li>
                             <li><button type="button" class="btn btn-outline-dark" id="li"  onclick="javascript:history.go(-1)">목록</button></li>
                         </ul>
                     </div>
                 </div>
             </article>
-            <div class="fileDrop"></div>
+            <div class="fileDrop">
+            <c:choose>
+            <c:when test="${!empty uploadList }">
+            	<c:forEach items="${uploadList }" var="upload">
+               			<p> <c:set var="numload" value="${(fn:indexOf(upload.upname,'_'))+1}" />
+               			<c:set var="strlength" value="${fn:length(upload.upname)}"/>
+              			 <input type="checkbox">${fn:substring(upload.upname,numload,strlength)} </p>
+           	 		
+            	</c:forEach>
+            </c:when>
+            </c:choose>
+            </div>
             </c:forEach>
        </form>
 

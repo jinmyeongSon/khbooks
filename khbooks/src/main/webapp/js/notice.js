@@ -5,6 +5,10 @@ $(document).ready(function(){
 	
 	$('#write').on('click', notice_list);
 	
+	$('#upload').on('click', notice_upload_send); //등록
+	
+	 $("#down").on("click", file_download); //파일 다운
+	
 	//첨부파일 시작//
 	var userFile = '';
 	$('#userpc').on('click', function(){
@@ -51,6 +55,12 @@ $(document).ready(function(){
 	
 });//end ready
 
+function file_download() {
+	var downUpno = $('#downUpno').val();
+	alert(downUpno);
+	location.href = 'noticeDown.kh?upno='+downUpno
+}
+
 
 function notice_update_delete() {
 	if($(this).text() == "삭제") {
@@ -74,6 +84,38 @@ function notice_update_delete() {
 	}
 	
 }//end notice_update_delete()
+
+
+function notice_upload_send() {
+	
+	var form_data = new FormData();
+	form_data.append('nnum', $('#nnum').val());
+	form_data.append('aid', $('#aid').val());
+	form_data.append('bname', $('#bname').val());
+	form_data.append('btext', $('#btext').val());
+	
+	if(fileList) {
+		for(var index in fileList) {
+			form_data.append('filename', fileList[index]);
+		}
+	}
+	
+	$.ajax({
+		type : 'POST',
+		dataType : 'json',
+		url : 'noticeUpdatePro.kh',
+		data : form_data,
+		contentType:false,
+		enctype:'multipart/form-data',
+		processData:false,
+		success : notice_list_result
+	});
+	
+	$('#btext').val();
+	$('.fileDrop').empty();
+	fileList = [];
+	
+}//end notice_upload_send()
 
 
 

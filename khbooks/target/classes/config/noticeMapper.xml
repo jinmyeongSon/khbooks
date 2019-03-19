@@ -56,7 +56,7 @@
 	
 	<update id="update" parameterType="dto.NoticeDTO">
 		update notice 
-		set bname=#{bname}, btext=#{btext}, ndate=sysdate, bcount=#{bcount}
+		set aid=#{aid}, bname=#{bname}, btext=#{btext}, ndate=sysdate, ncount=#{ncount}
 		where nnum=#{nnum}
 	</update>
 	

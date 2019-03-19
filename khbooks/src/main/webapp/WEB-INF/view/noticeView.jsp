@@ -168,16 +168,20 @@
             	</div>
             	
             	<div class="file">
-                    	<c:if test="${!empty view.uList }">
+            		<c:choose>
+                    	<c:when test="${!empty view.uList }">
                         	<c:forEach items="${view.uList }" var="up">
-                        		<p>
+                        	<input type="hidden" id="downUpno" value="${up.upno}">
                         		<c:set var="numload" value="${(fn:indexOf(up.upname,'_'))+1}" />
                         		<c:set var="strlength" value="${fn:length(up.upname)}"/>
-                        		● ${fn:substring(up.upname,numload,strlength)}</p>
+                        		<p><a onClick="return file_download()">● ${fn:substring(up.upname,numload,strlength)}</a></p>
                         	</c:forEach>
-                        </c:if>
+                        </c:when>
+                        <c:otherwise>
+                        	<p>첨부파일이 없습니다.</p>
+                        </c:otherwise>	
+                        </c:choose>
                     </div>
-                    
                </c:forEach>
             </article>
 

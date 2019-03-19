@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,7 @@ public class NoticeController {
 	private PageDTO pdto;
 	private String path;
 	private int currentPage;
+	private List<UploadDTO> uList;
 	
 	public NoticeController() {
 		
@@ -93,7 +95,7 @@ public class NoticeController {
 	public @ResponseBody List<NoticeDTO> noticeWritePro(NoticeDTO ndto, HttpServletRequest req, PageDTO pv) {
 		
 		List<MultipartFile> files = ndto.getFilename();
-		List<UploadDTO> uList = new ArrayList<UploadDTO>();
+		uList = new ArrayList<UploadDTO>();
 		
 		if(files != null) {
 			for(MultipartFile file : files) {
@@ -157,5 +159,43 @@ public class NoticeController {
 		return mav;
 	}
 	
-
+	
+	@RequestMapping("/noticeUpdatePro.kh")
+	public @ResponseBody List<NoticeDTO> noticeUpdatePro(NoticeDTO ndto, UploadDTO udto, HttpServletRequest req, PageDTO pv) {
+		
+		List<MultipartFile> files = ndto.getFilename();
+		uList = new ArrayList<UploadDTO>();
+		
+		if(files != null) {
+			for(MultipartFile file : files) {
+				String fileName = file.getOriginalFilename();
+				System.out.println("파일 이름 : " + fileName);
+				UUID random = UUID.randomUUID();
+				File fe = new File(path);
+				if(!fe.exists()) {
+					fe.mkdirs();
+				}
+				File ff = new File(path, random + "_" + fileName);
+				
+				try {
+					FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(ff));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				uList.add(new UploadDTO(random+"_"+fileName));
+			}
+			
+			ndto.setuList(uList);
+			
+		}
+		
+		System.out.println("수정 게시글 번호 : " + ndto.getNnum());
+		
+		nservice.noticeUpdatePro(ndto);
+		
+		return nservice.noticeListPro(pv);
+		
+	}//end noticeUpdatePro()
+	
 }//end class

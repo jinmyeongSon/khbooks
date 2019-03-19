@@ -2,6 +2,7 @@ package dao;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -59,12 +60,23 @@ public class NoticeDaoImp implements NoticeDAO {
 
 	@Override
 	public List<NoticeDTO> noticeUpdateNum(int nnum) {
-		return sqlSession.selectList("notice.view");
+		return sqlSession.selectList("notice.view", nnum);
 	}
 
 	@Override
 	public void noticeUpdate(NoticeDTO ndto) {
+		System.out.println("dao에서 수정 게시글 번호 : " + ndto.getNnum());
 		
+		List<UploadDTO> uList = ndto.getuList();
+		if(uList != null && uList.size() > 0) {
+			for(int i = 0; i < uList.size(); i++) {
+				uList.set(i, new UploadDTO(ndto.getNnum(), uList.get(i).getUpname(), ndto.getAid()));
+			}
+			sqlSession.insert("upload.insert", uList);
+		}
+		
+
+		sqlSession.update("notice.update", ndto);
 	}
 	
 	@Override
@@ -87,5 +99,6 @@ public class NoticeDaoImp implements NoticeDAO {
 		}
 		sqlSession.delete("notice.delete", nnum);
 	}//end noticeDelete()
+	
 
 }//end class

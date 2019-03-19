@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 
 import dao.NoticeDAO;
 import dto.NoticeDTO;
@@ -45,8 +46,8 @@ public class NoticeServiceImp implements NoticeService {
 	}
 
 	@Override
-	public void noticeUpdatePro(NoticeDTO dto) {
-		
+	public void noticeUpdatePro(NoticeDTO ndto) {
+		ndao.noticeUpdate(ndto);
 	}
 
 	@Override
