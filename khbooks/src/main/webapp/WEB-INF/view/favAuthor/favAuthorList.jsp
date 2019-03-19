@@ -15,6 +15,9 @@ text-align: center;
 .pagination{
 text-align: center;
 }
+table{
+	width:650px;
+}
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -184,7 +187,7 @@ $(document).ready(function () {
 							<tr>
 									<form method="POST">
 									<input type="hidden" value="${dto.auno }" name="num"/>
-									<td><input type="button" id="deletebtn"/></td>
+									<td><input class="icon-trash" style="width:40%; height:90%;" type="button" id="deletebtn"/></td>
 									<td>${dto.auname }</td>
 									<td>${dto.auintro }</td>
 									 </form>

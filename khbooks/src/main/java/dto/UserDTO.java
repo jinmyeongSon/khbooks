@@ -13,7 +13,7 @@ public class UserDTO {
 	private int ugender;
 	
 	public UserDTO() {
-		
+	
 	}
 
 	public String getId() {
@@ -79,6 +79,5 @@ public class UserDTO {
 	public void setUgender(int ugender) {
 		this.ugender = ugender;
 	}
-	
-}
 
+}//end class

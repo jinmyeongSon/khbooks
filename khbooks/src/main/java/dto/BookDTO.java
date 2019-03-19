@@ -1,6 +1,5 @@
 package dto;
 
-
 import java.sql.Date;
 import java.util.List;
 
@@ -13,13 +12,19 @@ public class BookDTO {
 	private int bview;
 	private String bthumb;
 	private String binfo;
+	private List<AuthorDTO> aList;
 	private int count;
-	private List<SerialDTO> sList;
-	public List<SerialDTO> getsList() {
-		return sList;
+	public int getCount() {
+		return count;
 	}
-	public void setsList(List<SerialDTO> sList) {
-		this.sList = sList;
+	public void setCount(int count) {
+		this.count = count;
+	}
+	public List<AuthorDTO> getaList() {
+		return aList;
+	}
+	public void setaList(List<AuthorDTO> aList) {
+		this.aList = aList;
 	}
 	public int getBno() {
 		return bno;
@@ -68,12 +73,6 @@ public class BookDTO {
 	}
 	public void setBinfo(String binfo) {
 		this.binfo = binfo;
-	}
-	public int getCount() {
-		return count;
-	}
-	public void setCount(int count) {
-		this.count = count;
 	}
 	
 	
