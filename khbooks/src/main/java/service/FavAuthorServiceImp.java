@@ -25,6 +25,12 @@ public class FavAuthorServiceImp implements FavAuthorService {
 	public int countprocess() {
 		return dao.count();
 	}
+
+	@Override
+	public void deleteprocess(int num) {
+		dao.FavDelete(num);
+		
+	}
 	
 
 }

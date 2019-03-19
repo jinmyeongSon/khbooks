@@ -26,4 +26,9 @@ public class FavAuthorDaoImp implements FavAuthorDAO{
 		
 		return sqlSession.selectList("FavAuthor.list",map);
 	}
+
+	@Override
+	public void FavDelete(int num) {
+		sqlSession.delete("FavAuthor.delete",num);
+	}
 }

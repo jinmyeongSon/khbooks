@@ -52,7 +52,6 @@ public class FavBookController {
 	@RequestMapping("/favDelete.kh")
 	public ModelAndView favDelete(int num) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println(num);
 		service.deleteprocess(num);
 		mav.setViewName("redirect:/favBookList.kh");
 		return mav;

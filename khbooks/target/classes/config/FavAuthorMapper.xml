@@ -19,6 +19,10 @@
 	<select id="count" resultType="int">
 		select count(*) from FAV_Author
 	</select>
+	
+	<delete id="delete" parameterType="int">
+		delete from Fav_author where auno=#{auno}
+	</delete>
 
 </mapper>
 

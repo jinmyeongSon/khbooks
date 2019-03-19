@@ -41,10 +41,26 @@ text-align: center;
 <!-- JS
 ================================================== -->
 <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
 <script src="js/bootstrap.js"></script>
+<script src="js/jquery.prettyPhoto.js"></script>
+<script src="js/jquery.quicksand.js"></script>
 <script src="js/jquery.custom.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+	$(document).on('click','#deletebtn',function(){
+		var del=confirm("정말 삭제 하시겠습니까 ?");
+		if(del){
+			var bno= $(this).parent().prev().val();
+			$(this).parent().prev().prev().attr("action","favAuthorDelte.kh");
+			$(this).parent().prev().prev().submit(); 
+		}else{
+			return false;
+		}
+	});
+});
 
-
+</script>
 </head>
 
 <body>
@@ -154,7 +170,7 @@ text-align: center;
 
         <div class="span8 contact"><!--Begin page content column-->
         <h2>관심 작가</h2>
-                    <form method="POST">
+  
                     <table>
                     	<thead>
 							<tr>
@@ -165,11 +181,13 @@ text-align: center;
 						</thead>
 						<tbody>
 							<c:forEach var="dto" items="${aList}" >
-							<input type="hidden" value="${dto.auno }" name="num"/>
-								<tr>
+							<tr>
+									<form method="POST">
+									<input type="hidden" value="${dto.auno }" name="num"/>
 									<td><input type="button" id="deletebtn"/></td>
 									<td>${dto.auname }</td>
 									<td>${dto.auintro }</td>
+									 </form>
 								</tr>
 							</c:forEach>
 					 </tbody>
@@ -200,7 +218,6 @@ text-align: center;
                 </ul>
         
             </div>
-                    </form>
                     </div>
                     
            

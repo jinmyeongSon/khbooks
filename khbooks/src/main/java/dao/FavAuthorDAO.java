@@ -8,4 +8,5 @@ import dto.AuthorDTO;
 public interface FavAuthorDAO {
 	public int count();
 	public List<AuthorDTO> FavList(Map<String, Object> map);
+	public void FavDelete(int num);
 }

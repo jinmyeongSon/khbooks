@@ -49,4 +49,11 @@ public class FavAuthorController {
 		}
 		return mav;
 	}
+	@RequestMapping("/favAuthorDelte.kh")
+	public ModelAndView favAuthorDelete(int num) {
+		ModelAndView mav = new ModelAndView();
+		service.deleteprocess(num);
+		mav.setViewName("redirect:/favAuthorList.kh");
+		return mav;
+	}
 }
