@@ -13,18 +13,18 @@ public class BookDTO {
 	private String bthumb;
 	private String binfo;
 	private List<AuthorDTO> aList;
-	private List<SerialDTO> sList;
+	private int count;
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public List<AuthorDTO> getaList() {
 		return aList;
 	}
 	public void setaList(List<AuthorDTO> aList) {
 		this.aList = aList;
-	}
-	public List<SerialDTO> getsList() {
-		return sList;
-	}
-	public void setsList(List<SerialDTO> sList) {
-		this.sList = sList;
 	}
 	public int getBno() {
 		return bno;

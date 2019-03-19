@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -143,31 +144,31 @@
         <!-- Gallery Items
         ================================================== --> 
         <div class="span12 gallery-single">
-
             <div class="row">
                 <div class="span6">
-                    <img src="img/gallery/gallery-img-1-full.jpg" class="align-left thumbnail" alt="image">
-                </div>
-                <div class="span6">
-                    <h2>Custom Illustration</h2>
-                    <p class="lead">For an international ad campaign. Nulla iaculis mattis lorem, quis gravida nunc iaculis ac. Proin tristique tellus in est vulputate luctus</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla iaculis mattis lorem, quis gravida nunc iaculis ac. Proin tristique tellus in est vulputate luctus fermentum ipsum molestie. Vivamus tincidunt sem eu magna varius elementum. Maecenas felis tellus, fermentum vitae laoreet vitae, volutpat et urna. Nulla faucibus ligula eget ante varius ac euismod odio placerat. Nam sit amet felis non lorem faucibus rhoncus vitae id dui.</p>
-					<p>textTesttestTestsetesttttest</p>
-					<p>${book.binfo}</p>
-					<c:forEach items="${book.sList}" var="list">
-						<p>${list.stitle}</p>
-					</c:forEach>
-					<p>textTesttestTestsetesttttest</p>
-                    <ul class="project-info">
-                        <li><h6>Date:</h6> 09/12/15</li>
-                        <li><h6>Client:</h6> John Doe, Inc.</li>
-                        <li><h6>Services:</h6> Design, Illustration</li>
-                        <li><h6>Art Director:</h6> Jane Doe</li>
-                        <li><h6>Designer:</h6> Jimmy Doe</li>
+                <div style="width: 420px; margin-left: 100px">
+                	<div style="width: 100%; height: 200px;">
+                    <img src="img/gallery/gallery-img-1-full.jpg" style="width: 150px; height: 100%;" class="align-left thumbnail" alt="image">
+                    <h2>${book.bname}</h2>
+                    <p style="word-break: break-word" class="lead">${book.binfo}</p>
+                    </div>
+                    <ul style="width:100%; clear: both;" class="project-info">
+                        <li><h6>장르:</h6> ${genre}</li>
+                        <li><h6>작가:</h6> <c:forEach items="${book.aList}" var="author">${author.auname} </c:forEach></li>
+                        <li><h6>최신 연재일:</h6> ${book.bupdate}</li>
+                        <li><h6>별점:</h6> ${book.bgrade}</li>
+                        <li><h6>조회수:</h6> ${book.bview}</li>
                     </ul>
-
-                    <button class="btn btn-inverse pull-left" type="button">Visit Website</button>
-                    <a href="#" class="pull-right"><i class="icon-arrow-left"></i>Back to Gallery</a>
+                </div>
+                </div>
+                <div class="span6"  >
+                	<ul style="border: 2px solid #a9a9a9; border-radius: 6px; padding-bottom:15px; "  >
+                	<c:set var="count" value="${fn:length(serial)}"/>
+                <c:forEach items="${serial}" var="serial" varStatus="index">
+					<li style="list-style:none; line-height:35px;  width: 96%; margin-left: 2%;  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; border-bottom: 1px dashed #a9a9a9;  padding-top: 4px;">
+						<a href="serialView.kh?bno=${book.bno}&rm=${count-index.index}" style="font-size:15px; color:#333333;  ">&nbsp; <c:out value="${count-index.index}"/>. ${serial.stitle}</a></li>
+				</c:forEach>
+					</ul>
                 </div>
             </div>
 
@@ -200,11 +201,7 @@
                 </div>
                 <div class="span3 footer-col">
                     <h5>Latest Tweets</h5>
-                    <ul>
-                        <li><a href="#">@room122</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                        <li><a href="#">@room122</a> In interdum felis fermentum ipsum molestie sed porttitor ligula rutrum. Morbi blandit ultricies ultrices.</li>
-                        <li><a href="#">@room122</a> Vivamus nec lectus sed orci molestie molestie. Etiam mattis neque eu orci rutrum aliquam.</li>
-                    </ul>
+
                 </div>
                 <div class="span3 footer-col">
                     <h5>Latest Posts</h5>

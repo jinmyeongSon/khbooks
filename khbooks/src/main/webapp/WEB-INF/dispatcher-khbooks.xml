@@ -23,6 +23,14 @@
 		<property name="username" value="hr" />
 		<property name="password" value="a1234" />
 	</bean>
+
+	<!-- controller -->
+	<bean class="controller.BookListController">
+		<property name="service" ref="serviceBook" />
+	</bean>
+	<bean class="controller.SerialController">
+		<property name="service" ref="serviceSerial" />
+	</bean>
 	
 	<!-- [2] SqlSessionFactoryBean 빈 선언 -->
 
@@ -77,9 +85,6 @@
 	<bean id="FavAuthorservice" class="service.FavAuthorServiceImp">
 		<property name="dao" ref="FavAuthordao"/>
 	</bean>
-	<bean class="controller.BookListController">
-		<property name="service" ref="serviceBook" />
-	</bean>
 
 	<bean class="controller.UserController">
 		<property name="dao" ref="udao" />
@@ -117,6 +122,9 @@
 	<bean class="dao.NoticeDaoImp" id="ndao">
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
+	<bean id="daoSerial" class="dao.SerialDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
 	
 	<!-- Service -->
 	<bean class="service.BoardServiceImp" id="service">
@@ -138,6 +146,9 @@
 		<constructor-arg value="c:/khNotice/" />
 	</bean>
 	
+	<bean id="serviceSerial" class="service.SerialServiceImp">
+		<property name="dao" ref="daoSerial" />
+	</bean>
 	
 	<!-- viewResolver -->
 	<bean
