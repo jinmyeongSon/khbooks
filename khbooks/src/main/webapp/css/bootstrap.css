@@ -7,6 +7,14 @@
  *
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
+ 
+.pagination ul li a:hover {
+	background-color : skyblue;
+}
+
+.noticeListUl {
+	margin-left : 300px;
+}
 
 article,
 aside,
@@ -4736,7 +4744,7 @@ input[type="submit"].btn.btn-mini {
   display: inline-block;
   *display: inline;
   margin-bottom: 0;
-  margin-left: 0;
+  margin-left: 400px;
   -webkit-border-radius: 3px;
      -moz-border-radius: 3px;
           border-radius: 3px;

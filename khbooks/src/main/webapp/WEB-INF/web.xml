@@ -58,7 +58,7 @@
 		<servlet-name>khbooksServlet</servlet-name>
 		<url-pattern>*.kh</url-pattern>
 	</servlet-mapping>
-
+	
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.css</url-pattern>

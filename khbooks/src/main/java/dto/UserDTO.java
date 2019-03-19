@@ -1,6 +1,6 @@
 package dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class UserDTO {
 	private String id;
@@ -13,7 +13,7 @@ public class UserDTO {
 	private int ugender;
 	
 	public UserDTO() {
-		
+	
 	}
 
 	public String getId() {
@@ -79,6 +79,5 @@ public class UserDTO {
 	public void setUgender(int ugender) {
 		this.ugender = ugender;
 	}
-	
-}
 
+}//end class

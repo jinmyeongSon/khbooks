@@ -169,5 +169,4 @@ public class BookPageDTO {
 	public void setSortgenre(int sortgenre) {
 		this.sortgenre = sortgenre;
 	}
-
 }

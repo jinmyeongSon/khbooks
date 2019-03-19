@@ -61,5 +61,4 @@ public class BookDaoImp implements BookDAO{
 	public List<SerialDTO> getSerialList(int bno) {
 		return sqlSession.selectList("book.serialList", bno);
 	}
-
 }

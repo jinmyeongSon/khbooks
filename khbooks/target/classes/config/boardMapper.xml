@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+	<select id="count" resultType="int">
+		select count(*) from board
+	</select>
+
+	<select id="list" parameterType="dto.PageDTO" resultType="dto.BoardDTO">   
+   		<![CDATA[
+	 	select rownum, b.* from
+     	(select rownum as rm, a.*
+     	from(select * from board order by bonum desc)a)b
+     	where b.rm>=#{startRow} and b.rm<=#{endRow}
+		]]>
+	</select>
+	
+	<insert id="insert" parameterType="dto.BoardDTO">
+	    insert into	board
+		values(board_seq.nextval,#{id},#{bname},#{btext},sysdate,0)
+	</insert>
+
+	<update id="readCount" parameterType="int">
+		update board
+		set	bcount=bcount+1
+		where bonum=#{bonum}
+	</update>
+	
+	<select id="content" parameterType="int" resultType="dto.BoardDTO">
+		select *
+		from board
+		where bonum=#{bonum}
+	</select>
+	
+	<update id="update" parameterType="dto.BoardDTO">
+		update board 
+		set bname=#{bname}, btext=#{btext}, bdate=sysdate, bcount=#{bcount}
+		where bonum=#{bonum}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from board where	bonum=#{bonum}
+	</delete>
+	
+	<update id="reStepCount" parameterType="dto.BoardDTO">
+     <![CDATA[
+         update board set re_step=re_step+1 
+         where ref=#{ref} and re_step>#{re_step}
+     ]]>
+	</update>
+	
+	<select id="uploadFile" parameterType="int" resultType="String">
+		select upload from board where num=#{num}
+	</select>
+
+</mapper>
+

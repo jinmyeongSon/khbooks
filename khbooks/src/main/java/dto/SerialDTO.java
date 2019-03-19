@@ -67,7 +67,4 @@ public class SerialDTO {
 	public void setSgrade(int sgrade) {
 		this.sgrade = sgrade;
 	}
-	
-	
-
 }
