@@ -72,7 +72,8 @@ function notice_update_delete() {
 		alert("수정 번호 : " + upnnum);
 		location.href = 'noticeUpdate.kh?nnum='+upnnum
 	}
-}
+	
+}//end notice_update_delete()
 
 
 

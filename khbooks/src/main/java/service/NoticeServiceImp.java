@@ -5,6 +5,7 @@ import java.util.List;
 import dao.NoticeDAO;
 import dto.NoticeDTO;
 import dto.PageDTO;
+import dto.UploadDTO;
 
 public class NoticeServiceImp implements NoticeService {
 	private NoticeDAO ndao;
@@ -39,8 +40,8 @@ public class NoticeServiceImp implements NoticeService {
 	}
 
 	@Override
-	public NoticeDTO noticeUpdateSelectPro(int nnum) {
-		return null;
+	public List<NoticeDTO> noticeUpdateNum(int nnum) {
+		return ndao.noticeUpdateNum(nnum);
 	}
 
 	@Override
@@ -51,6 +52,11 @@ public class NoticeServiceImp implements NoticeService {
 	@Override
 	public void noticeDeletePro(int nnum) {
 		ndao.noticeDelete(nnum);
+	}
+	
+	@Override
+	public List<UploadDTO> uploadList(UploadDTO udto) {
+		return ndao.uploadList(udto);
 	}
 
 }

@@ -147,7 +147,15 @@ public class NoticeController {
 	}//end noticeDelete()
 	
 	
-	//@RequestMapping("/noticeUpdate.kh")
+	@RequestMapping("/noticeUpdate.kh")
+	public ModelAndView noticeUpdate(int nnum, UploadDTO udto) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("updateList", nservice.noticeUpdateNum(nnum));
+		mav.addObject("uploadList", nservice.uploadList(udto));
+		mav.setViewName("noticeUpdateForm");
+		
+		return mav;
+	}
 	
 
 }//end class

@@ -54,10 +54,10 @@
 		</collection>
 	</resultMap> 
 	
-	<update id="update" parameterType="dto.BoardDTO">
-		update board 
-		set bname=#{bname}, btext=#{btext}, bdate=sysdate, bcount=#{bcount}
-		where bonum=#{bonum}
+	<update id="update" parameterType="dto.NoticeDTO">
+		update notice 
+		set bname=#{bname}, btext=#{btext}, ndate=sysdate, bcount=#{bcount}
+		where nnum=#{nnum}
 	</update>
 	
 	<delete id="delete" parameterType="int">

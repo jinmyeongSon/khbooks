@@ -58,13 +58,18 @@ public class NoticeDaoImp implements NoticeDAO {
 	}
 
 	@Override
-	public NoticeDTO noticeUpdateNum(int nnum) {
-		return null;
+	public List<NoticeDTO> noticeUpdateNum(int nnum) {
+		return sqlSession.selectList("notice.view");
 	}
 
 	@Override
 	public void noticeUpdate(NoticeDTO ndto) {
 		
+	}
+	
+	@Override
+	public List<UploadDTO> uploadList(UploadDTO udto) {
+		return sqlSession.selectList("upload.list", udto);
 	}
 
 	@Override
