@@ -193,7 +193,7 @@ $(document).ready(function () {
 							<tr>							
 								<form method="POST">
 								<input type="hidden" value="${dto.bno }" name="num"/>
-								<td><input type="button" id="deletebtn"/></td>
+								<td><input class="icon-trash" style="width:70%; height:90%;" type="button" id="deletebtn"/></td>
 								<td>${dto.bname }</td>
 								<td>${dto.bupdate }</td>
 								<td>${dto.bgrade }</td>
