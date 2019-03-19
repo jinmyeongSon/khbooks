@@ -130,8 +130,6 @@ public class BoardController {
 		return mav;
 	}
 	
-	///////////////////////////////////////////////////////////////////////////////////////////////////
-	
 	@RequestMapping(value="/commentInsert.kh", method=RequestMethod.POST)
 	public @ResponseBody List<ReplyDTO> commentInsert(ReplyDTO rdto) {
 		service.replyInsertProcess(rdto);

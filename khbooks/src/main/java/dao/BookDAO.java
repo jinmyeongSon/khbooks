@@ -5,15 +5,18 @@ import java.util.Map;
 
 import dto.BookDTO;
 import dto.GenreDTO;
-import dto.PageDTO;
+import dto.SerialDTO;
+import dto.BookPageDTO;
 
 
 public interface BookDAO {
-	public List<BookDTO> bookList(PageDTO dto);
+	public List<BookDTO> bookList(BookPageDTO dto);
 	public List<GenreDTO> genreList();
 	public BookDTO bookDetail(int bno);
 	public int getBookCount();
 	public int getBookGenreCount(int sortgenre);
-	public List<BookDTO> getBookSearchList(PageDTO dto);
+	public List<BookDTO> getBookSearchList(BookPageDTO dto);
 	public int getBookSearchCount(Map<String, Object> map);
+	public String getBookGenre(int bno);
+	public List<SerialDTO> getSerialList(int bno);
 }

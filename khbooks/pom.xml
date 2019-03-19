@@ -244,6 +244,12 @@
 	    <artifactId>scribejava-core</artifactId>
 	    <version>2.8.1</version>
 	  </dependency>
+	  <!-- twitter tweets 긁어오기 -->
+	  <dependency>
+    	<groupId>org.twitter4j</groupId>
+    	<artifactId>twitter4j-core</artifactId>
+    	<version>4.0.7</version>
+	  </dependency>
 
 	</dependencies>
 	<build>

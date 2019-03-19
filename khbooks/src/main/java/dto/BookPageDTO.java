@@ -1,40 +1,50 @@
 package dto;
 
-public class PageDTO {
+public class BookPageDTO {
 	private int currentPage; // 현재페이지
 	private int totalCount; // 총 레코드수
-	private int blockCount = 5; // 한 페이지에 보여줄 레코드수
-	private int blockPage = 3; // 한 블록에 보여줄 페이지수
+	private int blockCount = 9; // 한 페이지에 보여줄 레코드수
+	private int blockPage = 5; // 한 블록에 보여줄 페이지수
 	private int totalPage; // 총 페이지수
 	private int startRow; // 시작 레코드 번호
 	private int endRow; // 끝 레코드번호
 	private int startPage; // 한 블록의 시작 페이지 번호
 	private int endPage; // 한 블록의 끝페이지 번호
-	private int number;	
-
+	private int number;
 	private String searchKey;
 	private String searchWord;
+	private int sortkey;
+	private int sortgenre;
 
-	public PageDTO() {
+	public BookPageDTO() {
 
 	}
+	
+	public BookPageDTO(int currentPage, int totalCount, int sortgenre, int sortkey, String searchWord, int blockCount) {
+	       this(currentPage,totalCount, blockCount);
+	       this.sortkey=sortkey;
+	       this.sortgenre=sortgenre;
+	       this.searchWord=searchWord;
+	}
 
-
-	public PageDTO(int currentPage, int totalCount) {
+	public BookPageDTO(int currentPage, int totalCount, int blockCount) {
+		this.blockCount = blockCount;
 		this.currentPage = currentPage;
 		this.totalCount = totalCount;
 
+		// 총페이지수
+		totalPage = totalCount / blockCount + (totalCount % blockCount == 0 ? 0 : 1);
+		if (totalPage < currentPage)
+			this.currentPage = totalPage;
+
 		// 시작레코드
-		startRow = (currentPage - 1) * blockCount + 1;
+		startRow = (this.currentPage - 1) * blockCount + 1;
 
 		// 끝레코드
 		endRow = startRow + blockCount - 1;
 
-		// 총페이지수
-		totalPage = totalCount / blockCount + (totalCount % blockCount == 0 ? 0 : 1);
-
 		// 시작페이지
-		startPage = (int) ((currentPage - 1) / blockPage) * blockPage + 1;
+		startPage = (int) ((this.currentPage - 1) / blockPage) * blockPage + 1;
 
 		// 끝페이지
 		endPage = startPage + blockPage - 1;
@@ -42,13 +52,24 @@ public class PageDTO {
 			endPage = totalPage;
 
 		// 리스트페이지에 출력번호
-		number = totalCount - (currentPage - 1) * blockCount;
-		//number2 = (currentPage - 1) * blockCount;
+		number = totalCount - (this.currentPage - 1) * blockCount;
+	}
+	
+	
+
+	public String getSearchKey() {
+		return searchKey;
 	}
 
-	public PageDTO(int currentPage, int totalCount, String searchKey, String searchWord) {
-		this(currentPage, totalCount);
+	public void setSearchKey(String searchKey) {
 		this.searchKey = searchKey;
+	}
+
+	public String getSearchWord() {
+		return searchWord;
+	}
+
+	public void setSearchWord(String searchWord) {
 		this.searchWord = searchWord;
 	}
 
@@ -132,20 +153,21 @@ public class PageDTO {
 		this.endPage = endPage;
 	}
 	
-	public String getSearchKey() {
-		return searchKey;
+	public int getSortkey() {
+		return sortkey;
 	}
-
-	public void setSearchKey(String searchKey) {
-		this.searchKey = searchKey;
+	
+	public void setSortkey(int sortkey) {
+		this.sortkey = sortkey;
 	}
+	
 
-	public String getSearchWord() {
-		return searchWord;
+	public int getSortgenre() {
+		return sortgenre;
 	}
-
-	public void setSearchWord(String searchWord) {
-		this.searchWord = searchWord;
+	
+	public void setSortgenre(int sortgenre) {
+		this.sortgenre = sortgenre;
 	}
 
 }

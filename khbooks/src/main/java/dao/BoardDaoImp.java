@@ -59,9 +59,6 @@ public class BoardDaoImp implements BoardDAO {
 		sqlSession.delete("board.delete", bonum);
 	}
 	
-	
-/////////////////////////////////////////////////////////////
-
 	@Override
 	public int replyCount(int bonum) {
 		return sqlSession.selectOne("reply.count", bonum);

@@ -16,7 +16,6 @@ public interface BoardDAO {
 	public BoardDTO updateNum(int num);
 	public void update(BoardDTO dto);
 	public void delete(int num);
-	/////////////////////////////////
 	public int replyCount(int bonum);
 	public List<ReplyDTO> replyListMethod(int bno);
 	public void replyInsertMethod(ReplyDTO rdto);

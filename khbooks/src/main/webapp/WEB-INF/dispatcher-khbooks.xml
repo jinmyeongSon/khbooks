@@ -14,8 +14,6 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	<mvc:annotation-driven />
 
 	<!-- [1] DataSource빈 선언 -->
@@ -25,14 +23,6 @@
 		<property name="username" value="hr" />
 		<property name="password" value="a1234" />
 	</bean>
-<<<<<<< HEAD
-=======
-	<mvc:annotation-driven></mvc:annotation-driven>
->>>>>>> branch 'userLogin' of https://github.com/jinmyeongSon/khbooks.git
-=======
-	<mvc:annotation-driven></mvc:annotation-driven>
->>>>>>> branch 'Board' of https://github.com/jinmyeongSon/khbooks.git
-=======
 	
 	<!-- [2] SqlSessionFactoryBean 빈 선언 -->
 
@@ -44,9 +34,15 @@
 				<value>classpath:config/memberInforMapper.xml</value>
 				<value>classpath:config/FavBookMapper.xml</value>
 				<value>classpath:config/FavAuthorMapper.xml</value>
+				<value>classpath:config/boardMapper.xml</value>
+				<value>classpath:config/replyMapper.xml</value>
+				<value>classpath:config/noticeMapper.xml</value>
+				<value>classpath:config/uploadMapper.xml</value>
+				<value>classpath:config/BookMapper.xml</value>
+				<value>classpath:config/SerialMapper.xml</value>
+				<value>classpath:config/userMapper.xml</value>
 			</list>
 		</property>
-		<!-- property name="configLocation" value="classpath:config/configuration.xml"/> -->
 	</bean>
 	
 	<!-- [3] SqlSessionTemplate 빈 선언 -->
@@ -81,21 +77,14 @@
 	<bean id="FavAuthorservice" class="service.FavAuthorServiceImp">
 		<property name="dao" ref="FavAuthordao"/>
 	</bean>
->>>>>>> branch 'meminfor' of https://github.com/jinmyeongSon/khbooks.git
-
-	<!-- controller -->
-<<<<<<< HEAD
-<<<<<<< HEAD
-	<bean class="test.Test" />
-<<<<<<< HEAD
 	<bean class="controller.BookListController">
 		<property name="service" ref="serviceBook" />
-=======
+	</bean>
+
 	<bean class="controller.UserController">
-		<property name="dao" ref="dao" />
-		<property name="service" ref="service" />
-=======
-	<bean class="controller.BookListController"/>
+		<property name="dao" ref="udao" />
+		<property name="service" ref="uservice" />
+	</bean>
 	<bean class="controller.MemberController">
 		<property name="service" ref="MemInforservice"/>
 	</bean>
@@ -104,17 +93,14 @@
 	</bean>
 	<bean class="controller.FavAuthorController">
 		<property name="service" ref="FavAuthorservice"/>
->>>>>>> branch 'meminfor' of https://github.com/jinmyeongSon/khbooks.git
 	</bean>
 
 	<bean id="naverLoginDTO" class="dto.NaverLoginDTO" />
 
 	<!-- DAO -->
-	<bean id="dao" class="dao.UserDaoImp">
+	<bean id="udao" class="dao.UserDaoImp">
 		<property name="sqlSession" ref="sqlSession" />
->>>>>>> branch 'userLogin' of https://github.com/jinmyeongSon/khbooks.git
 	</bean>
-=======
 	<bean class="controller.BoardController">
 		<property name="service" ref="service" />
 	</bean>
@@ -140,33 +126,6 @@
 		<property name="ndao" ref="ndao" />
 	</bean>
 	
-	<!-- [1] DataSource빈 선언 -->
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
-		<property name="url" value="jdbc:oracle:thin://@127.0.0.1:1521:xe" />
-		<property name="username" value="hr" />
-		<property name="password" value="a1234" />
-	</bean>
-
-	<!-- [2] SqlSessionFactoryBean 빈 선언 -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations">
-			<list>
-				<value>classpath:config/boardMapper.xml</value>
-				<value>classpath:config/replyMapper.xml</value>
-				<value>classpath:config/noticeMapper.xml</value>
-				<value>classpath:config/uploadMapper.xml</value>
-			</list>
-		</property>
-		<!-- <property name="configLocation" value="classpath:config/boardMapper.xml"/> -->
-	</bean>
-	
-	<!-- [3] SqlSessionTemplate 빈 선언 -->
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory" />
-	</bean>
-	
 	
 	<!-- 첨부파일을 임시기억 저장소에 저장한다. -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -186,84 +145,21 @@
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-	
->>>>>>> branch 'Board' of https://github.com/jinmyeongSon/khbooks.git
-	
-<<<<<<< HEAD
-	
-	<!-- [2] SqlSessionFactoryBean 빈 선언 -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations">
-			<list>
-				<value>classpath:config/BookMapper.xml</value>
-			</list>
-		</property>
-	</bean>
-
-	<!-- [3] SqlSessionTemplate 빈 선언 -->
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory" />
-	</bean>
 
     <!-- DAO -->
 	<bean id="daoBook" class="dao.BookDaoImp">
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
 	
-	<!-- [5] Service -->
+	<!-- Service -->
 	<bean id="serviceBook" class="service.BookServiceImp">
 		<property name="dao" ref="daoBook" />
 	</bean>
-=======
+	
 	<!-- Service -->
-	<bean id="service" class="service.UserServiceImp">
-		<property name="dao" ref="dao" />
+	<bean id="uservice" class="service.UserServiceImp">
+		<property name="dao" ref="udao" />
 	</bean>
-
->>>>>>> branch 'userLogin' of https://github.com/jinmyeongSon/khbooks.git
-	
-<<<<<<< HEAD
-	<!-- viewResolver -->
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/view/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
-=======
-	
->>>>>>> branch 'Board' of https://github.com/jinmyeongSon/khbooks.git
-
-
-
-	<!-- [1] DataSource빈 선언 -->
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName"
-			value="oracle.jdbc.OracleDriver" />
-		<property name="url"
-			value="jdbc:oracle:thin://@127.0.0.1:1521:xe" />
-		<property name="username" value="hr" />
-		<property name="password" value="a1234" />
-	</bean>
-
-	<!-- [2] SqlSessionFactoryBean 빈 선언 -->
-	<bean id="sqlSessionFactory"
-		class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations">
-			<list>
-				<value>classpath:config/userMapper.xml</value>
-			</list>
-		</property>
-	</bean>
-
-	<!-- [3] SqlSessionTemplate 빈 선언 -->
-	<bean id="sqlSession"
-		class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory" />
-	</bean>
-
 
 	<!-- mail -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
@@ -280,12 +176,6 @@
 	</bean>
 	
 	
-
-
-
-
-
-
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<mvc:resources mapping="/resources/**"
