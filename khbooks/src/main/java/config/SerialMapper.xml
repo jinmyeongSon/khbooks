@@ -46,5 +46,20 @@
 		where rno=#{rno} and upno=#{upno} and bno=#{bno}
 	</delete>
 
+	<select id="gradeCheck" parameterType="java.util.Map" resultType="int">
+		select count(grade) from grade where id=#{id} and upno=#{upno}
+	</select>
+	
+	<insert id="gradeInsert" parameterType="java.util.Map">
+		insert into grade
+		values(#{id}, #{upno}, #{bno}, #{grade})
+	</insert>
+	
+	<update id="gradeUpdate" parameterType="java.util.Map">
+		update grade
+		set grade=#{grade}
+		where id=#{id}
+		and upno=#{upno}
+	</update>
 
 </mapper>

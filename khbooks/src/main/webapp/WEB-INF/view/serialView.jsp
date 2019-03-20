@@ -47,11 +47,20 @@ var fileList='';
 var bno='';
 var rm='';
 var totalCount='';
+var id='';
 
 $(document).ready(function(){
 	bno=${bno};
 	rm=${rm};
 	totalCount=${totalCount};
+	id='${sessionScope.id}';
+	
+	$.ajax({
+		type : 'GET',
+		dataType : 'json',
+		url : 'bookInfo.kh?bno='+bno,
+		success : info_success
+	})
 	
 	$('#prev').on('click', function() {
 		if(rm == 1){
@@ -76,52 +85,90 @@ $(document).ready(function(){
 		serial_move();
 	});
 	
+	$('#gradebtn').on('click', function() {
+		if(id == ''){
+			alert('로그인 후 이용 가능합니다.');
+			href.location='loginForm.kh';
+		}else {
+			$.ajax({
+				type : 'GET',
+				dataType : 'text',
+				url : 'gradeCheck.kh?bno='+bno+'&rm=' + rm,
+				success : grade_check_complete
+			});
+		}
+	})
 	
-	// 수정 모달 숨기기
-	$('#modifyModal').addClass('modifyHide');
 	// 댓글추가
 	$("#replyAddBtn").on("click", reply_insert);
-	$('#btnModify').on("click", function() {
-		$.ajax({
-			type : 'POST',
-			dataType : 'json',
-			url : 'replyUpdate.do',
-			data : 'bno=${boardDTO.bno}&rno=' + urno + '&replytext=' + $('#updateReplyText').val(),
-			success : reply_list_result
-		});
-		$('#updateReplyText').val('');
-		$('#modifyModal').removeClass();
-		$('#modifyModal').addClass('modifyHide');
-	});
-	$('#btnClose').on("click", function() {
-		$('#updateReplyText').val('');
-		$('#modifyModal').removeClass();
-		$('#modifyModal').addClass('modifyHide');
-	});
 	// 수정 삭제 이벤트 동적 추가
-	$(document).on('click', '.timeline button', reply_update_delete);
-	
-	//모달창에 수정버튼
-	$('#btnModify').on('click',reply_update_send);
-	
-
-	
-	
+	$(document).on('click', '.timeline button', reply_delete);
 });
-// 수정 , 삭제 버튼 이벤트
-function reply_update_send(){
-	$.ajax({
-		type : 'GET',
-		dataType : 'json',
-		url : 'replyUpdate.do?bno=${boardDTO.bno}&rno='+urno+"&replytext="+$('#updateReplyText').val(),
-		success : reply_list_result
-	});
-	$('#updateReplyText').val('');
-/* 	$('#modifyModal').removeClass('modifyShow');
-	$('#modifyModal').addClass('modifyHide'); */
-	$('#modifyModal').removeClass('modifyShow').addClass('modifyHide');
-	$(document).on('click','.timeline button',reply_update_delete);
-	urno='';
+
+function grade_check_complete(res) {
+	var grade = $('#gradesel').val();
+	if(res == 0){
+		$.ajax({
+			type : 'GET',
+			dataType : 'text',
+			url : 'gradeInsert.kh',
+			data : 'bno=' + bno + '&rm=' + rm + '&grade=' + grade,
+			success : function(res) {
+				alert('입력 완료');
+			}
+		});
+	} else{
+		var check = confirm('수정하시겠습니까?');
+		if(check){
+			$.ajax({
+				type : 'GET',
+				dataType : 'text',
+				url : 'gradeUpdate.kh',
+				data : 'bno=' + bno + '&rm=' + rm + '&grade=' + grade,
+				success : function(res) {
+					alert('입력 완료');
+				}
+			});
+		}else{
+			return;
+		}
+	}
+}
+
+function info_success(res) {
+		var source = '{{bname}}';
+		var template = Handlebars.compile(source);
+		$('#bookTitle').text(template(res));
+		var auname='';
+		$.each(res.aList, function(index, value) {
+			// 작품정보에 작가이름 추가
+			source = '<a href="authorDetail.kh?auno={{auno}}">'
+					+'{{auname}}'
+					+'</a>';
+			template = Handlebars.compile(source);
+			auname += template(value) + ' ';
+
+			source = '{{auno}}';
+			template = Handlebars.compile(source);
+			// 작가의 다른 작품
+			$.ajax({
+				type : 'GET',
+				dataType : 'json',
+				url : 'authorBook.kh?auno=' + template(value),
+				success : function(result) {
+					var src = '<h5 class="title-bg">작가의 다른 작품</h5>'
+		            	 +'<ul class="popular-posts">';
+					$.each(result, function(idx, val) {
+						source = '<li style="min-height: 0px;"><h6><a href="bookDetail.kh?bno={{bno}}">{{bname}}</a></h6></li>';
+						template = Handlebars.compile(source);
+						src += template(val);
+					});
+            		src += '</ul>';
+            		$('#bookInfo').append(src);
+				}
+			});
+		});
+		$('#bookAuthor').append(auname);
 }
 
 function serial_move(){
@@ -161,22 +208,18 @@ function change_comment(res) {
 	$('#comment').text('Comment (' + res.length + ')');
 	
 	$.each(res, function(index, value) {
-		var source = '<li class="time_sub"  id="{{rno}}" style="list-style: none;">'
+		var source = '<li class="time_sub"  id="{{rno}}" style="list-style: none; clear:both; margin-top: 20px;">'
 		 +'<div style="float:left; font-size:25px;"> <i class="icon-leaf"></i>{{id}}</div>'
 		 +'<div style="float:right">{{newDate rdate}}</div>'
-		 +'<div style="clear:both; font-size:18px; ">{{rtext}}</div>'
-		 +'<p>'
-		 +'<button class="btn btn-mini" type="button" id="{{rno}}">delete</button>'
-		 +'<button class="btn btn-mini" type="button" id="{rno}}">update</button></p>'
+		 +'<div style="clear:both; font-size:18px; ">{{rtext}}'
+		 +'<button style="float:right" class="btn btn-mini" type="button" id="{{rno}}">delete</button></div>'
 	     +'</li>';
 		var template = Handlebars.compile(source);
 		$('.timeline').append(template(value));
 	});
 }
 
-function reply_update_delete() {
-	alert($(this).text());
-	if($(this).text() == 'delete'){
+function reply_delete() {
 		$.ajax({
 			type : 'POST',
 			dataType : 'json',
@@ -184,12 +227,6 @@ function reply_update_delete() {
 			data : 'bno=${bno}&rno=' + this.getAttribute("id")+'&upno=${sdto.upno}',
 			success : change_comment
 		});
-	}else if($(this).text() == 'update'){
-		$('#modifyModal').removeClass();
-		$('#modifyModal').addClass('modifyShow');
-		$('#updateReplyText').focus();
-		rno = this.getAttribute("id");
-	}
 }
 
 function reply_insert() {
@@ -198,16 +235,17 @@ function reply_insert() {
 		alert('reply text를 작성하세요.');
 		return false;
 	}
-	
-	
+	if(id==''){
+		alert('로그인후 사용 가능한 기능입니다');
+		return false;
+	}
 	$.ajax({
 		type : 'POST',
 		dataType : 'json',
 		url : 'insertComment.kh',
-		data:'bno=${bno}&upno=${sdto.upno}&rtext='+$('#newReplyText').val()+'&id=a',
+		data:'bno=${bno}&upno=${sdto.upno}&rtext='+$('#newReplyText').val()+'&id=${sessionScope.id }',
 		success : change_comment
 	});
-	alert('입력까지옴')
 	$('#newReplyText').val('');
 	
 	
@@ -346,30 +384,22 @@ Handlebars.registerHelper("newUpload",function(uploadFile){
         <div class="span4 sidebar page-sidebar"><!-- Begin sidebar column -->
 
             <!--Latest News-->
-            <h5 class="title-bg">Latest News</h5>
-            <ul class="popular-posts">
+            <h5 class="title-bg">현재 보고 있는 작품</h5>
+            <ul class="popular-posts" id="bookInfo">
                 <li>
-                    <a href="#"><img src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post"></a>
-                    <h6><a href="#">Lorem ipsum dolor sit amet consectetur adipiscing elit</a></h6>
-                    <em>Posted on 09/01/15</em>
-                </li>
-                <li>
-                    <a href="#"><img src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post"></a>
-                    <h6><a href="#">Nulla iaculis mattis lorem, quis gravida nunc iaculis</a></h6>
-                    <em>Posted on 09/01/15</em>
-                <li>
-                    <a href="#"><img src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post"></a>
-                    <h6><a href="#">Vivamus tincidunt sem eu magna varius elementum maecenas felis</a></h6>
-                    <em>Posted on 09/01/15</em>
+                    <a href="#"><img src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post" id="bookImage"></a>
+                    <h6><a href="#" id="bookTitle">제목</a></h6>
+                    <h6 id="bookAuthor"></h6>
                 </li>
             </ul>
+            
 
             <!--Progress Bars-->
-            <h5 class="title-bg">Progress Bars</h5> 
+            <h5 class="title-bg">화수 작품 총 평점</h5> 
             <div class="progress progress-info progress-striped">
                 <div class="bar" style="width: 20%"></div>
             </div>
-            <div class="progress progress-success progress-striped">
+           <!--  <div class="progress progress-success progress-striped">
                 <div class="bar" style="width: 40%"></div>
             </div>
             <div class="progress progress-warning progress-striped">
@@ -377,7 +407,7 @@ Handlebars.registerHelper("newUpload",function(uploadFile){
             </div>
             <div class="progress progress-danger progress-striped">
                 <div class="bar" style="width: 80%"></div>
-            </div>
+            </div> -->
 
             <!--Testimonials-->
             <h5 class="title-bg">Testimonials</h5>
@@ -385,7 +415,7 @@ Handlebars.registerHelper("newUpload",function(uploadFile){
             <p class="quote-text side">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. In interdum felis fermentum ipsum molestie sed porttitor ligula rutrum."<cite>- Client Name, Big Company</cite></p>
         
             <p class="quote-text side">"Adipiscing elit. In interdum felis fermentum ipsum molestie sed porttitor ligula rutrum. Morbi blandit ultricies ultrices."<cite>- Another Client Name, Big Company</cite></p>
-                
+                 
 
         </div><!-- End sidebar column -->
 
@@ -417,18 +447,18 @@ Handlebars.registerHelper("newUpload",function(uploadFile){
             			<button class="btn btn-mini" style="margin-bottom: 8px;" id="go">GO</button>
             		</div>
             		<div align="center">
-            			<select style="width: 30%;">
+            			<select style="width: 30%;" id="gradesel">
             					<option selected="selected">5</option>
             					<option>4</option>
             					<option>3</option>
             					<option>2</option>
             					<option>1</option>
             			</select>
-            			<button class="btn btn-mini" style="margin-bottom: 8px;">별점 주기</button>
+            			<button class="btn btn-mini" style="margin-bottom: 8px;" id="gradebtn">별점 주기</button>
             		</div>
             		<div align="center"><button class="btn btn-mini" id="prev">이전화</button><button class="btn btn-mini" id="next">다음화</button></div>
             		<div align="center"><button class="btn btn-mini" id="add">나의 서재에 추가</button></div>
-            		<div align="center"><a href="" id="myBook">나의 서재로 이동하기</a></div>
+            		<div align="center"><a href="favBookList.kh" id="myBook">나의 서재로 이동하기</a></div>
 				</div>
 			</div>
             
@@ -442,22 +472,22 @@ Handlebars.registerHelper("newUpload",function(uploadFile){
 		<div class="box-footer" style="float:left; width: 17%;">
 		 <button class="btn" type="button" id="replyAddBtn" style=" width:100%; height: 110px;">ADD REPLY</button>
 		</div>		
+	  </div>	
 	  </div>
 	  <!-- box box-success 끝 -->
             
             
 	  <ul class="timeline" style="clear: both;">
 	   <c:forEach items="${review}" var="rev">
-		<li class="time_sub"  id="${rev.rno}" style="list-style: none;">
-		 <div style="float:left; font-size:25px;"> <i class="icon-leaf"></i>${rev.id}</div>
-		 <div style="float:right"><fmt:formatDate pattern="yyyy/MM/dd" dateStyle="short" value="${rev.rdate}" /></div>
-		 <div style="clear:both; font-size:18px; ">${rev.rtext}</div>
-		 <p>
-		   <button class="btn btn-mini" type="button" id="${rev.rno}">delete</button>
-		   <button class="btn btn-mini" type="button" id="${rev.rno}">update</button></p>
+		<li class="time_sub"  id="${rev.rno}" style="list-style: none; clear:both; padding-top: 20px;">
+		 <div style="float:left; font-size:13px; width: 15%;"><div style=" font-size:20px;"><i class="icon-leaf"></i>${rev.id}</div>
+		 <fmt:formatDate pattern="yyyy/MM/dd" dateStyle="short" value="${rev.rdate}" />
+		 <button class="btn btn-mini" type="button" id="${rev.rno}">delete</button></div>
+		 <div style="float:right; font-size:16px; word-wrap:break-word; width: 85%;">${rev.rtext}</div>
 	   </li>
-	  </c:forEach> 
+	  </c:forEach>
 	  </ul>
+	  <div style="clear:both; margin-bottom: 20px"></div>
 
         </div> <!--End page content column--> 
 

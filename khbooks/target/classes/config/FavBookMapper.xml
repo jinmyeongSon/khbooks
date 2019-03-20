@@ -24,8 +24,8 @@
 		delete from Fav_Book  where bno=#{bno}
 	</delete>
 	
-	<select id="count" resultType="int">
-		select count(*) from Fav_Book
+	<select id="count" parameterType="string" resultType="int">
+		select count(*) from Fav_Book where id=#{id}
 	</select>
 
 </mapper>

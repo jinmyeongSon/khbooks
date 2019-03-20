@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import dto.BookDTO;
 import dto.ReviewCommentDTO;
 import dto.SerialDTO;
 
@@ -48,5 +49,32 @@ public class SerialDaoImp implements SerialDAO {
 	@Override
 	public void deleteReviewComment(ReviewCommentDTO rdto) {
 		sqlSession.delete("serial.deleteReviewComment", rdto);
+	}
+
+	@Override
+	public int gradeCheck(Map<String, Object> map) {
+		return sqlSession.selectOne("serial.gradeCheck", map);
+	}
+
+	@Override
+	public void gradeInsert(Map<String, Object> map) {
+		sqlSession.insert("serial.gradeInsert", map);
+		
+	}
+
+	@Override
+	public void gradeUpdate(Map<String, Object> map) {
+		sqlSession.update("serial.gradeUpdate", map);
+		
+	}
+
+	@Override
+	public BookDTO bookInfo(int bno) {
+		return sqlSession.selectOne("book.bookDetail", bno);
+	}
+
+	@Override
+	public List<BookDTO> authorBook(int auno) {
+		return sqlSession.selectList("book.authorBook", auno);
 	}
 }

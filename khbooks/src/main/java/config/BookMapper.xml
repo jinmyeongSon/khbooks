@@ -148,5 +148,16 @@
 	<select id="genreList" resultType="dto.GenreDTO">
 		select * from genre order by gno
 	</select>
+	
+	<select id="authorBook" parameterType="int" resultType="dto.BookDTO">
+	
+		select rownum, c.*
+		from(select rownum as rm, a.*
+		from(select b.bno, b.bname
+		from  book b, book_author ba
+		where ba.auno = #{auno}
+		and b.bno=ba.bno)a)c
+		<![CDATA[where c.rm>=1 and c.rm <=5]]>
+	</select>
 
 </mapper>

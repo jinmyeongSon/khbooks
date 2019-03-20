@@ -52,57 +52,70 @@
       
         <!-- Logo
         ================================================== -->
-        <div class="span5 logo">
-        	<a href="index.htm"><img src="img/piccolo-logo.png" alt="" /></a>
-            <h5>Big Things... Small Packages</h5>
+        <div class="span6 logo">
+        	<a href="index.htm" style="width: 300px;"><img src="img/khbooks_logo.png" alt="for every novel" style="padding-right: 0px;"/></a>
+            <h5 style="color: #333333; font-size: 25px;">For every Novel </h5>
         </div>
         
         <!-- Main Navigation
         ================================================== -->
-        <div class="span7 navigation">
-            <div class="navbar hidden-phone">
-            
+        <div class="span6 navigation">
+        	<div class="login area" style="float: right; height: 30px; margin-bottom: 15px;">
+        		<c:choose>
+        			<c:when test="${sessionScope.id==''}">
+        				<a href="loginForm.kh" style="text-decoration: none;">
+        				<button class="btn" type="button" style="padding: 4px 6px; margin-right: 5px;" id="loginBtn">로그 인</button>
+        				</a>
+        				<a href="signUp.kh" style="text-decoration: none;">
+        				<button class="btn" type="button" style="padding: 4px 6px; margin-right: 4px;" id="regiBtn">회원 가입</button>
+        				</a>
+        			</c:when>
+        			<c:otherwise>
+        				<button class="btn" type="button">회원 정보</button>
+        			</c:otherwise>
+        		</c:choose>
+        	</div>
+        	
+            <div class="navbar hidden-phone" style="clear: both;">
             <ul class="nav">
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="index.htm">Home <b class="caret"></b></a>
+            <li><a href="index.htm" style=" font-weight: bold; font-size: 15px;">메인</a></li>
+           	<li class="active"><a href="features.htm" style=" font-weight: bold; font-size: 15px;">작품</a></li>
+            <li class="dropdown"><a href="page-full-width.htm" style=" font-weight: bold; font-size: 15px;">게시판 <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="index.htm">Full Page</a></li>
-                    <li><a href="index-gallery.htm">Gallery Only</a></li>
-                    <li><a href="index-slider.htm">Slider Only</a></li>
-                </ul>
-            </li>
-           <li><a href="features.htm">Features</a></li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="page-full-width.htm">Pages <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="page-full-width.htm">Full Width</a></li>
-                    <li><a href="page-right-sidebar.htm">Right Sidebar</a></li>
-                    <li><a href="page-left-sidebar.htm">Left Sidebar</a></li>
-                    <li><a href="page-double-sidebar.htm">Double Sidebar</a></li>
-                </ul>
-            </li>
-             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="gallery-4col.htm">Gallery <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="gallery-3col.htm">Gallery 3 Column</a></li>
-                    <li><a href="gallery-4col.htm">Gallery 4 Column</a></li>
-                    <li><a href="gallery-6col.htm">Gallery 6 Column</a></li>
-                    <li><a href="gallery-4col-circle.htm">Gallery 4 Round</a></li>
-                    <li><a href="gallery-single.htm">Gallery Single</a></li>
+                    <li><a href="noticeList.kh" style=" font-weight: bold; font-size: 13px;">공지 사항</a></li>
+                    <li><a href="boardList.kh" style=" font-weight: bold; font-size: 13px;">자유 게시판</a></li>
                 </ul>
              </li>
-             <li class="dropdown active">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="blog-style1.htm">Blog <b class="caret"></b></a>
+          	<li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="blog-style1.htm" style=" font-weight: bold; font-size: 15px;">문의하기 
+                <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="blog-style1.htm">Blog Style 1</a></li>
-                    <li><a href="blog-style2.htm">Blog Style 2</a></li>
-                    <li><a href="blog-style3.htm">Blog Style 3</a></li>
-                    <li><a href="blog-style4.htm">Blog Style 4</a></li>
-                    <li><a href="blog-single.htm">Blog Single</a></li>
+                    <li><a href="blog-style1.htm" style=" font-weight: bold; font-size: 13px;">자주 묻는 질문</a></li>
+                    <li><a href="blog-style2.htm" style=" font-weight: bold; font-size: 13px;">FAQ</a></li>
                 </ul>
              </li>
-             <li><a href="page-contact.htm">Contact</a></li>
+             <c:choose>
+             	<c:when test="${sessionScope.id==''}">
+             		<li><a href="loginForm.kh" style=" font-weight: bold; font-size: 15px;">로그인</a></li>
+             	</c:when>
+             	<c:otherwise>
+             		<li class="dropdown">
+	                <a class="dropdown-toggle" data-toggle="dropdown" href="memberInfor.kh" style=" font-weight: bold; font-size: 15px;">회원 정보 
+	                <b class="caret"></b></a>
+	                <ul class="dropdown-menu" ">
+	                    <li><a href="favBookList.kh" style=" font-weight: bold; font-size: 13px; style="width: 80px; ">나의 관심 작품</a></li>
+	                    <li><a href="blog-style2.htm" style=" font-weight: bold; font-size: 13px;">나의 관심 작가</a></li>
+	                </ul>
+            	 </li>
+             	
+             	</c:otherwise>
+             
+             </c:choose>
+
             </ul>
+   
+            
+            
            
             </div>
         </div>

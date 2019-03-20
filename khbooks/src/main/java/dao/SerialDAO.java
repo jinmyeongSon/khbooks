@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 import java.util.Map;
 
+import dto.BookDTO;
 import dto.ReviewCommentDTO;
 import dto.SerialDTO;
 
@@ -21,5 +22,15 @@ public interface SerialDAO {
 	void insertReviewComment(ReviewCommentDTO rdto);
 
 	void deleteReviewComment(ReviewCommentDTO rdto);
+
+	int gradeCheck(Map<String, Object> map);
+
+	void gradeInsert(Map<String, Object> map);
+
+	void gradeUpdate(Map<String, Object> map);
+
+	BookDTO bookInfo(int bno);
+
+	List<BookDTO> authorBook(int auno);
 	
 }

@@ -29,8 +29,8 @@ public class FavBookDaoImp implements FavBookDAO{
 	}
 
 	@Override
-	public int count() {
-		return sqlSession.selectOne("FavBook.count");
+	public int count(String id) {
+		return sqlSession.selectOne("FavBook.count", id);
 	}
 
 
