@@ -104,7 +104,17 @@ public class UserController {
 	}
 	
 	// 로그아웃
-	@RequestMapping(value="/logout")
+/*	@RequestMapping(value="/logout")
+	public ModelAndView logoutChk(HttpSession session) {
+		session.invalidate();
+		session.removeAttribute("login");
+		ModelAndView mav= new ModelAndView();
+		mav.setViewName("user/login");
+		mav.addObject("msg", "logout");
+		return mav;
+	}*/
+	
+	@RequestMapping(value="/logout.kh")
 	public ModelAndView logoutChk(HttpSession session) {
 		session.invalidate();
 		session.removeAttribute("login");

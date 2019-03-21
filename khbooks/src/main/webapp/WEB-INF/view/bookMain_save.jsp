@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset=UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- CSS
@@ -47,8 +47,81 @@
     <div class="color-bar-2 color-bg"></div>
     
     <div class="container main-container">
-    <!-- Header -->
-       <jsp:include page="khbooks_header.jsp"></jsp:include>
+    
+      <div class="row header"><!-- Begin Header -->
+      
+        <!-- Logo
+        ================================================== -->
+        <div class="span6 logo">
+        	<a href="index.htm" style="width: 300px;"><img src="img/khbooks_logo.png" alt="for every novel" style="padding-right: 0px;"/></a>
+            <h5 style="color: #333333; font-size: 25px;">For every Novel </h5>
+        </div>
+        
+        <!-- Main Navigation
+        ================================================== -->
+        <div class="span6 navigation">
+        	<div class="login area" style="float: right; height: 30px; margin-bottom: 15px;">
+        		<c:choose>
+        			<c:when test="${sessionScope.id==''}">
+        				<a href="loginForm.kh" style="text-decoration: none;">
+        				<button class="btn" type="button" style="padding: 4px 6px; margin-right: 5px;" id="loginBtn">로그 인</button>
+        				</a>
+        				<a href="signUp.kh" style="text-decoration: none;">
+        				<button class="btn" type="button" style="padding: 4px 6px; margin-right: 4px;" id="regiBtn">회원 가입</button>
+        				</a>
+        			</c:when>
+        			<c:otherwise>
+        				<button class="btn" type="button">회원 정보</button>
+        			</c:otherwise>
+        		</c:choose>
+        	</div>
+        	
+            <div class="navbar hidden-phone" style="clear: both;">
+            <ul class="nav">
+            <li><a href="index.htm" style=" font-weight: bold; font-size: 15px;">메인</a></li>
+           	<li class="active"><a href="features.htm" style=" font-weight: bold; font-size: 15px;">작품</a></li>
+            <li class="dropdown"><a href="page-full-width.htm" style=" font-weight: bold; font-size: 15px;">게시판 <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="noticeList.kh" style=" font-weight: bold; font-size: 13px;">공지 사항</a></li>
+                    <li><a href="boardList.kh" style=" font-weight: bold; font-size: 13px;">자유 게시판</a></li>
+                </ul>
+             </li>
+          	<li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="blog-style1.htm" style=" font-weight: bold; font-size: 15px;">문의하기 
+                <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="blog-style1.htm" style=" font-weight: bold; font-size: 13px;">자주 묻는 질문</a></li>
+                    <li><a href="blog-style2.htm" style=" font-weight: bold; font-size: 13px;">FAQ</a></li>
+                </ul>
+             </li>
+             <c:choose>
+             	<c:when test="${sessionScope.id==''}">
+             		<li><a href="loginForm.kh" style=" font-weight: bold; font-size: 15px;">로그인</a></li>
+             		<li><a href="signUp.kh" style=" font-weight: bold; font-size: 15px;">회원가입</a></li>
+             	</c:when>
+             	<c:otherwise>
+             		<li class="dropdown">
+	                <a class="dropdown-toggle" data-toggle="dropdown" href="memberInfor.kh" style=" font-weight: bold; font-size: 15px;">회원 정보 
+	                <b class="caret"></b></a>
+	                <ul class="dropdown-menu" ">
+	                    <li><a href="favBookList.kh" style=" font-weight: bold; font-size: 13px; style="width: 80px; ">나의 관심 작품</a></li>
+	                    <li><a href="favAuthorList.kh" style=" font-weight: bold; font-size: 13px;">나의 관심 작가</a></li>
+	                </ul>
+            	 </li>
+             	
+             	</c:otherwise>
+             
+             </c:choose>
+
+            </ul>
+   
+            
+            
+           
+            </div>
+        </div>
+
+      </div><!-- End Header -->
      
     <!-- Blog Content
     ================================================== --> 
@@ -181,10 +254,76 @@
     </div>
     
     </div> <!-- End Container -->
-    <!-- Footer -->
-    	<jsp:include page="khbooks_footer.jsp"></jsp:include>
-    
 
+    <!-- Footer Area
+        ================================================== -->
+	<div class="footer-container"><!-- Begin Footer -->
+    	<div class="container">
+        	<div class="row footer-row">
+                <div class="span3 footer-col">
+                    <h5>About Us</h5>
+                   <img src="img/piccolo-footer-logo.png" alt="Piccolo" /><br /><br />
+                    <address>
+                        <strong>Design Team</strong><br />
+                        123 Main St, Suite 500<br />
+                        New York, NY 12345<br />
+                    </address>
+                    <ul class="social-icons">
+                        <li><a href="#" class="social-icon facebook"></a></li>
+                        <li><a href="#" class="social-icon twitter"></a></li>
+                        <li><a href="#" class="social-icon dribble"></a></li>
+                        <li><a href="#" class="social-icon rss"></a></li>
+                        <li><a href="#" class="social-icon forrst"></a></li>
+                    </ul>
+                </div>
+                <div class="span3 footer-col">
+                    <h5>Latest Tweets</h5>
+
+                </div>
+                <div class="span3 footer-col">
+                    <h5>Latest Posts</h5>
+                     <ul class="post-list">
+                        <li><a href="#">Lorem ipsum dolor sit amet</a></li>
+                        <li><a href="#">Consectetur adipiscing elit est lacus gravida</a></li>
+                        <li><a href="#">Lectus sed orci molestie molestie etiam</a></li>
+                        <li><a href="#">Mattis consectetur adipiscing elit est lacus</a></li>
+                        <li><a href="#">Cras rutrum, massa non blandit convallis est</a></li>
+                    </ul>
+                </div>
+                <div class="span3 footer-col">
+                    <h5>Flickr Photos</h5>
+                    <ul class="img-feed">
+                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
+                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
+                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
+                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
+                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
+                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
+                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
+                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
+                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
+                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
+                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
+                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row"><!-- Begin Sub Footer -->
+                <div class="span12 footer-col footer-sub">
+                    <div class="row no-margin">
+                        <div class="span6"><span class="left">Copyright 2012 Piccolo Theme. All rights reserved.</span></div>
+                        <div class="span6">
+                            <span class="right">
+                            <a href="#">Home</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Features</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Gallery</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Blog</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Contact</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Sub Footer -->
+
+        </div>
+    </div><!-- End Footer -->
 
     <!-- Scroll to Top -->  
     <div id="toTop" class="hidden-phone hidden-tablet">Back to Top</div>

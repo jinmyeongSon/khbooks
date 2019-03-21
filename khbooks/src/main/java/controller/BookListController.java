@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.BookPageDTO;
@@ -110,5 +111,20 @@ public class BookListController {
 		mav.setViewName("bookSearch");
 		return mav;
 	}
+	
+	@RequestMapping(value="/twitterGet.kh")
+	public @ResponseBody List<Status> twitterGet() {
+	List<Status> tweet = null;
+    try {
+        Twitter twitter = TwitterFactory.getSingleton();
+        Paging page = new Paging (1, 5);
+        tweet = twitter.getUserTimeline(page);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    
+    return tweet;
+    }
 
 }
