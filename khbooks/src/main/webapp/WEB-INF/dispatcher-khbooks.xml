@@ -31,6 +31,10 @@
 	<bean class="controller.SerialController">
 		<property name="service" ref="serviceSerial" />
 	</bean>
+	<bean class="controller.MainController">
+		<property name="nservice" ref="nservice" />
+		<property name="service" ref="serviceBook" />
+	</bean>
 	
 	<!-- [2] SqlSessionFactoryBean 빈 선언 -->
 

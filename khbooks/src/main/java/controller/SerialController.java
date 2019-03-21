@@ -52,7 +52,9 @@ public class SerialController {
 		String text = "";
 		try{
             //파일 객체 생성
-            File file = new File("C:\\temp\\test\\" + fileName);
+            File file = new File("C:\\temp\\test");
+            System.out.println(file.isDirectory());
+            file = new File("C:\\temp\\test\\" + fileName);
             //입력 스트림 생성
             FileReader filereader = new FileReader(file);
             //입력 버퍼 생성

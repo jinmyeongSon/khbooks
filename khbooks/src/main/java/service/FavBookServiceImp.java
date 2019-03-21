@@ -30,5 +30,16 @@ public class FavBookServiceImp implements FavBookService{
 	public int countprocess(String id) {
 		return dao.count(id);
 	}
+
+	@Override
+	public int searchprocess(Map<String, Object> map) {
+		return dao.search(map);
+	}
+
+	@Override
+	public void insertporcess(Map<String, Object> map) {
+		dao.insert(map);
+		
+	}
 	
 }

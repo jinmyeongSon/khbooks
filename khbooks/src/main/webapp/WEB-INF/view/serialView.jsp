@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=UTF-8">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
@@ -47,11 +47,31 @@ var fileList='';
 var bno='';
 var rm='';
 var totalCount='';
+var id ='';
 
 $(document).ready(function(){
 	bno=${bno};
 	rm=${rm};
 	totalCount=${totalCount};
+	id='{sessionScope.id}';
+	$('#add').on('click',function(){
+		if(id==''){
+			alert('로그인 후 이용하세요.');
+		}else{
+			$.ajax({
+				type : 'GET',
+				url : 'favinsert.kh?bno='+bno,
+				success : function(res){
+					if(res==0){
+						alert('추가되었습니다.');
+					}else{
+						alert("이미추가된 항목입니다.");
+						
+					}
+				}
+			});
+		}
+	});
 	
 	$('#prev').on('click', function() {
 		if(rm == 1){

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.PageDTO;
@@ -57,6 +58,20 @@ public class FavBookController {
 		service.deleteprocess(num);
 		mav.setViewName("redirect:/favBookList.kh");
 		return mav;
+	}
+	@RequestMapping("/favinsert.kh")
+	public @ResponseBody int favInsert(HttpSession session,int bno) {
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("id", (String)session.getAttribute("id"));
+		map.put("bno", bno);
+		int num = service.searchprocess(map);
+		if(num==0) {
+			service.insertporcess(map);
+		}
+		
+		return num; 
+		
+		
 	}
 	
 }

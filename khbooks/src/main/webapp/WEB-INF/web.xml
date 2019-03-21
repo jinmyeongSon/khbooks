@@ -67,6 +67,7 @@
 		<url-pattern>*.jpg</url-pattern>
 		<url-pattern>*.png</url-pattern>
 		<url-pattern>*.htm</url-pattern>
+		<url-pattern>*.txt</url-pattern>
 	</servlet-mapping>
 
 </web-app>

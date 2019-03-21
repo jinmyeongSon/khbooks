@@ -24,9 +24,17 @@
 		delete from Fav_Book  where bno=#{bno}
 	</delete>
 	
-	<select id="count" parameterType="String" resultType="int">
+	<select id="count" parameterType="string" resultType="int">
 		select count(*) from Fav_Book where id=#{id}
 	</select>
+	
+	<select id="search" parameterType="map" resultType="int">
+		select count(*) from fav_book where id=#{id} AND bno=#{bno} 
+	</select>
+	
+	<insert id="insert" parameterType="map">
+		insert into fav_book values(#{id},#{bno})
+	</insert>
 
 </mapper>
 

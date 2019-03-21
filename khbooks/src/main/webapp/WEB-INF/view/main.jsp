@@ -1,21 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html >
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-td{
-border:1px solid black;
-text-align: center; 
-
-}
-.pagination{
-text-align: center;
-}
-</style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- CSS
@@ -23,7 +13,8 @@ text-align: center;
 <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/bootstrap-responsive.css">
-<link rel="stylesheet" href="css/jquery.lightbox-0.5.css">
+<link rel="stylesheet" href="css/prettyPhoto.css" />
+<link rel="stylesheet" href="css/flexslider.css" />
 <link rel="stylesheet" href="css/custom-styles.css">
 
 <!--[if lt IE 9]>
@@ -41,39 +32,60 @@ text-align: center;
 <!-- JS
 ================================================== -->
 <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-<script src="js/jquery.easing.1.3.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.prettyPhoto.js"></script>
-<script src="js/jquery.quicksand.js"></script>
+<script src="js/jquery.flexslider.js"></script>
 <script src="js/jquery.custom.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
-	$(document).on('click','#move',function(){
-		var au=$(this).parent().prev().children().val();
-		var ak=$(this).parent().prev().children().children("option:selected").text();
-		location.href='http://localhost:8090/khbook/serialView.kh?bno='+au+'&rm='+ak;
-	});
-	$(document).on('click','#deletebtn',function(){
-		var del=confirm("정말 삭제 하시겠습니까 ?");
-		if(del){
-			var bno= $(this).parent().prev().val();
-			$(this).parent().prev().prev().attr("action","favDelete.kh");
-			$(this).parent().prev().prev().submit(); 
-		}else{
-			return false;
-		}
-	});
+
+    $("#btn-blog-next").click(function () {
+      $('#blogCarousel').carousel('next')
+    });
+     $("#btn-blog-prev").click(function () {
+      $('#blogCarousel').carousel('prev')
+    });
+
+     $("#btn-client-next").click(function () {
+      $('#clientCarousel').carousel('next')
+    });
+     $("#btn-client-prev").click(function () {
+      $('#clientCarousel').carousel('prev')
+    });
+     
+     $('#bookmove').on('click',function(){
+    	 location.href='http://localhost:8090/khbook/bookMain.kh';
+     });
+     $('#noticemove').on('click',function(){
+    	 location.href='http://localhost:8090/khbook/noticeList.kh';
+     });
+     $('#tweetmove').on('click',function(){
+    	 location.href='https://twitter.com/khbooks1';
+     });
+    
+});
+
+ $(window).load(function(){
+
+    $('.flexslider').flexslider({
+        animation: "slide",
+        slideshow: true,
+        start: function(slider){
+          $('body').removeClass('loading');
+        }
+    });  
 });
 
 </script>
 
 </head>
-
-<body>
+  
+<body class="home">
+    <!-- Color Bars (above header)-->
 	<div class="color-bar-1"></div>
     <div class="color-bar-2 color-bg"></div>
     
-    <div class="container main-container">
+    <div class="container">
     
       <div class="row header"><!-- Begin Header -->
       
@@ -89,8 +101,8 @@ $(document).ready(function () {
         <div class="span7 navigation">
             <div class="navbar hidden-phone">
             
-           <ul class="nav">
-            <li class="dropdown">
+            <ul class="nav">
+            <li class="dropdown active">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="index.htm">Home <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="index.htm">Full Page</a></li>
@@ -119,22 +131,22 @@ $(document).ready(function () {
                 </ul>
              </li>
              <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="blog-style1.htm">Blog <b class="caret"></b></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="blog-style1.htm">Blog<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="blog-style1.htm">Blog Style 1</a></li>
+                    <li><a href="blog1.kh">Blog Style 1</a></li>
                     <li><a href="blog-style2.htm">Blog Style 2</a></li>
                     <li><a href="blog-style3.htm">Blog Style 3</a></li>
                     <li><a href="blog-style4.htm">Blog Style 4</a></li>
                     <li><a href="blog-single.htm">Blog Single</a></li>
                 </ul>
              </li>
-             <li class="active"><a href="page-contact.htm">Contact</a></li>
+             <li><a href="page-contact.htm">Contact</a></li>
             </ul>
            
             </div>
 
-             <!-- Mobile Nav
-            ================================================== -->
+   <!--          Mobile Nav
+            ==================================================
             <form action="#" id="mobile-nav" class="visible-phone">
                 <div class="mobile-nav-select">
                 <select onchange="window.open(this.options[this.selectedIndex].value,'_top')">
@@ -164,98 +176,108 @@ $(document).ready(function () {
                     <option value="page-contact.htm">Contact</option>
                 </select>
                 </div>
-                </form>
+                </form> -->
 
         </div>
         
       </div><!-- End Header -->
      
-    <!-- Page Content
-    ================================================== --> 
-    <div class="row"><!--Container row-->
-
-        <div class="span8 contact"><!--Begin page content column-->
-         <h2>관심 작품</h2>
-                    
-                    <table>
-                    	<thead>
-							<tr>
-								<th width="3%"></th>
-								<th width="10%">작품 이름</th>
-								<th width="10%">최신 업로드</th>
-								<th width="10%">작품 평점</th>
-								<th width="10%">작품 조회수</th>
-								<th width="10%">연재 화수</th>
-								<th width="10%">이동</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="dto" items="${aList}" >
-							<tr>							
-								<form method="POST">
-								<input type="hidden" value="${dto.bno }" name="num"/>
-								<td><input class="icon-trash" style="width:70%; height:90%;" type="button" id="deletebtn"/></td>
-								<td>${dto.bname }</td>
-								<td>${dto.bupdate }</td>
-								<td>${dto.bgrade }</td>
-								<td>${dto.bview }</td>
-								<td>
-								<select style="width: 100%;" >
-										<c:forEach begin="1" end="${dto.count}" var="i">
-												<option value="${dto.bno}">${i}</option>
-										</c:forEach>
-										</select>
-									</td>
-									<td><input type="button" value="이동" id="move"/></td>
-								</form>
-								</tr>
-							
-							</c:forEach>
-					 </tbody>
-                    </table>
-                   <!--  <button class="btn btn-inverse pull-left" id="deletebtn" type="button">삭제</button> -->
-                
-                <div class="pagination">
-                	<ul>
-                		<c:if test="${pv.startPage>1 }">
-							<li class="active"><a href="favBookList.kh.kh?currentPage=${pv.startPage-pv.blockPage }">이전</a></li>
-						</c:if>
-               			<!-- 페이지 -->
-						<c:forEach begin="${pv.startPage}" end="${pv.endPage }" var="i">
-							
-							<c:choose>
-							<c:when test="${i==pv.currentPage }">
-						<li class="active"><a href="favBookList.kh?currentPage=${i}" class="pagecolor">${i}</a></li>
-		</c:when>
-		<c:otherwise>
-			<li class="active"><a href="favBookList.kh?currentPage=${i}">${i}</a></li>
-		</c:otherwise>
-		</c:choose>
-		
-		</c:forEach>
-		<!-- 다음 -->
-		<c:if test="${pv.endPage<pv.totalPage}">
-			<li class="active"><a href="favBookList.kh?currentPage=${pv.startPage+pv.blockPage }">다음</a></li>
-		</c:if>
-                </ul>
-        
+    <div class="row headline"><!-- Begin Headline -->
+    
+     	<!-- Slider Carousel
+        ================================================== -->
+        <div class="span8">
+            <div class="flexslider">
+              <ul class="slides">
+                <li><a href="gallery-single.htm"><img src="img/gallery/slider-img-1.jpg" alt="slider" /></a></li>
+                <li><a href="gallery-single.htm"><img src="img/gallery/slider-img-1.jpg" alt="slider" /></a></li>
+                <li><a href="gallery-single.htm"><img src="img/gallery/slider-img-1.jpg" alt="slider" /></a></li>
+                <li><a href="gallery-single.htm"><img src="img/gallery/slider-img-1.jpg" alt="slider" /></a></li>
+                <li><a href="gallery-single.htm"><img src="img/gallery/slider-img-1.jpg" alt="slider" /></a></li>
+              </ul>
             </div>
-                    </div>
-                    
-           
+        </div>
+        
+        <!-- Headline Text
+        ================================================== -->
+       
+    </div><!-- End Headline -->
+    
+    <div class="row gallery-row"><!-- Begin Gallery Row --> 
+      
+    	<div class="span12">
+            <h5 class="title-bg">최신 업로드
+                
+                <button class="btn btn-mini btn-inverse hidden-phone" id="bookmove" type="button">페이지로 이동</button>
+            </h5>
+    	
+        <!-- Gallery Thumbnails
+        ================================================== -->
 
-        <!-- Sidebar
-        ================================================== --> 
-        <div class="span4 sidebar page-sidebar"><!-- Begin sidebar column -->
-             <h5 class="title-bg">Categories</h5>
-            <ul class="post-category-list">
-                <li><a href="http://localhost:8090/khbook/memberInfor.kh"><i class="icon-plus-sign"></i>회원정보</a></li>
-                <li><a href="http://localhost:8090/khbook/favAuthorList.kh"><i class="icon-plus-sign"></i>관심작가</a></li>
-                <li><a href="http://localhost:8090/khbook/favBookList.kh"><i class="icon-plus-sign"></i>관심작품</a></li>
-            </ul>
-        </div><!-- End sidebar column -->
+             <div class="row clearfix">
+                <ul class="blog-post-grid">
 
-    </div><!-- End container row -->
+					<c:forEach items="${bList}" var="list"  begin="0" end="7" step="1" >
+                    <li class="span3 blog-post-item">
+                        <div class="blog-post-hover hidden-phone hidden-tablet">
+                            <p><a href="bookDetail.kh?bno=${list.bno}" class="clearfix">${list.bname}</a>
+                            posted on 9/01/15<br /> 12 comments<br /> posted in photoshop</p>
+                        </div>
+                        <a href="blog-single.htm"><img src="img/gallery/gallery-img-1-4col.jpg" alt="Post Thumb"></a>
+                    </li>
+                    </c:forEach>
+
+                </ul>
+            </div>
+            </div>
+ 
+    </div><!-- End Gallery Row -->
+    
+    <div class="row"><!-- Begin Bottom Section -->
+    
+    
+    	<!-- Blog Preview
+        ================================================== -->
+    	<div class="span6">
+
+            <h5 class="title-bg">공지사항
+                <small>Notice</small>
+                <button class="btn btn-mini btn-inverse hidden-phone" id="noticemove" type="button">페이지로 이동</button>
+            </h5>
+             <div class="tab-pane" id="notice">
+                    <ul>
+                    	<c:forEach items="${noticeList }" var="ndto" begin="0" end="5" step="1">
+                    	<li><a href="noticeView.kh?currentPage=${pdto.currentPage }&nnum=${ndto.nnum }"> ${ndto.bname }</a> ${ndto.ndate}</li>
+                    	</c:forEach>
+                    </ul>
+                </div>
+        
+            
+        </div>
+        
+        <!-- Client Area
+        ================================================== -->
+        <div class="span6">
+
+            <h5 class="title-bg">트위터
+            <button class="btn btn-mini btn-inverse hidden-phone" id="tweetmove" type="button">페이지로 이동</button>
+            </h5>
+
+            <!-- Client Testimonial Slider-->
+             <div class="tab-pane" id="tweets">
+                    <ul>
+                    	<c:forEach items="${tweet}" var="tweet">
+                    	<li><a href="#">@${tweet.user.screenName}</a> ${tweet.text}</li>
+                    	</c:forEach>
+                    </ul>
+                </div>
+
+            <!-- Client Logo Thumbs-->
+          
+
+        </div>
+        
+    </div><!-- End Bottom Section -->
     
     </div> <!-- End Container -->
 
@@ -332,8 +354,8 @@ $(document).ready(function () {
             </div><!-- End Sub Footer -->
 
         </div>
-    </div><!-- End Footer -->
-
+    </div><!-- End Footer --> 
+    
     <!-- Scroll to Top -->  
     <div id="toTop" class="hidden-phone hidden-tablet">Back to Top</div>
     
