@@ -31,4 +31,15 @@ public class FavAuthorDaoImp implements FavAuthorDAO{
 	public void FavDelete(int num) {
 		sqlSession.delete("FavAuthor.delete",num);
 	}
+
+	@Override
+	public int search(Map<String, Object> map) {
+		return sqlSession.selectOne("FavAuthor.search",map);
+	}
+
+	@Override
+	public void insert(Map<String, Object> map) {
+		sqlSession.insert("FavAuthor.insert",map);
+		
+	}
 }

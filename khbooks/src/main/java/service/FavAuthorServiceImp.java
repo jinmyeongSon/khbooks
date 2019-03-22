@@ -31,6 +31,17 @@ public class FavAuthorServiceImp implements FavAuthorService {
 		dao.FavDelete(num);
 		
 	}
+
+	@Override
+	public int searchprocess(Map<String, Object> map) {
+		return dao.search(map);
+	}
+
+	@Override
+	public void insertprocess(Map<String, Object> map) {
+		dao.insert(map);
+		
+	}
 	
 
 }

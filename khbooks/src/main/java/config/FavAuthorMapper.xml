@@ -23,6 +23,14 @@
 	<delete id="delete" parameterType="int">
 		delete from Fav_author where auno=#{auno}
 	</delete>
+	
+	<select id="search" parameterType="map" resultType="int">
+		select count(*) from fav_author where id=#{id} AND auno=#{auno} 
+	</select>
+	
+	<insert id="insert" parameterType="map">
+		insert into fav_author values(#{id},#{auno})
+	</insert>
 
 </mapper>
 

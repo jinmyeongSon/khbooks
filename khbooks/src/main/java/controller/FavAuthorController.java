@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.PageDTO;
@@ -21,7 +22,6 @@ public class FavAuthorController {
 	private PageDTO pdto;
 	
 	public FavAuthorController() {
-	 
 	}
 	public void setService(FavAuthorService service) {
 		this.service = service;
@@ -58,4 +58,17 @@ public class FavAuthorController {
 		mav.setViewName("redirect:/favAuthorList.kh");
 		return mav;
 	}
+	@RequestMapping("/favAinsert.kh")
+	public @ResponseBody int favAInsert(HttpSession session,int auno) {
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("id", (String)session.getAttribute("id"));
+		map.put("auno", auno);
+		int num = service.searchprocess(map);
+		if(num==0) {
+			service.insertprocess(map);
+		}
+		
+		return num; 
+	}
+	
 }
