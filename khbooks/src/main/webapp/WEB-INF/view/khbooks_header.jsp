@@ -45,7 +45,7 @@ $(document).ready(function(){
 		$(".board-list").attr('class','board-list dropdown');
 		$(".profile").attr('class','profile dropdown');
  		$(".book-list").attr('class','book-list active');	
-	}else if(split_url=='/noticeList'||split_url=='/noticeWrite'||split_url=='/noticeView.'||split_url=='/boardList'||split_url=='/boardWrite'){
+	}else if(split_url=='/noticeList'||split_url=='/noticeWrite'||split_url=='/noticeView'||split_url=='/boardList'||split_url=='/boardWrite'){
 		$(".mainpage").attr('class','mainpage');
 		$(".book-list").attr('class','book-list');
 		$(".profile").attr('class','profile dropdown');
@@ -104,12 +104,13 @@ $(document).ready(function(){
                 </ul>
              </li>
              <c:choose>
-             	<c:when test="${sessionScope.id==''}">
+             	<c:when test="${sessionScope.id==null}">
              		<li><a href="loginForm.kh" style=" font-weight: bold; font-size: 15px;">로그인</a></li>
              		<li><a href="signUp.kh" style=" font-weight: bold; font-size: 15px;">회원가입</a></li>
              	</c:when>
              	<c:otherwise>
-             		<li class="profile dropdown"><a href="memberInfor.kh" style=" font-weight: bold; font-size: 15px;">회원 정보 
+             		<li class="profile dropdown"><a href="memberInfor.kh" style=" font-weight: bold; font-size: 15px;">회원 정보${sessionScope.id} 
+             		
 	                <b class="caret"></b></a>
 	                <ul class="dropdown-menu"  style="min-width: 80px;">
 	                    <li><a href="favBookList.kh" style=" font-weight: bold; font-size: 13px; width: 80px;">나의 관심 작품</a></li>

@@ -48,10 +48,22 @@ $(document).ready(function(){
 		url : 'twitterGet.kh',
 		success : function(res){
 			$.each(res, function(index, value) {
-				alert(value.Id);
-				var source = '<li><a href="https://twitter.com/khBooks1/status/{{id}}"><div style="heigt=41px; width=100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{text}}</div></a></li>';
+				var source = '<li><a href="javascript:void(window.open('+"'" +'https://twitter.com/khBooks1/'+"'"+","+"'"+'_blank'+"'"+'))"><div style="heigt=41px; width=100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{text}}</div></a></li>';
 				var template = Handlebars.compile(source);
 				$('#tweet-list').append(template(value));
+			});
+		}
+	});
+	
+	$.ajax({
+		type : 'GET',
+		dataType : 'json',
+		url : 'bookGet.kh',
+		success : function(res){
+			$.each(res, function(index, value) {
+				var source = '<li><a href="bookDetail.kh?bno={{bno}}"><div style="height:60px; width:60px; overflow:hidden;" ><img src="img/gallery/flickr-img-1.jpg" rel="popover" title="{{bname}}" data-content="{{binfo}}" data-animation="true"></div></a></li>';
+				var template = Handlebars.compile(source);
+				$('#latest-novel').append(template(value));
 			});
 		}
 	});
@@ -85,25 +97,13 @@ $(document).ready(function(){
 
                 </div>
                 <div class="span3 footer-col">
-                    <h5>공지 사항</h5>
+                    <h5>Notice</h5>
                      <ul class="post-list" id="notice-list">
                     </ul>
                 </div>
                 <div class="span3 footer-col">
-                    <h5>Flickr Photos</h5>
-                    <ul class="img-feed">
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
+                    <h5>New Novel</h5>
+                    <ul class="img-feed" id="latest-novel">
                     </ul>
                 </div>
             </div>

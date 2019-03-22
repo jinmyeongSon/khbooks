@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,6 +40,35 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/button.js"></script>
 <script src="js/jquery.custom.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({
+			type : 'GET',
+			dataType : 'json',
+			url : 'getComment.kh',
+			success : function(res){
+				$.each(res, function(index, value) {
+					var source = '<li><a href="serialView.kh?bno={{bno}}&rm=';
+					var template = Handlebars.compile(source);
+					$('#sidebar-comment').append(template(res));
+					$.ajax({
+						type : 'GET',
+						dataType : 'json',
+						url : 'serialNumGet.kh?bno='+res.bno+'&upno='+res.upno,
+						success : fuction(res2){
+							var source = '<li><a href="serialView.kh?bno={{bno}}&rm={{rm}}">></a>{{rtext}}</li>';
+							var template = Handlebars.compile(source);
+							$('#sidebar-comment').append(template(res2));
+
+						}
+					})
+				};
+				}
+			})
+		})
+	}
+
+</script>
 
 
 </head>
@@ -87,36 +117,33 @@
                 	<c:when test="${pdto.currentPage==1}">
                 		<li class="active"><a href="bookMain.kh?currentPage=1">Prev</a></li>
                 	</c:when>
-					<c:when test="${pdto.currentPage>1&&pdto.currentPage<pdto.blockPage/2+2}">
+					<c:when test="${pdto.startPage==1}">
                 		<li><a href="bookMain.kh?currentPage=1">Prev</a></li>
                 	</c:when>
                 	<c:otherwise>
-                		<li><a href="bookMain.kh?currentPage=${pdto.currentPage-1}">Prev</a></li>
+                		<li><a href="bookMain.kh?currentPage=${pdto.startPage-1}">Prev</a></li>
                 	</c:otherwise>
                 </c:choose>
-                <c:forEach var="i" begin="${-blockPage/2}" end="${pdto.blockPage/2}" step="1" >
-                	<c:if test="${(pdto.currentPage+i-1)>0 && ((pdto.currentPage+i-2)<(pdto.endPage))}">
+                <c:forEach var="i" begin="${pdto.startPage}" end="${pdto.endPage}" step="1" >
                 		<c:choose>
-                			<c:when test="${(i+pdto.currentPage-1) == pdto.currentPage}">
+                			<c:when test="${i == pdto.currentPage}">
                 				<li class="active">
                 			</c:when>
                 			<c:otherwise>
                 				<li>
                 			</c:otherwise>
                 		</c:choose>
-                		<a href="bookMain.kh?currentPage=${pdto.currentPage + (i - 1)}">${pdto.currentPage + (i-1)}</a></li>
-                	</c:if>
+                		<a href="bookMain.kh?currentPage=${i}">${i}</a></li>
                 </c:forEach>
-             
                 <c:choose>
                 	<c:when test="${pdto.currentPage==pdto.endPage}">
                 		<li class="active"><a href="bookMain.kh?currentPage=${pdto.endPage}">Next</a></li>
                 	</c:when>
-                	<c:when test="${pdto.endPage-pdto.currentPage > 0 && pdto.endPage-pdto.currentPage<pdto.blockPage/2}">
+                	<c:when test="${pdto.endPage==pdto.totalPage}">
                 		<li><a href="bookMain.kh?currentPage=${pdto.endPage}">Next</a></li>
                 	</c:when>
                 	<c:otherwise>
-                		<li><a href="bookMain.kh?currentPage=${pdto.currentPage+pdto.blockPage/2+1}">Next</a></li>
+                		<li><a href="bookMain.kh?currentPage=${pdto.endPage+1}">Next</a></li>
                 	</c:otherwise>
                 </c:choose>
                 </ul>
@@ -154,12 +181,12 @@
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#comments" data-toggle="tab">Comments</a></li>
                 <li><a href="#tweets" data-toggle="tab">Tweets</a></li>
-                <li><a href="#about" data-toggle="tab">About</a></li>
             </ul>
 
             <div class="tab-content">
                 <div class="tab-pane active" id="comments">
-	
+                    <ul id="sidebar-comment">
+                    </ul>
                 </div>
                 <div class="tab-pane" id="tweets">
                     <ul>
@@ -167,11 +194,6 @@
                     	<li><a href="#">@${tweet.user.screenName}</a> ${tweet.text}</li>
                     	</c:forEach>
                     </ul>
-                </div>
-                <div class="tab-pane" id="about">
-                    <p>Enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.</p>
-
-                    Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
                 </div>
             </div>
             </section>

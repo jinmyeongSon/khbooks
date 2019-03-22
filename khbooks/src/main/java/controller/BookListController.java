@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import dto.BookDTO;
 import dto.BookPageDTO;
 import service.BookService;
 import twitter4j.*;
@@ -126,5 +127,23 @@ public class BookListController {
     
     return tweet;
     }
+	
+
+	@RequestMapping(value="/bookGet.kh", method=RequestMethod.GET)
+	public @ResponseBody List<BookDTO> bookGet() {
+		BookPageDTO dto = null;
+		int totalCount = 0;
+		int sortKey = 1;
+		int currentPage = 1;
+
+		totalCount = service.getBookCountProcess();
+		dto = new BookPageDTO(currentPage, totalCount, 0, sortKey, "", 12);
+		
+		return service.bookListProcess(dto);
+	}
+	
+	
+	
+
 
 }

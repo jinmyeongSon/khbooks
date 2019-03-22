@@ -289,7 +289,7 @@ Handlebars.registerHelper("newUpload",function(uploadFile){
 
         <!-- Page Sidebar
         ================================================== --> 
-        <div class="span4 sidebar page-sidebar"><!-- Begin sidebar column -->
+        <div class="span4 sidebar page-sidebar" style="" id="serial-sidebar"><!-- Begin sidebar column -->
 
             <!--Latest News-->
             <h5 class="title-bg">현재 보고 있는 작품</h5>
@@ -326,6 +326,9 @@ Handlebars.registerHelper("newUpload",function(uploadFile){
                  
 
         </div><!-- End sidebar column -->
+        
+       	<div class="span2" id="blank" style="display:none;"></div>
+        
 
         <!-- Page Content
         ================================================== --> 

@@ -3,7 +3,7 @@ package dto;
 public class BookPageDTO {
 	private int currentPage; // 현재페이지
 	private int totalCount; // 총 레코드수
-	private int blockCount = 9; // 한 페이지에 보여줄 레코드수
+	private int blockCount = 2; // 한 페이지에 보여줄 레코드수
 	private int blockPage = 5; // 한 블록에 보여줄 페이지수
 	private int totalPage; // 총 페이지수
 	private int startRow; // 시작 레코드 번호
@@ -44,12 +44,23 @@ public class BookPageDTO {
 		endRow = startRow + blockCount - 1;
 
 		// 시작페이지
-		startPage = (int) ((this.currentPage - 1) / blockPage) * blockPage + 1;
+		if(currentPage <= (blockPage/2))
+			startPage = 1;
+		else {
+			startPage = currentPage - (blockPage/2);
+		}
 
 		// 끝페이지
 		endPage = startPage + blockPage - 1;
 		if (totalPage < endPage)
 			endPage = totalPage;
+		
+		if(currentPage > endPage-(blockPage/2))
+			startPage = endPage - blockPage + 1;
+		
+		if(startPage < 1) {
+			startPage = 1;
+		}
 
 		// 리스트페이지에 출력번호
 		number = totalCount - (this.currentPage - 1) * blockCount;
