@@ -8,11 +8,11 @@ import dao.UserDAO;
 import dto.UserDTO;
 
 @Service
-public class UserServiceImp implements UserService{
-	
+public class UserServiceImp implements UserService {
+
 	@Inject
 	private UserDAO dao;
-	
+
 	public void setDao(UserDAO dao) {
 		this.dao = dao;
 	}
@@ -26,5 +26,26 @@ public class UserServiceImp implements UserService{
 	public int CheckDuplication(String id) {
 		return dao.CheckDuplication(id);
 	}
+
+	@Override
+	public String naverLogin(String email) {
+		return dao.naverinfo(email);
+	}
+
+	@Override
+	public UserDTO findAccount(String email) {
+		return dao.findAccount(email);
+	}
+
+	@Override
+	public void updateInfo(String id, String pwd) {
+		dao.updateInfo(id, pwd);
+	}
+
 	
-}//end class
+	
+
+
+	
+
+}// end class

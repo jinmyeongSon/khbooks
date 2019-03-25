@@ -3,8 +3,9 @@ package dto;
 import java.sql.Date;
 
 public class UserDTO {
+	private int uno;
 	private String id;
-	private String upwd;
+	private String upass;
 	private String uname;
 	private String uemail;
 	private String uphone;
@@ -23,16 +24,19 @@ public class UserDTO {
 		this.id = id;
 	}
 
-	public UserDTO(String id, String upwd) {
+	public UserDTO(String id, String upass) {
 		super();
 		this.id = id;
-		this.upwd = upwd;
+		this.upass = upass;
 	}
 
-	public UserDTO(String id, String upwd, String uname, String uemail, String uphone, Date ubirth, int ugender) {
+	
+	public UserDTO(int uno, String id, String upass, String uname, String uemail, String uphone, Date ubirth,
+			int ugender) {
 		super();
+		this.uno = uno;
 		this.id = id;
-		this.upwd = upwd;
+		this.upass = upass;
 		this.uname = uname;
 		this.uemail = uemail;
 		this.uphone = uphone;
@@ -40,8 +44,18 @@ public class UserDTO {
 		this.ugender = ugender;
 	}
 
-	
 
+
+	public int getUno() {
+		return uno;
+	}
+
+	
+	public void setUno(int uno) {
+		this.uno = uno;
+	}
+
+	
 	public String getId() {
 		return id;
 	}
@@ -50,12 +64,13 @@ public class UserDTO {
 		this.id = id;
 	}
 
-	public String getUpwd() {
-		return upwd;
+
+	public String getUpass() {
+		return upass;
 	}
 
-	public void setUpwd(String upwd) {
-		this.upwd = upwd;
+	public void setUpass(String upass) {
+		this.upass = upass;
 	}
 
 	public String getUname() {
@@ -110,6 +125,11 @@ public class UserDTO {
 	public void setRememberId(boolean rememberId) {
 		this.rememberId = rememberId;
 	}
+
+
+
+	
+
 	
 	
 	

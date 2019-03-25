@@ -46,7 +46,7 @@
 		<div style="text-align: center;">
 		 	<h2>KH BOOKs</h2>
 		  <span style="display: inline-block; float: right;  position: relative; top: -50px;">
-			<p>fawfa님 환영합니다</p>
+			
 		</span>
 		</div>
 	</div>

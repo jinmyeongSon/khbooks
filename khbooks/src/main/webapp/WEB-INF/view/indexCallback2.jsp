@@ -52,16 +52,6 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		
-		$(document).ready(function(){
-			var id='${sessionScope.id}';
-			if(id != ''){
-				alert("잘못된 접근입니다.");
-				history.go(-1);
-			}
-			
-			var res='${resultMsg}'
-		});
 
 		$("#btn-blog-next").click(function() {
 			$('#blogCarousel').carousel('next')
@@ -118,13 +108,13 @@
 	  naver_id_login.get_naver_userprofile("naverSignInCallback()");
 	  // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
 	  function naverSignInCallback() {
-		var email = naver_id_login.getProfileData('email');
-		var gender =naver_id_login.getProfileData('gender');
-	    opener.location.href='http://localhost:8090/khbook/loginPost.kh?email='+email+'&gender='+gender;
-	    alert(email);
-	    alert(gender);
-	    window.close();
+		alert(naver_id_login.getProfileData('id'));
+	    alert(naver_id_login.getProfileData('email'));
+	    alert(naver_id_login.getProfileData('birthday'));
+	    alert(naver_id_login.getProfileData('gender'));	
 	  	}
+	  
+	  console.log('${sessionScope.id}');
 </script>
 
 
@@ -135,16 +125,31 @@
 	<div class="container" style="margin-top: 20px;margin-bottom: -20px;">
 		<div style="text-align: center;">
 		 	<a href="http://localhost:8090/khbook/index.kh"> <h2>KH BOOKs</h2> </a>
-		  <span style="display: inline-block; float: right;  position: relative; top: -50px;">
-			<button class="button button2" id="join-btn">회원가입</button> <button class="button button2" id="login-btn">로그인</button>
+		  <span><!-- style="display: inline-block; float: right;  position: relative; top: -50px;" -->
+			
+			<div><!--  class="custom-select" style="width:200px;" -->
+			<select class="awfawfaf">
+			<option value="0">${sessionScope.id} 님 환영합니다</option>
+			  <option value="내정보">내정보</option>
+			  
+			</select>
+			<input class="btn btn-primary" type="button" id="logout" onclick="logoutPro();" value="로그아웃" />
+			${sessionScope.naver_id_login.getProfileData('id')}님 환영
+			${sessionScope.id}님 환영
+			</div>
 		</span>
 		
-		
-			<!-- Main Navigation
-        ================================================== -->
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row header">
+			<!-- Begin Header -->
+			
+			<!-- Main Navigation -->
 			<div class="span7 navigation">
 				<div class="navbar hidden-phone">
-
+	
 					<ul class="nav">
 						<li class="dropdown active"><a class="dropdown-toggle"
 							data-toggle="dropdown" href="index.htm">Home <b class="caret"></b></a>
@@ -185,65 +190,21 @@
 							</ul></li>
 						<li><a href="page-contact.htm">Contact</a></li>
 					</ul>
-
-				</div>
-
-				<!--          Mobile Nav
-            ==================================================
-		</div>
-	</div>
 	
-<hr />
-
-
-	<div class="container">
-
-		<div class="row header">
-			<!-- Begin Header -->
-
-			<!-- Logo
-        ================================================== -->
-			<div class="span5 logo">
-				<a href="index.htm"><img src="img/piccolo-logo.png" alt="" /></a>
-				<h5>Big Things... Small Packages</h5>
+					</div>
+					
+					<!-- Main Logo -->
+					<div class="span5 logo">
+						<a href="index.htm"><img src="img/piccolo-logo.png" alt="" /></a>
+						<h5>Big Things... Small Packages</h5>
+					</div>
+					
+				</div>
+				<!-- Main Navigation -->
 			</div>
-
-		
-            <form action="#" id="mobile-nav" class="visible-phone">
-                <div class="mobile-nav-select">
-                <select onchange="window.open(this.options[this.selectedIndex].value,'_top')">
-                    <option value="">Navigate...</option>
-                    <option value="index.htm">Home</option>
-                        <option value="index.htm">- Full Page</option>
-                        <option value="index-gallery.htm">- Gallery Only</option>
-                        <option value="index-slider.htm">- Slider Only</option>
-                    <option value="features.htm">Features</option>
-                    <option value="page-full-width.htm">Pages</option>
-                        <option value="page-full-width.htm">- Full Width</option>
-                        <option value="page-right-sidebar.htm">- Right Sidebar</option>
-                        <option value="page-left-sidebar.htm">- Left Sidebar</option>
-                        <option value="page-double-sidebar.htm">- Double Sidebar</option>
-                    <option value="gallery-4col.htm">Gallery</option>
-                        <option value="gallery-3col.htm">- 3 Column</option>
-                        <option value="gallery-4col.htm">- 4 Column</option>
-                        <option value="gallery-6col.htm">- 6 Column</option>
-                        <option value="gallery-4col-circle.htm">- Gallery 4 Col Round</option>
-                        <option value="gallery-single.htm">- Gallery Single</option>
-                    <option value="blog-style1.htm">Blog</option>
-                        <option value="blog-style1.htm">- Blog Style 1</option>
-                        <option value="blog-style2.htm">- Blog Style 2</option>
-                        <option value="blog-style3.htm">- Blog Style 3</option>
-                        <option value="blog-style4.htm">- Blog Style 4</option>
-                        <option value="blog-single.htm">- Blog Single</option>
-                    <option value="page-contact.htm">Contact</option>
-                </select>
-                </div>
-                </form> -->
-
-			</div>
-
 		</div>
 		<!-- End Header -->
+
 
 		<div class="row headline">
 			<!-- Begin Headline -->
