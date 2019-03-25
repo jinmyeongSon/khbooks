@@ -52,16 +52,6 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		
-		$(document).ready(function(){
-			var id='${sessionScope.id}';
-			if(id != ''){
-				alert("잘못된 접근입니다.");
-				history.go(-1);
-			}
-			
-			var res='${resultMsg}'
-		});
 
 		$("#btn-blog-next").click(function() {
 			$('#blogCarousel').carousel('next')
@@ -118,13 +108,13 @@
 	  naver_id_login.get_naver_userprofile("naverSignInCallback()");
 	  // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
 	  function naverSignInCallback() {
-		var email = naver_id_login.getProfileData('email');
-		var gender =naver_id_login.getProfileData('gender');
-	    opener.location.href='http://localhost:8090/khbook/loginPost.kh?email='+email+'&gender='+gender;
-	    alert(email);
-	    alert(gender);
-	    window.close();
+		alert(naver_id_login.getProfileData('id'));
+	    alert(naver_id_login.getProfileData('email'));
+	    alert(naver_id_login.getProfileData('birthday'));
+	    alert(naver_id_login.getProfileData('gender'));	
 	  	}
+	  
+	  console.log('${sessionScope.id}');
 </script>
 
 
@@ -136,8 +126,18 @@
 		<div style="text-align: center;">
 		 	<a href="http://localhost:8090/khbook/index.kh"> <h2>KH BOOKs</h2> </a>
 		  <span style="display: inline-block; float: right;  position: relative; top: -50px;">
-			<button class="button button2" id="join-btn">회원가입</button> <button class="button button2" id="login-btn">로그인</button>
+			
+			<div class="custom-select" style="width:200px;">
+			<select>
+				<option value="0">${sessionScope.id} 님 환영합니다</option>
+			  <option value="내정보">내정보</option>
+			  <option value="로그아웃">로그아웃</option>
+			</select>
+			</div>
+			<!--  -->
 		</span>
+		
+		${sessionScope.id} 님 환영합니다${sessionScope.id} 님 환영합니다
 		
 		
 			<!-- Main Navigation
@@ -187,6 +187,9 @@
 					</ul>
 
 				</div>
+
+	<input class="btn btn-primary" type="button" id="logout" onclick="logoutPro();" value="로그아웃" />
+
 
 				<!--          Mobile Nav
             ==================================================

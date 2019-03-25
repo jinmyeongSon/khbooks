@@ -27,6 +27,7 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+	alert(${sessionScope.id});
 	var url = window.location.pathname;
 	var split_start = url.lastIndexOf("/");
 	var split_end = url.lastIndexOf(".");

@@ -27,7 +27,7 @@ public class BookListController {
 	
 	
 	
-	@RequestMapping(value="/bookMain.kh", method=RequestMethod.GET)
+	@RequestMapping(value="/bookMain.kh")
 	public ModelAndView bookMain(BookPageDTO pdto) {
 		ModelAndView mav = new ModelAndView();
 		BookPageDTO dto = null;
@@ -64,6 +64,7 @@ public class BookListController {
 		mav.addObject("gList", service.genreListProcess());
 		mav.addObject("pdto", dto);
 		mav.setViewName("bookMain");
+		System.out.println(pdto);
 		return mav;
 	}
 	

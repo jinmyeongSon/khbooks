@@ -3,6 +3,7 @@ package dto;
 import java.sql.Date;
 
 public class UserDTO {
+	private int uno;
 	private String id;
 	private String upass;
 	private String uname;
@@ -29,8 +30,10 @@ public class UserDTO {
 		this.upass = upass;
 	}
 
-	public UserDTO(String id, String upass, String uname, String uemail, String uphone, Date ubirth, int ugender) {
+	public UserDTO(int uno, String id, String upass, String uname, String uemail, String uphone, Date ubirth,
+			int ugender) {
 		super();
+		this.uno = uno;
 		this.id = id;
 		this.upass = upass;
 		this.uname = uname;
@@ -40,8 +43,18 @@ public class UserDTO {
 		this.ugender = ugender;
 	}
 
-	
 
+
+	public int getUno() {
+		return uno;
+	}
+
+	
+	public void setUno(int uno) {
+		this.uno = uno;
+	}
+
+	
 	public String getId() {
 		return id;
 	}
@@ -109,10 +122,7 @@ public class UserDTO {
 	public void setRememberId(boolean rememberId) {
 		this.rememberId = rememberId;
 	}
-	
-	
-	
-	
-	
+
+
 
 }//end class

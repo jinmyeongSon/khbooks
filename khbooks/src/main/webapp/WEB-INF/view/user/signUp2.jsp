@@ -53,7 +53,17 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-
+		var gender = '${gender}';
+	
+		if(gender = 'F'){
+			$('#ugender').val('2');
+		}else if(gender = 'M'){
+			$('#ugender').val('1');
+		}
+		
+		
+			
+		
 		$(function() {
 			$("#accordion").accordion({
 				heightStyle : "fill"
@@ -180,42 +190,12 @@
 					<p id="pwrong" style="color: red;"></p>
 				</div>
 					<br/>
+					
+				<input type="hidden" value="${email}" name="uemail">
+				<input type="hidden" value="${name}" name="uname">
+				<input type="hidden" value="${gender}" name="ugender" id="ugender">
 				
-				<div class="row">
-					<div class="col-4">
-						<input type="text" class="form-control" id="userName" name="uname" placeholder="이름" required>
-					</div>
-				</div>
-					<br/>
 				
-				<div class="row">
-					<div class="col-4">
-						<input type="email" class="form-control" id="userEmail"	name="uemail" aria-describedby="emailHelp" placeholder="이메일 주소" required> 
-					</div><p id="sameEmail" style="color: red;"></p>
-				</div>
-					<br/>
-				<div class="row">
-					<div class="col-4">
-						<input type="text" class="form-control" id="userPhone" name="uphone" placeholder="전화번호" required>
-					</div>
-				</div>
-				
-				<div class="row">
-					<div class="col-4">
-					<label>생년월일</label>
-					<input type="date" class="form-control" id="userBirth" name="ubirth" required>
-					</div>
-				</div>
-					<br/>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="ugender" value=1>
-					<label class="form-check-label" for="inlineRadio1">남</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="ugender" value=2>
-					<label class="form-check-label" for="inlineRadio2">여</label>
-				</div>
-				<p id="noGen" style="color: red;"></p>
 
 				<hr />
 
