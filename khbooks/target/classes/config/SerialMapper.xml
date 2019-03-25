@@ -68,7 +68,7 @@
 		<result column="bname" property="bname" />
 	</resultMap>
 	
-	<select id="getAllReviewComment" resultMap="dto.ReviewCommentDTO">
+	<select id="getAllReviewComment" resultType="dto.ReviewCommentDTO">
 		select rm, b.*
 		from (
 			select rownum as rm, a.* 
