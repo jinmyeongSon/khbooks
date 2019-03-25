@@ -62,6 +62,14 @@
 		$("#btn-client-prev").click(function() {
 			$('#clientCarousel').carousel('prev')
 		});
+		
+		$("#join-btn").click(function(){
+			$(location).attr('href', 'http://localhost:8090/khbook/signUp.kh');
+		})
+		$("#login-btn").click(function(){
+			$(location).attr('href', 'http://localhost:8090/khbook/loginForm.kh');
+		})
+		
 
 	});
 
@@ -83,9 +91,9 @@
 	<!-- Color Bars (above header)-->
 	<div class="container" style="margin-top: 20px;margin-bottom: -20px;">
 		<div style="text-align: center;">
-		  <h1>KH BOOKs</h1> 
-		  <span style="display: inline-block; float: right;  position: relative; top: -39px;">
-			<button class="button button2">회원가입</button> <button class="button button2">로그인</button>
+		 	<a href="http://localhost:8090/khbook/index.kh"> <h2>KH BOOKs</h2> </a>
+		  <span style="display: inline-block; float: right;  position: relative; top: -50px;">
+			<button class="button button2" id="join-btn">회원가입</button> <button class="button button2" id="login-btn">로그인</button>
 		</span>
 		</div>
 	</div>
