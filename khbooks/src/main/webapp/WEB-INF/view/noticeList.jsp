@@ -144,31 +144,20 @@
         <!-- Blog Posts
         ================================================== --> 
         <div class="span8 blog">
-
+      
             <!-- Blog Post 1 -->
             <c:forEach items="${noticeList }" var="ndto">
             <article id="article">
-                <h3 class="title-bg"><a href="noticeView.kh?currentPage=${pdto.currentPage }&nnum=${ndto.nnum }">&nbsp; &nbsp; ${ndto.bname } </a>
+                <h3 class="title-bg"><a href="noticeView.kh?currentPage=${pdto.currentPage }&nnum=${ndto.nnum }">&nbsp; &nbsp; ${ndto.bname }</a>
                 <span id="noticeCalendar">${ndto.ndate }</span>
                 <span id="noticeAdmin">${ndto.aid }</span>
                 </h3>
-                <%--<div class="post-summary">
-                     <a href="blog-single.htm"><img src="img/gallery/post-img-1.jpg" alt="Post Thumb"></a>
-                    <p>${ndto.btext }</p>
-                    <div class="post-summary-footer">
-                        <button class="btn btn-small btn-inverse" type="button">Read more</button>
-                        <ul class="post-data">
-                            <li><i class="icon-calendar"></i>${ndto.ndate }</li>
-                            <li><i class="icon-user"></i>${ndto.aid }</li>
-                        </ul>
-                    </div>  
-                </div> --%>
             </article>
             </c:forEach>
-
-
+           
+         
             <!-- Pagination -->
-            <div class="pagination">
+            <div class="paging">
                 <ul class="noticeListUl">
                 <!-- 이전 출력 -->
                 <c:if test="${pdto.startPage > 1 }">
@@ -203,13 +192,14 @@
         ================================================== --> 
         <div class="span4 sidebar">
 
-            <!--Search-->
+            <!--검색 -->
             <section>
+            <form id="searchForm">
                 <div class="input-append">
-                    <form action="#">
-                        <input id="appendedInputButton" size="16" type="text" placeholder="Search"><button class="btn" type="button"><i class="icon-search"></i></button>
-                    </form>
+                    <input id="bname" size="16" type="text" placeholder="검색">
+                    <button class="btn" type="button"><i class="icon-search"></i></button>
                 </div>
+            </form>    
             </section>
             
             

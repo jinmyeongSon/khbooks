@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 .fileDrop {
-	height : 100px;
+	height : 250px;
 	border : 1px solid red;
 }
 </style>
@@ -175,8 +175,7 @@
             	<c:forEach items="${uploadList }" var="upload">
                			<p> <c:set var="numload" value="${(fn:indexOf(upload.upname,'_'))+1}" />
                			<c:set var="strlength" value="${fn:length(upload.upname)}"/>
-              			 <input type="checkbox">${fn:substring(upload.upname,numload,strlength)} </p>
-           	 		
+              			 <input type="checkbox" value="${upload.upno }" id="chkno" >${fn:substring(upload.upname,numload,strlength)} </p>
             	</c:forEach>
             </c:when>
             </c:choose>

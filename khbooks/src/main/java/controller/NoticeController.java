@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -197,5 +196,39 @@ public class NoticeController {
 		return nservice.noticeListPro(pv);
 		
 	}//end noticeUpdatePro()
+	
+	
+	@RequestMapping("/noticeDownload.kh")
+	public ModelAndView download(String upname, String path) {
+		String fullPath = path + "\\" + upname;
+		System.out.println("fullPath : " + fullPath);
+		
+		File file = new File(fullPath);
+		
+		return new ModelAndView("download", "downloadFile", file);
+
+	}//end download
+	
+	
+	@RequestMapping("/fileDelete.kh")
+	public @ResponseBody void fileDelete(int upno) {
+		System.out.println(upno);
+		nservice.fileDelete(upno);
+	}//end fileDelete
+	
+	
+	@RequestMapping("/noticeKeyword.kh")
+	public @ResponseBody List<NoticeDTO> search(String bname) {
+
+		System.out.println("키워드 : " + bname);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("searchList", nservice.search(bname));
+		mav.addObject("bname", bname);
+		
+		return nservice.search(bname);
+		
+	}
+	
 	
 }//end class

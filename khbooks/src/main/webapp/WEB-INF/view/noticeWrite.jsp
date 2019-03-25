@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 .fileDrop {
-	height : 100px;
+	height : 200px;
 	border : 1px solid red;
 }
 </style>

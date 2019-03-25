@@ -17,4 +17,6 @@ public interface NoticeDAO {
 	public void noticeUpdate(NoticeDTO ndto);
 	public void noticeDelete(int nnum);
 	public List<UploadDTO> uploadList(UploadDTO udto);
+	public List<NoticeDTO> search(String keyword);
+	public void fileDelete(int upno);
 }

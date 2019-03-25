@@ -27,7 +27,7 @@
 	height: 150px;
 	z-index: 1000;
 	border: 1px solid black;
-	background-color: yellow;
+	background-color: white;
 	text-align: center;
 }
 .modifyHide {

@@ -151,7 +151,7 @@
             <!-- Blog Post 1 -->
             <c:forEach items="${aList }" var="dto">
             <article class="clearfix">
-               <a href=""><img src="img/gallery/gallery-img-1-4col.jpg" alt="Post Thumb" class="align-left"></a>
+               <a href=""><img src="img/thumbnail.png" alt="Post Thumb" class="align-left"></a>
                 <h4 class="title-bg">${dto.bname }</h4>
                     <%-- <p>${dto.btext }</p> --%>
                     <a href="boardView.kh?currentPage=${pdto.currentPage }&bonum=${dto.bonum }"><button class="btn btn-mini btn-inverse" type="button">자세히</button></a>

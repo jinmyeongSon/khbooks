@@ -1,5 +1,6 @@
 var upnnum = '';
 var fileList = [];
+var delFile = '';
 
 $(document).ready(function(){
 	
@@ -7,7 +8,8 @@ $(document).ready(function(){
 	
 	$('#upload').on('click', notice_upload_send); //등록
 	
-	 $("#down").on("click", file_download); //파일 다운
+	$('.input-append button').on('click', notice_search);
+	
 	
 	//첨부파일 시작//
 	var userFile = '';
@@ -43,8 +45,22 @@ $(document).ready(function(){
 	
 	$(document).on('click', '.fileDrop input[type="checkbox"]', function(){
 		//$(obj).empty();
+		var chk = $('#chkno').val();
+		alert("삭제할 첨부파일 번호 " + chk);
+		
+		$.ajax({
+			type : 'GET',
+			dataType : 'json',
+			url : 'fileDelete.kh?upno='+chk,
+			success : function(res){
+				alert('db에서 파일 삭제 성공');
+				
+			}
+		});
+		
 		$(this).parent().remove();
-		fileList='';
+		//fileList='';
+		
 	});
 	
 	
@@ -55,10 +71,20 @@ $(document).ready(function(){
 	
 });//end ready
 
-function file_download() {
-	var downUpno = $('#downUpno').val();
-	alert(downUpno);
-	location.href = 'noticeDown.kh?upno='+downUpno
+function notice_search() {
+	var bname = $('#bname').val();
+	alert(bname);
+	
+	$.ajax({
+		type : 'GET',
+		dataType : 'json',
+		url : 'noticeKeyword.kh?bname='+bname,
+		success : function(res){
+			
+		}
+	})
+	
+	
 }
 
 
@@ -87,7 +113,7 @@ function notice_update_delete() {
 
 
 function notice_upload_send() {
-	
+
 	var form_data = new FormData();
 	form_data.append('nnum', $('#nnum').val());
 	form_data.append('aid', $('#aid').val());

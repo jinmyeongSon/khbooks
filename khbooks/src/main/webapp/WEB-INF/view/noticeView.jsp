@@ -151,7 +151,6 @@
             <c:forEach items="${noticeView }" var="view">
                 <h3 class="title-bg">${view.bname }</h3>
                 <div class="post-content">
-                    <!-- <img src="img/gallery/notice.jpg" alt="Post Thumb">  -->
                     <div class="post-body">
                         <p>${view.btext }</p>
                     </div>
@@ -159,7 +158,7 @@
                     <div class="post-summary-footer">
                         <ul class="post-data">
                             <li><i class="icon-calendar"></i><fmt:formatDate pattern="yy/MM/dd" dateStyle="short" value="${view.ndate }" /></li>
-                            <li><i class="icon-user"></i>${view.aid }</a></li>
+                            <li><i class="icon-user"></i>${view.aid }</li>
                             <li><button type="button" class="btn btn-outline-dark" id="${view.nnum }">수정</button></li>
                             <li><button type="button" class="btn btn-outline-dark" id="${view.nnum }">삭제</button></li>
                             <li><button type="button" class="btn btn-outline-dark" id="li"  onclick="javascript:history.go(-1)">목록</button></li>
@@ -167,14 +166,14 @@
                     </div>
             	</div>
             	
+            	<form>
             	<div class="file">
             		<c:choose>
                     	<c:when test="${!empty view.uList }">
                         	<c:forEach items="${view.uList }" var="up">
-                        	<input type="hidden" id="downUpno" value="${up.upno}">
                         		<c:set var="numload" value="${(fn:indexOf(up.upname,'_'))+1}" />
                         		<c:set var="strlength" value="${fn:length(up.upname)}"/>
-                        		<p><a onClick="return file_download()">● ${fn:substring(up.upname,numload,strlength)}</a></p>
+                        	<p><a href="noticeDownload.kh?upname=${up.upname }&path=c:/khNotice/">● ${fn:substring(up.upname,numload,strlength)}</a></p>
                         	</c:forEach>
                         </c:when>
                         <c:otherwise>
@@ -182,6 +181,7 @@
                         </c:otherwise>	
                         </c:choose>
                     </div>
+                </form>    
                </c:forEach>
             </article>
 

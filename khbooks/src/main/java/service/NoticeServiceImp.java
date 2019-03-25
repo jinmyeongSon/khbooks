@@ -59,5 +59,16 @@ public class NoticeServiceImp implements NoticeService {
 	public List<UploadDTO> uploadList(UploadDTO udto) {
 		return ndao.uploadList(udto);
 	}
+	
+	@Override
+	public List<NoticeDTO> search(String bname) {
+		return ndao.search(bname);
+	}
+	
+	@Override
+	public void fileDelete(int upno) {
+		ndao.fileDelete(upno);
+	}
+	
 
 }

@@ -16,4 +16,6 @@ public interface NoticeService {
 	public void noticeUpdatePro(NoticeDTO dto);
 	public void noticeDeletePro(int nnum);
 	public List<UploadDTO> uploadList(UploadDTO udto);
+	public List<NoticeDTO> search(String keyword);
+	public void fileDelete(int upno);
 }

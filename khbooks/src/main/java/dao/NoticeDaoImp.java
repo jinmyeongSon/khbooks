@@ -100,5 +100,15 @@ public class NoticeDaoImp implements NoticeDAO {
 		sqlSession.delete("notice.delete", nnum);
 	}//end noticeDelete()
 	
+	@Override
+	public List<NoticeDTO> search(String bname) {
+		return sqlSession.selectList("notice.searchList", bname);
+	}
+	
+	@Override
+	public void fileDelete(int upno) {
+		sqlSession.delete("notice.fileDelete", upno);
+	}
+	
 
 }//end class
