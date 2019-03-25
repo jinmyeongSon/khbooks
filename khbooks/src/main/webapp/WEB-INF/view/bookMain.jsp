@@ -42,31 +42,41 @@
 <script src="js/jquery.custom.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
+		var bno = 0;
+		var upno = 0;
+		var rm = 0;
+		var comment = "";
 		$.ajax({
 			type : 'GET',
 			dataType : 'json',
-			url : 'getComment.kh',
+			url : 'getAllComment.kh',
 			success : function(res){
 				$.each(res, function(index, value) {
-					var source = '<li><a href="serialView.kh?bno={{bno}}&rm=';
+					comment = "";
+					var source = '<li><div style = "width=100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size: 15px;"><a href="serialView.kh?bno={{bno}}&rm=';
 					var template = Handlebars.compile(source);
-					$('#sidebar-comment').append(template(res));
+					var comment = template(value);
+					bno = value.bno;
+					upno = value.upno;
 					$.ajax({
 						type : 'GET',
 						dataType : 'json',
-						url : 'serialNumGet.kh?bno='+res.bno+'&upno='+res.upno,
-						success : fuction(res2){
-							var source = '<li><a href="serialView.kh?bno={{bno}}&rm={{rm}}">></a>{{rtext}}</li>';
-							var template = Handlebars.compile(source);
-							$('#sidebar-comment').append(template(res2));
-
+						url : 'serialNumGet.kh?bno='+bno+'&upno='+upno,
+						success : function(res2){
+							rm=parseInt(res2);
+							comment += rm; 
+							source = '">{{bname}}</a></div><div style = "width=100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{id}}:   {{rtext}}</div></li>'
+								template= Handlebars.compile(source);
+							    comment += template(value);
+								$('#sidebar-comment').append(comment);
 						}
-					})
-				};
+					});
+
+				});
 				}
 			})
 		})
-	}
+	
 
 </script>
 
@@ -96,17 +106,15 @@
 			</div>
             <div class="row clearfix">
                 <ul class="blog-post-grid">
-
 					<c:forEach items="${bList}" var="list" >
                     <li class="span3 blog-post-item">
                         <div class="blog-post-hover hidden-phone hidden-tablet">
-                            <p><a href="bookDetail.kh?bno=${list.bno}" class="clearfix">${list.bname}</a>
-                            posted on 9/01/15<br /> 12 comments<br /> posted in photoshop</p>
+                            <p style="font-style: normal;"><a href="bookDetail.kh?bno=${list.bno}" class="clearfix">${list.bname}</a>
+                        	   최신 업로드 ${list.bupdate}<br /> 평점 ${list.bgrade}<br />총 조회수 ${list.bview}<br/>${list.binfo}</p>
                         </div>
-                        <a href="blog-single.htm"><img src="img/gallery/gallery-img-1-4col.jpg" alt="Post Thumb"></a>
+                        <img src="img/gallery/gallery-img-1-4col.jpg" alt="Post Thumb">
                     </li>
                     </c:forEach>
-
                 </ul>
             </div>
 
@@ -172,15 +180,15 @@
             </ul> --%>
             <div>
             	<c:forEach items="${gList}" var="glist">
-            		<a href="bookMain.kh?sortkey=${pdto.sortkey}&sortgenre=${glist.gno}" style="display:inline-block; width:45%;"><i class="icon-plus-sign"></i>${glist.gname}</a>
+            		<a href="bookMain.kh?sortkey=${pdto.sortkey}&sortgenre=${glist.gno}" style="display:inline-block; width:45%; margin-bottom: 5px;"><i class="icon-plus-sign"></i>${glist.gname}</a>
             	</c:forEach>
 			</div>
             <!--Tabbed Content-->
             <section class="visible-desktop">
             <h5 class="title-bg">More Info</h5>
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#comments" data-toggle="tab">Comments</a></li>
-                <li><a href="#tweets" data-toggle="tab">Tweets</a></li>
+                <li class="active"><a href="#comments" data-toggle="tab">최신 코멘트</a></li>
+                <li><a href="#tweets" data-toggle="tab">트위터</a></li>
             </ul>
 
             <div class="tab-content">

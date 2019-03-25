@@ -21,5 +21,6 @@ public interface SerialService {
 	void gradeUpdateProcess(Map<String, Object> map);
 	BookDTO bookInfoProcess(int bno);
 	List<BookDTO> authorBookProcess(int auno);
+	List<ReviewCommentDTO> getAllReviewCommentProcess();
 	
 }

@@ -9,6 +9,8 @@ import dto.SerialDTO;
 
 public interface SerialDAO {
 
+	List<ReviewCommentDTO> getAllReviewComment();
+
 	int getSerialCount(int bno);
 
 	int getSerialMyCount(Map<String, Object> map);

@@ -61,5 +61,24 @@
 		where id=#{id}
 		and upno=#{upno}
 	</update>
+	
+
+	
+	<resultMap type="dto.BookDTO" id="bkDTO" autoMapping="false" >
+		<result column="bname" property="bname" />
+	</resultMap>
+	
+	<select id="getAllReviewComment" resultMap="dto.ReviewCommentDTO">
+		select rm, b.*
+		from (
+			select rownum as rm, a.* 
+			from (
+				select rc.*, bk.bname
+				from review_comment rc, book bk
+                where rc.bno = bk.bno
+				)a
+			)b
+		<![CDATA[where rm<=5]]>
+	</select>
 
 </mapper>

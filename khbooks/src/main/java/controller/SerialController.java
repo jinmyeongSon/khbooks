@@ -177,5 +177,10 @@ public class SerialController {
 		return service.getSerialMyCountProcess(map);
 	}
 	
+	@RequestMapping(value="/getAllComment.kh")
+	public @ResponseBody List<ReviewCommentDTO> getAllComment(){
+		return service.getAllReviewCommentProcess();
+	}
+	
 
 }

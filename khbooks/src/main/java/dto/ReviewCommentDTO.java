@@ -10,6 +10,8 @@ public class ReviewCommentDTO {
 	private String rtext;
 	private Date rdate;
 	private int grade;
+	private String bname;
+	
 	
 	public int getRno() {
 		return rno;
@@ -65,6 +67,14 @@ public class ReviewCommentDTO {
 	
 	public void setGrade(int grade) {
 		this.grade = grade;
+	}
+	
+	public String getBname() {
+		return bname;
+	}
+	
+	public void setBname(String bname) {
+		this.bname = bname;
 	}
 	
 }
