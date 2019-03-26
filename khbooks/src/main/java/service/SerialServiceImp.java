@@ -74,5 +74,10 @@ public class SerialServiceImp implements SerialService {
 	public List<BookDTO> authorBookProcess(int auno) {
 		return dao.authorBook(auno);
 	}
+
+	@Override
+	public List<ReviewCommentDTO> getAllReviewCommentProcess() {
+		return dao.getAllReviewComment();
+	}
 	
 }

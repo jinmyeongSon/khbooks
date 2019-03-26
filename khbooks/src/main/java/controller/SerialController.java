@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -166,5 +167,20 @@ public class SerialController {
 	public @ResponseBody List<BookDTO> authorBook(int auno) {
 		return service.authorBookProcess(auno);
 	}
+	
+	@RequestMapping(value="/serialNumGet.kh")
+	public @ResponseBody int serialNumGet(int bno, int upno) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bno", bno);
+		map.put("upno", upno);
+
+		return service.getSerialMyCountProcess(map);
+	}
+	
+	@RequestMapping(value="/getAllComment.kh")
+	public @ResponseBody List<ReviewCommentDTO> getAllComment(){
+		return service.getAllReviewCommentProcess();
+	}
+	
 
 }

@@ -2,7 +2,6 @@ package dto;
 
 import java.sql.Date;
 import java.util.List;
-
 import org.springframework.web.multipart.MultipartFile;
 
 public class BookDTO {
@@ -84,6 +83,7 @@ public class BookDTO {
 	public void setBinfo(String binfo) {
 		this.binfo = binfo;
 	}
+
 	
 	
 }

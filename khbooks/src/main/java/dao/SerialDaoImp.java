@@ -77,4 +77,9 @@ public class SerialDaoImp implements SerialDAO {
 	public List<BookDTO> authorBook(int auno) {
 		return sqlSession.selectList("book.authorBook", auno);
 	}
+
+	@Override
+	public List<ReviewCommentDTO> getAllReviewComment() {
+		return sqlSession.selectList("serial.getAllReviewComment");
+	}
 }

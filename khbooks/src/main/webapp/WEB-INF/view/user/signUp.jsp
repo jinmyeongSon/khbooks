@@ -20,14 +20,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-<!--<link rel="stylesheet" href="css/custom-styles.css">-->
 
-
-<!-- Favicons -->
-<link rel="shortcut icon" href="img/favicon.ico">
-<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
 
 <!-- JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -155,12 +148,11 @@
 		<!-- Begin Header -->
 		<div class="row">
 			<div class="col" style="text-align: center">
-				<a href="index.htm"><h4>KH BOOKs</h4></a>
+				<a href="http://localhost:8090/khbook/index.kh"><h4>KH BOOKs</h4></a>
 				<hr />
 				</div>
 		</div>
 		<!-- End Header -->
-
 
 
 		<div class="container" style="width:700px;">
@@ -179,7 +171,7 @@
 					<br/>
 				<div class="row">
 					<div class="col-4">
-					<input type="password" class="form-control" id="userPwd" name="upwd" placeholder="비밀번호" required>
+					<input type="password" class="form-control" id="userPwd" name="upass" placeholder="비밀번호" required>
 					</div>
 					<div class="w-100"></div>
 					<div class="col-4">

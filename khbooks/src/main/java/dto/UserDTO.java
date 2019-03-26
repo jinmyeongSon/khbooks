@@ -3,19 +3,58 @@ package dto;
 import java.sql.Date;
 
 public class UserDTO {
+	private int uno;
 	private String id;
 	private String upass;
 	private String uname;
 	private String uemail;
 	private String uphone;
-	private String uaddr;
-	private Date udate;
+	private Date ubirth;
 	private int ugender;
+	private boolean rememberId;
 	
 	public UserDTO() {
 	
 	}
+	
+	
 
+	public UserDTO(String id) {
+		super();
+		this.id = id;
+	}
+
+	public UserDTO(String id, String upass) {
+		super();
+		this.id = id;
+		this.upass = upass;
+	}
+
+	public UserDTO(int uno, String id, String upass, String uname, String uemail, String uphone, Date ubirth,
+			int ugender) {
+		super();
+		this.uno = uno;
+		this.id = id;
+		this.upass = upass;
+		this.uname = uname;
+		this.uemail = uemail;
+		this.uphone = uphone;
+		this.ubirth = ubirth;
+		this.ugender = ugender;
+	}
+
+
+
+	public int getUno() {
+		return uno;
+	}
+
+	
+	public void setUno(int uno) {
+		this.uno = uno;
+	}
+
+	
 	public String getId() {
 		return id;
 	}
@@ -56,28 +95,34 @@ public class UserDTO {
 		this.uphone = uphone;
 	}
 
-	public String getUaddr() {
-		return uaddr;
+	public Date getUbirth() {
+		return ubirth;
 	}
 
-	public void setUaddr(String uaddr) {
-		this.uaddr = uaddr;
-	}
-
-	public Date getUdate() {
-		return udate;
-	}
-
-	public void setUdate(Date udate) {
-		this.udate = udate;
+	public void setUbirth(Date ubirth) {
+		this.ubirth = ubirth;
 	}
 
 	public int getUgender() {
 		return ugender;
 	}
 
+
 	public void setUgender(int ugender) {
 		this.ugender = ugender;
 	}
+
+
+	public boolean isRememberId() {
+		return rememberId;
+	}
+
+
+
+	public void setRememberId(boolean rememberId) {
+		this.rememberId = rememberId;
+	}
+
+
 
 }//end class

@@ -68,8 +68,16 @@ public class NoticeController {
 		}
 		
 		mav.setViewName("noticeList");
-	
+
 		return mav;
+	}//end noticeList()
+	
+	@RequestMapping("/noticeGet.kh")
+	public @ResponseBody List<NoticeDTO> noticeGet() {
+		int totalRecord = nservice.noticeCountPro();
+		pdto = new PageDTO(1,totalRecord);
+		List<NoticeDTO> aList = nservice.noticeListPro(pdto);
+		return aList;
 	}//end noticeList()
 	
 	
