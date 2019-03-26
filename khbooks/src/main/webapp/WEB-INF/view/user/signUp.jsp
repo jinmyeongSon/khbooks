@@ -32,7 +32,7 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 	crossorigin="anonymous"></script>
-
+<script src="js/join.js"></script>
 
 <!-- 아코디언 -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -46,98 +46,31 @@
 	height: 220px;
 }
 </style>
-<!-- https://getbootstrap.com/docs/4.3/utilities/borders/ -->
 
 <fmt:formatDate value="${bean.date}" pattern="yyyy-MM-dd" />
-
-
 <script type="text/javascript">
-	$(document).ready(function() {
-
-		$(function() {
-			$("#accordion").accordion({
-				heightStyle : "fill"
-			});
-
-			$("#accordion-resizer").resizable({
-				minHeight : 140,
-				minWidth : 200,
-				resize : function() {
-					$("#accordion").accordion("refresh");
-				}
-			});
-		});
-
-		$('#allChk').click(function() {
-			if ($('#allChk').prop("checked")) {
-				$("input[type=checkbox]").prop("checked", true);
-			} else {
-				$("input[type=checkbox]").prop("checked", false);
-			}
-		});
-
-		
-		$('#idchk_btn').on('click', checkId);
-	});//end ready
-
-	var idchk = 0;
-	function checkId() {
-		var userId = $("#id").val();
-		console.log(userId);
-		$.ajax({
-				async: true,
-	            type : 'POST',
-	            data : userId,
-				url : 'checkId.kh',
-				dataType : "json",
-				contentType: "application/json; charset=UTF-8",
-				success : function(data) {
-				if(data.cnt > 0) {
-					alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");
-				    idchk = 0;
-				}else {
-					alert("사용가능한 아이디입니다.");
-					idchk = 1;
-				}
-			}
-
-		});
-	}
-
-	//https://kingchobocoding.tistory.com/11?category=978301
-
-
-	function joinChk() {
-		var pwd = $('#userPwd').val();
-		var pwdchk = $('#userPwdChk').val();
-
-		/* if($("input[type=radio]").prop("checked", false)){
-			document.getElementById('noGen').innerHTML = '성별을 선택해 주세요.';
-			return false;
-		} */
-		
-		if(confirm("회원가입을 하시겠습니까?")){
-	        if(idchk==0){
-	            alert('아이디 중복체크를 해주세요');
-	            return false;
-	        }else{
-	        alert("회원가입이 완료되었습니다.");
-				return true;
-	        }
-	    }
-		
-		if(pwd.length() < 9){
-			alert("비밀번호를 8자리 이상 입력해주세요.");
-			return false;
+function checkEmail(){
+	var userEmail = $('#userEmail').val();
+	
+	$.ajax({
+		async: true,
+		url : 'checkEmail.kh',
+        type : 'POST',
+        data : userEmail,
+        dataType : "json",
+		contentType: "application/json; charset=UTF-8",
+		success : function(data) {
+			 if(data.cnt > 0){
+	                $('#chkMsg').html("사용불가");  
+	                document.getElementById('chkMsg').innerHTML = '사용불가';
+	            }else{
+	                $('#chkMsgOk').html("사용가능");
+	                document.getElementById('chkMsgOk').innerHTML = '사용가능';
+	            }
 		}
-		
-		if (pwd != pwdchk) {
-			document.getElementById('pwrong').innerHTML = '비밀번호가 틀렸습니다. 다시 입력해 주세요';
-			return false;
-		}
-		
 
-	}//end join check
+	});
+}
 </script>
 </head>
 
@@ -157,11 +90,10 @@
 
 		<div class="container" style="width:700px;">
 			<!--User Login-->
-			<form method="post" action="signUp.kh" onsubmit="return joinChk(this)">
+			<form method="post" action="signUp.kh" onsubmit="return joinChk();">
 				<div class="row">
 					<div class="col-4">
-						<input type="text" class="form-control" id="id" name="id"
-							placeholder="아이디" required>
+						<input type="text" class="form-control" id="id" name="id" placeholder="아이디" required>
 					</div>
 					<div class="col-md-2">
 						<input class="btn btn-primary" type="button" id="idchk_btn" value="중복확인" />
@@ -191,7 +123,7 @@
 				<div class="row">
 					<div class="col-4">
 						<input type="email" class="form-control" id="userEmail"	name="uemail" aria-describedby="emailHelp" placeholder="이메일 주소" required> 
-					</div><p id="sameEmail" style="color: red;"></p>
+					</div><p id="chkMsg" style="color: red;"></p></div><p id="chkMsgOk" style="color: blue;"></p>
 				</div>
 					<br/>
 				<div class="row">

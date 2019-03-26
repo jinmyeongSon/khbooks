@@ -10,8 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta charset="UTF-8">
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <title>KH BOOKs</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -52,8 +51,12 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		var id='${sessionScope.id}';
+		if(id != ''){
+			
+		}
 		
-		$(document).ready(function(){
+		/* $(document).ready(function(){
 			var id='${sessionScope.id}';
 			if(id != ''){
 				alert("잘못된 접근입니다.");
@@ -61,7 +64,7 @@
 			}
 			
 			var res='${resultMsg}'
-		});
+		}); */
 
 		$("#btn-blog-next").click(function() {
 			$('#blogCarousel').carousel('next')
@@ -139,9 +142,16 @@
 			<button class="button button2" id="join-btn">회원가입</button> <button class="button button2" id="login-btn">로그인</button>
 		</span>
 		
+		<c:if test="${!empty sessionScope.id}">
+			<div>
+			${sessionScope.id} 님 환영합니다
+			<input class="btn btn-primary" type="button" id="logout" onclick="logoutPro();" value="로그아웃" />
+			</div>
+		</c:if>
 		
-			<!-- Main Navigation
-        ================================================== -->
+		
+		
+			<!-- Main Navigations================================================== -->
 			<div class="span7 navigation">
 				<div class="navbar hidden-phone">
 

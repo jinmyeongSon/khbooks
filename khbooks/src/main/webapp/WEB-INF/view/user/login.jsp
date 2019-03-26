@@ -1,15 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta charset="UTF-8">
+
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<title>KH BOOKs Sign Up</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KH BOOKs Login</title>
 
 <!-- CSS -->
 <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
@@ -39,7 +39,32 @@ $(document).ready(function(){
 	}
 	
 	var res='${resultMsg}'
+	
+	$("#login_btn").click(function(){
+		var uid = $("#id").val();
+		var upw = $("#upass").val();
+		
+		if(uid == ""){
+			alert("아이디를 입력하세요");
+			$("#id").focus();
+			return;
+		}
+		if(upw == ""){
+			alert("비밀번호를 입력하세요");
+			$("#upass").focus();
+			return;
+		}
+		if($("$fail")){
+			alert("비밀번호가 틀렸습니다.")
+			return;
+		}
+
+		document.form.submit();
+	});
+
 });
+
+
 </script>
 
 
@@ -67,18 +92,21 @@ $(document).ready(function(){
 						name="id" class="form-control" placeholder="User ID..." value="${sessionScope.id}"/>
 				</div>
 				<div class="form-group">
-					<input type="password" name="upwd" id="upwd"
+					<input type="password" name="upass" id="upass"
 						class="form-control" placeholder="Password..."/>
 				</div>
 				
 				<div class="form-group">
 			     <label for="useCookie">
-			         <input type="checkbox" id="rememberId" name="rememberId" value="true" /> 로그인 유지
+			         <input type="checkbox" id="rememberId" name="rememberId" value="true" /> 아이디 기억
 			     </label>
 		  			 <a href="http://localhost:8090/khbook/findId.kh">아이디</a>·<a href="http://localhost:8090/khbook/findPwd.kh">비밀번호 찾기</a>
 				</div>
+				<c:if test="${msg == 'fail'}">
+				<div style="color: red">아이디 또는 비밀번호가 일치하지 않습니다.</div>
+				</c:if>
 				
-			 	 <button type="submit" class="btn btn-primary btn-lg btn-block">로그인</button>
+			 	 <button type="submit" id="login_btn" class="btn btn-primary btn-lg btn-block">로그인</button>
 			</div>
 		</div> <!-- end of box-body -->
 	</form>

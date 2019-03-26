@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -117,9 +118,9 @@ public class UserController {
 	}
 	
 
-	@RequestMapping(value = "/loginPost.kh", method = RequestMethod.POST)
-	public ModelAndView loginPost(@Valid UserDTO udto, BindingResult bindingResult, HttpSession session, HttpServletResponse response) throws Exception {
-		if(bindingResult.hasErrors()) {
+	/*@RequestMapping(value = "/loginPost.kh", method = RequestMethod.POST)
+	public ModelAndView loginPost(@Valid UserDTO udto, BindingResult rs, HttpSession session, HttpServletResponse response) throws Exception {
+		if(rs.hasErrors()) {
 			ModelAndView mav = new ModelAndView("user/login");
 			return mav;
 		}
@@ -139,11 +140,29 @@ public class UserController {
 			 response.addCookie(rememberCookie);
 			 
 		} catch(Exception e){
-			bindingResult.rejectValue("upwd", "notMatch", "아이디와 비밀번호가 맞지않습니다.");
+			rs.rejectValue("upass", "notMatch", "아이디와 비밀번호가 맞지않습니다.");
 			ModelAndView mav = new ModelAndView("user/login");
 		}
 		
 		ModelAndView mav = new ModelAndView("indexCallback");
+		return mav;
+	}*/
+	
+	@RequestMapping(value = "/loginPost.kh", method = RequestMethod.POST)
+	public ModelAndView loginPost(@ModelAttribute UserDTO udto, HttpSession session) {
+		boolean res= service.login(udto, session);
+		ModelAndView mav = new ModelAndView();
+		
+		if(res == true) {
+			session.setAttribute("id", udto.getId());
+			mav.setViewName("indexCallback");
+			mav.addObject("msg", "success");
+		} else { 
+			/*mav.setViewName("redirect:/loginForm.kh");*/
+			mav.setViewName("user/login");
+			mav.addObject("msg", "fail");
+		}
+		
 		return mav;
 	}
 	
@@ -156,6 +175,19 @@ public class UserController {
         Map<Object, Object> map = new HashMap<Object, Object>();
  
         count = service.CheckDuplication(id);
+        map.put("cnt", count);
+ 
+        return map;
+	}
+	
+	// 이메일 중복체크
+	@ResponseBody
+	@RequestMapping(value="/checkEmail.kh", method=RequestMethod.POST)
+	public Map<Object, Object> emailCheck(@RequestBody String email) {
+		int count = 0;
+        Map<Object, Object> map = new HashMap<Object, Object>();
+ 
+        count = service.CheckDuplicationEmail(email);
         map.put("cnt", count);
  
         return map;
