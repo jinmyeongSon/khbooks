@@ -8,12 +8,19 @@ public class UserDTO {
 	private String uname;
 	private String uemail;
 	private String uphone;
-	private String uaddr;
-	private Date udate;
+	private Date ubirth;
 	private int ugender;
 	
 	public UserDTO() {
 	
+	}
+
+	public Date getUbirth() {
+		return ubirth;
+	}
+
+	public void setUbirth(Date ubirth) {
+		this.ubirth = ubirth;
 	}
 
 	public String getId() {
@@ -54,22 +61,6 @@ public class UserDTO {
 
 	public void setUphone(String uphone) {
 		this.uphone = uphone;
-	}
-
-	public String getUaddr() {
-		return uaddr;
-	}
-
-	public void setUaddr(String uaddr) {
-		this.uaddr = uaddr;
-	}
-
-	public Date getUdate() {
-		return udate;
-	}
-
-	public void setUdate(Date udate) {
-		this.udate = udate;
 	}
 
 	public int getUgender() {

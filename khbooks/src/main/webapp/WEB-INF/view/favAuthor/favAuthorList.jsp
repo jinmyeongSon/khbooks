@@ -51,6 +51,11 @@ table{
 <script src="js/jquery.custom.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
+	if(${empty sessionscope.id}){
+		alert('로그인을 해주세요.');
+		return false;
+	}
+	
 	$(document).on('click','#deletebtn',function(){
 		var del=confirm("정말 삭제 하시겠습니까 ?");
 		if(del){

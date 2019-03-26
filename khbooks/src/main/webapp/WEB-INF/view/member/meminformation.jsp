@@ -37,6 +37,15 @@
 <script src="js/jquery.custom.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
+	/* var ak=$('#name').val();
+	if(ak==''){
+		alert('로그인을 해주세요.');
+		return false;
+	} */
+	if(${empty sessionscope.id}){
+		alert('로그인을 해주세요.');
+		return false;
+	}
 	$('#nextbtn').on('click',function(){
 		$('form').attr("action","passtest.kh");
 		$('form').submit();
@@ -157,13 +166,12 @@ $(document).ready(function () {
                     <h2>회원정보</h2>
                    
                     <ul class="project-info">
-                    <input type="hidden" value="${dto.id }" name="id"/>
+                    <input type="hidden" value="${dto.id }" name="id" id="name"/>
                         <li><h6>아이디:</h6> ${dto.id }</li>
                         <li><h6>이름:</h6> ${dto.uname }</li>
                         <li><h6>이메일:</h6> ${dto.uemail }</li>
                         <li><h6>연락처:</h6> ${dto.uphone }</li>
-                        <li><h6>주소:</h6> ${dto.uaddr }</li>
-                        <li><h6>생일:</h6> ${dto.udate }</li>
+                        <li><h6>생일:</h6> ${dto.ubirth }</li>
                         <li><h6>성별:</h6>${dto.ugender }</li>
                     </ul>
                    

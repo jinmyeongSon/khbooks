@@ -48,6 +48,10 @@ text-align: center;
 <script src="js/jquery.custom.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
+	if(${empty sessionscope.id}){
+		alert('로그인을 해주세요.');
+		return false;
+	}
 	$(document).on('click','#move',function(){
 		var au=$(this).parent().prev().children().val();
 		var ak=$(this).parent().prev().children().children("option:selected").text();
@@ -191,6 +195,7 @@ $(document).ready(function () {
 						</thead>
 						<tbody>
 							<c:forEach var="dto" items="${aList}" >
+							
 							<tr>							
 								<form method="POST">
 								<input type="hidden" value="${dto.bno }" name="num"/>
