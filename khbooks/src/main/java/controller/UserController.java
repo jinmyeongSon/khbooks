@@ -124,9 +124,12 @@ public class UserController {
 			mav.setViewName("user/login");
 			return mav;
 		}
+		System.out.println(udto.getUpass());
+
 	
 		try {
 			UserDTO dto= service.login(udto);
+			System.out.println(service.login(udto).getId());
 			session.setAttribute("id", dto.getId());
 			//쿠키 생성
 			if(udto.isRememberId()) {
@@ -135,12 +138,14 @@ public class UserController {
 				 rememberCookie.setMaxAge(60*60*24*7);
 				 response.addCookie(rememberCookie);
 			} 
+			mav.setViewName("redirect:/mainpage.kh");
 		} catch(Exception e){
+			System.out.println(e);
 			bindingResult.rejectValue("upass", "notMatch", "아이디와 비밀번호가 맞지않습니다.");
+			System.out.println(bindingResult);
+			mav.addObject("error",bindingResult);
 			mav.setViewName("user/login");
 		}
-	
-		mav.setViewName("redirect:/bookMain.kh");
 		return mav;
 	}
 	
@@ -177,9 +182,8 @@ public class UserController {
 	@RequestMapping(value="/logout.kh")
 	public ModelAndView logoutChk(HttpSession session) {
 
-		session.invalidate();
-		session.removeAttribute("id");
-		ModelAndView mav= new ModelAndView("redirect:/index");
+		session.invalidate();		
+		ModelAndView mav= new ModelAndView("redirect:/mainpage.kh");
 		return mav;
 	}
 	

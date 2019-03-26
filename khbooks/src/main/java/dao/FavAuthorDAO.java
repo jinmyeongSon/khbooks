@@ -6,7 +6,9 @@ import java.util.Map;
 import dto.AuthorDTO;
 
 public interface FavAuthorDAO {
-	public int count();
+	public int count(String id);
 	public List<AuthorDTO> FavList(Map<String, Object> map);
 	public void FavDelete(int num);
+	public int search(Map<String, Object> map);
+	public void insert(Map<String, Object> map);
 }

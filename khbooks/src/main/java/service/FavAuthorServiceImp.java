@@ -22,13 +22,24 @@ public class FavAuthorServiceImp implements FavAuthorService {
 	}
 
 	@Override
-	public int countprocess() {
-		return dao.count();
+	public int countprocess(String id) {
+		return dao.count(id);
 	}
 
 	@Override
 	public void deleteprocess(int num) {
 		dao.FavDelete(num);
+		
+	}
+
+	@Override
+	public int searchprocess(Map<String, Object> map) {
+		return dao.search(map);
+	}
+
+	@Override
+	public void insertprocess(Map<String, Object> map) {
+		dao.insert(map);
 		
 	}
 	

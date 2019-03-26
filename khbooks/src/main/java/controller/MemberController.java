@@ -27,7 +27,6 @@ public class MemberController {
 	@RequestMapping("/memberInfor.kh")
 	public ModelAndView listMethod(UserDTO pv,String id) {
 		ModelAndView mav = new ModelAndView();
-		id="a";
 		mav.addObject("dto",service.listprocess(id));
 		mav.setViewName("/member/meminformation");
 		

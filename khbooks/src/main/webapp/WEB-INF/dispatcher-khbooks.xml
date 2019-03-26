@@ -23,6 +23,7 @@
 		<property name="username" value="hr" />
 		<property name="password" value="a1234" />
 	</bean>
+
 	
 	<!-- [2] SqlSessionFactoryBean 빈 선언 -->
 
@@ -84,6 +85,11 @@
 	<bean class="controller.NoticeController">
 		<property name="nservice" ref="nservice" />
 	</bean>	
+	
+	<bean class="controller.MainController">
+		<property name="nservice" ref="nservice"/>
+		<property name="service" ref="serviceBook"/>
+	</bean>
 	
 
 

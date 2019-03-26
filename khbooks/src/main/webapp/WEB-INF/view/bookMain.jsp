@@ -104,12 +104,12 @@
                 	<li><a href="bookMain.kh?sortkey=3&sortgenre=${pdto.sortgenre}">조회순 정렬</a></li>
             	</ul>
 			</div>
-            <div class="row clearfix">
+            <div class="row clearfix" style="min-height: 600px;">
                 <ul class="blog-post-grid">
 					<c:forEach items="${bList}" var="list" >
                     <li class="span3 blog-post-item">
-                        <div class="blog-post-hover hidden-phone hidden-tablet">
-                            <p style="font-style: normal;"><a href="bookDetail.kh?bno=${list.bno}" class="clearfix">${list.bname}</a>
+                        <div class="blog-post-hover hidden-phone hidden-tablet" style="">
+                            <p style="font-style: normal; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><a href="bookDetail.kh?bno=${list.bno}" class="clearfix">${list.bname}</a>
                         	   최신 업로드 ${list.bupdate}<br /> 평점 ${list.bgrade}<br />총 조회수 ${list.bview}<br/>${list.binfo}</p>
                         </div>
                         <img src="img/gallery/gallery-img-1-4col.jpg" alt="Post Thumb">
@@ -199,7 +199,7 @@
                 <div class="tab-pane" id="tweets">
                     <ul>
                     	<c:forEach items="${tweet}" var="tweet">
-                    	<li><a href="#">@${tweet.user.screenName}</a> ${tweet.text}</li>
+                    	<li style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><a href="#">@${tweet.user.screenName}</a> ${tweet.text}</li>
                     	</c:forEach>
                     </ul>
                 </div>
@@ -212,7 +212,7 @@
     
     </div> <!-- End Container -->
     <!-- Footer -->
-    	<jsp:include page="khbooks_footer.jsp"></jsp:include>
+    	<jsp:include page="khbooks_footer.jsp"/>
     
 
 

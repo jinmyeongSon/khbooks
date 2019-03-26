@@ -39,6 +39,8 @@ $(document).ready(function(){
 	}
 	
 	var res='${resultMsg}'
+	
+	alert("${error}");
 });
 </script>
 
@@ -62,7 +64,7 @@ $(document).ready(function(){
 							name="id" class="form-control" placeholder="User ID..." value="${sessionScope.id}"/>
 					</div>
 					<div class="form-group">
-						<input type="password" name="upwd" id="upwd"
+						<input type="password" name="upass" id="upass"
 							class="form-control" placeholder="Password..."/>
 					</div>
 					

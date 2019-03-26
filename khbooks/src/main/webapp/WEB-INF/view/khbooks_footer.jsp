@@ -25,7 +25,9 @@
 <script src="js/jquery.prettyPhoto.js"></script>
 <script src="js/jquery.quicksand.js"></script>
 <script src="js/jquery.custom.js"></script>
+<script src="js/jquery.flexslider.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -114,7 +116,10 @@ $(document).ready(function(){
                         <div class="span6"><span class="left">Copyright 2019 KH Books. All rights reserved.</span></div>
                         <div class="span6">
                             <span class="right">
-                            <a href="mainpage.kh">메인</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="bookMain.kh">작품</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="memberInfor.kh">회원 정보</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="noticeList.kh">게시판</a>
+                            <a href="mainpage.kh">메인</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="bookMain.kh">작품</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                            
+                            <a href="memberInfor.kh">회원 정보</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                            <a href="noticeList.kh">게시판</a>
                             </span>
                         </div>
                     </div>

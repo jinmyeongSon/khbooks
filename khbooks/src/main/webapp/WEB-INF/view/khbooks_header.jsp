@@ -15,19 +15,21 @@
 <link rel="stylesheet" href="css/custom-styles.css">
 <link rel="stylesheet" href="css/_button-group.css">
 <link rel="stylesheet" href="css/_buttons.css">
+<link rel="stylesheet" href="css/flexslider.css" />
+
+
 
 <!-- JS
 ================================================== -->
 <!-- <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script> -->
-<script src="js/jquery.easing.1.3.js"></script>
+<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.prettyPhoto.js"></script>
-<script src="js/jquery.quicksand.js"></script>
+<script src="js/jquery.flexslider.js"></script>
 <script src="js/jquery.custom.js"></script>
 <script type="text/javascript">
 
 $(document).ready(function(){
-	alert(${sessionScope.id});
 	var url = window.location.pathname;
 	var split_start = url.lastIndexOf("/");
 	var split_end = url.lastIndexOf(".");
@@ -110,14 +112,13 @@ $(document).ready(function(){
              		<li><a href="signUp.kh" style=" font-weight: bold; font-size: 15px;">회원가입</a></li>
              	</c:when>
              	<c:otherwise>
-             		<li class="profile dropdown"><a href="memberInfor.kh" style=" font-weight: bold; font-size: 15px;">회원 정보${sessionScope.id} 
-             		
+             		<li class="profile dropdown"><a href="memberInfor.kh" style=" font-weight: bold; font-size: 15px;">회원 정보 
 	                <b class="caret"></b></a>
 	                <ul class="dropdown-menu"  style="min-width: 80px;">
 	                    <li><a href="favBookList.kh" style=" font-weight: bold; font-size: 13px; width: 80px;">나의 관심 작품</a></li>
 	                    <li><a href="favAuthorList.kh" style=" font-weight: bold; font-size: 13px;">나의 관심 작가</a></li>
 	                </ul>
-	                <li id="login-btn"><a href="signUp.kh" style=" font-weight: bold; font-size: 15px;">로그 아웃</a></li>
+	                <li id="login-btn"><a href="logout.kh" style=" font-weight: bold; font-size: 15px;">로그 아웃</a></li>
              	</c:otherwise>
              </c:choose>
             </ul>

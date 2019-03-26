@@ -51,6 +51,7 @@ $(document).ready(function () {
 	$(document).on('click','#move',function(){
 		var au=$(this).parent().prev().children().val();
 		var ak=$(this).parent().prev().children().children("option:selected").text();
+		location.href='http://localhost:8090/khbook/serialView.kh?bno='+au+'&rm='+ak;
 	});
 	$(document).on('click','#deletebtn',function(){
 		var del=confirm("정말 삭제 하시겠습니까 ?");
@@ -100,7 +101,7 @@ $(document).ready(function () {
 							<tr>							
 								<form method="POST">
 								<input type="hidden" value="${dto.bno }" name="num"/>
-								<td><input type="button" id="deletebtn"/></td>
+								<td><input class="icon-trash" style="width:70%; height:90%;" type="button" id="deletebtn"/></td>
 								<td>${dto.bname }</td>
 								<td>${dto.bupdate }</td>
 								<td>${dto.bgrade }</td>

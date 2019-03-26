@@ -24,8 +24,8 @@
 	
 	<!-- 로그인 -->
 
-	<select id="login" resultType="dto.UserDTO">
-		select * from kh_user where id = #{id} and upass =#{upass}
+	<select id="login" parameterType="dto.UserDTO" resultType="dto.UserDTO">
+		select * from kh_user where id = #{id} and upass= #{upass}
 	</select>
 	
 	<!-- 네이버 로그인 -->

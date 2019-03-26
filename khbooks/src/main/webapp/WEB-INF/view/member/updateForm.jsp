@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html >
 <html>
 <head>
@@ -40,9 +43,18 @@ $(document).ready(function () {
 	$('#updatebtn').on('click',function(){
 		var pass = $('#upass').val();
 		var pass2= $('#upass2').val();
+		var email= $('#uemail').val();
 		
 		if(pass=='' || pass2==''){
 			alert('비밀번호를 입력해주세요.');
+			return false;
+		}
+		if(pass.length<9 || pass2.length<9){
+			alert("비밀번호를 8자리 이상 입력해주세요.");
+			return false;
+		}    
+		if(email.indexOf('@')==-1){
+			alert('이메일 형식이 아닙니다.');
 			return false;
 		}
 		
@@ -54,6 +66,7 @@ $(document).ready(function () {
 			alert('비밀번호가 일치하지 않습니다.');
 			return false;
 		}
+		
 	});
 });
 
@@ -82,7 +95,7 @@ $(document).ready(function () {
                         <li><h6>이름:</h6><input class="span4"  type="text" value="${dto.uname}" name="uname"/></li>
                         <li><h6>비밀번호:</h6> <input class="span4" id="upass" type="password" name="upass" /></li>
                         <li><h6>비밀번호 확인:</h6> <input class="span4" id="upass2" type="password"/></li>
-                        <li><h6>이메일:</h6> <input class="span4" name="uemail" type="text" value="${dto.uemail}"/></li>
+                        <li><h6>이메일:</h6> <input class="span4" id="uemail" name="uemail" type="text" value="${dto.uemail}"  /></li>
                         <li><h6>연락처:</h6> <input class="span4" name="uphone" type="text" value="${dto.uphone }"/></li>
                         <li><h6>주소:</h6> <input class="span4"  name="uaddr" type="text" value="${dto.uaddr }"/></li>
                         <li><h6>생일:</h6><input class="span4" id="udate" name="udate" type="text" value="${dto.udate }" readonly/></li>

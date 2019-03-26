@@ -18,8 +18,8 @@ public class FavAuthorDaoImp implements FavAuthorDAO{
 	}
 
 	@Override
-	public int count() {
-		return sqlSession.selectOne("FavAuthor.count");
+	public int count(String id) {
+		return sqlSession.selectOne("FavAuthor.count",id);
 	}
 	@Override
 	public List<AuthorDTO> FavList(Map<String, Object> map) {
@@ -30,5 +30,16 @@ public class FavAuthorDaoImp implements FavAuthorDAO{
 	@Override
 	public void FavDelete(int num) {
 		sqlSession.delete("FavAuthor.delete",num);
+	}
+
+	@Override
+	public int search(Map<String, Object> map) {
+		return sqlSession.selectOne("FavAuthor.search",map);
+	}
+
+	@Override
+	public void insert(Map<String, Object> map) {
+		sqlSession.insert("FavAuthor.insert",map);
+		
 	}
 }
