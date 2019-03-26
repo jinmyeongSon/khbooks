@@ -108,45 +108,10 @@ public class UserController {
 	
 	// 로그인
 	@RequestMapping(value = "/loginForm.kh", method = RequestMethod.GET)
-	public ModelAndView logInForm(UserDTO udto, @CookieValue(value="REMEMBER", required=false) Cookie rememberCookie) {
-		if(rememberCookie != null) {
-			udto.setId(rememberCookie.getValue());
-			udto.setRememberId(true);
-		}
+	public ModelAndView logInForm(UserDTO udto) {
 		ModelAndView mav = new ModelAndView("user/login");
 		return mav;
 	}
-	
-
-	/*@RequestMapping(value = "/loginPost.kh", method = RequestMethod.POST)
-	public ModelAndView loginPost(@Valid UserDTO udto, BindingResult rs, HttpSession session, HttpServletResponse response) throws Exception {
-		if(rs.hasErrors()) {
-			ModelAndView mav = new ModelAndView("user/login");
-			return mav;
-		}
-	
-		try {
-			
-			UserDTO dto= service.login(udto);
-			session.setAttribute("id", dto.getId());
-			//쿠키 생성
-			 Cookie rememberCookie = new Cookie("REMEMBER", udto.getId());
-			 rememberCookie.setPath("/");
-			 if(udto.isRememberId()) {
-			   rememberCookie.setMaxAge(60*60*24*7);				  
-			 } else {
-			   rememberCookie.setMaxAge(0);
-			 }
-			 response.addCookie(rememberCookie);
-			 
-		} catch(Exception e){
-			rs.rejectValue("upass", "notMatch", "아이디와 비밀번호가 맞지않습니다.");
-			ModelAndView mav = new ModelAndView("user/login");
-		}
-		
-		ModelAndView mav = new ModelAndView("indexCallback");
-		return mav;
-	}*/
 	
 	@RequestMapping(value = "/loginPost.kh", method = RequestMethod.POST)
 	public ModelAndView loginPost(@ModelAttribute UserDTO udto, HttpSession session) {
