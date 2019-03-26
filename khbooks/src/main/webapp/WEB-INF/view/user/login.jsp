@@ -61,6 +61,59 @@ $(document).ready(function(){
 
 		document.form.submit();
 	});
+	
+	
+	//cookie
+    var id = getCookie("id");
+    $("input[id='id']").val(id); 
+     
+    if($("input[id='id']").val() != ""){ 
+        $("#rememberId").attr("checked", true);
+    }
+     
+    $("#rememberId").change(function(){ 
+        if($("#rememberId").is(":checked")){
+            var id = $("input[id='id']").val();
+            setCookie("id", id, 7);
+        }else{
+            deleteCookie("id");
+        }
+    });
+
+
+    $("input[id='id']").keyup(function(){
+        if($("#rememberId").is(":checked")){
+            var id = $("input[id='id']").val();
+            setCookie("id", id, 7);
+        }
+    });
+ 
+    function setCookie(cookieName, value, exdays){
+        var exdate = new Date();
+        exdate.setDate(exdate.getDate() + exdays);
+        var cookieValue = escape(value) + ((exdays==null)?"":";expires="+exdate.toGMTString());
+        document.cookie = cookieName + "=" + cookieValue;
+    }
+     
+    function deleteCookie(cookieName){
+        var expireDate = new Date();
+        expireDate.setDate(expireDate.getDate() - 1);
+        document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+    }
+     
+    function getCookie(cookieName) {
+        cookieName = cookieName + '=';
+        var cookieData = document.cookie;
+        var start = cookieData.indexOf(cookieName);
+        var cookieValue = '';
+        if(start != -1){
+            start += cookieName.length;
+            var end = cookieData.indexOf(';', start);
+            if(end == -1)end = cookieData.length;
+            cookieValue = cookieData.substring(start, end);
+        }
+        return unescape(cookieValue);
+    }
 
 });
 
@@ -99,7 +152,7 @@ $(document).ready(function(){
 				<button type="submit" id="login_btn" class="btn btn-primary btn-lg btn-block">로그인</button>
 				<div class="form-group">
 			     <label for="useCookie">
-			         <input type="checkbox" id="rememberId" name="rememberId" value="true" /><p style="font-size: 12px;display: inline-block;">로그인 상태 유지</p>
+			         <input type="checkbox" id="rememberId" name="rememberId" value="true" /><p style="font-size: 12px;display: inline-block;">아이디 기억</p>
 			     </label>
 		  			 <a href="http://localhost:8090/khbook/findId.kh">아이디</a>·<a href="http://localhost:8090/khbook/findPwd.kh">비밀번호 찾기</a>
 					<c:if test="${msg == 'fail'}">
