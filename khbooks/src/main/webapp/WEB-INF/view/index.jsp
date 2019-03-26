@@ -51,10 +51,6 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		var id='${sessionScope.id}';
-		if(id != ''){
-			
-		}
 		
 		/* $(document).ready(function(){
 			var id='${sessionScope.id}';
@@ -135,7 +131,7 @@
 
 <body class="home">
 	<!-- header -->
-	<div class="container" style="margin-top: 20px;margin-bottom: -20px;">
+	<div id="userHeader" class="container" style="margin-top: 20px;margin-bottom: -20px;">
 		<div style="text-align: center;">
 		 	<a href="http://localhost:8090/khbook/index.kh"> <h2>KH BOOKs</h2> </a>
 		  <span style="display: inline-block; float: right;  position: relative; top: -50px;">
@@ -143,7 +139,7 @@
 		</span>
 		
 		<c:if test="${!empty sessionScope.id}">
-			<div>
+			<div class="container" style="margin-top: 20px;margin-bottom: -20px;">
 			${sessionScope.id} 님 환영합니다
 			<input class="btn btn-primary" type="button" id="logout" onclick="logoutPro();" value="로그아웃" />
 			</div>

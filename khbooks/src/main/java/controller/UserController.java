@@ -155,10 +155,9 @@ public class UserController {
 		
 		if(res == true) {
 			session.setAttribute("id", udto.getId());
-			mav.setViewName("indexCallback");
+			mav.setViewName("index");
 			mav.addObject("msg", "success");
-		} else { 
-			/*mav.setViewName("redirect:/loginForm.kh");*/
+		} else {
 			mav.setViewName("user/login");
 			mav.addObject("msg", "fail");
 		}
