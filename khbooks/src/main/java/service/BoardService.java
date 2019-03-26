@@ -15,10 +15,14 @@ public interface BoardService {
 	public BoardDTO updateSelectProcess(int bonum);
 	public void updateProcess(BoardDTO dto);
 	public void deleteProcess(int bonum);
+	public List<BoardDTO> getSearchList(String searchWord, PageDTO pdto);
+	public int SearchTotalRecord(String bname);
+	public List<BoardDTO> popularPost();
 	
 	public int replyCountProcess(int bonum);
 	public void replyInsertProcess(ReplyDTO rdto);
 	public List<ReplyDTO> replyListProcess(ReplyDTO rdto);
 	public List<ReplyDTO> replyDeleteProcess(ReplyDTO rdto);
 	public List<ReplyDTO> replyUpdateProcess(ReplyDTO rdto);
+	public List<ReplyDTO> replyRecent();
 }

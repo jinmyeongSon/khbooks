@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 import java.util.Map;
 
+import dto.BoardDTO;
 import dto.NoticeDTO;
 import dto.PageDTO;
 import dto.UploadDTO;
@@ -18,4 +19,7 @@ public interface NoticeService {
 	public List<UploadDTO> uploadList(UploadDTO udto);
 	public List<NoticeDTO> search(String keyword);
 	public void fileDelete(int upno);
+	public List<NoticeDTO> getSearchList(String searchWord, PageDTO pdto);
+	public int SearchTotalRecord(String searchWord);
+	public List<NoticeDTO> popularPost();
 }

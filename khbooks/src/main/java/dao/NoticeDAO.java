@@ -19,4 +19,7 @@ public interface NoticeDAO {
 	public List<UploadDTO> uploadList(UploadDTO udto);
 	public List<NoticeDTO> search(String keyword);
 	public void fileDelete(int upno);
+	public List<NoticeDTO> searchList(String searchWord, PageDTO pdto);
+	public int searchTotalRecord(String searchWord);
+	public List<NoticeDTO> popularPost();
 }

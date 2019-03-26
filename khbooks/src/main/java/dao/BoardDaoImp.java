@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -59,6 +60,28 @@ public class BoardDaoImp implements BoardDAO {
 		sqlSession.delete("board.delete", bonum);
 	}
 	
+	@Override
+	public List<BoardDTO> searchList(String searchWord, PageDTO pdto) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("bname", searchWord);
+		map.put("startRow", pdto.getStartRow());
+		map.put("endRow", pdto.getEndRow());
+		
+		return sqlSession.selectList("board.searchList", map);
+	}
+	
+	@Override
+	public int searchTotalRecord(String bname) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("bname", bname);
+		
+		return sqlSession.selectOne("board.searchCount", map);
+	}
+	
+	@Override
+	public List<BoardDTO> popularPost() {
+		return sqlSession.selectList("board.popular");
+	}
 	
 /////////////////////////////////////////////////////////////
 
@@ -85,6 +108,11 @@ public class BoardDaoImp implements BoardDAO {
 	@Override
 	public void replyDeleteMethod(int bcno) {
 		sqlSession.delete("reply.delete", bcno);
+	}
+	
+	@Override
+	public List<ReplyDTO> replyRecent() {
+		return sqlSession.selectList("reply.recent");
 	}
 
 }

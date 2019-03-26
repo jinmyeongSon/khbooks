@@ -16,11 +16,15 @@ public interface BoardDAO {
 	public BoardDTO updateNum(int num);
 	public void update(BoardDTO dto);
 	public void delete(int num);
+	public List<BoardDTO> searchList(String searchWord, PageDTO pdto);
+	public int searchTotalRecord(String searchWord);
+	public List<BoardDTO> popularPost();
 	/////////////////////////////////
 	public int replyCount(int bonum);
 	public List<ReplyDTO> replyListMethod(int bno);
 	public void replyInsertMethod(ReplyDTO rdto);
 	public void replyUpdateMethod(ReplyDTO rdto);
 	public void replyDeleteMethod(int rno);
+	public List<ReplyDTO> replyRecent();
 	
 }

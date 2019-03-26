@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,7 +44,7 @@ public class NoticeController {
 		this.path = path;
 	}
 	
-	@RequestMapping("/noticeList.kh")
+	@RequestMapping(value="/noticeList.kh", method=RequestMethod.GET)
 	public ModelAndView noticeList(PageDTO pv) {
 		ModelAndView mav = new ModelAndView();
 		int totalRecord = nservice.noticeCountPro();
@@ -63,15 +64,55 @@ public class NoticeController {
 				System.out.println("제목 : " + dto.getBname());
 			}
 			
+			for(NoticeDTO d : nservice.popularPost()) {
+				System.out.println(d.getBname());
+			}
+			
 			mav.addObject("currentPage", currentPage);
 			mav.addObject("pdto", pdto);
 			mav.addObject("noticeList", aList);
+			mav.addObject("popular", nservice.popularPost());
 		}
 		
 		mav.setViewName("noticeList");
 	
 		return mav;
 	}//end noticeList()
+	
+	@RequestMapping(value="/noticeList.kh", method=RequestMethod.POST)
+	public ModelAndView noticeList(PageDTO pv, String bname) {
+		ModelAndView mav = new ModelAndView();
+		
+		if(bname == null) {
+			bname = "";
+		}
+		
+		int totalRecord = nservice.SearchTotalRecord(bname);
+		System.out.println("검색 총 갯수 : " + totalRecord);
+		
+		if(totalRecord >= 1) {
+			if(pv.getCurrentPage() == 0) {
+				currentPage = 1;
+			} else {
+				currentPage = pv.getCurrentPage();
+			}
+			
+			pdto = new PageDTO(currentPage, totalRecord);
+			List<NoticeDTO> aList = nservice.getSearchList(bname, pdto);
+			
+			for(NoticeDTO dto : aList) {
+				System.out.println("제목 : " + dto.getBname());
+			}
+			
+			mav.addObject("currentPage", currentPage);
+			mav.addObject("pdto", pdto);
+			mav.addObject("noticeList", aList);
+		}
+		
+		mav.setViewName("noticeList");
+		
+		return mav;
+	}
 	
 	
 	@RequestMapping("/noticeView.kh")

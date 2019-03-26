@@ -29,8 +29,8 @@ public class BoardController {
 		this.service = service;
 	}
 	
-	@RequestMapping("/boardList.kh")
-	public ModelAndView list(PageDTO pdto) {
+	@RequestMapping(value="/boardList.kh", method=RequestMethod.GET)
+	public ModelAndView list(PageDTO pdto, ReplyDTO rdto) {
 		ModelAndView mav = new ModelAndView();
 		int totalRecord = service.countProcess();
 		//System.out.println("totalRecord : " + totalRecord);
@@ -52,12 +52,55 @@ public class BoardController {
 			
 			mav.addObject("currentPage", currentPage);
 			mav.addObject("pdto", pdto);
-			mav.addObject("aList", aList);	
+			mav.addObject("aList", aList);
+			mav.addObject("popular", service.popularPost());
+			mav.addObject("reply", service.replyRecent());
+			
 		}
 		mav.setViewName("boardList");
 		
 		return mav;
 	}//end list()
+	
+	@RequestMapping(value="/boardList.kh", method=RequestMethod.POST) //제목 검색 메소드
+	public ModelAndView list(PageDTO pv, String bname) {
+		ModelAndView mav = new ModelAndView();
+		
+		if(bname == null) {
+			bname = "";
+		}
+		
+		int totalRecord = service.SearchTotalRecord(bname);
+		System.out.println("검색 총 갯수 : " + totalRecord);
+		
+		if(totalRecord >= 1) {
+			if(pv.getCurrentPage() == 0) {
+				currentPage = 1;
+			} else {
+				currentPage = pv.getCurrentPage();
+			}
+			
+			pdto = new PageDTO(currentPage, totalRecord);
+			List<BoardDTO> aList = service.getSearchList(bname, pdto);
+			for(int i=aList.size(); i>0; i--) {
+				aList.get(aList.size()-i).setReplyCount(service.replyCountProcess(aList.get(aList.size()-i).getBonum()));
+				//System.out.println(service.replyCountProcess(i) + "    " + i);
+			}
+			
+			
+			for(BoardDTO dto : aList) {
+				System.out.println("제목 : " + dto.getBname());
+			}
+			
+			mav.addObject("currentPage", currentPage);
+			mav.addObject("pdto", pdto);
+			mav.addObject("aList", aList);
+		}
+		
+		mav.setViewName("boardList");
+		
+		return mav;
+	}
 	
 	
 	@RequestMapping("/boardView.kh")
@@ -147,7 +190,6 @@ public class BoardController {
 	public @ResponseBody List<ReplyDTO> commentDelete(ReplyDTO rdto) {
 		return service.replyDeleteProcess(rdto);
 	}
-	
-	
+
 	
 }//end class

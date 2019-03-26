@@ -54,6 +54,22 @@ public class BoardServiceImp implements BoardService {
 		dao.delete(bonum);
 	}
 	
+	@Override
+	public List<BoardDTO> getSearchList(String bname, PageDTO pdto) {
+		return dao.searchList(bname, pdto);
+	}
+	
+	@Override
+	public int SearchTotalRecord(String bname) {
+		return dao.searchTotalRecord(bname);
+	}
+	
+	@Override
+	public List<BoardDTO> popularPost() {
+		return dao.popularPost();
+	}
+	
+	
 	/////////////댓글//////////////////////////////////////////////////////////////////////////
 	
 	@Override
@@ -81,6 +97,11 @@ public class BoardServiceImp implements BoardService {
 	public List<ReplyDTO> replyUpdateProcess(ReplyDTO rdto) {
 		dao.replyUpdateMethod(rdto);
 		return dao.replyListMethod(rdto.getBonum());
+	}
+	
+	@Override
+	public List<ReplyDTO> replyRecent() {
+		return dao.replyRecent();
 	}
 
 }//end class

@@ -1,6 +1,7 @@
 var upbcno = ''; //수정 댓글 번호
 
 $(document).ready(function(){
+	
 	//수정 모달 숨기기
 	$('#modifyModal').addClass('modifyHide');
 	
@@ -26,7 +27,6 @@ $(document).ready(function(){
 	$(document).on('click', '.post-data button', board_update_delete);
 	
 });// end ready
-
 
 
 function board_list() {
@@ -85,8 +85,13 @@ function comment_update_delete(){
 		upbcno = $(this).prop("id");
 		alert('수정 댓글 번호 : ' + upbcno);
 		
-		var stop = $(window).scrollTop();
-		$('#modifyModal').css('top', 50+stop);
+		/*var stop = $(window).scrollTop();*/
+		/*$('#modifyModal').css('top', 50+stop);*/
+		$('#modifyModal').css({
+			 "position" : "absolute",
+			  "bottom" : "65px",
+			  "left" : "700px"
+		});
 		$('#modifyModal').removeClass('modifyHide').addClass('modifyShow');
 		$(document).off('click', 'listUl button');
 		
@@ -107,6 +112,7 @@ function comment_update_delete(){
 
 function comment_update_send() {
 	//$('.commList:nth-child(6)')
+	
 	var bonum = $('#btnModify').prop("class");
 	alert(bonum);
 	

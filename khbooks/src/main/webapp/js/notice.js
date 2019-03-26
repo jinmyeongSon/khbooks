@@ -8,8 +8,6 @@ $(document).ready(function(){
 	
 	$('#upload').on('click', notice_upload_send); //등록
 	
-	$('.input-append button').on('click', notice_search);
-	
 	
 	//첨부파일 시작//
 	var userFile = '';
@@ -70,22 +68,6 @@ $(document).ready(function(){
 	
 	
 });//end ready
-
-function notice_search() {
-	var bname = $('#bname').val();
-	alert(bname);
-	
-	$.ajax({
-		type : 'GET',
-		dataType : 'json',
-		url : 'noticeKeyword.kh?bname='+bname,
-		success : function(res){
-			
-		}
-	})
-	
-	
-}
 
 
 function notice_update_delete() {

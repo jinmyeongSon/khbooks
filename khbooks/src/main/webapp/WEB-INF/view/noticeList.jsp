@@ -13,6 +13,15 @@
 <link rel="stylesheet" href="css/bootstrap-responsive.css">
 <link rel="stylesheet" href="css/jquery.lightbox-0.5.css">
 <link rel="stylesheet" href="css/custom-styles.css">
+<style type="text/css">
+#rc {
+float : right;
+}
+
+.popular-posts > li > a {
+color : #d8450b;
+}
+</style>
 
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -157,7 +166,7 @@
            
          
             <!-- Pagination -->
-            <div class="paging">
+            <div class="pagination">
                 <ul class="noticeListUl">
                 <!-- 이전 출력 -->
                 <c:if test="${pdto.startPage > 1 }">
@@ -194,10 +203,11 @@
 
             <!--검색 -->
             <section>
-            <form id="searchForm">
+            <form id="searchForm" action="noticeList.kh" method="post">
                 <div class="input-append">
-                    <input id="bname" size="16" type="text" placeholder="검색">
-                    <button class="btn" type="button"><i class="icon-search"></i></button>
+                    <input name="bname" size="16" type="text" placeholder="제목 검색">
+                    <button class="btn" type="button" onClick="document.getElementById('searchForm').submit();"><i class="icon-search"></i></button>
+                    <!-- <input type="submit" value="검색"><i class="icon-search"></i> -->
                 </div>
             </form>    
             </section>
@@ -206,35 +216,25 @@
             <button class="btn" type="button" onclick="javascript:location.href='noticeWrite.kh'"><i>글쓰기</i></button>
 			
             <!--Categories-->
-            <h5 class="title-bg">Categories</h5>
+            <h5 class="title-bg">카테고리</h5>
             <ul class="post-category-list">
-                <li><a href="#"><i class="icon-plus-sign"></i>Design</a></li>
-                <li><a href="#"><i class="icon-plus-sign"></i>Illustration</a></li>
-                <li><a href="#"><i class="icon-plus-sign"></i>Tutorials</a></li>
-                <li><a href="#"><i class="icon-plus-sign"></i>News</a></li>
+                <li><a href="noticeList.kh"><i class="icon-plus-sign"></i>공지사항</a></li>
+                <li><a href="boardList.kh"><i class="icon-plus-sign"></i>자유게시판</a></li>
             </ul>
 
             <!--Popular Posts-->
-            <h5 class="title-bg">Popular Posts</h5>
+            <h5 class="title-bg">인기 게시물</h5>
+            <c:forEach items="${popular }" var="p">
             <ul class="popular-posts">
                 <li>
-                    <a href="#"><img src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post"></a>
-                    <h6><a href="#">Lorem ipsum dolor sit amet consectetur adipiscing elit</a></h6>
-                    <em>Posted on 09/01/15</em>
-                </li>
-                <li>
-                    <a href="#"><img src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post"></a>
-                    <h6><a href="#">Nulla iaculis mattis lorem, quis gravida nunc iaculis</a></h6>
-                    <em>Posted on 09/01/15</em>
-                <li>
-                    <a href="#"><img src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post"></a>
-                    <h6><a href="#">Vivamus tincidunt sem eu magna varius elementum maecenas felis</a></h6>
-                    <em>Posted on 09/01/15</em>
+                    <a href="noticeView.kh?currentPage=${pdto.currentPage}&nnum=${p.nnum}">${p.bname }</a>
+                    <span id="rc">조회수&#91;${p.ncount}&#93;</span>
                 </li>
             </ul>
+            </c:forEach>
 
             <!--Tabbed Content-->
-            <h5 class="title-bg">More Info</h5>
+            <!-- <h5 class="title-bg">More Info</h5>
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#comments" data-toggle="tab">Comments</a></li>
                 <li><a href="#tweets" data-toggle="tab">Tweets</a></li>
@@ -265,11 +265,11 @@
 
                     Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
                 </div>
-            </div>
+            </div> -->
 
             <!--Video Widget-->
-            <h5 class="title-bg">Video Widget</h5>
-            <iframe src="http://player.vimeo.com/video/24496773" width="370" height="208"></iframe>
+           <!--  <h5 class="title-bg">Video Widget</h5>
+            <iframe src="http://player.vimeo.com/video/24496773" width="370" height="208"></iframe> -->
         </div>
 
     </div>

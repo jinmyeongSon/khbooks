@@ -70,5 +70,20 @@ public class NoticeServiceImp implements NoticeService {
 		ndao.fileDelete(upno);
 	}
 	
+	@Override
+	public List<NoticeDTO> getSearchList(String searchWord, PageDTO pdto) {
+		return ndao.searchList(searchWord, pdto);
+	}
+	
+	@Override
+	public int SearchTotalRecord(String bname) {
+		return ndao.searchTotalRecord(bname);
+	}
+	
+	@Override
+	public List<NoticeDTO> popularPost() {
+		return ndao.popularPost();
+	}
+	
 
 }
