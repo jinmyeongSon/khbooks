@@ -2,9 +2,6 @@ package dto;
 
 import java.sql.Date;
 import java.util.List;
-
-import java.sql.Date;
-
 import org.springframework.web.multipart.MultipartFile;
 
 public class BookDTO {
@@ -18,6 +15,14 @@ public class BookDTO {
 	private String binfo;
 	private List<AuthorDTO> aList;
 	private int count;
+	private MultipartFile file;
+	
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
 	public int getCount() {
 		return count;
 	}

@@ -42,6 +42,7 @@
 				<value>classpath:config/BookMapper.xml</value>
 				<value>classpath:config/SerialMapper.xml</value>
 				<value>classpath:config/userMapper.xml</value>
+				<value>classpath:config/adminMapper.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -108,7 +109,10 @@
 		<property name="sqlSession" ref="sqlSession" />
 		<!-- <constructor-arg> <ref bean="sqlSession/></constructor-arg> -->
 	</bean>
-	
+	<bean id="admindao" class="dao.AdminDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+		<!-- <constructor-arg> <ref bean="sqlSession/></constructor-arg> -->
+	</bean>
 
 	<!-- [8] Service 빈 선언 -->
 	<bean id="MemInforservice" class="service.MemInforServiceImp">
@@ -120,7 +124,26 @@
 	<bean id="FavAuthorservice" class="service.FavAuthorServiceImp">
 		<property name="dao" ref="FavAuthordao"/>
 	</bean>
+	<bean id="adminservice" class="service.AdminServiceImp">
+		<property name="dao" ref="admindao"/>
+	</bean>
 
+	<bean class="controller.UserController">
+		<property name="dao" ref="udao" />
+		<property name="service" ref="uservice" />
+	</bean>
+	<bean class="controller.MemberController">
+		<property name="service" ref="MemInforservice"/>
+	</bean>
+	<bean class="controller.FavBookController">
+		<property name="service" ref="FavBookservice"/>
+	</bean>
+	<bean class="controller.FavAuthorController">
+		<property name="service" ref="FavAuthorservice"/>
+	</bean>
+	<bean class="controller.AdminController">
+		<property name="service" ref="adminservice"/>
+	</bean>
 
 
 	

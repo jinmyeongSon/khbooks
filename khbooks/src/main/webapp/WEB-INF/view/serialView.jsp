@@ -65,6 +65,7 @@ $(document).ready(function(){
 		dataType : 'json',
 		url : 'bookInfo.kh?bno='+bno,
 		success : info_success
+<<<<<<< HEAD
 	})
 =======
 	id='{sessionScope.id}';
@@ -87,6 +88,9 @@ $(document).ready(function(){
 		}
 	});
 >>>>>>> branch 'meminfor' of https://github.com/jinmyeongSon/khbooks.git
+=======
+	});
+>>>>>>> branch 'book' of https://github.com/jinmyeongSon/khbooks.git
 	
 	$('#prev').on('click', function() {
 		if(rm == 1){
