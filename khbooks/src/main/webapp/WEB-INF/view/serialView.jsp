@@ -60,7 +60,7 @@ $(document).ready(function(){
 		dataType : 'json',
 		url : 'bookInfo.kh?bno='+bno,
 		success : info_success
-	})
+	});
 	
 	$('#prev').on('click', function() {
 		if(rm == 1){

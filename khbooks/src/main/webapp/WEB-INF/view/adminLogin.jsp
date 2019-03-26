@@ -29,19 +29,6 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 	crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-	var id='${sessionScope.id}';
-	if(id != ''){
-		alert("잘못된 접근입니다.");
-		history.go(-1);
-	}
-	
-});
-</script>
-
-
 </head>
 
 <body>
@@ -58,23 +45,16 @@ $(document).ready(function(){
 
 
 <div class="container" style="width:300px; margin-top:300px; border: 2px solid #008CBA;">
-	<form role="form" action="loginPost.kh" method="post">
+	<form role="form" action="adminLoginCheck.kh" method="post">
 		<div class="box-body">
 			<div style="padding-bottom:20;">
 				<div class="form-group">
 					<input type="text" id="id"
-						name="id" class="form-control" placeholder="User ID..." value="${sessionScope.id}"/>
+						name="id" class="form-control" placeholder="Admin ID..."/>
 				</div>
 				<div class="form-group">
-					<input type="password" name="upwd" id="upwd"
+					<input type="password" name="pass" id="pass"
 						class="form-control" placeholder="Password..."/>
-				</div>
-				
-				<div class="form-group">
-			     <label for="useCookie">
-			         <input type="checkbox" id="rememberId" name="rememberId" value="true" /> 로그인 유지
-			     </label>
-		  			 <a href="http://localhost:8090/khbook/findId.kh">아이디</a>·<a href="http://localhost:8090/khbook/findPwd.kh">비밀번호 찾기</a>
 				</div>
 				
 			 	 <button type="submit" class="btn btn-primary btn-lg btn-block">로그인</button>
@@ -82,23 +62,7 @@ $(document).ready(function(){
 		</div> <!-- end of box-body -->
 	</form>
 	 <br/>
-	 social login
-	
-	<div class="text-center">
-	  <div id="naver_id_login"></div>
-	</div>
 </div>
 
 </body>
-<script type="text/javascript">
-	var naver_id_login = new naver_id_login("Fl00fuSEpWs8hOdJ0F2n", "http://localhost:8090/khbook/index-naver.kh");
-	var state = naver_id_login.getUniqState();
-	naver_id_login.setButton("green", 2,40);
-	naver_id_login.setDomain("http://localhost:8090");
-	naver_id_login.setState(state);
-	naver_id_login.setPopup();
-	naver_id_login.init_naver_id_login();
-	
-	
-</script>
 </html>

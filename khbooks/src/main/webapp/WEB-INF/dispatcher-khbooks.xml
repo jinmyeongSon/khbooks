@@ -49,6 +49,7 @@
 				<value>classpath:config/BookMapper.xml</value>
 				<value>classpath:config/SerialMapper.xml</value>
 				<value>classpath:config/userMapper.xml</value>
+				<value>classpath:config/adminMapper.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -74,6 +75,10 @@
 		<property name="sqlSession" ref="sqlSession" />
 		<!-- <constructor-arg> <ref bean="sqlSession/></constructor-arg> -->
 	</bean>
+	<bean id="admindao" class="dao.AdminDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+		<!-- <constructor-arg> <ref bean="sqlSession/></constructor-arg> -->
+	</bean>
 
 	<!-- [8] Service 빈 선언 -->
 	<bean id="MemInforservice" class="service.MemInforServiceImp">
@@ -84,6 +89,9 @@
 	</bean>
 	<bean id="FavAuthorservice" class="service.FavAuthorServiceImp">
 		<property name="dao" ref="FavAuthordao"/>
+	</bean>
+	<bean id="adminservice" class="service.AdminServiceImp">
+		<property name="dao" ref="admindao"/>
 	</bean>
 
 	<bean class="controller.UserController">
@@ -98,6 +106,9 @@
 	</bean>
 	<bean class="controller.FavAuthorController">
 		<property name="service" ref="FavAuthorservice"/>
+	</bean>
+	<bean class="controller.AdminController">
+		<property name="service" ref="adminservice"/>
 	</bean>
 
 	<bean id="naverLoginDTO" class="dto.NaverLoginDTO" />
