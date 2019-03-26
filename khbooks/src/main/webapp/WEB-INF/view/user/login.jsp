@@ -96,24 +96,22 @@ $(document).ready(function(){
 						class="form-control" placeholder="Password..."/>
 				</div>
 				
+				<button type="submit" id="login_btn" class="btn btn-primary btn-lg btn-block">로그인</button>
 				<div class="form-group">
 			     <label for="useCookie">
-			         <input type="checkbox" id="rememberId" name="rememberId" value="true" /> 아이디 기억
+			         <input type="checkbox" id="rememberId" name="rememberId" value="true" /><p style="font-size: 12px;display: inline-block;">로그인 상태 유지</p>
 			     </label>
 		  			 <a href="http://localhost:8090/khbook/findId.kh">아이디</a>·<a href="http://localhost:8090/khbook/findPwd.kh">비밀번호 찾기</a>
+					<c:if test="${msg == 'fail'}">
+					<div style="color: red">아이디 또는 비밀번호가 일치하지 않습니다.</div>
+					</c:if>
 				</div>
-				<c:if test="${msg == 'fail'}">
-				<div style="color: red">아이디 또는 비밀번호가 일치하지 않습니다.</div>
-				</c:if>
 				
-			 	 <button type="submit" id="login_btn" class="btn btn-primary btn-lg btn-block">로그인</button>
+				
+			 	 
 			</div>
 		</div> <!-- end of box-body -->
 	</form>
-	 <br/>
-	 social login
-	 
-	 	
 	<div class="text-center">
 	  <div id="naver_id_login"></div>
 	</div>
