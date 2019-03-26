@@ -140,7 +140,7 @@ public class UserController {
 			mav.setViewName("user/login");
 		}
 	
-		mav.setViewName("bookMain");
+		mav.setViewName("redirect:/bookMain.kh");
 		return mav;
 	}
 	
