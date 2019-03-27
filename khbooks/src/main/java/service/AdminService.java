@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import dto.AdminPageDTO;
+import dto.AuthorDTO;
 import dto.BookDTO;
 import dto.GenreDTO;
 import dto.UserDTO;
@@ -44,5 +45,17 @@ public interface AdminService {
 	public int getAuthorListCountProcess();
 
 	public List<BookDTO> getAuthorListProcess(AdminPageDTO adto);
+
+	public AuthorDTO getAuthorOneProcess(int auno);
+
+	public void authorUpdateProcess(AuthorDTO adto);
+
+	public void authorInsertProcess(AuthorDTO adto);
+
+	public void userDeleteProcess(String id);
+
+	public void bookDeleteProcess(int bno);
+
+	public void authorDeleteProcess(int auno);
 
 }

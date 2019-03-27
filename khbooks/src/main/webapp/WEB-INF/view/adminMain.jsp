@@ -36,53 +36,7 @@
 ================================================== -->
 <!-- <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script> -->
 <script src="js/bootstrap.js"></script>
-<script type="text/javascript">
-
-	$(document).ready(function(){
-		$('#userManage').on("click", userManage);
-		$('#bookManage').on("click", bookManage);
-		$('#bookInsert').on("click", bookInsert);
-		$('#authorManage').on("click", authorManage);
-		$('#authorInsert').on("click", authorInsert);
-	});
-	
-	// user list 불러오기
-	function userManage() {
-		$('#managePlace').empty();
-		$('#managePlace').load("userList.kh");
-		return false;
-	}
-	
-	// book list 불러오기
-	function bookManage() {
-		$('#managePlace').empty();
-		$('#managePlace').load("bookList.kh");
-		return false;
-	}
-	
-	// book insert form 만들어주기
-	function bookInsert() {
-		$('#managePlace').empty();
-		$('#managePlace').load("bookInsertForm.kh");
-		return false;
-	}
-
-	// author list 불러오기
-	function authorManage() {
-		$('#managePlace').empty();
-		$('#managePlace').load("authorList.kh");
-		return false;
-	}
-	
-	// author insert form 만들어주기
-	function authorInsert() {
-		$('#managePlace').empty();
-		$('#managePlace').load("authorInsertForm.kh");
-		return false;
-	}
-
-</script>
-
+<script src="js/admin.js"></script>
 </head>
 <body>
 	<div class="color-bar-1"></div>

@@ -12,31 +12,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="css/adminList.css">
 <script type="text/javascript">
-	var searchKey='';
-	var searchWord='';
-	var currentPage='';
 	$(document).ready(function() {
 		searchKey='${adto.searchKey}';
 		searchWord='${adto.searchWord}';
 		currentPage='${adto.currentPage}';
-	});
-	$(document).on('click', '#update', function() {
-		var auno=$(this).parent().attr('id');
-		$('#managePlace').empty();
-		$('#managePlace').load("authorUpdateForm.kh?auno="+auno+"&currentPage="+currentPage+"&searchKey="+searchKey+"&searchWord="+searchWord);
-		return false;
-	});
-	$(document).on('click', '#delete', function() {
-		var auno=$(this).parent().attr('id');
-		$('#managePlace').empty();
-		$('#managePlace').load("authorDelete.kh?auno="+auno+"&currentPage="+currentPage+"&searchKey="+searchKey+"&searchWord="+searchWord);
-		return false;
-	});
-	$(document).on('click', '.authorMovePage', function() {
-		currentPage=$(this).attr('id');
-		$('#managePlace').empty();
-		$('#managePlace').load("authorList.kh?currentPage="+currentPage+"&searchKey="+searchKey+"&searchWord="+searchWord);
-		return false;
 	});
 </script>
 
@@ -55,8 +34,8 @@
 				<th>${dto.auno}</th>
 				<th>${dto.auname}</th>
 				<th>${dto.auintro}</th>
-				<th id="${dto.auno}"><button id="update">수정</button></th>
-				<th id="${dto.auno}"><button id="delete">삭제</button></th>
+				<th id="${dto.auno}"><button id="aupdate">수정</button></th>
+				<th id="${dto.auno}"><button id="adelete">삭제</button></th>
 			</tr>
 		</c:forEach>
 	</table>

@@ -16,7 +16,7 @@
 	<select id="userList" parameterType="dto.AdminPageDTO" resultType="dto.UserDTO">
 		select rownum, b.*
 		from(select rownum as rm, a.*
-		from(select * from kh_user)a)b
+		from(select * from kh_user order by id)a)b
 		<![CDATA[where b.rm>=#{startRow} and b.rm <=#{endRow}]]>
 	</select>
 	
@@ -27,7 +27,7 @@
 	<select id="bookList" parameterType="dto.AdminPageDTO" resultType="dto.BookDTO">
 		select rownum, b.*
 		from(select rownum as rm, a.*
-		from(select * from book)a)b
+		from(select * from book order by bno)a)b
 		<![CDATA[where b.rm>=#{startRow} and b.rm <=#{endRow}]]>
 	</select>
 	
@@ -40,6 +40,7 @@
 		from(select rownum as rm, a.*
 		from(select * from kh_user 
 		where #{searchKey} like '%' || #{searchWord} || '%'
+		order by id
 		)a)b
 		<![CDATA[where b.rm>=#{startRow} and b.rm <=#{endRow}]]>
 	</select>
@@ -53,6 +54,7 @@
 		from(select rownum as rm, a.*
 		from(select * from book 
 		where #{searchKey} like '%' || #{searchWord} || '%'
+		order by bno
 		)a)b
 		<![CDATA[where b.rm>=#{startRow} and b.rm <=#{endRow}]]>
 	</select>
@@ -121,12 +123,12 @@
 	<select id="authorList" parameterType="dto.AdminPageDTO" resultType="dto.AuthorDTO">
 		select rownum, b.*
 		from(select rownum as rm, a.*
-		from(select * from author)a)b
+		from(select * from author order by auno)a)b
 		<![CDATA[where b.rm>=#{startRow} and b.rm <=#{endRow}]]>
 	</select>
 	
 	<select id="authorSearchCount" parameterType="dto.AdminPageDTO" resultType="int">
-		select count(*) from author where #{searchKey} like '%' || #{searchWord} || '%'
+		select count(*) from author where #{searchKey} like '%' || #{searchWord} || '%' order by auno
 	</select>
 	
 	<select id="authorSearch" parameterType="dto.AdminPageDTO" resultType="dto.AuthorDTO">
@@ -148,8 +150,12 @@
 	</update>
 	
 	<delete id="authorDelete" parameterType="dto.AuthorDTO">
-		delete from author where auno=${auno}
+		delete from author where auno=#{auno}
 	</delete>
+	
+	<select id="authorOne" parameterType="int" resultType="dto.AuthorDTO">
+		select * from author where auno=#{auno}
+	</select>
 	
 	<insert id="bookInsert" parameterType="dto.BookDTO">
 		insert into book values(book_bno_seq.nextval, #{bname}, #{gno}, sysdate, 0, 0, #{bthumb}, #{binfo})

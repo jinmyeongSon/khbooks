@@ -4,6 +4,7 @@ import java.util.List;
 
 import dao.AdminDAO;
 import dto.AdminPageDTO;
+import dto.AuthorDTO;
 import dto.BookDTO;
 import dto.GenreDTO;
 import dto.UserDTO;
@@ -108,6 +109,36 @@ public class AdminServiceImp implements AdminService {
 	@Override
 	public List<BookDTO> getAuthorListProcess(AdminPageDTO adto) {
 		return dao.getAuthorList(adto);
+	}
+
+	@Override
+	public AuthorDTO getAuthorOneProcess(int auno) {
+		return dao.getAuthorOne(auno);
+	}
+
+	@Override
+	public void authorUpdateProcess(AuthorDTO adto) {
+		dao.authorUpdate(adto);
+	}
+
+	@Override
+	public void authorInsertProcess(AuthorDTO adto) {
+		dao.authorInsert(adto);
+	}
+
+	@Override
+	public void userDeleteProcess(String id) {
+		dao.userDelete(id);
+	}
+
+	@Override
+	public void bookDeleteProcess(int bno) {
+		dao.bookDelete(bno);
+	}
+
+	@Override
+	public void authorDeleteProcess(int auno) {
+		dao.authorDelete(auno);
 	}
 
 }
