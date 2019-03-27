@@ -78,7 +78,7 @@ public class AdminController {
 	public ModelAndView bookInsert(BookDTO dto) {
 		ModelAndView mav = new ModelAndView();
 		MultipartFile file = dto.getFile();
-		// 첨부파일
+		// 첨부파일 경로 수정 필요
 		if(!file.isEmpty()) {
 			String fileName = file.getOriginalFilename();
 			// 중복파일명 방지 위한 난수 발생

@@ -14,6 +14,11 @@
 <link rel="stylesheet" href="css/bootstrap-responsive.css">
 <link rel="stylesheet" href="css/prettyPhoto.css" />
 <link rel="stylesheet" href="css/custom-styles.css">
+<style  type="text/css">
+ul::-webkit-scrollbar { 
+    display: none; 
+}
+</style>
 
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -53,30 +58,40 @@
         ================================================== --> 
         <div class="span12 gallery-single">
             <div class="row">
-                <div class="span6">
-                <div style="width: 420px; margin-left: 100px">
+            	<div class="span2"></div>
+                <div class="span8">
+                <div style="width: 90%;  margin-left: 50px;">
                 	<div style="width: 100%; height: 200px;">
                     <img src="img/gallery/gallery-img-1-full.jpg" style="width: 150px; height: 100%;" class="align-left thumbnail" alt="image">
                     <h2>${book.bname}</h2>
-                    <p style="word-break: break-word" class="lead">${book.binfo}</p>
-                    </div>
-                    <ul style="width:100%; clear: both;" class="project-info">
-                        <li><h6>장르:</h6> ${genre}</li>
-                        <li><h6>작가:</h6> <c:forEach items="${book.aList}" var="author">${author.auname} </c:forEach></li>
-                        <li><h6>최신 연재일:</h6> ${book.bupdate}</li>
-                        <li><h6>별점:</h6> ${book.bgrade}</li>
-                        <li><h6>조회수:</h6> ${book.bview}</li>
+                    <!-- <div style="margin-left:170px;"> -->
+                    <ul style="width:40%; float:left; " class="project-info">
+                        <li style="padding:5px;"><h6>장르:</h6> ${genre} / <h6>별점:</h6> ${book.bgrade} / <h6>조회수:</h6> ${book.bview}</li>
+                        <li style="padding:5px;"><h6>작가:</h6> <c:forEach items="${book.aList}" var="author">${author.auname} </c:forEach></li>
+                        <li style="padding:5px;"><h6>최신 연재일:</h6> ${book.bupdate}</li>
+                        <li style="padding:5px; border: 0px;">dfs</li>
+                        <li  style="padding:5px; border: 0px;"><button class="btn btn-small">첫회보기</button></li>
                     </ul>
+                    <!-- <div style="float:left; width:58%; height: 160px; position:relative;">
+                    <button style="position:absolute; bottom:60px; right: 20px;"> aa </button>
+                    <button style="position:absolute; bottom:30px; right: 20px;"> aa </button>
+                    <button style="position:absolute; bottom:0px; right: 20px;"> aa </button>
+
+                    </div>
+                    </div> -->
+                    </div>
+                    <p style="word-break: break-word;  clear: both;" class="lead">${book.binfo}</p>
+                    
                 </div>
-                </div>
-                <div class="span6" style="height: 550px;" >
-                	<ul style="height:100%; border: 2px solid #a9a9a9; border-radius: 6px; padding-bottom:15px; "  >
+                <div style="height: 550px;"  >
+                	<ul style="height:100%; border: 2px solid #a9a9a9; border-radius: 6px; padding-bottom:15px; overflow: scroll; user-select:none;"  >
                 	<c:set var="count" value="${fn:length(serial)}"/>
                		<c:forEach items="${serial}" var="serial" varStatus="index">
 						<li style="list-style:none; line-height:35px;  width: 96%; margin-left: 2%;  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; border-bottom: 1px dashed #a9a9a9;  padding-top: 4px;">
 							<a href="serialView.kh?bno=${book.bno}&rm=${count-index.index}" style="font-size:15px; color:#333333;  ">&nbsp; <c:out value="${count-index.index}"/>. ${serial.stitle}</a></li>
 					</c:forEach>
 					</ul>
+                </div>
                 </div>
             </div>
 

@@ -81,9 +81,9 @@
 	<select id="bookOne" parameterType="int" resultMap="book_and_author">
 		select b.*, a.*
 		from  book b, book_author ba, author a
-		where b.bno=ba.bno
-		and a.auno=ba.auno
-		and ba.bno=#{bno}
+		where b.bno=#{bno}
+		and b.bno=ba.bno(+)
+		and ba.auno=a.auno(+)
 	</select>
 	
 	<delete id="userDelete" parameterType="string">
@@ -100,8 +100,7 @@
 		, uname=#{uname}
 		, uemail=#{uemail}
 		, uphone=#{uphone}
-		, uaddr=#{uaddr}
-		, udate=#{udate}
+		, ubirth=#{ubirth}
 		, ugender=#{ugender}
 		where id=#{id}
 	</update>

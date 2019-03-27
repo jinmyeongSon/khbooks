@@ -47,17 +47,12 @@ var fileList='';
 var bno='';
 var rm='';
 var totalCount='';
-<<<<<<< HEAD
-var id='';
-=======
 var id ='';
->>>>>>> branch 'meminfor' of https://github.com/jinmyeongSon/khbooks.git
 
 $(document).ready(function(){
 	bno=${bno};
 	rm=${rm};
 	totalCount=${totalCount};
-<<<<<<< HEAD
 	id='${sessionScope.id}';
 	
 	$.ajax({
@@ -65,10 +60,7 @@ $(document).ready(function(){
 		dataType : 'json',
 		url : 'bookInfo.kh?bno='+bno,
 		success : info_success
-<<<<<<< HEAD
 	})
-=======
-	id='{sessionScope.id}';
 	$('#add').on('click',function(){
 		if(id==''){
 			alert('로그인 후 이용하세요.');
@@ -87,10 +79,6 @@ $(document).ready(function(){
 			});
 		}
 	});
->>>>>>> branch 'meminfor' of https://github.com/jinmyeongSon/khbooks.git
-=======
-	});
->>>>>>> branch 'book' of https://github.com/jinmyeongSon/khbooks.git
 	
 	$('#prev').on('click', function() {
 		if(rm == 1){
