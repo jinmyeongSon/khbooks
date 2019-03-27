@@ -119,6 +119,7 @@ public class NoticeController {
 	public ModelAndView noticeView(int nnum, int currentPage) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("currentPage", currentPage);
+		mav.addObject("popular", nservice.popularPost());
 		mav.addObject("noticeView", nservice.noticeViewPro(nnum)); //List<NoticeDTO>
 		mav.setViewName("noticeView");
 		return mav;
@@ -127,6 +128,7 @@ public class NoticeController {
 	@RequestMapping("/noticeWrite.kh")
 	public ModelAndView noticeWrite() {
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("popular", nservice.popularPost());
 		mav.setViewName("noticeWrite");
 		return mav;
 	}
@@ -194,6 +196,7 @@ public class NoticeController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("updateList", nservice.noticeUpdateNum(nnum));
 		mav.addObject("uploadList", nservice.uploadList(udto));
+		mav.addObject("popular", nservice.popularPost());
 		mav.setViewName("noticeUpdateForm");
 		
 		return mav;

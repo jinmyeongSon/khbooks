@@ -64,14 +64,23 @@ function board_update_delete(){
 		
 }//end board_update_delete()
 
+
 function comment_list(){
+	var text = $('#textarea').val();
+	alert(text);
+	
 	var bonum = $(this).parent().prop("id");
 	alert(bonum);
+	
+	/*var form_data=new FormData();
+	form_data.append('bonum', '${bdto.bonum}');
+	form_data.append('id', $('#prependedInput').val());
+	form_data.append('bctext', $('#textarea').val());*/
+
 	$.ajax({
-		type : 'POST',
+		type : 'GET',
 		dataType : 'json',
-		url : 'commentInsert.kh',
-		data : 'bonum='+bonum+'&id=hana&bctext='+$('.span6').val(),
+		url : 'commentInsert.kh?bonum='+bonum+'&id=hana&bctext='+text,
 		success : comment_list_result 
 	});
 	
@@ -85,13 +94,12 @@ function comment_update_delete(){
 		upbcno = $(this).prop("id");
 		alert('수정 댓글 번호 : ' + upbcno);
 		
-		/*var stop = $(window).scrollTop();*/
-		/*$('#modifyModal').css('top', 50+stop);*/
 		$('#modifyModal').css({
 			 "position" : "absolute",
-			  "bottom" : "65px",
+			  "bottom" : "15px",
 			  "left" : "700px"
 		});
+		
 		$('#modifyModal').removeClass('modifyHide').addClass('modifyShow');
 		$(document).off('click', 'listUl button');
 		
@@ -111,7 +119,6 @@ function comment_update_delete(){
 }//end comment_update_delete
 
 function comment_update_send() {
-	//$('.commList:nth-child(6)')
 	
 	var bonum = $('#btnModify').prop("class");
 	alert(bonum);
@@ -131,6 +138,7 @@ function comment_update_send() {
 
 function comment_list_result(res) {
 		$('.listUl .commList').remove();
+		//$('#replycntSmall').text('댓글 ['+res.length+']');
 		
 		$.each(res, function(index, value){
 			var source = '<li class="commList" id="{{bcno}}">'
@@ -141,15 +149,16 @@ function comment_list_result(res) {
 				+'<div class="comment-content">{{bctext}}</div>'
 				+'<button id="{{bcno}}">수정</button>'
 				+'<button id="{{bcno}}">삭제</button></li>';
-				
+
 			var template = Handlebars.compile(source);
 			$('.listUl').append(template(value));
-
 		});
+
+
 }//end comment_list_result
 
 
-Handlebars.registerHelper("newDate",function(timeValue){ //function 함수에서 처리해준 결과값을 newDate에서 받음
+Handlebars.registerHelper("newDate", function(timeValue){ //function 함수에서 처리해준 결과값을 newDate에서 받음
 	var dateObj = new Date(timeValue);
 	var year = dateObj.getFullYear();
 	var month = dateObj.getMonth()+1;
@@ -157,3 +166,6 @@ Handlebars.registerHelper("newDate",function(timeValue){ //function 함수에서
 	
 	return year + "/" + month + "/" + date;
 });
+
+
+

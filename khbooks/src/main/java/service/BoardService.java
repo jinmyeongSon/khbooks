@@ -20,7 +20,7 @@ public interface BoardService {
 	public List<BoardDTO> popularPost();
 	
 	public int replyCountProcess(int bonum);
-	public void replyInsertProcess(ReplyDTO rdto);
+	public List<ReplyDTO> replyInsertProcess(ReplyDTO rdto);
 	public List<ReplyDTO> replyListProcess(ReplyDTO rdto);
 	public List<ReplyDTO> replyDeleteProcess(ReplyDTO rdto);
 	public List<ReplyDTO> replyUpdateProcess(ReplyDTO rdto);

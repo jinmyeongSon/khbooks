@@ -26,7 +26,7 @@
 <!-- JS
 ================================================== -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.1/handlebars.js></script>
 <script src="js/board.js"></script>
 <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 <script src="js/bootstrap.js"></script>
@@ -40,99 +40,9 @@
     <div class="container main-container">
     
       <div class="row header"><!-- Begin Header -->
-      
-        <!-- Logo
-        ================================================== -->
-        <div class="span5 logo">
-        	<a href="index.htm"><img src="img/piccolo-logo.png" alt="" /></a>
-            <h5>Big Things... Small Packages</h5>
-        </div>
-        
-        <!-- Main Navigation
-        ================================================== -->
-        <div class="span7 navigation">
-            <div class="navbar hidden-phone">
-            
-            <ul class="nav">
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="index.htm">Home <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="index.htm">Full Page</a></li>
-                    <li><a href="index-gallery.htm">Gallery Only</a></li>
-                    <li><a href="index-slider.htm">Slider Only</a></li>
-                </ul>
-            </li>
-           <li><a href="features.htm">Features</a></li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="page-full-width.htm">Pages <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="page-full-width.htm">Full Width</a></li>
-                    <li><a href="page-right-sidebar.htm">Right Sidebar</a></li>
-                    <li><a href="page-left-sidebar.htm">Left Sidebar</a></li>
-                    <li><a href="page-double-sidebar.htm">Double Sidebar</a></li>
-                </ul>
-            </li>
-             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="gallery-4col.htm">Gallery <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="gallery-3col.htm">Gallery 3 Column</a></li>
-                    <li><a href="gallery-4col.htm">Gallery 4 Column</a></li>
-                    <li><a href="gallery-6col.htm">Gallery 6 Column</a></li>
-                    <li><a href="gallery-4col-circle.htm">Gallery 4 Round</a></li>
-                    <li><a href="gallery-single.htm">Gallery Single</a></li>
-                </ul>
-             </li>
-             <li class="dropdown active">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="blog-style1.htm">Blog <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="blog-style1.htm">Blog Style 1</a></li>
-                    <li><a href="blog-style2.htm">Blog Style 2</a></li>
-                    <li><a href="blog-style3.htm">Blog Style 3</a></li>
-                    <li><a href="blog-style4.htm">Blog Style 4</a></li>
-                    <li><a href="blog-single.htm">Blog Single</a></li>
-                </ul>
-             </li>
-             <li><a href="page-contact.htm">Contact</a></li>
-            </ul>
-           
-            </div>
-
-             <!-- Mobile Nav
-            ================================================== -->
-            <form action="#" id="mobile-nav" class="visible-phone">
-                <div class="mobile-nav-select">
-                <select onchange="window.open(this.options[this.selectedIndex].value,'_top')">
-                    <option value="">Navigate...</option>
-                    <option value="index.htm">Home</option>
-                        <option value="index.htm">- Full Page</option>
-                        <option value="index-gallery.htm">- Gallery Only</option>
-                        <option value="index-slider.htm">- Slider Only</option>
-                    <option value="features.htm">Features</option>
-                    <option value="page-full-width.htm">Pages</option>
-                        <option value="page-full-width.htm">- Full Width</option>
-                        <option value="page-right-sidebar.htm">- Right Sidebar</option>
-                        <option value="page-left-sidebar.htm">- Left Sidebar</option>
-                        <option value="page-double-sidebar.htm">- Double Sidebar</option>
-                    <option value="gallery-4col.htm">Gallery</option>
-                        <option value="gallery-3col.htm">- 3 Column</option>
-                        <option value="gallery-4col.htm">- 4 Column</option>
-                        <option value="gallery-6col.htm">- 6 Column</option>
-                        <option value="gallery-4col-circle.htm">- Gallery 4 Col Round</option>
-                        <option value="gallery-single.htm">- Gallery Single</option>
-                    <option value="blog-style1.htm">Blog</option>
-                        <option value="blog-style1.htm">- Blog Style 1</option>
-                        <option value="blog-style2.htm">- Blog Style 2</option>
-                        <option value="blog-style3.htm">- Blog Style 3</option>
-                        <option value="blog-style4.htm">- Blog Style 4</option>
-                        <option value="blog-single.htm">- Blog Single</option>
-                    <option value="page-contact.htm">Contact</option>
-                </select>
-                </div>
-                </form>
-            
-        </div>
-
+        <jsp:include page="khbooks_header.jsp"></jsp:include>
       </div><!-- End Header -->
+      
     <!-- Blog Content
     ================================================== --> 
     <div class="row"><!--Container row-->
@@ -161,90 +71,56 @@
                 </div>
             </article>
        </form>
-
-        <!-- Post Comments
-        ================================================== --> 
-        </div><!--Close container row-->
+     </div><!--Close container row-->
 
         <!-- Blog Sidebar
         ================================================== --> 
-        <div class="span4 sidebar">
+		<div class="span4 sidebar">
 
             <!--Search-->
             <section>
                 <div class="input-append">
-                    <form action="#">
-                        <input id="appendedInputButton" size="16" type="text" placeholder="Search"><button class="btn" type="button"><i class="icon-search"></i></button>
+                    <form id="searchForm" action="boardList.kh" method="post">
+                        <input name="bname" size="16" type="text" placeholder="제목검색">
+                        <button class="btn" type="button" onClick="document.getElementById('searchForm').submit();"><i class="icon-search"></i></button>
                     </form>
                 </div>
             </section>
-
-            <!--Categories-->
-            <h5 class="title-bg">Categories</h5>
+            
+            <!-- 카테고리 -->
+            <h5 class="title-bg">게시판 카테고리</h5>
             <ul class="post-category-list">
-                <li><a href="#"><i class="icon-plus-sign"></i>Design</a></li>
-                <li><a href="#"><i class="icon-plus-sign"></i>Illustration</a></li>
-                <li><a href="#"><i class="icon-plus-sign"></i>Tutorials</a></li>
-                <li><a href="#"><i class="icon-plus-sign"></i>News</a></li>
+                <li><a href="noticeList.kh"><i class="icon-plus-sign"></i>공지사항</a></li>
+                <li><a href="boardList.kh"><i class="icon-plus-sign"></i>자유게시판</a></li>
             </ul>
 
-            <!--Popular Posts-->
-            <h5 class="title-bg">Popular Posts</h5>
+            <!-- 인기 게시물 -->
+            <h5 class="title-bg">인기 게시물</h5>
+           <c:forEach items="${popular }" var="p">
             <ul class="popular-posts">
                 <li>
-                    <a href="#"><img src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post"></a>
-                    <h6><a href="#">Lorem ipsum dolor sit amet consectetur adipiscing elit</a></h6>
-                    <em>Posted on 09/01/15</em>
-                </li>
-                <li>
-                    <a href="#"><img src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post"></a>
-                    <h6><a href="#">Nulla iaculis mattis lorem, quis gravida nunc iaculis</a></h6>
-                    <em>Posted on 09/01/15</em>
-                <li>
-                    <a href="#"><img src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post"></a>
-                    <h6><a href="#">Vivamus tincidunt sem eu magna varius elementum maecenas felis</a></h6>
-                    <em>Posted on 09/01/15</em>
+                    <a href="boardView.kh?currentPage=${pdto.currentPage }&bonum=${p.bonum }">${p.bname }</a>
+                    <span id="rc">조회수&#91;${p.bcount}&#93;</span>
                 </li>
             </ul>
+            </c:forEach>
 
-            <!--Tabbed Content-->
-            <h5 class="title-bg">More Info</h5>
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#comments" data-toggle="tab">Comments</a></li>
-                <li><a href="#tweets" data-toggle="tab">Tweets</a></li>
-                <li><a href="#about" data-toggle="tab">About</a></li>
-            </ul>
-
+            <!-- 최신 댓글 -->
+            <h5 class="title-bg">최근 댓글</h5>
+            
             <div class="tab-content">
                 <div class="tab-pane active" id="comments">
+                <c:forEach  items="${reply }" var="r">
                      <ul>
-                        <li><i class="icon-comment"></i>admin on <a href="#">Lorem ipsum dolor sit amet</a></li>
-                        <li><i class="icon-comment"></i>admin on <a href="#">Consectetur adipiscing elit</a></li>
-                        <li><i class="icon-comment"></i>admin on <a href="#">Ipsum dolor sit amet consectetur</a></li>
-                        <li><i class="icon-comment"></i>admin on <a href="#">Aadipiscing elit varius elementum</a></li>
-                        <li><i class="icon-comment"></i>admin on <a href="#">ulla iaculis mattis lorem</a></li>
+                        <li><i class="icon-comment"></i>${r.id } > <a href="boardView.kh?currentPage=${pdto.currentPage}&bonum=${r.bonum}">${r.bctext }</a></li>
                     </ul>
+                </c:forEach>
                 </div>
-                <div class="tab-pane" id="tweets">
-                    <ul>
-                        <li><a href="#"><i class="icon-share-alt"></i>@room122</a> Vivamus tincidunt sem eu magna varius elementum. Maecenas felis tellus, fermentum vitae laoreet vitae, volutpat et urna.</li>
-                        <li><a href="#"> <i class="icon-share-alt"></i>@room122</a> Nulla faucibus ligula eget ante varius ac euismod odio placerat.</li>
-                        <li><a href="#"> <i class="icon-share-alt"></i>@room122</a> Pellentesque iaculis lacinia leo. Donec suscipit, lectus et hendrerit posuere, dui nisi porta risus, eget adipiscing</li>
-                        <li><a href="#"> <i class="icon-share-alt"></i>@room122</a> Vivamus augue nulla, vestibulum ac ultrices posuere, vehicula ac arcu.</li>
-                        <li><a href="#"> <i class="icon-share-alt"></i>@room122</a> Sed ac neque nec leo condimentum rhoncus. Nunc dapibus odio et lacus.</li>
-                    </ul>
-                </div>
-                <div class="tab-pane" id="about">
-                    <p>Enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.</p>
 
-                    Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                </div>
-            </div>
-
-            <!--Video Widget-->
-            <h5 class="title-bg">Video Widget</h5>
-            <iframe src="http://player.vimeo.com/video/24496773" width="370" height="208"></iframe>
+            
         </div>
+
+    </div>
 
     </div>
     
@@ -252,77 +128,8 @@
 
     <!-- Footer Area
         ================================================== -->
-	<div class="footer-container"><!-- Begin Footer -->
-    	<div class="container">
-        	<div class="row footer-row">
-                <div class="span3 footer-col">
-                    <h5>About Us</h5>
-                   <img src="img/piccolo-footer-logo.png" alt="Piccolo" /><br /><br />
-                    <address>
-                        <strong>Design Team</strong><br />
-                        123 Main St, Suite 500<br />
-                        New York, NY 12345<br />
-                    </address>
-                    <ul class="social-icons">
-                        <li><a href="#" class="social-icon facebook"></a></li>
-                        <li><a href="#" class="social-icon twitter"></a></li>
-                        <li><a href="#" class="social-icon dribble"></a></li>
-                        <li><a href="#" class="social-icon rss"></a></li>
-                        <li><a href="#" class="social-icon forrst"></a></li>
-                    </ul>
-                </div>
-                <div class="span3 footer-col">
-                    <h5>Latest Tweets</h5>
-                    <ul>
-                        <li><a href="#">@room122</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                        <li><a href="#">@room122</a> In interdum felis fermentum ipsum molestie sed porttitor ligula rutrum. Morbi blandit ultricies ultrices.</li>
-                        <li><a href="#">@room122</a> Vivamus nec lectus sed orci molestie molestie. Etiam mattis neque eu orci rutrum aliquam.</li>
-                    </ul>
-                </div>
-                <div class="span3 footer-col">
-                    <h5>Latest Posts</h5>
-                     <ul class="post-list">
-                        <li><a href="#">Lorem ipsum dolor sit amet</a></li>
-                        <li><a href="#">Consectetur adipiscing elit est lacus gravida</a></li>
-                        <li><a href="#">Lectus sed orci molestie molestie etiam</a></li>
-                        <li><a href="#">Mattis consectetur adipiscing elit est lacus</a></li>
-                        <li><a href="#">Cras rutrum, massa non blandit convallis est</a></li>
-                    </ul>
-                </div>
-                <div class="span3 footer-col">
-                    <h5>Flickr Photos</h5>
-                    <ul class="img-feed">
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="row"><!-- Begin Sub Footer -->
-                <div class="span12 footer-col footer-sub">
-                    <div class="row no-margin">
-                        <div class="span6"><span class="left">Copyright 2012 Piccolo Theme. All rights reserved.</span></div>
-                        <div class="span6">
-                            <span class="right">
-                            <a href="#">Home</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Features</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Gallery</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Blog</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Contact</a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- End Sub Footer -->
-
-        </div>
-    </div><!-- End Footer --> 
+	<jsp:include page="khbooks_footer.jsp"/>
+	<!-- End Footer --> 
 
     <!-- Scroll to Top -->  
     <div id="toTop" class="hidden-phone hidden-tablet">Back to Top</div>

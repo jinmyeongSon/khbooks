@@ -27,7 +27,7 @@
 
 	<insert id="insert" parameterType="dto.ReplyDTO">
 		insert into board_comment
-		values(comment_seq.nextval,#{bonum},#{id},#{bctext},#{bcstep},#{bclevel},#{bcfor},sysdate)
+		values(comment_seq.nextval,#{bonum},#{id},#{bctext},sysdate)
 	</insert>
 	
 	<delete id="delete" parameterType="int" >

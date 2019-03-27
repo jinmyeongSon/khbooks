@@ -95,6 +95,8 @@ public class BoardController {
 			mav.addObject("currentPage", currentPage);
 			mav.addObject("pdto", pdto);
 			mav.addObject("aList", aList);
+			mav.addObject("popular", service.popularPost());
+			mav.addObject("reply", service.replyRecent());
 		}
 		
 		mav.setViewName("boardList");
@@ -107,24 +109,26 @@ public class BoardController {
 	public ModelAndView view(int currentPage, int bonum, ReplyDTO rdto) {
 		ModelAndView mav = new ModelAndView();
 		int commentRecord = service.replyCountProcess(bonum);
+		
 		mav.addObject("commentRecord", commentRecord);
-		//System.out.println("commentRecord : " + commentRecord);
-		
 		mav.addObject("bdto", service.contentProcess(bonum)); //BoardDTO
-		//System.out.println("bdto의 bonum : " + service.contentProcess(bonum).getBonum());
-		
 		mav.addObject("currentPage", currentPage);
-		//System.out.println("currentPage : " + currentPage);
-		
 		mav.addObject("ReplyDTO", service.replyListProcess(rdto)); //댓글 리스트 ReplyDTO
+		mav.addObject("popular", service.popularPost());
+		mav.addObject("reply", service.replyRecent());
 		mav.setViewName("boardView");
 		
 		return mav;
 	}
 	
 	@RequestMapping("/boardWrite.kh")
-	public String boardWrite() {
-		return "boardWrite";
+	public ModelAndView boardWrite() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("popular", service.popularPost());
+		mav.addObject("reply", service.replyRecent());
+		mav.setViewName("boardWrite");
+		
+		return mav;
 	}
 	
 	@RequestMapping("/boardWritePro.kh")
@@ -159,6 +163,8 @@ public class BoardController {
 		mav.addObject("dto", service.updateSelectProcess(bonum));
 		mav.addObject("ReplyDTO", service.replyListProcess(rdto));
 		mav.addObject("currentPage", currentPage);
+		mav.addObject("popular", service.popularPost());
+		mav.addObject("reply", service.replyRecent());
 		mav.setViewName("boardUpdateForm");
 		return mav;
 	}
@@ -175,10 +181,10 @@ public class BoardController {
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	@RequestMapping(value="/commentInsert.kh", method=RequestMethod.POST)
+	@RequestMapping(value="/commentInsert.kh", method=RequestMethod.GET)
 	public @ResponseBody List<ReplyDTO> commentInsert(ReplyDTO rdto) {
-		service.replyInsertProcess(rdto);
-		return service.replyListProcess(rdto);
+		
+		return service.replyInsertProcess(rdto);
 	}
 	
 	@RequestMapping(value="/commentUpdate.kh", method=RequestMethod.GET)

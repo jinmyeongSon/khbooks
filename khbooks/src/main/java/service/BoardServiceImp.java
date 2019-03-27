@@ -83,8 +83,9 @@ public class BoardServiceImp implements BoardService {
 	}
 	
 	@Override
-	public void replyInsertProcess(ReplyDTO rdto) {
+	public List<ReplyDTO> replyInsertProcess(ReplyDTO rdto) {
 		dao.replyInsertMethod(rdto);
+		return dao.replyListMethod(rdto.getBonum());
 	}
 	
 	@Override
