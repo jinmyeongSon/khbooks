@@ -18,11 +18,6 @@ public class UserServiceImp implements UserService {
 		this.dao = dao;
 	}
 
-	/*@Override
-	public UserDTO login(UserDTO udto) throws Exception {
-		return dao.login(udto);
-	}*/
-
 	@Override
 	public boolean login(UserDTO udto, HttpSession session) {
 		boolean res = dao.login(udto);
@@ -55,7 +50,7 @@ public class UserServiceImp implements UserService {
 
 	@Override
 	public int CheckDuplicationEmail(String email) {
-		return dao.CheckDuplication(email);
+		return dao.CheckDuplicationEmail(email);
 	}
 
 	

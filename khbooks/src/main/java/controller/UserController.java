@@ -132,29 +132,17 @@ public class UserController {
 	
 	
 	// 아이디 중복체크
-	@ResponseBody
 	@RequestMapping(value="/checkId.kh", method=RequestMethod.POST)
-	public Map<Object, Object> idcheck(@RequestBody String id) {
-		int count = 0;
-        Map<Object, Object> map = new HashMap<Object, Object>();
- 
-        count = service.CheckDuplication(id);
-        map.put("cnt", count);
- 
-        return map;
+	public @ResponseBody int idcheck(@RequestBody String id) {
+        return service.CheckDuplication(id);
 	}
 	
+
+	
 	// 이메일 중복체크
-	@ResponseBody
 	@RequestMapping(value="/checkEmail.kh", method=RequestMethod.POST)
-	public Map<Object, Object> emailCheck(@RequestBody String email) {
-		int count = 0;
-        Map<Object, Object> map = new HashMap<Object, Object>();
- 
-        count = service.CheckDuplicationEmail(email);
-        map.put("cnt", count);
- 
-        return map;
+	public @ResponseBody int emailCheck(@RequestBody String email) {
+        return service.CheckDuplicationEmail(email);
 	}
 	
 	// 로그아웃

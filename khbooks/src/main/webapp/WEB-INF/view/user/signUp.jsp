@@ -49,28 +49,7 @@
 
 <fmt:formatDate value="${bean.date}" pattern="yyyy-MM-dd" />
 <script type="text/javascript">
-function checkEmail(){
-	var userEmail = $('#userEmail').val();
-	
-	$.ajax({
-		async: true,
-		url : 'checkEmail.kh',
-        type : 'POST',
-        data : userEmail,
-        dataType : "json",
-		contentType: "application/json; charset=UTF-8",
-		success : function(data) {
-			 if(data.cnt > 0){
-	                $('#chkMsg').html("사용불가");  
-	                document.getElementById('chkMsg').innerHTML = '사용불가';
-	            }else{
-	                $('#chkMsgOk').html("사용가능");
-	                document.getElementById('chkMsgOk').innerHTML = '사용가능';
-	            }
-		}
 
-	});
-}
 </script>
 </head>
 
@@ -122,8 +101,11 @@ function checkEmail(){
 				
 				<div class="row">
 					<div class="col-4">
-						<input type="email" class="form-control" id="userEmail"	name="uemail" aria-describedby="emailHelp" placeholder="이메일 주소" required> 
-					</div><p id="chkMsg" style="color: red;"></p></div><p id="chkMsgOk" style="color: blue;"></p>
+						<input type="text" class="form-control" id="uemail" name="uemail" aria-describedby="emailHelp" placeholder="이메일 주소" required> 
+					</div>
+					<input class="btn btn-primary" type="button" id="emailchk_btn" value="중복확인" />
+					<p id="emailwrong" style="color: red;"></p>
+					<p id="chkMsg" style="color: red;"></p></div><p id="chkMsgOk" style="color: blue;"></p>
 				</div>
 					<br/>
 				<div class="row">

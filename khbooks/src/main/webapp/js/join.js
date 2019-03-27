@@ -24,6 +24,7 @@ $(document).ready(function() {
 		
 		
 		$('#idchk_btn').on('click', checkId);
+		$('#emailchk_btn').on('click', checkEmail);
 	});//end ready
 
 	
@@ -39,6 +40,11 @@ $(document).ready(function() {
 		if(confirm("회원가입을 하시겠습니까?")){
 	        if(idchk==0){
 	        	document.getElementById('idwrong').innerHTML = '아이디 중복체크를 해주세요.';
+	            return false;
+	        }
+	        
+	        if(emailchk==0){
+	        	document.getElementById('emailwrong').innerHTML = '이메일 중복체크를 해주세요.';
 	            return false;
 	        }
 	        
@@ -94,7 +100,8 @@ $(document).ready(function() {
 				dataType : "json",
 				contentType: "application/json; charset=UTF-8",
 				success : function(data) {
-				if(data.cnt > 0) {
+					alert(data);
+				if(data > 0) {
 					alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");
 				    idchk = 0;
 				}else {
@@ -106,6 +113,31 @@ $(document).ready(function() {
 		});
 	}
 	
+	var emailchk = 0;
+	function checkEmail(){
+		var userEmail = $("#uemail").val();
+		$.ajax({
+			async: true,
+			type : 'POST',
+			data : userEmail,
+			url : 'checkEmail.kh',
+	        dataType : "json",
+			contentType: "application/json; charset=UTF-8",
+			success : function(data) {
+				alert(JSON.stringify(data));
+			if(data > 0){
+	               $('#chkMsg').html("사용불가");  
+	               document.getElementById('chkMsg').innerHTML = '사용불가';
+	               emailchk = 0;
+	        }else {
+	               $('#chkMsgOk').html("사용가능");
+	               document.getElementById('chkMsgOk').innerHTML = '사용가능';
+	               emailchk = 1;
+		        }
+			}
+
+		});
+	}
 	
 	
 	

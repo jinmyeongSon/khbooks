@@ -20,7 +20,7 @@
 	<!-- 이메일 중복확인 -->
 	<select id="email_chk" parameterType="String" resultType="int">
 		select count(*) from kh_user
-		where email = #{uemail}
+		where uemail = #{uemail}
 	</select>
 	
 	<!-- 아이디 찾기 -->
