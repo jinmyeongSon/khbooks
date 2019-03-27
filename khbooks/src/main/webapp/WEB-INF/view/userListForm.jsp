@@ -12,29 +12,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="css/adminList.css">
 <script type="text/javascript">
-	var searchKey='';
-	var searchWord='';
-	var currentPage='';
 	$(document).ready(function() {
 		searchKey='${adto.searchKey}';
 		searchWord='${adto.searchWord}';
 		currentPage='${adto.currentPage}';
-	});
-	$(document).on('click', '#update', function() {
-		var id=$(this).parent().attr('id');
-		$('#managePlace').empty();
-		$('#managePlace').load("userUpdateForm.kh?id="+id+"&currentPage="+currentPage+"&searchKey="+searchKey+"&searchWord="+searchWord);
-	});
-	$(document).on('click', '#delete', function() {
-		var id=$(this).parent().attr('id');
-		$('#managePlace').empty();
-		$('#managePlace').load("userDelete.kh?id="+id+"&currentPage="+currentPage+"&searchKey="+searchKey+"&searchWord="+searchWord);
-	});
-	$(document).on('click', '.userMovePage', function() {
-		currentPage=$(this).attr('id');
-		$('#managePlace').empty();
-		$('#managePlace').load("userList.kh?currentPage="+currentPage+"&searchKey="+searchKey+"&searchWord="+searchWord);
-		return false;
 	});
 </script>
 

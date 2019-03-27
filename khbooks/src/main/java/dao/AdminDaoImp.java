@@ -7,6 +7,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import dto.AdminPageDTO;
+import dto.AuthorDTO;
 import dto.BookDTO;
 import dto.GenreDTO;
 import dto.UserDTO;
@@ -113,6 +114,36 @@ public class AdminDaoImp implements AdminDAO {
 	@Override
 	public List<BookDTO> getAuthorList(AdminPageDTO adto) {
 		return sqlSession.selectList("admin.authorList", adto);
+	}
+
+	@Override
+	public AuthorDTO getAuthorOne(int auno) {
+		return sqlSession.selectOne("admin.authorOne", auno);
+	}
+
+	@Override
+	public void authorUpdate(AuthorDTO adto) {
+		sqlSession.update("admin.authorUpdate", adto);
+	}
+
+	@Override
+	public void authorInsert(AuthorDTO adto) {
+		sqlSession.insert("admin.authorInsert", adto);
+	}
+
+	@Override
+	public void userDelete(String id) {
+		sqlSession.delete("admin.userDelete", id);
+	}
+
+	@Override
+	public void bookDelete(int bno) {
+		sqlSession.delete("admin.bookDelete", bno);
+	}
+
+	@Override
+	public void authorDelete(int auno) {
+		sqlSession.delete("admin.authorDelete", auno);
 	}
 
 }

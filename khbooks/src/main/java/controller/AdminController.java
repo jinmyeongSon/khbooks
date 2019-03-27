@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.AdminPageDTO;
+import dto.AuthorDTO;
 import dto.BookDTO;
 import dto.GenreDTO;
 import dto.UserDTO;
@@ -40,15 +41,13 @@ public class AdminController {
 
 	// 관리자 메인 페이지로 이동
 	@RequestMapping("adminMain.kh")
-	public ModelAndView adminMain(HttpSession session) {
-		ModelAndView mav = new ModelAndView();
+	public String adminMain(HttpSession session) {
 		String id = (String) session.getAttribute("admin");
 		if(id != null) {
-			mav.setViewName("adminMain");
+			return "adminMain";
 		}else {
-			mav.setViewName("redirect:/adminLogin.kh");
+			return "redirect:/adminLogin.kh";
 		}
-		return mav;
 	}
 	
 	// 관리자 로그인 시도 시 체크
@@ -74,11 +73,16 @@ public class AdminController {
 		return mav;
 	}
 	
+	// book insert form
+	@RequestMapping("authorInsertForm.kh")
+	public String authorInsertForm() {
+		return "authorInsertForm";
+	}
+	
 	@RequestMapping(value="bookInsert.kh", method=RequestMethod.POST)
-	public ModelAndView bookInsert(BookDTO dto) {
-		ModelAndView mav = new ModelAndView();
+	public String bookInsert(BookDTO dto) {
 		MultipartFile file = dto.getFile();
-		// 첨부파일
+		// 첨부파일 경로 수정 필요
 		if(!file.isEmpty()) {
 			String fileName = file.getOriginalFilename();
 			// 중복파일명 방지 위한 난수 발생
@@ -105,8 +109,14 @@ public class AdminController {
 		
 		service.bookInsertProcess(dto);
 		
-		mav.setViewName("redirect:/bookList.kh");
-		return mav;
+		return "redirect:/bookList.kh";
+	}
+	
+	@RequestMapping("authorInsert.kh")
+	public String authorInsert(AuthorDTO adto) {
+		ModelAndView mav = new ModelAndView();
+		service.authorInsertProcess(adto);
+		return "redirect:/authorList.kh";
 	}
 	
 	// 유저 리스트 띄워줌
@@ -168,33 +178,33 @@ public class AdminController {
 	}
 	
 	// 책 리스트 띄워줌
-		@RequestMapping("authorList.kh")
-		public ModelAndView authorList(AdminPageDTO adto) {
-			AdminPageDTO dto = null;
-			int totalCount = 0;
-			int currentPage = 1;
-			List<BookDTO> bList = null;
-			
-			if(adto.getCurrentPage() != 0) {
-				currentPage = adto.getCurrentPage();
-			}
-			
-			if(adto.getSearchWord() != null && !adto.getSearchWord().equals("")) {
-				totalCount = service.getAuthorSearchCountProcess(adto);
-				dto = new AdminPageDTO(currentPage, totalCount, adto.getSearchKey(), adto.getSearchWord());
-				bList = service.getAuthorSearchProcess(dto);
-			} else {
-				totalCount = service.getAuthorListCountProcess();
-				dto = new AdminPageDTO(currentPage, totalCount);
-				bList = service.getAuthorListProcess(dto);
-			}
-			
-			ModelAndView mav = new ModelAndView();
-			mav.addObject("aList", bList);
-			mav.addObject("adto", dto);
-			mav.setViewName("authorListForm");
-			return mav;
+	@RequestMapping("authorList.kh")
+	public ModelAndView authorList(AdminPageDTO adto) {
+		AdminPageDTO dto = null;
+		int totalCount = 0;
+		int currentPage = 1;
+		List<BookDTO> bList = null;
+		
+		if(adto.getCurrentPage() != 0) {
+			currentPage = adto.getCurrentPage();
 		}
+		
+		if(adto.getSearchWord() != null && !adto.getSearchWord().equals("")) {
+			totalCount = service.getAuthorSearchCountProcess(adto);
+			dto = new AdminPageDTO(currentPage, totalCount, adto.getSearchKey(), adto.getSearchWord());
+			bList = service.getAuthorSearchProcess(dto);
+		} else {
+			totalCount = service.getAuthorListCountProcess();
+			dto = new AdminPageDTO(currentPage, totalCount);
+			bList = service.getAuthorListProcess(dto);
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("aList", bList);
+		mav.addObject("adto", dto);
+		mav.setViewName("authorListForm");
+		return mav;
+	}
 	
 	// 책 상세정보
 	@RequestMapping("bookDetailForm.kh")
@@ -217,15 +227,50 @@ public class AdminController {
 		return mav;
 	}
 	
-	// 유저 업데이트
-	@RequestMapping("userUpdate.kh")
-	public ModelAndView userUpdate(UserDTO udto) {
+	// 유저 상세정보
+	@RequestMapping("authorUpdateForm.kh")
+	public ModelAndView authorUpdateForm(int auno, AdminPageDTO adto) {
 		ModelAndView mav = new ModelAndView();
-		service.userUpdateProcess(udto);
-		mav.setViewName("redirect:/userList.kh");
+		AuthorDTO dto = service.getAuthorOneProcess(auno);
+		mav.addObject("dto", dto);
+		mav.addObject("adto", adto);
+		mav.setViewName("authorUpdateForm");
 		return mav;
 	}
 	
+	// 유저 업데이트 폼
+	@RequestMapping("userUpdate.kh")
+	public String userUpdate(UserDTO udto) {
+		service.userUpdateProcess(udto);
+		return "redirect:/userList.kh";
+	}
 	
+	// author 업데이트 폼
+	@RequestMapping("authorUpdate.kh")
+	public String authorUpdate(AuthorDTO adto) {
+		service.authorUpdateProcess(adto);
+		return "redirect:/authorList.kh";
+	}
+
+	// 유저 delete
+	@RequestMapping("userDelete.kh")
+	public String userDelete(String id) {
+		service.userDeleteProcess(id);
+		return "redirect:/userList.kh";
+	}
+
+	// book delete
+	@RequestMapping("bookDelete.kh")
+	public String bookDelete(int bno) {
+		service.bookDeleteProcess(bno);
+		return "redirect:/bookList.kh";
+	}
+
+	// author delete
+	@RequestMapping("authorDelete.kh")
+	public String authorDelete(int auno) {
+		service.authorDeleteProcess(auno);
+		return "redirect:/authorList.kh";
+	}
 	
 }

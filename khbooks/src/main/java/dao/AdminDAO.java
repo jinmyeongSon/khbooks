@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import dto.AdminPageDTO;
+import dto.AuthorDTO;
 import dto.BookDTO;
 import dto.GenreDTO;
 import dto.UserDTO;
@@ -44,5 +45,17 @@ public interface AdminDAO {
 	public int getAuthorListCount();
 
 	public List<BookDTO> getAuthorList(AdminPageDTO adto);
+
+	public AuthorDTO getAuthorOne(int auno);
+
+	public void authorUpdate(AuthorDTO adto);
+
+	public void authorInsert(AuthorDTO adto);
+
+	public void userDelete(String id);
+
+	public void bookDelete(int bno);
+
+	public void authorDelete(int auno);
 
 }

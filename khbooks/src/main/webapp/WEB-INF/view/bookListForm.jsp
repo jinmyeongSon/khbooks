@@ -12,31 +12,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="css/adminList.css">
 <script type="text/javascript">
-	var searchKey='';
-	var searchWord='';
-	var currentPage='';
 	$(document).ready(function() {
 		searchKey='${adto.searchKey}';
 		searchWord='${adto.searchWord}';
 		currentPage='${adto.currentPage}';
-	});
-	$(document).on('click', '#detail', function() {
-		var bno=$(this).parent().attr('id');
-		$('#managePlace').empty();
-		$('#managePlace').load("bookDetailForm.kh?bno="+bno+"&currentPage="+currentPage+"&searchKey="+searchKey+"&searchWord="+searchWord);
-		return false;
-	});
-	$(document).on('click', '#delete', function() {
-		var bno=$(this).parent().attr('id');
-		$('#managePlace').empty();
-		$('#managePlace').load("bookDelete.kh?bno="+bno+"&currentPage="+currentPage+"&searchKey="+searchKey+"&searchWord="+searchWord);
-		return false;
-	});
-	$(document).on('click', '.movePage', function() {
-		currentPage=$(this).attr('id');
-		$('#managePlace').empty();
-		$('#managePlace').load("bookList.kh?currentPage="+currentPage+"&searchKey="+searchKey+"&searchWord="+searchWord);
-		return false;
 	});
 </script>
 
@@ -60,7 +39,7 @@
 				<th>${dto.bview}</th>
 				<th>${dto.bthumb}</th>
 				<th id="${dto.bno}"><button id="detail">상세보기</button></th>
-				<th id="${dto.bno}"><button id="delete">삭제</button></th>
+				<th id="${dto.bno}"><button id="bdelete">삭제</button></th>
 			</tr>
 		</c:forEach>
 	</table>
