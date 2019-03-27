@@ -1,15 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta charset="UTF-8">
+
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<title>KH BOOKs Sign Up</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KH BOOKs Login</title>
 
 <!-- CSS -->
 <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
@@ -40,13 +40,85 @@ $(document).ready(function(){
 	
 	var res='${resultMsg}'
 	
-	alert("${error}");
-});
+
+	$("#login_btn").click(function(){
+		var uid = $("#id").val();
+		var upw = $("#upass").val();
+		
+		if(uid == ""){
+			alert("아이디를 입력하세요");
+			$("#id").focus();
+			return;
+		}
+		if(upw == ""){
+			alert("비밀번호를 입력하세요");
+			$("#upass").focus();
+			return;
+		}
+		if($("$fail")){
+			alert("비밀번호가 틀렸습니다.")
+			return;
+		}
+
+		document.form.submit();
+	});
+	
+	
+	//cookie
+    var id = getCookie("id");
+    $("input[id='id']").val(id); 
+     
+    if($("input[id='id']").val() != ""){ 
+        $("#rememberId").attr("checked", true);
+    }
+     
+    $("#rememberId").change(function(){ 
+        if($("#rememberId").is(":checked")){
+            var id = $("input[id='id']").val();
+            setCookie("id", id, 7);
+        }else{
+            deleteCookie("id");
+        }
+    });
+
+
+    $("input[id='id']").keyup(function(){
+        if($("#rememberId").is(":checked")){
+            var id = $("input[id='id']").val();
+            setCookie("id", id, 7);
+        }
+    });
+ 
+    function setCookie(cookieName, value, exdays){
+        var exdate = new Date();
+        exdate.setDate(exdate.getDate() + exdays);
+        var cookieValue = escape(value) + ((exdays==null)?"":";expires="+exdate.toGMTString());
+        document.cookie = cookieName + "=" + cookieValue;
+    }
+     
+    function deleteCookie(cookieName){
+        var expireDate = new Date();
+        expireDate.setDate(expireDate.getDate() - 1);
+        document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+    }
+     
+    function getCookie(cookieName) {
+        cookieName = cookieName + '=';
+        var cookieData = document.cookie;
+        var start = cookieData.indexOf(cookieName);
+        var cookieValue = '';
+        if(start != -1){
+            start += cookieName.length;
+            var end = cookieData.indexOf(';', start);
+            if(end == -1)end = cookieData.length;
+            cookieValue = cookieData.substring(start, end);
+        }
+        return unescape(cookieValue);
+    }
+
 </script>
 
-
 </head>
-
 <body>
 <!-- header -->
 	<div class="container" style="margin-top: 20px; margin-left:30%; margin-right:30%; width: 40%;">
@@ -56,37 +128,34 @@ $(document).ready(function(){
 	<hr/>
 
 	<div class="container" style="width:300px; margin-top:100px; border: 2px solid #333333; padding-top:10px; padding-bottom:10px; ">
-		<form role="form" action="loginPost.kh" method="post" >
-			<div class="box-body" >
-				<div style="padding-top:20px; padding-bottom:20;">
+		<form role="form" action="loginPost.kh" method="post">
+			<div class="box-body">
+				<div  style="padding-top:20px; padding-bottom:20px;">
 					<div class="form-group">
-						<input type="text" id="id"
-							name="id" class="form-control" placeholder="User ID..." value="${sessionScope.id}"/>
+						<input type="text" id="id" name="id" class="form-control" placeholder="User ID..." value="${sessionScope.id}"/>
 					</div>
 					<div class="form-group">
-						<input type="password" name="upass" id="upass"
-							class="form-control" placeholder="Password..."/>
+						<input type="password" name="upass" id="upass" class="form-control" placeholder="Password..."/>
 					</div>
-					
-					<div class="form-group">
-				     <label for="useCookie">
-				         <input type="checkbox" id="rememberId" name="rememberId" value="true" /> 로그인 유지
-				     </label>
-			  			 <a href="http://localhost:8090/khbook/findId.kh">아이디</a>·<a href="http://localhost:8090/khbook/findPwd.kh">비밀번호 찾기</a>
+					<button type="submit" id="login_btn" class="btn btn-primary btn-lg btn-block">로그인</button>
+					<div class="form-group" style="margin-bottom: 0px;">
+			 		    <label for="useCookie">
+			     		    <input type="checkbox" id="rememberId" name="rememberId" value="true" /><p style="font-size: 12px;display: inline-block;">아이디 기억</p>
+			  			</label>
+		  				<a style="font-size: 12px;" href="findId.kh">&nbsp아이디</a> &nbsp<a style="font-size: 12px;" href="findPwd.kh">비밀번호 찾기</a>
+						<a style="font-size: 12px;" href="signUp.kh ">회원가입</a>
+						<c:if test="${msg == 'fail'}">
+							<div style="color: red; text-align: center;">아이디 또는 비밀번호가 </br>일치하지 않습니다.</div>
+						</c:if>
 					</div>
-				
-			 	 <button type="submit" class="btn btn-primary btn-lg btn-block">로그인</button>
-			</div>
-		</div> <!-- end of box- body -->
-
-	</form>
-	 
-	 	
-	<div class="text-center" style="margin-top: 10px;" >
-	  <div id="naver_id_login"></div>
+				</div>
+			</div> <!-- end of box- body -->
+		</form>	
+		<div style=" margin-left: 12px; margin-bottom: 5px;" >
+	  		<div id="naver_id_login" style="display:none;"></div>
+	  		<button style="height:50px; width:150px;border:0px; background-color: #FFFFFF; " onclick="document.getElementById('naver_id_login_anchor').click();"><img style="height: 50px; width: auto;" src="img/naver_login_banner.png"></button>
+		</div>
 	</div>
-</div>
-
 </body>
 <script type="text/javascript">
 	var naver_id_login = new naver_id_login("Fl00fuSEpWs8hOdJ0F2n", "http://localhost:8090/khbook/index-naver.kh");
@@ -96,7 +165,5 @@ $(document).ready(function(){
 	naver_id_login.setState(state);
 	naver_id_login.setPopup();
 	naver_id_login.init_naver_id_login();
-	
-	
 </script>
 </html>

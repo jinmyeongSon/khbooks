@@ -1,6 +1,7 @@
 package service;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
@@ -17,11 +18,21 @@ public class UserServiceImp implements UserService {
 		this.dao = dao;
 	}
 
-	@Override
+	/*@Override
 	public UserDTO login(UserDTO udto) throws Exception {
 		return dao.login(udto);
-	}
+	}*/
 
+	@Override
+	public boolean login(UserDTO udto, HttpSession session) {
+		boolean res = dao.login(udto);
+		if(res) {
+			
+			session.setAttribute("userId", udto.getId());
+		}
+		return res;
+	}
+	
 	@Override
 	public int CheckDuplication(String id) {
 		return dao.CheckDuplication(id);
@@ -40,6 +51,11 @@ public class UserServiceImp implements UserService {
 	@Override
 	public void updateInfo(String id, String pwd) {
 		dao.updateInfo(id, pwd);
+	}
+
+	@Override
+	public int CheckDuplicationEmail(String email) {
+		return dao.CheckDuplication(email);
 	}
 
 	

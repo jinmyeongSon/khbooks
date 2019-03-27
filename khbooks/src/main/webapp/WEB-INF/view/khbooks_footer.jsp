@@ -6,27 +6,17 @@
 <head>
 <meta charset=UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- CSS
 ================================================== -->
-<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/bootstrap-responsive.css">
-<link rel="stylesheet" href="css/custom-styles.css">
-<link rel="stylesheet" href="css/_button-group.css">
-<link rel="stylesheet" href="css/_buttons.css">
+
 
 
 <!-- JS
 ================================================== -->
 <!-- <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script> -->
 <script src="js/jquery.easing.1.3.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/jquery.prettyPhoto.js"></script>
 <script src="js/jquery.quicksand.js"></script>
-<script src="js/jquery.custom.js"></script>
-<script src="js/jquery.flexslider.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.1/handlebars.js"></script>
 
 
 <script type="text/javascript">

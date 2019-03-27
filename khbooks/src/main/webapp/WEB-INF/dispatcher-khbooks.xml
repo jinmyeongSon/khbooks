@@ -133,9 +133,7 @@
 	</bean>
 
 
-	
-
-	<!-- <bean id="naverLoginDTO" class="dto.NaverLoginDTO" /> -->
+	<bean id="naverLoginDTO" class="dto.NaverLoginDTO" />
 
 	<!-- DAO -->
 	<bean id="udao" class="dao.UserDaoImp">
@@ -222,7 +220,6 @@
 
 	
 	<!-- 파일 업로드 끝 -->
-
 
 		<!-- 이메일 관련 -->
 	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">

@@ -10,6 +10,7 @@
 <style type="text/css">
 
 input[type=text], select {
+<<<<<<< HEAD
   width: 30%;
   height: 30px;
   margin: 8px 0;
@@ -35,6 +36,33 @@ input[type=submit]:hover {
 }
 
 #wrapper {
+=======
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #1398c6;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #73c5e2;
+}
+
+div {
+>>>>>>> branch 'userLogin' of https://github.com/jinmyeongSon/khbooks.git
   border-radius: 5px;
   background-color: #f2f2f2;
   padding: 20px;
@@ -50,7 +78,9 @@ input[type=submit]:hover {
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		/* //내pc 첨부파일 시작
+
+	
+		//내pc 첨부파일 시작
 		var userfile='';
 		$('#userpc').on('click', function(){
 			userfile=$('<input type="file" id="userfile" />');
@@ -86,26 +116,14 @@ input[type=submit]:hover {
 		$(document).on('click', '.fileDrop input', function(){
 			$(this).parent().remove();
 			fileList='';
-		}); //첨부파일 삭제 끝 */
-		$('#addBook').on('click', function() {
-			var form = $(this).closest('form');
-			var form_data = new FormData(form[0]);
-			$.ajax({
-				type : 'POST',
-				dataType : 'text',
-				url : form.attr('action'),
-				data : form_data,
-				contentType : false,
-				enctype : 'multipart/form-data',
-				processData : false,
-				success : function(res) {
-					$('#managePlace').empty();
-					$('#managePlace').html(res);
-				}
-			});
-			return false;
-		});
+		}); //첨부파일 삭제 끝
+		
 	});//end ready
+	
+	function formCheck() {
+		var target = document.getElementById("genre");
+		 alert(target.options[target.selectedIndex].value);
+	}
 </script>
 
 </head>
@@ -141,5 +159,6 @@ input[type=submit]:hover {
 			</table>
 		</form>
 	</div>
+	
 </body>
 </html>

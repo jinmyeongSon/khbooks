@@ -45,6 +45,16 @@
 	width: 350px;
 	height: 220px;
 }
+
+.row {
+	margin-bottom: 5px;
+}
+
+label{
+	padding-left:2px;
+	margin-bottom: 2px;
+	font-weight:bold;
+}
 </style>
 <!-- https://getbootstrap.com/docs/4.3/utilities/borders/ -->
 
@@ -153,54 +163,62 @@
 
 <body>
 
-	<div class="container main-container" style="width: 800px;">
+	<div class="container main-container" style="width: 1000px;">
 
-		<!-- Begin Header -->
-		<div class="row">
-			<div class="col" style="text-align: center">
-				<a href="http://localhost:8090/khbook/index.kh"><h4>KH BOOKs</h4></a>
-				<hr />
+	<div class="container" style="margin-top: 20px; margin-left:20%;  width: 80%;">
+		<a href="mainpage.kh" style="width: 300px; color: #333333; font-size: 25px; text-decoration: none;"><img src="img/khbooks_logo.png" alt="for every novel" style="padding-right: 0px;"/>
+		For every Novel</a>
+	</div>
+	<hr/>
+	<!-- End Header -->
+	<form method="post" action="signUp.kh" onsubmit="return joinChk();">
+		
+	<div class="container" style="width:45%; float: left; border-right: 1px solid grey; padding-right: 0px;margin-left: 4%; height: 550px;"  >
+		<!--User Login-->
+			<div class="row">
+				<div class="col-8" >
+					<label for="id">아이디</label>
+					<input  type="text" class="form-control" id="id" name="id" placeholder="영문 또는 숫자만 입력 " required>
 				</div>
-		</div>
-		<!-- End Header -->
-
-
-		<div class="container" style="width:700px;">
-			<!--User Login-->
-			<form method="post" action="signUp.kh" onsubmit="return joinChk(this)">
-				<div class="row">
-					<div class="col-4">
-						<input type="text" class="form-control" id="id" name="id"
-							placeholder="아이디" required>
-					</div>
-					<div class="col-md-2">
-						<input class="btn btn-primary" type="button" id="idchk_btn" value="중복확인" />
-					</div>
-					<p id="sameid" style="color: red;"></p>
+				<div class="col-md-2" style="padding-left:0px; margin-top:26px; margin-left: -105px;">
+					<input class="btn btn-primary" type="button" id="idchk_btn" value="중복확인" />
 				</div>
-					<br/>
-				<div class="row">
-					<div class="col-4">
-					<input type="password" class="form-control" id="userPwd" name="upass" placeholder="비밀번호" required>
-					</div>
-					<div class="w-100"></div>
-					<div class="col-4">
-					<input type="password" class="form-control" id="userPwdChk" placeholder="비밀번호 확인">
-					</div>
-					<p id="pwrong" style="color: red;"></p>
+				<p id="sameid" style="color: red;"></p>
+			</div>
+			
+			<div class="row">
+				<div class="col-8" style="margin-bottom: 2px;">
+				<label for="userPwd">비밀 번호</label>
+				<input type="password" class="form-control" id="userPwd" name="upass" placeholder="영문, 숫자, 특수문자만 입력" required>
 				</div>
-					<br/>
-					
+				<div class="col-8">
+					<label for="userPwdChk">비밀 번호 확인</label>
+					<input type="password" class="form-control" id="userPwdChk" placeholder="비밀 번호와 같게 입력 ">
+				</div>
+				<p id="pwrong" style="color: red;"></p>
+			</div>
+				
+			<div class="row">
+				<div class="col-6">
+					<label for="userPhone">전화번호</label>
+					<input type="text" class="form-control" id="userPhone" name="uphone" placeholder="-를 제외하고 입력" required>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-8">
+					<label for="userBirth">생년월일</label>
+					<input type="date" class="form-control" id="userBirth" name="ubirth" required>
+				</div>
+			</div>
+								
 				<input type="hidden" value="${email}" name="uemail">
 				<input type="hidden" value="${name}" name="uname">
 				<input type="hidden" value="${gender}" name="ugender" id="ugender">
-				
-				
+			</div>
 
-				<hr />
-
+				<div style="float:left; margin-left: 120px;" >
 				<label>약관동의</label>
-				<div id="accordion-resizer" class="ui-widget-content">
+				<div id="accordion-resizer" class="ui-widget-content" style="height: 400px; width: 340px;">
 					<div id="accordion">
 						<h3>회원 약관</h3>
 						<div>
@@ -318,18 +336,16 @@
 				</div>
 				<br />
 
-				<div class="row">
-					<div class="col-2">
+				</div>
+				<div class="row" style="clear: both; width: 100%; ">
+					<div class="col-2" style="margin-left: auto; margin-right: auto;" >
 						<input type="submit" id="signUp_btn" class="form-control btn btn-primary signupbtn" value="회원가입">
 					</div>
 				</div>
-
-
 			</form>
 		</div>
 
-
-	</div>
 	<!-- End Container -->
+
 </body>
 </html>

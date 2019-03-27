@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -106,45 +107,22 @@ public class UserController {
 	
 	// 로그인
 	@RequestMapping(value = "/loginForm.kh", method = RequestMethod.GET)
-	public ModelAndView logInForm(UserDTO udto, @CookieValue(value="REMEMBER", required=false) Cookie rememberCookie) {
-		if(rememberCookie != null) {
-			udto.setId(rememberCookie.getValue());
-			udto.setRememberId(true);
-		}
+	public ModelAndView logInForm(UserDTO udto) {
 		ModelAndView mav = new ModelAndView("user/login");
 		return mav;
 	}
-	
-
 	@RequestMapping(value = "/loginPost.kh", method = RequestMethod.POST)
-	public ModelAndView loginPost(@Valid UserDTO udto, BindingResult bindingResult, HttpSession session, HttpServletResponse response) throws Exception {
+	public ModelAndView loginPost(@ModelAttribute UserDTO udto, HttpSession session) {
+		boolean res= service.login(udto, session);
 		ModelAndView mav = new ModelAndView();
-
-		if(bindingResult.hasErrors()) {
+		
+		if(res == true) {
+			session.setAttribute("id", udto.getId());
+			mav.setViewName("redirect:mainpage.kh");
+			mav.addObject("msg", "success");
+		} else {
 			mav.setViewName("user/login");
-			return mav;
-		}
-		System.out.println(udto.getUpass());
-
-	
-		try {
-			UserDTO dto= service.login(udto);
-			System.out.println(service.login(udto).getId());
-			session.setAttribute("id", dto.getId());
-			//쿠키 생성
-			if(udto.isRememberId()) {
-				 Cookie rememberCookie = new Cookie("REMEMBER", udto.getId());
-				 rememberCookie.setPath("/");
-				 rememberCookie.setMaxAge(60*60*24*7);
-				 response.addCookie(rememberCookie);
-			} 
-			mav.setViewName("redirect:/mainpage.kh");
-		} catch(Exception e){
-			System.out.println(e);
-			bindingResult.rejectValue("upass", "notMatch", "아이디와 비밀번호가 맞지않습니다.");
-			System.out.println(bindingResult);
-			mav.addObject("error",bindingResult);
-			mav.setViewName("user/login");
+			mav.addObject("msg", "fail");
 		}
 		return mav;
 	}
@@ -158,6 +136,19 @@ public class UserController {
         Map<Object, Object> map = new HashMap<Object, Object>();
  
         count = service.CheckDuplication(id);
+        map.put("cnt", count);
+ 
+        return map;
+	}
+	
+	// 이메일 중복체크
+	@ResponseBody
+	@RequestMapping(value="/checkEmail.kh", method=RequestMethod.POST)
+	public Map<Object, Object> emailCheck(@RequestBody String email) {
+		int count = 0;
+        Map<Object, Object> map = new HashMap<Object, Object>();
+ 
+        count = service.CheckDuplicationEmail(email);
         map.put("cnt", count);
  
         return map;

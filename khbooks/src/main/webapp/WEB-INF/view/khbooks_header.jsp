@@ -108,9 +108,8 @@ $(document).ready(function(){
              </li>
              <c:choose>
              	<c:when test="${sessionScope.id==null}">
-             		<li><a href="loginForm.kh" style=" font-weight: bold; font-size: 15px;">로그인</a></li>
-             		<li><a href="signUp.kh" style=" font-weight: bold; font-size: 15px;">회원가입</a></li>
-             	</c:when>
+             		<li><a href="loginForm.kh" style=" font-weight: bold; font-size: 15px;">로그인  / 회원 가입</a></li>
+              	</c:when>
              	<c:otherwise>
              		<li class="profile dropdown"><a href="memberInfor.kh" style=" font-weight: bold; font-size: 15px;">회원 정보 
 	                <b class="caret"></b></a>

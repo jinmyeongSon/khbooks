@@ -32,7 +32,7 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 	crossorigin="anonymous"></script>
-
+<script src="js/join.js"></script>
 
 <!-- 아코디언 -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -45,182 +45,123 @@
 	width: 350px;
 	height: 220px;
 }
+
+.row {
+	margin-bottom: 5px;
+}
+
+label{
+	padding-left:2px;
+	margin-bottom: 2px;
+	font-weight:bold;
+}
 </style>
-<!-- https://getbootstrap.com/docs/4.3/utilities/borders/ -->
 
 <fmt:formatDate value="${bean.date}" pattern="yyyy-MM-dd" />
-
-
 <script type="text/javascript">
-	$(document).ready(function() {
-
-		$(function() {
-			$("#accordion").accordion({
-				heightStyle : "fill"
-			});
-
-			$("#accordion-resizer").resizable({
-				minHeight : 140,
-				minWidth : 200,
-				resize : function() {
-					$("#accordion").accordion("refresh");
-				}
-			});
-		});
-
-		$('#allChk').click(function() {
-			if ($('#allChk').prop("checked")) {
-				$("input[type=checkbox]").prop("checked", true);
-			} else {
-				$("input[type=checkbox]").prop("checked", false);
-			}
-		});
-
-		
-		$('#idchk_btn').on('click', checkId);
-	});//end ready
-
-	var idchk = 0;
-	function checkId() {
-		var userId = $("#id").val();
-		console.log(userId);
-		$.ajax({
-				async: true,
-	            type : 'POST',
-	            data : userId,
-				url : 'checkId.kh',
-				dataType : "json",
-				contentType: "application/json; charset=UTF-8",
-				success : function(data) {
-				if(data.cnt > 0) {
-					alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");
-				    idchk = 0;
-				}else {
-					alert("사용가능한 아이디입니다.");
-					idchk = 1;
-				}
-			}
-
-		});
-	}
-
-	//https://kingchobocoding.tistory.com/11?category=978301
-
-
-	function joinChk() {
-		var pwd = $('#userPwd').val();
-		var pwdchk = $('#userPwdChk').val();
-
-		/* if($("input[type=radio]").prop("checked", false)){
-			document.getElementById('noGen').innerHTML = '성별을 선택해 주세요.';
-			return false;
-		} */
-		
-		if(confirm("회원가입을 하시겠습니까?")){
-	        if(idchk==0){
-	            alert('아이디 중복체크를 해주세요');
-	            return false;
-	        }else{
-	        alert("회원가입이 완료되었습니다.");
-				return true;
-	        }
-	    }
-		
-		if(pwd.length() < 9){
-			alert("비밀번호를 8자리 이상 입력해주세요.");
-			return false;
+function checkEmail(){
+	var userEmail = $('#userEmail').val();
+	
+	$.ajax({
+		async: true,
+		url : 'checkEmail.kh',
+        type : 'POST',
+        data : userEmail,
+        dataType : "json",
+		contentType: "application/json; charset=UTF-8",
+		success : function(data) {
+			 if(data.cnt > 0){
+	                $('#chkMsg').html("사용불가");  
+	                document.getElementById('chkMsg').innerHTML = '사용불가';
+	            }else{
+	                $('#chkMsgOk').html("사용가능");
+	                document.getElementById('chkMsgOk').innerHTML = '사용가능';
+	            }
 		}
-		
-		if (pwd != pwdchk) {
-			document.getElementById('pwrong').innerHTML = '비밀번호가 틀렸습니다. 다시 입력해 주세요';
-			return false;
-		}
-		
 
-	}//end join check
+	});
+}
 </script>
 </head>
 
 <body>
 
-	<div class="container main-container" style="width: 800px;">
+	<div class="container main-container" style="width: 1000px;">
 
-		<!-- Begin Header -->
-		<div class="row">
-			<div class="col" style="text-align: center">
-				<a href="http://localhost:8090/khbook/index.kh"><h4>KH BOOKs</h4></a>
-				<hr />
+	<div class="container" style="margin-top: 20px; margin-left:20%;  width: 80%;">
+		<a href="mainpage.kh" style="width: 300px; color: #333333; font-size: 25px; text-decoration: none;"><img src="img/khbooks_logo.png" alt="for every novel" style="padding-right: 0px;"/>
+		For every Novel</a>
+	</div>
+	<hr/>
+	<!-- End Header -->
+	<form method="post" action="signUp.kh" onsubmit="return joinChk();">
+		
+	<div class="container" style="width:45%; float: left; border-right: 1px solid grey; padding-right: 0px;margin-left: 4%" >
+		<!--User Login-->
+			<div class="row">
+				<div class="col-8" >
+					<label for="id">아이디</label>
+					<input  type="text" class="form-control" id="id" name="id" placeholder="영문 또는 숫자만 입력 " required>
 				</div>
-		</div>
-		<!-- End Header -->
-
-
-		<div class="container" style="width:700px;">
-			<!--User Login-->
-			<form method="post" action="signUp.kh" onsubmit="return joinChk(this)">
-				<div class="row">
-					<div class="col-4">
-						<input type="text" class="form-control" id="id" name="id"
-							placeholder="아이디" required>
-					</div>
-					<div class="col-md-2">
-						<input class="btn btn-primary" type="button" id="idchk_btn" value="중복확인" />
-					</div>
-					<p id="sameid" style="color: red;"></p>
+				<div class="col-md-2" style="padding-left:0px; margin-top:26px; margin-left: -105px;">
+					<input class="btn btn-primary" type="button" id="idchk_btn" value="중복확인" />
 				</div>
-					<br/>
-				<div class="row">
-					<div class="col-4">
-					<input type="password" class="form-control" id="userPwd" name="upass" placeholder="비밀번호" required>
-					</div>
-					<div class="w-100"></div>
-					<div class="col-4">
-					<input type="password" class="form-control" id="userPwdChk" placeholder="비밀번호 확인">
-					</div>
-					<p id="pwrong" style="color: red;"></p>
+				<p id="sameid" style="color: red;"></p>
+			</div>
+			
+			<div class="row">
+				<div class="col-8" style="margin-bottom: 2px;">
+				<label for="userPwd">비밀 번호</label>
+				<input type="password" class="form-control" id="userPwd" name="upass" placeholder="영문, 숫자, 특수문자만 입력" required>
 				</div>
-					<br/>
+				<div class="col-8">
+					<label for="userPwdChk">비밀 번호 확인</label>
+					<input type="password" class="form-control" id="userPwdChk" placeholder="비밀 번호와 같게 입력 ">
+				</div>
+				<p id="pwrong" style="color: red;"></p>
+			</div>
 				
-				<div class="row">
-					<div class="col-4">
-						<input type="text" class="form-control" id="userName" name="uname" placeholder="이름" required>
-					</div>
+			<div class="row">
+				<div class="col-4">
+					<label for="userName">이름</label>
+					<input type="text" class="form-control" id="userName" name="uname" placeholder="이름" required>
 				</div>
-					<br/>
-				
-				<div class="row">
-					<div class="col-4">
-						<input type="email" class="form-control" id="userEmail"	name="uemail" aria-describedby="emailHelp" placeholder="이메일 주소" required> 
-					</div><p id="sameEmail" style="color: red;"></p>
+			</div>
+			
+			<div class="row">
+				<div class="col-8">
+					<label for="userEmail">이메일</label>
+					<input type="email" class="form-control" id="userEmail"	name="uemail" aria-describedby="emailHelp" placeholder="이메일 형식에 맞게 입력" required> 
+				</div><p id="chkMsg" style="color: red;"></p></div><p id="chkMsgOk" style="color: blue;"></p>
+			
+			<div class="row">
+				<div class="col-6">
+					<label for="userPhone">전화번호</label>
+					<input type="text" class="form-control" id="userPhone" name="uphone" placeholder="-를 제외하고 입력" required>
 				</div>
-					<br/>
-				<div class="row">
-					<div class="col-4">
-						<input type="text" class="form-control" id="userPhone" name="uphone" placeholder="전화번호" required>
-					</div>
-				</div>
-				
-				<div class="row">
-					<div class="col-4">
-					<label>생년월일</label>
+			</div>
+			<div class="row">
+				<div class="col-8">
+					<label for="userBirth">생년월일</label>
 					<input type="date" class="form-control" id="userBirth" name="ubirth" required>
-					</div>
 				</div>
-					<br/>
+			</div>
+			<div class="row">
+				<div class="col-8">
+				<label>성별</label>
+				<br/>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="ugender" value=1>
-					<label class="form-check-label" for="inlineRadio1">남</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="radio" name="ugender" value=2>
-					<label class="form-check-label" for="inlineRadio2">여</label>
+					<input class="form-check-input" type="radio" id="userGender" name="ugender" value=1><label for="userGender"> 남 </label>
+					&nbsp;&nbsp;<label><input class="form-check-input" type="radio" name="ugender" value=2 > 여 </label>
 				</div>
 				<p id="noGen" style="color: red;"></p>
+				</div>
+			</div>
+			</div>
 
-				<hr />
-
+				<div style="float:left; margin-left: 120px;" >
 				<label>약관동의</label>
-				<div id="accordion-resizer" class="ui-widget-content">
+				<div id="accordion-resizer" class="ui-widget-content" style="height: 400px; width: 340px;">
 					<div id="accordion">
 						<h3>회원 약관</h3>
 						<div>
@@ -338,18 +279,15 @@
 				</div>
 				<br />
 
-				<div class="row">
-					<div class="col-2">
+				</div>
+				<div class="row" style="clear: both; width: 100%; ">
+					<div class="col-2" style="margin-left: auto; margin-right: auto;" >
 						<input type="submit" id="signUp_btn" class="form-control btn btn-primary signupbtn" value="회원가입">
 					</div>
 				</div>
-
-
 			</form>
 		</div>
 
-
-	</div>
 	<!-- End Container -->
 </body>
 </html>
