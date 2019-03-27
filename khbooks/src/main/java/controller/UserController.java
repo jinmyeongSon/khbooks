@@ -102,7 +102,7 @@ public class UserController {
 	@RequestMapping(value = "/signUp.kh", method = RequestMethod.POST)
 	public String signUpSubmit(UserDTO udto) {
 		dao.register(udto);
-		return "user/signCom";
+		return "user/login";
 	}
 	
 	

@@ -98,7 +98,7 @@ function checkEmail(){
 					<div class="col-md-2">
 						<input class="btn btn-primary" type="button" id="idchk_btn" value="중복확인" />
 					</div>
-					<p id="sameid" style="color: red;"></p>
+					<p id="idwrong" style="color: red;"></p>
 				</div>
 					<br/>
 				<div class="row">
@@ -128,7 +128,8 @@ function checkEmail(){
 					<br/>
 				<div class="row">
 					<div class="col-4">
-						<input type="text" class="form-control" id="userPhone" name="uphone" placeholder="전화번호" required>
+						<label>전화번호</label>
+						<input type="text" class="form-control" id="userPhone" name="uphone" placeholder="(-를 빼고 입력하세요.)" required>
 					</div>
 				</div>
 				
