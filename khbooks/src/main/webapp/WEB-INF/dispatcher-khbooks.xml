@@ -65,18 +65,11 @@
 	<bean class="controller.UserController">
 		<property name="service" ref="uservice" />
 		<property name="mailService" ref="mailService" />
+		<property name="dao" ref="udao" />
 	</bean>
 	
 	<bean class="controller.MemberController">
 		<property name="service" ref="MemInforservice"/>
-	</bean>
-	
-	<bean class="controller.FavBookController">
-		<property name="service" ref="FavBookservice"/>
-	</bean>
-	
-	<bean class="controller.FavAuthorController">
-		<property name="service" ref="FavAuthorservice"/>
 	</bean>
 	
 	<bean class="controller.BoardController">
@@ -128,13 +121,7 @@
 		<property name="dao" ref="admindao"/>
 	</bean>
 
-	<bean class="controller.UserController">
-		<property name="dao" ref="udao" />
-		<property name="service" ref="uservice" />
-	</bean>
-	<bean class="controller.MemberController">
-		<property name="service" ref="MemInforservice"/>
-	</bean>
+
 	<bean class="controller.FavBookController">
 		<property name="service" ref="FavBookservice"/>
 	</bean>

@@ -48,8 +48,7 @@ input{
 		<input type="text" id="uname" name="uname" value="${udto.uname}"/>
 		<input type="text" id="uemail" name="uemail" value="${udto.uemail}"/>
 		<input type="text" id="uphone" name="uphone" value="${udto.uphone}"/>
-		<input type="text" id="uaddr" name="uaddr" value="${udto.uaddr}"/>
-		<input type="text" id="udate" name="udate" value="${udto.udate}"/>
+		<input type="text" id="ubirth" name="ubirth" value="${udto.ubirth}"/>
 		<input type="text" id="ugender" name="ugender" value="${udto.ugender}"/>
 		<input type="button" id="update" value="수정하기"/>
 		<input type="button" id="cancel" value="취소"/>

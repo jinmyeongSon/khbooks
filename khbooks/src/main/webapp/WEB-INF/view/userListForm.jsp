@@ -47,8 +47,7 @@
 			<th>uname</th>
 			<th>uemail</th>
 			<th>uphone</th>
-			<th>uaddr</th>
-			<th>udate</th>
+			<th>ubirth</th>
 			<th>ugender</th>
 			<th></th>
 			<th></th>
@@ -60,8 +59,7 @@
 				<th>${dto.uname}</th>
 				<th>${dto.uemail}</th>
 				<th>${dto.uphone}</th>
-				<th>${dto.uaddr}</th>
-				<th>${dto.udate}</th>
+				<th>${dto.ubirth}</th>
 				<th>${dto.ugender}</th>
 				<th id="${dto.id}"><button id="update">수정</button></th>
 				<th id="${dto.id}"><button id="delete">삭제</button></th>
