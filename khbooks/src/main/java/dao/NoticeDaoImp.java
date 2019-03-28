@@ -1,6 +1,7 @@
 package dao;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -58,13 +59,29 @@ public class NoticeDaoImp implements NoticeDAO {
 	}
 
 	@Override
-	public NoticeDTO noticeUpdateNum(int nnum) {
-		return null;
+	public List<NoticeDTO> noticeUpdateNum(int nnum) {
+		return sqlSession.selectList("notice.view", nnum);
 	}
 
 	@Override
 	public void noticeUpdate(NoticeDTO ndto) {
+		System.out.println("dao에서 수정 게시글 번호 : " + ndto.getNnum());
 		
+		List<UploadDTO> uList = ndto.getuList();
+		if(uList != null && uList.size() > 0) {
+			for(int i = 0; i < uList.size(); i++) {
+				uList.set(i, new UploadDTO(ndto.getNnum(), uList.get(i).getUpname(), ndto.getAid()));
+			}
+			sqlSession.insert("upload.insert", uList);
+		}
+		
+
+		sqlSession.update("notice.update", ndto);
+	}
+	
+	@Override
+	public List<UploadDTO> uploadList(UploadDTO udto) {
+		return sqlSession.selectList("upload.list", udto);
 	}
 
 	@Override
@@ -82,5 +99,39 @@ public class NoticeDaoImp implements NoticeDAO {
 		}
 		sqlSession.delete("notice.delete", nnum);
 	}//end noticeDelete()
+	
+	@Override
+	public List<NoticeDTO> search(String bname) {
+		return sqlSession.selectList("notice.searchList", bname);
+	}
+	
+	@Override
+	public void fileDelete(int upno) {
+		sqlSession.delete("notice.fileDelete", upno);
+	}
+	
+	@Override
+	public List<NoticeDTO> searchList(String searchWord, PageDTO pdto) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("bname", searchWord);
+		map.put("startRow", pdto.getStartRow());
+		map.put("endRow", pdto.getEndRow());
+		
+		return sqlSession.selectList("notice.searchList", map);
+	}
+	
+	@Override
+	public int searchTotalRecord(String bname) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("bname", bname);
+		
+		return sqlSession.selectOne("notice.searchCount", map);
+	}
+	
+	@Override
+	public List<NoticeDTO> popularPost() {
+		return sqlSession.selectList("notice.popular");
+	}
+	
 
 }//end class
