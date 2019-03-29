@@ -12,4 +12,5 @@ public interface FavBookDAO {
 	public int count(String id);
 	public int search(Map<String, Object> map);
 	public void insert(Map<String, Object> map);
+	public void bookdelete(Map<String, Object> map);
 }

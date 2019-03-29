@@ -41,4 +41,10 @@ public class FavBookServiceImp implements FavBookService{
 		dao.insert(map);
 	}
 	
+	@Override
+	public void bookdeleteprocess(Map<String, Object> map) {
+		dao. bookdelete(map);
+
+	}
+	
 }
