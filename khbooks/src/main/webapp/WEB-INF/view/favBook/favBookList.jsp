@@ -12,8 +12,10 @@ border:1px solid black;
 text-align: center; 
 
 }
-.pagination{
+#ul{
+margin-left:250px;
 text-align: center;
+
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,7 +53,7 @@ var id = '${sessionScope.id}';
 $(document).ready(function () {
 	if(id==''){
 		alert('로그인을 해주세요.');
-		return false;
+		location.href='http://localhost:8090/khbook/mainpage.kh';
 	}
 	$(document).on('click','#move',function(){
 		var au=$(this).parent().prev().children().val();
@@ -228,36 +230,52 @@ $(document).ready(function () {
 							</c:choose>
 					 </tbody>
                     </table>
+                  
                    <!--  <button class="btn btn-inverse pull-left" id="deletebtn" type="button">삭제</button> -->
+                    <!-- Pagination -->
                 <c:if test="${not empty aList }">
                 	<div class="pagination">
-                	<ul>
-                		<c:if test="${pv.startPage>1 }">
-							<li class="active"><a href="favBookList.kh.kh?currentPage=${pv.startPage-pv.blockPage }">이전</a></li>
-						</c:if>
-               			<!-- 페이지 -->
-						<c:forEach begin="${pv.startPage}" end="${pv.endPage }" var="i">
-							
-							<c:choose>
-							<c:when test="${i==pv.currentPage }">
-						<li class="active"><a href="favBookList.kh?currentPage=${i}" class="pagecolor">${i}</a></li>
-		</c:when>
-		<c:otherwise>
-			<li class="active"><a href="favBookList.kh?currentPage=${i}">${i}</a></li>
-		</c:otherwise>
-		</c:choose>
-		
-		</c:forEach>
-		<!-- 다음 -->
-		<c:if test="${pv.endPage<pv.totalPage}">
-			<li class="active"><a href="favBookList.kh?currentPage=${pv.startPage+pv.blockPage }">다음</a></li>
-		</c:if>
+                	 <ul id="ul">
+                <c:choose>
+                	<c:when test="${pv.currentPage==1}">
+                		<li class="active"><a href="favBookList.kh?currentPage=1">Prev</a></li>
+                	</c:when>
+					<c:when test="${pv.currentPage>1&&pv.currentPage<pv.blockPage/2+2}">
+                		<li><a href="favBookList.kh?currentPage=1">Prev</a></li>
+                	</c:when>
+                	<c:otherwise>
+                		<li><a href="favBookList.kh?currentPage=${pv.currentPage-1}">Prev</a></li>
+                	</c:otherwise>
+                </c:choose>
+                <c:forEach var="i" begin="${-blockPage/2}" end="${pv.blockPage/2}" step="1" >
+                	<c:if test="${(pv.currentPage+i-1)>0 && ((pv.currentPage+i-2)<(pv.endPage))}">
+                		<c:choose>
+                			<c:when test="${(i+pv.currentPage-1) == pv.currentPage}">
+                				<li class="active">
+                			</c:when>
+                			<c:otherwise>
+                				<li>
+                			</c:otherwise>
+                		</c:choose>
+                		<a href="favBookList.kh?currentPage=${pv.currentPage + (i - 1)}">${pv.currentPage + (i-1)}</a></li>
+                	</c:if>
+                </c:forEach>
+             
+                <c:choose>
+                	<c:when test="${pv.currentPage==pv.endPage}">
+                		<li class="active"><a href="favBookList.kh?currentPage=${pv.endPage}">Next</a></li>
+                	</c:when>
+                	<c:when test="${pv.endPage-pv.currentPage > 0 && pv.endPage-pv.currentPage<pv.blockPage/2}">
+                		<li><a href="favBookList.kh?currentPage=${pv.endPage}">Next</a></li>
+                	</c:when>
+                	<c:otherwise>
+                		<li><a href="favBookList.kh?currentPage=${pv.currentPage+pv.blockPage/2+1}">Next</a></li>
+                	</c:otherwise>
+                </c:choose>
                 </ul>
-        
-            </div>
-                </c:if>
-                
-                    </div>
+       </div>
+     </c:if>
+   </div>
                     
            
 

@@ -18,6 +18,17 @@
 <link rel="stylesheet" href="css/jquery.lightbox-0.5.css">
 <link rel="stylesheet" href="css/custom-styles.css">
 
+<style type="text/css">
+
+#mem{
+width:600px;
+margin-left:150px;
+font-size:20px;
+}
+#updatebtn{
+margin-left:140px;
+}
+</style>
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <link rel="stylesheet" href="css/style-ie.css"/>
@@ -179,20 +190,45 @@ $(document).ready(function () {
     ================================================== --> 
     <div class="row"><!--Container row-->
 
-        <div class="span8 contact"><!--Begin page content column-->
+        <div class="span8 contact" id="mem"><!--Begin page content column-->
                     <form method="GET" >
                     <h2>회원정보수정</h2>
                    
-                    <ul class="project-info">
-                        <li><h6>아이디:</h6> <input class="span4"  type="text" value="${dto.id}" name="id" readonly/></li>
-                        <li><h6>이름:</h6><input class="span4"  type="text" value="${dto.uname}" name="uname"/></li>
-                        <li><h6>비밀번호:</h6> <input class="span4" id="upass" type="password" name="upass" /></li>
-                        <li><h6>비밀번호 확인:</h6> <input class="span4" id="upass2" type="password"/></li>
-                        <li><h6>이메일:</h6> <input class="span4" id="uemail" name="uemail" type="text" value="${dto.uemail}"  /></li>
-                        <li><h6>연락처:</h6> <input class="span4" name="uphone" type="text" value="${dto.uphone }"/></li>
-                        <li><h6>생일:</h6><input class="span4" id="udate" name="udate" type="text" value="${dto.ubirth }" readonly/></li>
-                        <li><h6>성별:</h6><input class="span4" id="ugender" name="ugender" type="text" value="${dto.ugender}" readonly/></li>
-                    </ul>
+                    <table id="table">
+                    	<tr>
+                    		<td>아이디</td>
+                    		<td><input class="span4"  type="text" value="${dto.id}" name="id" readonly/></td>
+                    	</tr>   
+                    	<tr>
+                    		<td>이름</td>
+                    		<td><input class="span4"  type="text" value="${dto.uname}" name="uname"/></td>
+                    	</tr>  
+                    	<tr>
+                    		<td>비밀번호</td>
+                    		<td><input class="span4" id="upass" type="password" name="upass" /></td>
+                    	</tr>  
+                    	<tr>
+                    		<td>비밀번호 확인</td>
+                    		<td><input class="span4" id="upass2" type="password"/></td>
+                    	</tr>  
+                    	<tr>
+                    		<td>이메일</td>
+                    		<td><input class="span4" id="uemail" name="uemail" type="text" value="${dto.uemail}"  /></td>
+                    	</tr>  
+                    	<tr>
+                    		<td>연락처</td>
+                    		<td><input class="span4" name="uphone" type="text" value="${dto.uphone }"/></td>
+                    	</tr>  
+                    	<tr>
+                    		<td>생년월일</td>
+                    		<td><input class="span4" id="udate" name="udate" type="text" value="${dto.ubirth }" readonly/></td>
+                    	</tr>  
+                    	<tr>
+                    		<td>성별</td>
+                    		<td><input class="span4" id="ugender" name="ugender" type="text" value="<c:choose><c:when test="${dto.ugender==1 }">남자 </c:when><c:otherwise>여자</c:otherwise>
+                        </c:choose>" readonly/></td>
+                    	</tr>  
+                    </table>
                    
                     <button class="btn btn-inverse pull-left" id="updatebtn" type="button">수정 완료</button>
                     </form>
@@ -202,7 +238,7 @@ $(document).ready(function () {
 
         <!-- Sidebar
         ================================================== --> 
-        <div class="span4 sidebar page-sidebar"><!-- Begin sidebar column -->
+        <div class="span4 sidebar page-sidebar"id="ca"><!-- Begin sidebar column -->
              <h5 class="title-bg">Categories</h5>
             <ul class="post-category-list">
                 <li><a href="http://localhost:8090/khbook/memberInfor.kh"><i class="icon-plus-sign"></i>회원정보</a></li>

@@ -60,9 +60,12 @@ public class FavBookController {
 		return mav;
 	}
 	@RequestMapping("/favDelete.kh")
-	public ModelAndView favDelete(int num) {
+	public ModelAndView favDelete(HttpSession session,int num) {
 		ModelAndView mav = new ModelAndView();
-		service.deleteprocess(num);
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("id", (String)session.getAttribute("id"));
+		map.put("bno", num);
+		service.deleteprocess(map);
 		mav.setViewName("redirect:/favBookList.kh");
 		return mav;
 	}

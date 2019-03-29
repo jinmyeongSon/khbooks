@@ -21,7 +21,7 @@
 	</select>
 	
 	<delete id="delete" parameterType="int">
-		delete from Fav_author where auno=#{auno}
+		delete from Fav_author where auno=#{auno} AND id=#{id}
 	</delete>
 	
 	<select id="search" parameterType="map" resultType="int">

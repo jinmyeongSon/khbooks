@@ -23,8 +23,8 @@ public class FavBookDaoImp implements FavBookDAO{
 		return sqlSession.selectList("FavBook.list",map);
 	}
 	@Override
-	public void delete(int num) {
-		sqlSession.delete("FavBook.delete",num);
+	public void delete(Map<String, Object> map) {
+		sqlSession.delete("FavBook.delete",map);
 		
 	}
 

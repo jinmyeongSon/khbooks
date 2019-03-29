@@ -20,8 +20,8 @@
 	]]>
 	</select>
 	
-	<delete id="delete" parameterType="int">
-		delete from Fav_Book  where bno=#{bno}
+	<delete id="delete" parameterType="map">
+		delete from Fav_Book  where bno=#{bno} AND id#{id}
 	</delete>
 	
 	<select id="count" parameterType="string" resultType="int">

@@ -572,6 +572,7 @@ ul.post-data li:last-child {padding-right: 0px;}
 	font-family: "Oswald", sans-serif; 
 	font-weight: normal;
 	text-transform:uppercase; 
+	font-size:15px;
 }
 .sidebar ul.post-category-list li:first-child,
 .sidebar .tab-content .tab-pane ul li:first-child{ padding-top: 0px; }

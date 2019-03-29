@@ -28,8 +28,8 @@ public class FavAuthorDaoImp implements FavAuthorDAO{
 	}
 
 	@Override
-	public void FavDelete(int num) {
-		sqlSession.delete("FavAuthor.delete",num);
+	public void FavDelete(Map<String, Object> map) {
+		sqlSession.delete("FavAuthor.delete",map);
 	}
 
 	@Override

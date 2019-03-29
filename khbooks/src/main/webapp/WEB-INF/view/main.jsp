@@ -16,7 +16,13 @@
 <link rel="stylesheet" href="css/prettyPhoto.css" />
 <link rel="stylesheet" href="css/flexslider.css" />
 <link rel="stylesheet" href="css/custom-styles.css">
+<style type="text/css">
 
+table{
+width:550px;
+}
+
+</style>
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <link rel="stylesheet" href="css/style-ie.css"/>
@@ -130,7 +136,7 @@ $(document).ready(function () {
                             <p><a href="bookDetail.kh?bno=${list.bno}" class="clearfix">${list.bname}</a>
                         최신업로드: ${list.bupdate}   <br />평점 : ${list.bgrade }<br /> 조회수 : ${list.bview}<br /> </p>
                         </div>
-                        <a href="blog-single.htm"><img src="img/bthumb/${list.bthumb }" alt="Post Thumb"></a>
+                        <a href="blog-single.htm"><img src="img/gallery/gallery-img-1-4col.jpg" alt="Post Thumb"></a>
                     </li>
                     </c:forEach>
 
@@ -152,11 +158,15 @@ $(document).ready(function () {
                 <button class="btn btn-mini btn-inverse hidden-phone" id="noticemove" type="button">페이지로 이동</button>
             </h5>
              <div class="tab-pane" id="notice">
-                    <ul>
+                    <table>
                     	<c:forEach items="${noticeList }" var="ndto" begin="0" end="5" step="1">
-                    	<li style="heigt=41px; width=100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><a id="noti"href="noticeView.kh?currentPage=${pdto.currentPage }&nnum=${ndto.nnum }"> ${ndto.bname }</a> ${ndto.ndate}</li>
+                    	<tr>
+                    		<td id="af">
+                    		<a style="heigt=41px; width=100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:right" id="noti"href="noticeView.kh?currentPage=${pdto.currentPage }&nnum=${ndto.nnum }"> ${ndto.bname }</a></td>
+                    		<td id="back"style="text-align:right"> ${ndto.ndate}</td>
+                    		</tr>
                     	</c:forEach>
-                    </ul>
+                    </table>
                 </div>
         
             

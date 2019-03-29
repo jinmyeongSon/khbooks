@@ -15,9 +15,26 @@ text-align: center;
 .pagination{
 text-align: center;
 }
+.pagination ul{
+margin-left:0px;
+}
 table{
 	width:650px;
+	font-size:20px;
 }
+td{
+	height:40px;
+}
+#ul{
+margin-left:-50px;
+text-align: center;
+
+}
+#au{
+	font-size:20px;
+	
+}
+
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -56,7 +73,7 @@ var id = '${sessionScope.id}';
 $(document).ready(function () {
 	if(id==''){
 		alert('로그인을 해주세요.');
-		return false;
+		location.href='http://localhost:8090/khbook/mainpage.kh';
 	}
 	
 	$(document).on('click','#deletebtn',function(){
@@ -197,51 +214,65 @@ $(document).ready(function () {
 									<td colspan="3">저장된 데이터가 없습니다.</td>
 								</tr>
 								</c:when>
-							</c:choose>
-							<c:forEach var="dto" items="${aList}" >
 							<c:otherwise>
+							<c:forEach var="dto" items="${aList}" >
 								<tr>
 									<form method="POST">
 									<input type="hidden" value="${dto.auno }" name="num"/>
-									<td><input class="icon-trash" style="width:40%; height:90%;" type="button" id="deletebtn"/></td>
+									<td><input class="icon-trash" style="width:40%; height:60%;" type="button" id="deletebtn"/></td>
 									<td>${dto.auname }</td>
 									<td>${dto.auintro }</td>
 									 </form>
 								</tr>
+								</c:forEach>
 							</c:otherwise>
-							</c:forEach>
+							</c:choose>
 					 </tbody>
                     </table>
                    <!--  <button class="btn btn-inverse pull-left" id="deletebtn" type="button">삭제</button> -->
                     <c:if test="${not empty aList }">
                     	<div class="pagination">
-                	<ul>
-                		<c:if test="${pv.startPage>1 }">
-							<li class="active"><a href="favAuthorList.kh.kh?currentPage=${pv.startPage-pv.blockPage }">이전</a></li>
-						</c:if>
-               			<!-- 페이지 -->
-						<c:forEach begin="${pv.startPage}" end="${pv.endPage }" var="i">
-							
-							<c:choose>
-							<c:when test="${i==pv.currentPage }">
-						<li class="active"><a href="favAuthorList.kh?currentPage=${i}" class="pagecolor">${i}</a></li>
-		</c:when>
-		<c:otherwise>
-			<li class="active"><a href="favAuthorList.kh?currentPage=${i}">${i}</a></li>
-		</c:otherwise>
-		</c:choose>
-		
-		</c:forEach>
-		<!-- 다음 -->
-		<c:if test="${pv.endPage<pv.totalPage}">
-			<li class="active"><a href="favAuthorList.kh?currentPage=${pv.startPage+pv.blockPage }">다음</a></li>
-		</c:if>
+                	 <ul id="ul">
+                <c:choose>
+                	<c:when test="${pv.currentPage==1}">
+                		<li class="active"><a href="favAuthorList.kh?currentPage=1">Prev</a></li>
+                	</c:when>
+					<c:when test="${pv.currentPage>1&&pv.currentPage<pv.blockPage/2+2}">
+                		<li><a href="favAuthorList.kh?currentPage=1">Prev</a></li>
+                	</c:when>
+                	<c:otherwise>
+                		<li><a href="favAuthorList.kh?currentPage=${pv.currentPage-1}">Prev</a></li>
+                	</c:otherwise>
+                </c:choose>
+                <c:forEach var="i" begin="${-blockPage/2}" end="${pv.blockPage/2}" step="1" >
+                	<c:if test="${(pv.currentPage+i-1)>0 && ((pv.currentPage+i-2)<(pv.endPage))}">
+                		<c:choose>
+                			<c:when test="${(i+pv.currentPage-1) == pv.currentPage}">
+                				<li class="active">
+                			</c:when>
+                			<c:otherwise>
+                				<li>
+                			</c:otherwise>
+                		</c:choose>
+                		<a href="favAuthorList.kh?currentPage=${pv.currentPage + (i - 1)}">${pv.currentPage + (i-1)}</a></li>
+                	</c:if>
+                </c:forEach>
+             
+                <c:choose>
+                	<c:when test="${pv.currentPage==pv.endPage}">
+                		<li class="active"><a href="favAuthorList.kh?currentPage=${pv.endPage}">Next</a></li>
+                	</c:when>
+                	<c:when test="${pv.endPage-pv.currentPage > 0 && pv.endPage-pv.currentPage<pv.blockPage/2}">
+                		<li><a href="favAuthorList.kh?currentPage=${pv.endPage}">Next</a></li>
+                	</c:when>
+                	<c:otherwise>
+                		<li><a href="favAuthorList.kh?currentPage=${pv.currentPage+pv.blockPage/2+1}">Next</a></li>
+                	</c:otherwise>
+                </c:choose>
                 </ul>
-        
-            </div>
-                    </c:if>
-                
-                    </div>
+			</div>
+          </c:if>
+		 </div>
                     
            
 
