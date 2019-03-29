@@ -166,8 +166,11 @@ public class SerialController {
 	}
 	
 	@RequestMapping("authorBook.kh")
-	public @ResponseBody List<BookDTO> authorBook(int auno) {
-		return service.authorBookProcess(auno);
+	public @ResponseBody List<BookDTO> authorBook(int auno, int bno) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bno", bno);
+		map.put("auno", auno);
+		return service.authorBookProcess(map);
 	}
 	
 	@RequestMapping(value="/serialNumGet.kh")

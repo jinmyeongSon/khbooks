@@ -20,7 +20,7 @@ public interface SerialService {
 	void gradeInsertProcess(Map<String, Object> map);
 	void gradeUpdateProcess(Map<String, Object> map);
 	BookDTO bookInfoProcess(int bno);
-	List<BookDTO> authorBookProcess(int auno);
+	List<BookDTO> authorBookProcess(Map<String, Object> map);
 	List<ReviewCommentDTO> getAllReviewCommentProcess();
 	
 }

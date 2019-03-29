@@ -31,23 +31,30 @@ public class FavAuthorController {
 	public ModelAndView favAuthorList(HttpSession session,PageDTO pv) {
 		ModelAndView mav = new ModelAndView();
 		Map<String, Object> map = new HashMap<String,Object>();
-		int totalRecord = service.countprocess((String)session.getAttribute("id"));
-		if(totalRecord >=1) {
-			if(pv.getCurrentPage()==0) {
-				currentPage=1;
-			}else {
-				currentPage = pv.getCurrentPage();
-			}
-			pdto= new PageDTO(currentPage,totalRecord);
-			//id= "a";
-			map.put("id",(String)session.getAttribute("id"));
-			map.put("pdto",pdto);
-			
-			mav.addObject("pv",pdto);
-			mav.addObject("aList",service.listprocess(map));
+		String id=(String)session.getAttribute("id");
+		System.out.println(id);
+		session.setAttribute("id", id);
+		if(id==null) {
 			mav.setViewName("/favAuthor/favAuthorList");
 		}else {
-			mav.setViewName("/favAuthor/favAuthorList");
+			int totalRecord = service.countprocess(id);
+			if(totalRecord >=1) {
+				if(pv.getCurrentPage()==0) {
+					currentPage=1;
+				}else {
+					currentPage = pv.getCurrentPage();
+				}
+				pdto= new PageDTO(currentPage,totalRecord);
+				//id= "a";
+				map.put("id",(String)session.getAttribute("id"));
+				map.put("pdto",pdto);
+				
+				mav.addObject("pv",pdto);
+				mav.addObject("aList",service.listprocess(map));
+				mav.setViewName("/favAuthor/favAuthorList");
+			}else {
+				mav.setViewName("/favAuthor/favAuthorList");
+			}
 		}
 		return mav;
 	}

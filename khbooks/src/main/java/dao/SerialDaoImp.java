@@ -38,7 +38,9 @@ public class SerialDaoImp implements SerialDAO {
 
 	@Override
 	public SerialDTO getSerial(Map<String, Object> map) {
-		return sqlSession.selectOne("serial.getSerial", map);
+		SerialDTO dto = sqlSession.selectOne("serial.getSerial", map);
+		sqlSession.update("serial.serialCountUp", dto.getUpno());
+		return dto;
 	}
 
 	@Override
@@ -74,8 +76,8 @@ public class SerialDaoImp implements SerialDAO {
 	}
 
 	@Override
-	public List<BookDTO> authorBook(int auno) {
-		return sqlSession.selectList("book.authorBook", auno);
+	public List<BookDTO> authorBook(Map<String, Object> map) {
+		return sqlSession.selectList("book.authorBook", map);
 	}
 
 	@Override

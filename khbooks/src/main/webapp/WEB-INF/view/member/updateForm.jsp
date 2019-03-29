@@ -97,8 +97,7 @@ $(document).ready(function () {
                         <li><h6>비밀번호 확인:</h6> <input class="span4" id="upass2" type="password"/></li>
                         <li><h6>이메일:</h6> <input class="span4" id="uemail" name="uemail" type="text" value="${dto.uemail}"  /></li>
                         <li><h6>연락처:</h6> <input class="span4" name="uphone" type="text" value="${dto.uphone }"/></li>
-                        <li><h6>주소:</h6> <input class="span4"  name="uaddr" type="text" value="${dto.uaddr }"/></li>
-                        <li><h6>생일:</h6><input class="span4" id="udate" name="udate" type="text" value="${dto.udate }" readonly/></li>
+                        <li><h6>생일:</h6><input class="span4" id="udate" name="udate" type="text" value="${dto.ubirth }" readonly/></li>
                         <li><h6>성별:</h6><input class="span4" id="ugender" name="ugender" type="text" value="${dto.ugender}" readonly/></li>
                     </ul>
                    

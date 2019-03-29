@@ -47,7 +47,12 @@ text-align: center;
 <script src="js/jquery.quicksand.js"></script>
 <script src="js/jquery.custom.js"></script>
 <script type="text/javascript">
+var id = '${sessionScope.id}';
 $(document).ready(function () {
+	if(id==''){
+		alert('로그인을 해주세요.');
+		return false;
+	}
 	$(document).on('click','#move',function(){
 		var au=$(this).parent().prev().children().val();
 		var ak=$(this).parent().prev().children().children("option:selected").text();
@@ -97,7 +102,15 @@ $(document).ready(function () {
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="dto" items="${aList}" >
+							<c:choose>
+								<c:when test="${empty aList}">
+								<tr>
+									<td colspan="7">저장된 데이터가 없습니다.</td>
+								</tr>
+								</c:when>
+							
+							<c:otherwise>
+								<c:forEach var="dto" items="${aList}" >
 							<tr>							
 								<form method="POST">
 								<input type="hidden" value="${dto.bno }" name="num"/>
@@ -118,11 +131,13 @@ $(document).ready(function () {
 								</tr>
 							
 							</c:forEach>
+							</c:otherwise>
+							</c:choose>
 					 </tbody>
                     </table>
                    <!--  <button class="btn btn-inverse pull-left" id="deletebtn" type="button">삭제</button> -->
-                
-                <div class="pagination">
+                <c:if test="${not empty aList }">
+                	<div class="pagination">
                 	<ul>
                 		<c:if test="${pv.startPage>1 }">
 							<li class="active"><a href="favBookList.kh.kh?currentPage=${pv.startPage-pv.blockPage }">이전</a></li>
@@ -147,6 +162,8 @@ $(document).ready(function () {
                 </ul>
         
             </div>
+                </c:if>
+                
                     </div>
                     
            

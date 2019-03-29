@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -101,13 +102,15 @@ public class UserController {
 	@RequestMapping(value = "/signUp.kh", method = RequestMethod.POST)
 	public String signUpSubmit(UserDTO udto) {
 		dao.register(udto);
-		return "user/signCom";
+		return "redirect:/loginForm.kh";
 	}
 	
 	
 	// 로그인
 	@RequestMapping(value = "/loginForm.kh", method = RequestMethod.GET)
-	public ModelAndView logInForm(UserDTO udto) {
+	public ModelAndView logInForm(UserDTO udto, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		session.setAttribute("prev", req.getHeader("Referer"));
 		ModelAndView mav = new ModelAndView("user/login");
 		return mav;
 	}
@@ -118,8 +121,8 @@ public class UserController {
 		
 		if(res == true) {
 			session.setAttribute("id", udto.getId());
-			mav.setViewName("redirect:mainpage.kh");
-			mav.addObject("msg", "success");
+			String path = (String)session.getAttribute("prev");
+			mav.setViewName("redirect:"+path);
 		} else {
 			mav.setViewName("user/login");
 			mav.addObject("msg", "fail");
