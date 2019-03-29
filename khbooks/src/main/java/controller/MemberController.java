@@ -31,7 +31,7 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView();
 		/*id="a";*/
 		String id=(String)session.getAttribute("id");
-
+		session.setAttribute("id", id);
 		if(id==null) {
 			mav.setViewName("/member/meminformation");
 		}else {

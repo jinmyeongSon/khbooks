@@ -33,6 +33,7 @@ public class FavBookController {
 		ModelAndView mav = new ModelAndView();
 		Map<String, Object> map = new HashMap<String,Object>();
 		String id = (String)session.getAttribute("id");
+		session.setAttribute("id", id);
 		if(id== null) {
 			mav.setViewName("/favBook/favBookList");
 		}else {

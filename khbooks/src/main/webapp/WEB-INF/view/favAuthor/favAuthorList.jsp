@@ -50,8 +50,11 @@ table{
 <script src="js/jquery.quicksand.js"></script>
 <script src="js/jquery.custom.js"></script>
 <script type="text/javascript">
+var id = '${sessionScope.id}';
+
+
 $(document).ready(function () {
-	if(${empty sessionscope.id}){
+	if(id==''){
 		alert('로그인을 해주세요.');
 		return false;
 	}
@@ -188,8 +191,16 @@ $(document).ready(function () {
 							</tr>
 						</thead>
 						<tbody>
+							<c:choose>
+								<c:when test="${empty aList}">
+								<tr>
+									<td colspan="3">저장된 데이터가 없습니다.</td>
+								</tr>
+								</c:when>
+							</c:choose>
 							<c:forEach var="dto" items="${aList}" >
-							<tr>
+							<c:otherwise>
+								<tr>
 									<form method="POST">
 									<input type="hidden" value="${dto.auno }" name="num"/>
 									<td><input class="icon-trash" style="width:40%; height:90%;" type="button" id="deletebtn"/></td>
@@ -197,11 +208,13 @@ $(document).ready(function () {
 									<td>${dto.auintro }</td>
 									 </form>
 								</tr>
+							</c:otherwise>
 							</c:forEach>
 					 </tbody>
                     </table>
                    <!--  <button class="btn btn-inverse pull-left" id="deletebtn" type="button">삭제</button> -->
-                <div class="pagination">
+                    <c:if test="${not empty aList }">
+                    	<div class="pagination">
                 	<ul>
                 		<c:if test="${pv.startPage>1 }">
 							<li class="active"><a href="favAuthorList.kh.kh?currentPage=${pv.startPage-pv.blockPage }">이전</a></li>
@@ -226,6 +239,8 @@ $(document).ready(function () {
                 </ul>
         
             </div>
+                    </c:if>
+                
                     </div>
                     
            

@@ -36,13 +36,9 @@
 <script src="js/jquery.quicksand.js"></script>
 <script src="js/jquery.custom.js"></script>
 <script type="text/javascript">
+var id = '${sessionScope.id}';
 $(document).ready(function () {
-	/* var ak=$('#name').val();
-	if(ak==''){
-		alert('로그인을 해주세요.');
-		return false;
-	} */
-	if(${empty sessionscope.id}){
+	if(id==''){
 		alert('로그인을 해주세요.');
 		return false;
 	}
