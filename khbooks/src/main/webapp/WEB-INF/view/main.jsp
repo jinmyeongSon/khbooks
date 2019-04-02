@@ -132,11 +132,22 @@ $(document).ready(function () {
 
 					<c:forEach items="${bList}" var="list"  begin="0" end="7" step="1" >
                     <li class="span3 blog-post-item">
-                        <div class="blog-post-hover hidden-phone hidden-tablet">
-                            <p><a href="bookDetail.kh?bno=${list.bno}" class="clearfix">${list.bname}</a>
-                        최신업로드: ${list.bupdate}   <br />평점 : ${list.bgrade }<br /> 조회수 : ${list.bview}<br /> </p>
-                        </div>
-                        <a href="blog-single.htm"><img src="img/gallery/gallery-img-1-4col.jpg" alt="Post Thumb"></a>
+                        <a href="bookDetail.kh?bno=${list.bno }">
+                        <c:choose>
+                   <c:when test="${list.bthumb==null }">
+                   	<img src="img/gallery/gallery-img-1-full.jpg" style="width: 150px; height: 230px;" class="align-left thumbnail" alt="image">
+                   </c:when>
+                   <c:otherwise>
+                   	<img src="img/bthumb/${list.bthumb }" style="width: 150px; height: 230px;" class="align-left thumbnail" alt="image"/>
+                   </c:otherwise>
+                   </c:choose>
+						</a>
+						<ul >
+							<li style="float: none;heigt=41px; width=100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-weight:bold; font-size:20px;">
+								<a href="bookDetail.kh?bno=${list.bno }">${list.bname }</a></li>
+							<li style="float: none;">평점 : ${list.bgrade }</li>
+							<li style="float: none;">최신 등록일 : ${list.bupdate }</li>
+						</ul>
                     </li>
                     </c:forEach>
 

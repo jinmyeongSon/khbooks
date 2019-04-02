@@ -12,7 +12,6 @@
 <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/bootstrap-responsive.css">
-<link rel="stylesheet" href="css/custom-styles.css">
 <link rel="stylesheet" href="css/_button-group.css">
 <link rel="stylesheet" href="css/_buttons.css">
 

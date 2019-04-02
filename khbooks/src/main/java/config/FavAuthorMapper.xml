@@ -20,7 +20,7 @@
 		select count(*) from FAV_Author where id=#{id}
 	</select>
 	
-	<delete id="delete" parameterType="int">
+	<delete id="delete" parameterType="map">
 		delete from Fav_author where auno=#{auno} AND id=#{id}
 	</delete>
 	

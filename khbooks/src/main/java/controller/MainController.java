@@ -62,6 +62,7 @@ public class MainController {
 			mav.addObject("currentPage", currentPage);
 			mav.addObject("pdto", pdto2);
 			mav.addObject("bList", service.bookListProcess(dto));
+			/*mav.addObject("aList", service.bookDetailProcess(bno));*/
 			mav.addObject("noticeList", aList);
 		 try {
 		        Twitter twitter = TwitterFactory.getSingleton();

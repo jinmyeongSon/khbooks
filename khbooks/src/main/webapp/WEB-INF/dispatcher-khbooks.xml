@@ -35,6 +35,9 @@
 		<property name="nservice" ref="nservice" />
 		<property name="service" ref="serviceBook" />
 	</bean>
+	<bean class="controller.AuthorController">
+		<property name="service" ref="Authorservice"/>
+	</bean>
 	
 	<!-- [2] SqlSessionFactoryBean 빈 선언 -->
 
@@ -53,6 +56,7 @@
 				<value>classpath:config/BookMapper.xml</value>
 				<value>classpath:config/SerialMapper.xml</value>
 				<value>classpath:config/userMapper.xml</value>
+				<value>classpath:config/authorMapper.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -64,6 +68,9 @@
 	</bean>
 
 	<!-- [7] DAO 빈 선언 -->
+	<bean id="Authordao" class="dao.AuthorDaoImp">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
 
 	<bean id="MemInfordao" class="dao.MemInforDaoImp">
 		<property name="sqlSession" ref="sqlSession" />
@@ -80,6 +87,9 @@
 	</bean>
 
 	<!-- [8] Service 빈 선언 -->
+	<bean id="Authorservice" class="service.AuthorServiceImp">
+		<property name="dao" ref="Authordao"/>
+	</bean>
 	<bean id="MemInforservice" class="service.MemInforServiceImp">
 		<property name="dao" ref="MemInfordao"/>
 	</bean>

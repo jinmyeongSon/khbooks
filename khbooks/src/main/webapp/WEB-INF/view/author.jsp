@@ -12,28 +12,11 @@ border:1px solid black;
 text-align: center; 
 
 }
-.pagination{
-text-align: center;
-}
-.pagination ul{
-margin-left:0px;
-}
-table{
-	width:650px;
-	font-size:20px;
-}
-td{
-	height:60px;
-}
 #ul{
-margin-left:-50px;
+margin-left:250px;
 text-align: center;
 
 }
-#au{
-	font-size:20px;
-}
-
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -67,19 +50,21 @@ text-align: center;
 <script src="js/jquery.custom.js"></script>
 <script type="text/javascript">
 var id = '${sessionScope.id}';
-
-
 $(document).ready(function () {
 	if(id==''){
 		alert('로그인을 해주세요.');
 		location.href='http://localhost:8090/khbook/mainpage.kh';
 	}
-	
+	$(document).on('click','#move',function(){
+		var au=$(this).parent().prev().children().val();
+		var ak=$(this).parent().prev().children().children("option:selected").text();
+		location.href='http://localhost:8090/khbook/serialView.kh?bno='+au+'&rm='+ak;
+	});
 	$(document).on('click','#deletebtn',function(){
 		var del=confirm("정말 삭제 하시겠습니까 ?");
 		if(del){
 			var bno= $(this).parent().prev().val();
-			$(this).parent().prev().prev().attr("action","favAuthorDelte.kh");
+			$(this).parent().prev().prev().attr("action","favDelete.kh");
 			$(this).parent().prev().prev().submit(); 
 		}else{
 			return false;
@@ -88,6 +73,7 @@ $(document).ready(function () {
 });
 
 </script>
+
 </head>
 
 <body>
@@ -194,102 +180,59 @@ $(document).ready(function () {
     <!-- Page Content
     ================================================== --> 
     <div class="row"><!--Container row-->
+        <div class="span6 gallery-single">
+        <h3>${aList.auname }님의 작품</h3>
+        <c:forEach var="dto" items="${bList}" >
+                <div class="span8">
+                <div style="width: 90%; ">
+                   <div style="width: 95%; height: 200px;">
+                   <c:choose>
+                   <c:when test="${dto.bthumb==null }">
+                   	<img src="img/gallery/gallery-img-1-full.jpg" style="width: 150px; height: 100%;" class="align-left thumbnail" alt="image">
+                   </c:when>
+                   <c:otherwise>
+                   	<img src="img/bthumb/${dto.bthumb }" style="width: 150px; height: 100%;" class="align-left thumbnail" alt="image">
+                   </c:otherwise>
+                   </c:choose>
+                    <h2>${dto.bname}</h2>
+                    <!-- <div style="margin-left:170px;"> -->
+                    <ul style="width:40%; float:left; " class="project-info">
+                        <li style="padding:5px;"><h6>별점:</h6> ${dto.bgrade} / <h6>조회수:</h6> ${dto.bview}</li>
+                        <li style="padding:5px;"><h6>최신 연재일:</h6> ${dto.bupdate}</li>
+                        <li  style="padding:5px; margin-top: 10px; border-bottom: 0px solid;">
+                           <a href="serialView.kh?bno=${dto.bno}&rm=1" id="serialFirst"><button class="btn btn-small">첫 화 보기</button></a>
+                            <a href="http://localhost:8090/khbook/bookDetail.kh?bno=${dto.bno }">
+                            <button class="btn btn-small btn-inverse" id="favBook-btn" >작품 페이지로 가기</button></a>
+                        </li>
+                    </ul>
+                    <!-- <div style="float:left; width:58%; height: 160px; position:relative;">
+                    <button style="position:absolute; bottom:60px; right: 20px;"> aa </button>
+                    <button style="position:absolute; bottom:30px; right: 20px;"> aa </button>
+                    <button style="position:absolute; bottom:0px; right: 20px;"> aa </button>
 
-        <div class="span8 contact"><!--Begin page content column-->
-        <h2>관심 작가</h2>
-  
-                    <table>
-                    	<thead>
-							<tr>
-								<th width="1%" ></th>
-								<th width="10%">작가 이름</th>
-								<th width="10%">작가 소개</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:choose>
-								<c:when test="${empty aList}">
-								<tr>
-									<td colspan="3">저장된 데이터가 없습니다.</td>
-								</tr>
-								</c:when>
-							<c:otherwise>
-							<c:forEach var="dto" items="${aList}" >
-								<tr>
-									<form method="POST">
-									<input type="hidden" value="${dto.auno }" name="num"/>
-									<td><input class="icon-trash" style=" height:20px;" type="button" id="deletebtn"/></td>
-									<td><a href="author.kh?auno=${dto.auno }">${dto.auname }</a></td>
-									<td>${dto.auintro }</td>
-									 </form>
-								</tr>
-								</c:forEach>
-							</c:otherwise>
-							</c:choose>
-					 </tbody>
-                    </table>
-                   <!--  <button class="btn btn-inverse pull-left" id="deletebtn" type="button">삭제</button> -->
-                    <c:if test="${not empty aList }">
-                    	<div class="pagination">
-                	 <ul id="ul">
-                <c:choose>
-                	<c:when test="${pv.currentPage==1}">
-                		<li class="active"><a href="favAuthorList.kh?currentPage=1">Prev</a></li>
-                	</c:when>
-					<c:when test="${pv.currentPage>1&&pv.currentPage<pv.blockPage/2+2}">
-                		<li><a href="favAuthorList.kh?currentPage=1">Prev</a></li>
-                	</c:when>
-                	<c:otherwise>
-                		<li><a href="favAuthorList.kh?currentPage=${pv.currentPage-1}">Prev</a></li>
-                	</c:otherwise>
-                </c:choose>
-                <c:forEach var="i" begin="${-blockPage/2}" end="${pv.blockPage/2}" step="1" >
-                	<c:if test="${(pv.currentPage+i-1)>0 && ((pv.currentPage+i-2)<(pv.endPage))}">
-                		<c:choose>
-                			<c:when test="${(i+pv.currentPage-1) == pv.currentPage}">
-                				<li class="active">
-                			</c:when>
-                			<c:otherwise>
-                				<li>
-                			</c:otherwise>
-                		</c:choose>
-                		<a href="favAuthorList.kh?currentPage=${pv.currentPage + (i - 1)}">${pv.currentPage + (i-1)}</a></li>
-                	</c:if>
-                </c:forEach>
-             
-                <c:choose>
-                	<c:when test="${pv.currentPage==pv.endPage}">
-                		<li class="active"><a href="favAuthorList.kh?currentPage=${pv.endPage}">Next</a></li>
-                	</c:when>
-                	<c:when test="${pv.endPage-pv.currentPage > 0 && pv.endPage-pv.currentPage<pv.blockPage/2}">
-                		<li><a href="favAuthorList.kh?currentPage=${pv.endPage}">Next</a></li>
-                	</c:when>
-                	<c:otherwise>
-                		<li><a href="favAuthorList.kh?currentPage=${pv.currentPage+pv.blockPage/2+1}">Next</a></li>
-                	</c:otherwise>
-                </c:choose>
-                </ul>
-			</div>
-          </c:if>
-		 </div>
+                    </div>
+                    </div> -->
+                    </div>
+                    <p style="word-break: break-word;  clear: both;" class="lead">${book.binfo}</p>
+                    
+                </div>
+                </div>
+                
+            </c:forEach>
+            </div>
+        <!-- End gallery-single-->
                     
            
 
         <!-- Sidebar
         ================================================== --> 
-        <div class="span4 sidebar page-sidebar"><!-- Begin sidebar column -->
-             <h5 class="title-bg">Categories</h5>
-            <ul class="post-category-list">
-                <li><a href="http://localhost:8090/khbook/memberInfor.kh"><i class="icon-plus-sign"></i>회원정보</a></li>
-                <li><a href="http://localhost:8090/khbook/favAuthorList.kh"><i class="icon-plus-sign"></i>관심작가</a></li>
-                <li><a href="http://localhost:8090/khbook/favBookList.kh"><i class="icon-plus-sign"></i>관심작품</a></li>
-            </ul>
-        </div><!-- End sidebar column -->
-
-    </div><!-- End container row -->
-    
+        <div class="span3 sidebar page-sidebar" style="margin-left:300px; ">
+                 <h3 style="text-align:center;">작가소개</h3>
+          		<p style="border: 2px solid #a9a9a9; height:500px; border-radius: 6px; padding-bottom:15px; font-size:15px;">
+          		<span style="margin:20px;" >${aList.auintro }</span></p>
+        		</div><!-- End sidebar column -->
+    </div>
     </div> <!-- End Container -->
-
     <!-- Footer Area
         ================================================== -->
 
