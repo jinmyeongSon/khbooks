@@ -43,7 +43,14 @@ public class FavBookDaoImp implements FavBookDAO{
 		sqlSession.insert("FavBook.insert",map);
 		
 	}
+	
+	@Override
+	public void bookdelete(Map<String, Object> map) {
+		sqlSession.delete("FavBook.deleteFb", map);
 
+	}
+
+	
 
 	
 }

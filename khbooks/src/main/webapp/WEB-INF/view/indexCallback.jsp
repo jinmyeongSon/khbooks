@@ -46,6 +46,10 @@
 <script src="js/jquery.prettyPhoto.js"></script>
 <script src="js/jquery.flexslider.js"></script>
 <script src="js/jquery.custom.js"></script>
+
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+
+
 <script type="text/javascript">
 	$(document).ready(function() {
 
@@ -62,49 +66,80 @@
 		$("#btn-client-prev").click(function() {
 			$('#clientCarousel').carousel('prev')
 		});
+		
+		$("#join-btn").click(function(){
+			$(location).attr('href', 'http://localhost:8090/khbook/signUp.kh');
+		})
+		$("#login-btn").click(function(){
+			$(location).attr('href', 'http://localhost:8090/khbook/loginForm.kh');
+		})
+		
 
 	});
+	
+	function logoutPro(){
+		$.ajax({
+			url : 'logout.kh',
+			success : function(data) {
+				alert("로그아웃 되었습니다.");
+				$(location).attr('href', 'http://localhost:8090/khbook/index.kh');
+			}
+
+		});
+	}
 
 	$(window).load(function() {
 
-		$('.flexslider').flexslider({
+		/* $('.flexslider').flexslider({
 			animation : "slide",
 			slideshow : true,
 			start : function(slider) {
 				$('body').removeClass('loading');
 			}
-		});
+		}); */
 	});
+	
+	
+	  //네아로--------------------------------------------------------------------------------------------------
+	  var naver_id_login = new naver_id_login("Fl00fuSEpWs8hOdJ0F2n", "http://localhost:8090/khbook/index.kh");
+	  // 접근 토큰 값 출력
+	  //alert(naver_id_login.oauthParams.access_token);
+	  // 네이버 사용자 프로필 조회
+	  naver_id_login.get_naver_userprofile("naverSignInCallback()");
+	  // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+	  function naverSignInCallback() {
+		alert(naver_id_login.getProfileData('id'));
+	    alert(naver_id_login.getProfileData('email'));
+	    alert(naver_id_login.getProfileData('birthday'));
+	    alert(naver_id_login.getProfileData('gender'));	
+	  	}
+	  
+	  console.log('${sessionScope.id}');
 </script>
+
 
 </head>
 
 <body class="home">
-	<!-- Color Bars (above header)-->
+	<!-- header -->
 	<div class="container" style="margin-top: 20px;margin-bottom: -20px;">
 		<div style="text-align: center;">
-		  <h1>KH BOOKs</h1> 
-		  <span style="display: inline-block; float: right;  position: relative; top: -39px;">
-			<button class="button button2">회원가입</button> <button class="button button2">로그인</button>
-		</span>
-		</div>
-	</div>
-	
-<hr />
-
-
-	<div class="container">
-
-		<div class="row header">
-			<!-- Begin Header -->
-
-			<!-- Logo
-        ================================================== -->
-			<div class="span5 logo">
-				<a href="index.htm"><img src="img/piccolo-logo.png" alt="" /></a>
-				<h5>Big Things... Small Packages</h5>
+		 	<a href="http://localhost:8090/khbook/index.kh"> <h2>KH BOOKs</h2> </a>
+		  <span style="display: inline-block; float: right;  position: relative; top: -50px;">
+			
+			<div class="custom-select" style="width:200px;">
+			<select>
+				<option value="0">${sessionScope.id} 님 환영합니다</option>
+			  <option value="내정보">내정보</option>
+			  <option value="로그아웃">로그아웃</option>
+			</select>
 			</div>
-
+			<!--  -->
+		</span>
+		
+		${sessionScope.id}님 환영합니다
+		
+		
 			<!-- Main Navigation
         ================================================== -->
 			<div class="span7 navigation">
@@ -153,8 +188,30 @@
 
 				</div>
 
+	<input class="btn btn-primary" type="button" id="logout" onclick="logoutPro();" value="로그아웃" />
+
+
 				<!--          Mobile Nav
             ==================================================
+		</div>
+	</div>
+	
+<hr />
+
+
+	<div class="container">
+
+		<div class="row header">
+			<!-- Begin Header -->
+
+			<!-- Logo
+        ================================================== -->
+			<div class="span5 logo">
+				<a href="index.htm"><img src="img/piccolo-logo.png" alt="" /></a>
+				<h5>Big Things... Small Packages</h5>
+			</div>
+
+		
             <form action="#" id="mobile-nav" class="visible-phone">
                 <div class="mobile-nav-select">
                 <select onchange="window.open(this.options[this.selectedIndex].value,'_top')">
@@ -711,4 +768,6 @@
     <div id="toTop" class="hidden-phone hidden-tablet">Back to Top</div>
     
 </body>
+
+
 </html>

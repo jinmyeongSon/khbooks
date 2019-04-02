@@ -1,20 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- CSS
 ================================================== -->
-<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/bootstrap-responsive.css">
-<link rel="stylesheet" href="css/_button-group.css">
-<link rel="stylesheet" href="css/_buttons.css">
-
 <!-- JS
 ================================================== -->
 <!-- <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script> -->
@@ -24,7 +15,6 @@
 <script src="js/jquery.flexslider.js"></script>
 <script src="js/jquery.custom.js"></script>
 <script type="text/javascript">
-
 $(document).ready(function(){
 	var url = window.location.pathname;
 	var split_start = url.lastIndexOf("/");
@@ -44,7 +34,7 @@ $(document).ready(function(){
 		$(".board-list").attr('class','board-list dropdown');
 		$(".profile").attr('class','profile dropdown');
  		$(".book-list").attr('class','book-list active');	
-	}else if(split_url=='/noticeList'||split_url=='/noticeWrite'||split_url=='/noticeView.'||split_url=='/boardList'||split_url=='/boardWrite'){
+	}else if(split_url=='/noticeList'||split_url=='/noticeWrite'||split_url=='/noticeView'||split_url=='/boardList'||split_url=='/boardWrite'){
 		$(".mainpage").attr('class','mainpage');
 		$(".book-list").attr('class','book-list');
 		$(".profile").attr('class','profile dropdown');
@@ -64,7 +54,6 @@ $(document).ready(function(){
 		$(".board-list").attr('class','board-list dropdown');
 		$(".profile").attr('class','profile dropdown');
 	}
-
 </script>
 
 </head>
@@ -103,7 +92,7 @@ $(document).ready(function(){
                 </ul>
              </li>
              <c:choose>
-             	<c:when test="${sessionScope.id==''}">
+             	<c:when test="${sessionScope.id==null}">
              		<li><a href="loginForm.kh" style=" font-weight: bold; font-size: 15px;">로그인</a></li>
              		<li><a href="signUp.kh" style=" font-weight: bold; font-size: 15px;">회원가입</a></li>
              	</c:when>
@@ -114,7 +103,7 @@ $(document).ready(function(){
 	                    <li><a href="favBookList.kh" style=" font-weight: bold; font-size: 13px; width: 80px;">나의 관심 작품</a></li>
 	                    <li><a href="favAuthorList.kh" style=" font-weight: bold; font-size: 13px;">나의 관심 작가</a></li>
 	                </ul>
-	                <li id="login-btn"><a href="signUp.kh" style=" font-weight: bold; font-size: 15px;">로그 아웃</a></li>
+	                <li id="login-btn"><a href="logout.kh" style=" font-weight: bold; font-size: 15px;">로그 아웃</a></li>
              	</c:otherwise>
              </c:choose>
             </ul>

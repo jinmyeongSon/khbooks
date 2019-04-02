@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class NoticeDTO {
 	private int nnum;
 	private String aid;
-	private String bname;
+	private String bname;	
 	private String btext;
 	private Date ndate;
 	private int ncount;

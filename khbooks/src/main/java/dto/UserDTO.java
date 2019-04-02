@@ -3,24 +3,34 @@ package dto;
 import java.sql.Date;
 
 public class UserDTO {
+	private int uno;
 	private String id;
 	private String upass;
 	private String uname;
 	private String uemail;
 	private String uphone;
 	private Date ubirth;
-	private int ugender;
-	
+	private int ugender;	
 	public UserDTO() {
 	
 	}
-
-	public Date getUbirth() {
-		return ubirth;
+	
+	
+	public UserDTO(String id) {
+		super();
+		this.id = id;
 	}
 
-	public void setUbirth(Date ubirth) {
-		this.ubirth = ubirth;
+
+
+
+	public int getUno() {
+		return uno;
+	}
+
+	
+	public void setUno(int uno) {
+		this.uno = uno;
 	}
 
 	public String getId() {
@@ -63,12 +73,23 @@ public class UserDTO {
 		this.uphone = uphone;
 	}
 
+	public Date getUbirth() {
+		return ubirth;
+	}
+
+	public void setUbirth(Date ubirth) {
+		this.ubirth = ubirth;
+	}
+
 	public int getUgender() {
 		return ugender;
 	}
 
+
 	public void setUgender(int ugender) {
 		this.ugender = ugender;
 	}
+
+
 
 }//end class

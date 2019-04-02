@@ -80,8 +80,16 @@ public class FavBookController {
 		}
 		
 		return num; 
-		
-		
 	}
+	
+	@RequestMapping("/favBookDelete.kh")
+	public @ResponseBody int favBookDelete(int bno,HttpSession session) {
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("id", (String)session.getAttribute("id"));
+		map.put("bno", bno);
+		service.bookdeleteprocess(map);
+		return 1;
+	}
+	
 	
 }

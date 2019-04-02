@@ -11,6 +11,12 @@
 		where a.rm=#{rm} 
 	</select>
 	
+	<update id="serialCountUp" parameterType="int">
+		update serial
+		set ncount = ncount+1
+		where upno=#{upno}
+	</update>
+	
 	<select id="count" parameterType="int" resultType="int">
 		select count(upno) from serial where bno=#{bno}
 	</select>
@@ -40,5 +46,49 @@
 		insert into review_comment
 		values(REVIEW_COMMENT_RNO_SEQ.nextval,#{id},#{upno},#{bno},#{rtext},sysdate)
 	</insert>
+	
+	<delete id="deleteReviewComment" parameterType="dto.ReviewCommentDTO">
+		delete from review_comment
+		where rno=#{rno} and upno=#{upno} and bno=#{bno}
+	</delete>
+
+	<select id="gradeCheck" parameterType="java.util.Map" resultType="int">
+		select count(grade) from grade where id=#{id} and upno=#{upno}
+	</select>
+	
+	<insert id="gradeInsert" parameterType="java.util.Map">
+		insert into grade
+		values(#{id}, #{upno}, #{bno}, #{grade})
+	</insert>
+	
+	<update id="gradeUpdate" parameterType="java.util.Map">
+		update grade
+		set grade=#{grade}
+		where id=#{id}
+		and upno=#{upno}
+	</update>
+	
+
+	
+	<resultMap type="dto.BookDTO" id="bkDTO" autoMapping="false" >
+		<result column="bname" property="bname" />
+	</resultMap>
+	
+	<select id="getAllReviewComment" resultType="dto.ReviewCommentDTO">
+		select rm, b.*
+		from (
+			select rownum as rm, a.* 
+			from (
+				select rc.*, bk.bname
+				from review_comment rc, book bk
+                where rc.bno = bk.bno
+				)a
+			)b
+		<![CDATA[where rm<=5]]>
+	</select>
+	
+	<select id="getBookCount" resultType="int" parameterType="int">
+		select bgrade from book where bno=#{bno}
+	</select>
 
 </mapper>

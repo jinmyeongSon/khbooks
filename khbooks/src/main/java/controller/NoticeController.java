@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,6 +30,7 @@ public class NoticeController {
 	private PageDTO pdto;
 	private String path;
 	private int currentPage;
+	private List<UploadDTO> uList;
 	
 	public NoticeController() {
 		
@@ -42,7 +44,7 @@ public class NoticeController {
 		this.path = path;
 	}
 	
-	@RequestMapping("/noticeList.kh")
+	@RequestMapping(value="/noticeList.kh", method=RequestMethod.GET)
 	public ModelAndView noticeList(PageDTO pv) {
 		ModelAndView mav = new ModelAndView();
 		int totalRecord = nservice.noticeCountPro();
@@ -62,21 +64,70 @@ public class NoticeController {
 				System.out.println("제목 : " + dto.getBname());
 			}
 			
+			for(NoticeDTO d : nservice.popularPost()) {
+				System.out.println(d.getBname());
+			}
+			
+			mav.addObject("currentPage", currentPage);
+			mav.addObject("pdto", pdto);
+			mav.addObject("noticeList", aList);
+			mav.addObject("popular", nservice.popularPost());
+		}
+		
+		mav.setViewName("noticeList");
+
+		return mav;
+	}//end noticeList()
+	
+	@RequestMapping("/noticeGet.kh")
+	public @ResponseBody List<NoticeDTO> noticeGet() {
+		int totalRecord = nservice.noticeCountPro();
+		pdto = new PageDTO(1,totalRecord);
+		List<NoticeDTO> aList = nservice.noticeListPro(pdto);
+		return aList;
+	}//end noticeGet()
+	
+	@RequestMapping(value="/noticeList.kh", method=RequestMethod.POST)
+	public ModelAndView noticeList(PageDTO pv, String bname) {
+		ModelAndView mav = new ModelAndView();
+		
+		if(bname == null) {
+			bname = "";
+		}
+		
+		int totalRecord = nservice.SearchTotalRecord(bname);
+		System.out.println("검색 총 갯수 : " + totalRecord);
+		
+		if(totalRecord >= 1) {
+			if(pv.getCurrentPage() == 0) {
+				currentPage = 1;
+			} else {
+				currentPage = pv.getCurrentPage();
+			}
+			
+			pdto = new PageDTO(currentPage, totalRecord);
+			List<NoticeDTO> aList = nservice.getSearchList(bname, pdto);
+			
+			for(NoticeDTO dto : aList) {
+				System.out.println("제목 : " + dto.getBname());
+			}
+			
 			mav.addObject("currentPage", currentPage);
 			mav.addObject("pdto", pdto);
 			mav.addObject("noticeList", aList);
 		}
 		
 		mav.setViewName("noticeList");
-	
+		
 		return mav;
-	}//end noticeList()
+	}
 	
 	
 	@RequestMapping("/noticeView.kh")
 	public ModelAndView noticeView(int nnum, int currentPage) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("currentPage", currentPage);
+		mav.addObject("popular", nservice.popularPost());
 		mav.addObject("noticeView", nservice.noticeViewPro(nnum)); //List<NoticeDTO>
 		mav.setViewName("noticeView");
 		return mav;
@@ -85,6 +136,7 @@ public class NoticeController {
 	@RequestMapping("/noticeWrite.kh")
 	public ModelAndView noticeWrite() {
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("popular", nservice.popularPost());
 		mav.setViewName("noticeWrite");
 		return mav;
 	}
@@ -93,7 +145,7 @@ public class NoticeController {
 	public @ResponseBody List<NoticeDTO> noticeWritePro(NoticeDTO ndto, HttpServletRequest req, PageDTO pv) {
 		
 		List<MultipartFile> files = ndto.getFilename();
-		List<UploadDTO> uList = new ArrayList<UploadDTO>();
+		uList = new ArrayList<UploadDTO>();
 		
 		if(files != null) {
 			for(MultipartFile file : files) {
@@ -147,7 +199,88 @@ public class NoticeController {
 	}//end noticeDelete()
 	
 	
-	//@RequestMapping("/noticeUpdate.kh")
+	@RequestMapping("/noticeUpdate.kh")
+	public ModelAndView noticeUpdate(int nnum, UploadDTO udto) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("updateList", nservice.noticeUpdateNum(nnum));
+		mav.addObject("uploadList", nservice.uploadList(udto));
+		mav.addObject("popular", nservice.popularPost());
+		mav.setViewName("noticeUpdateForm");
+		
+		return mav;
+	}
 	
+	
+	@RequestMapping("/noticeUpdatePro.kh")
+	public @ResponseBody List<NoticeDTO> noticeUpdatePro(NoticeDTO ndto, UploadDTO udto, HttpServletRequest req, PageDTO pv) {
+		
+		List<MultipartFile> files = ndto.getFilename();
+		uList = new ArrayList<UploadDTO>();
+		
+		if(files != null) {
+			for(MultipartFile file : files) {
+				String fileName = file.getOriginalFilename();
+				System.out.println("파일 이름 : " + fileName);
+				UUID random = UUID.randomUUID();
+				File fe = new File(path);
+				if(!fe.exists()) {
+					fe.mkdirs();
+				}
+				File ff = new File(path, random + "_" + fileName);
+				
+				try {
+					FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(ff));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				uList.add(new UploadDTO(random+"_"+fileName));
+			}
+			
+			ndto.setuList(uList);
+			
+		}
+		
+		System.out.println("수정 게시글 번호 : " + ndto.getNnum());
+		
+		nservice.noticeUpdatePro(ndto);
+		
+		return nservice.noticeListPro(pv);
+		
+	}//end noticeUpdatePro()
+	
+	
+	@RequestMapping("/noticeDownload.kh")
+	public ModelAndView download(String upname, String path) {
+		String fullPath = path + "\\" + upname;
+		System.out.println("fullPath : " + fullPath);
+		
+		File file = new File(fullPath);
+		
+		return new ModelAndView("download", "downloadFile", file);
 
+	}//end download
+	
+	
+	@RequestMapping("/fileDelete.kh")
+	public @ResponseBody void fileDelete(int upno) {
+		System.out.println(upno);
+		nservice.fileDelete(upno);
+	}//end fileDelete
+	
+	
+	@RequestMapping("/noticeKeyword.kh")
+	public @ResponseBody List<NoticeDTO> search(String bname) {
+
+		System.out.println("키워드 : " + bname);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("searchList", nservice.search(bname));
+		mav.addObject("bname", bname);
+		
+		return nservice.search(bname);
+		
+	}
+	
+	
 }//end class

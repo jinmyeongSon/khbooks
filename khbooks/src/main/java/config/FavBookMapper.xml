@@ -22,6 +22,11 @@
 	
 	<delete id="delete" parameterType="map">
 		delete from Fav_Book  where bno=#{bno} AND id=#{id}
+
+	</delete>
+	<delete id="deleteFb" parameterType="map">
+		delete from Fav_Book  where id=#{id} and bno=#{bno}  
+
 	</delete>
 	
 	<select id="count" parameterType="string" resultType="int">

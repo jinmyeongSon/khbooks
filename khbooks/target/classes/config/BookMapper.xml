@@ -140,13 +140,23 @@
 	</select>
 	
 	<select id="serialList" parameterType="int" resultType="dto.SerialDTO">
-		select upno, stitle from serial
+		select upno, stitle, scontent from serial
 		where bno=#{bno}
 		order by upno desc
 	</select>
 	
 	<select id="genreList" resultType="dto.GenreDTO">
 		select * from genre order by gno
+	</select>
+	
+	<select id="authorBook" parameterType="java.util.Map" resultType="dto.BookDTO">
+		select rownum, c.*
+		from(select rownum as rm, a.*
+		from(select b.bno, b.bname, b.gno
+		from  book b, book_author ba
+		where ba.auno = #{auno}
+		and b.bno=ba.bno and b.bno!=#{bno})a)c
+		<![CDATA[where c.rm>=1 and c.rm <=3 ]]>
 	</select>
 
 </mapper>

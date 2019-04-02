@@ -14,10 +14,20 @@
 		board_comment 
 		where bonum=#{bonum} order by bcno desc
 	</select>
+	
+	<select id="recent" resultType="dto.ReplyDTO">
+	<![CDATA[
+		select rownum, b.*
+		from (select rownum as rm, a.*
+              from(select * from board_comment order by bcdate desc)a)b
+        where b.rm <= 3   
+    ]]>       
+	</select>
+	
 
 	<insert id="insert" parameterType="dto.ReplyDTO">
 		insert into board_comment
-		values(comment_seq.nextval,#{bonum},#{id},#{bctext},#{bcstep},#{bclevel},#{bcfor},sysdate)
+		values(comment_seq.nextval,#{bonum},#{id},#{bctext},sysdate)
 	</insert>
 	
 	<delete id="delete" parameterType="int" >

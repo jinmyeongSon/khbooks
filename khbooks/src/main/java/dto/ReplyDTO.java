@@ -7,9 +7,6 @@ public class ReplyDTO { //게시판 댓글
 	private int bcno; //댓글 번호
 	private String id;
 	private String bctext;
-	private int bcstep; //댓글 간 순서
-	private int bclevel; // 댓글 계층 댓글=1, 대댓=2 ...
-	private int bcfor; //ref
 	private Date bcdate;
 	
 	public ReplyDTO() {
@@ -46,30 +43,6 @@ public class ReplyDTO { //게시판 댓글
 
 	public void setBctext(String bctext) {
 		this.bctext = bctext;
-	}
-
-	public int getBcstep() {
-		return bcstep;
-	}
-
-	public void setBcstep(int bcstep) {
-		this.bcstep = bcstep;
-	}
-
-	public int getBclevel() {
-		return bclevel;
-	}
-
-	public void setBclevel(int bclevel) {
-		this.bclevel = bclevel;
-	}
-
-	public int getBcfor() {
-		return bcfor;
-	}
-
-	public void setBcfor(int bcfor) {
-		this.bcfor = bcfor;
 	}
 	
 	public Date getBcdate() {

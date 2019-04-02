@@ -2,18 +2,27 @@ package dto;
 
 import java.sql.Date;
 import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 public class BookDTO {
 	private int bno;
 	private String bname;
 	private int gno;
 	private Date bupdate;
-	private int bgrade;
+	private float bgrade;
 	private int bview;
 	private String bthumb;
 	private String binfo;
 	private List<AuthorDTO> aList;
 	private int count;
+	private MultipartFile file;
+	
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
 	public int getCount() {
 		return count;
 	}
@@ -50,10 +59,10 @@ public class BookDTO {
 	public void setBupdate(Date bupdate) {
 		this.bupdate = bupdate;
 	}
-	public int getBgrade() {
+	public float getBgrade() {
 		return bgrade;
 	}
-	public void setBgrade(int bgrade) {
+	public void setBgrade(float bgrade) {
 		this.bgrade = bgrade;
 	}
 	public int getBview() {
@@ -74,6 +83,7 @@ public class BookDTO {
 	public void setBinfo(String binfo) {
 		this.binfo = binfo;
 	}
+
 	
 	
 }

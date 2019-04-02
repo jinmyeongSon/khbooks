@@ -2,6 +2,8 @@ package dto;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class SerialDTO {
 	private int upno;
 	private int bno;
@@ -9,10 +11,16 @@ public class SerialDTO {
 	private String scontent;
 	private int sprice;
 	private int ncount;
-	private int auno;
 	private String stitle;
-	private int sgrade;
+	private float sgrade;
+	private MultipartFile filename;
 	
+	public MultipartFile getFilename() {
+		return filename;
+	}
+	public void setFilename(MultipartFile filename) {
+		this.filename = filename;
+	}
 	public int getUpno() {
 		return upno;
 	}
@@ -49,22 +57,16 @@ public class SerialDTO {
 	public void setNcount(int ncount) {
 		this.ncount = ncount;
 	}
-	public int getAuno() {
-		return auno;
-	}
-	public void setAuno(int auno) {
-		this.auno = auno;
-	}
 	public String getStitle() {
 		return stitle;
 	}
 	public void setStitle(String stitle) {
 		this.stitle = stitle;
 	}
-	public int getSgrade() {
+	public float getSgrade() {
 		return sgrade;
 	}
-	public void setSgrade(int sgrade) {
+	public void setSgrade(float sgrade) {
 		this.sgrade = sgrade;
 	}
 }

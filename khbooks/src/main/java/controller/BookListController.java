@@ -4,13 +4,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import dto.BookDTO;
 import dto.BookPageDTO;
 import service.BookService;
+import service.FavBookService;
 import twitter4j.*;
 //http://localhost:8090/khbook/bookMain.kh
 
@@ -18,14 +23,20 @@ import twitter4j.*;
 @Controller
 public class BookListController {
 	BookService service;
+	FavBookService fbservice;
+
 	
 	public void setService(BookService service) {
 		this.service = service;
 	}
 	
+	public void setFbservice(FavBookService fbservice) {
+		this.fbservice = fbservice;
+	}
 	
 	
-	@RequestMapping(value="/bookMain.kh", method=RequestMethod.GET)
+	
+	@RequestMapping(value="/bookMain.kh")
 	public ModelAndView bookMain(BookPageDTO pdto) {
 		ModelAndView mav = new ModelAndView();
 		BookPageDTO dto = null;
@@ -66,11 +77,19 @@ public class BookListController {
 	}
 	
 	@RequestMapping(value="/bookDetail.kh", method=RequestMethod.GET)
-	public ModelAndView bookDetail(int bno) {
+	public ModelAndView bookDetail(int bno, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("book", service.bookDetailProcess(bno));
 		mav.addObject("genre", service.getBookGenreProcess(bno));
 		mav.addObject("serial", service.getSerialListProcess(bno));
+		if(session.getAttribute("id")!=null) {
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("id", session.getAttribute("id"));
+			map.put("bno", bno);
+			mav.addObject("fbchk", fbservice.searchprocess(map));
+		}else {
+			mav.addObject("fbchk", 0);
+		}
 		mav.setViewName("bookDetail");
 		return mav;
 	}
@@ -110,5 +129,38 @@ public class BookListController {
 		mav.setViewName("bookSearch");
 		return mav;
 	}
+	
+	@RequestMapping(value="/twitterGet.kh")
+	public @ResponseBody List<Status> twitterGet() {
+	List<Status> tweet = null;
+    try {
+        Twitter twitter = TwitterFactory.getSingleton();
+        Paging page = new Paging (1, 5);
+        tweet = twitter.getUserTimeline(page);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    
+    return tweet;
+    }
+	
+
+	@RequestMapping(value="/bookGet.kh", method=RequestMethod.GET)
+	public @ResponseBody List<BookDTO> bookGet() {
+		BookPageDTO dto = null;
+		int totalCount = 0;
+		int sortKey = 1;
+		int currentPage = 1;
+
+		totalCount = service.getBookCountProcess();
+		dto = new BookPageDTO(currentPage, totalCount, 0, sortKey, "", 12);
+		
+		return service.bookListProcess(dto);
+	}
+	
+	
+	
+
 
 }

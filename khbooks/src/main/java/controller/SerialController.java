@@ -9,11 +9,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import dto.BookDTO;
 import dto.ReviewCommentDTO;
 import dto.SerialDTO;
 import service.SerialService;
@@ -34,10 +38,13 @@ public class SerialController {
 	@RequestMapping(value="/insertComment.kh")
 	public @ResponseBody List<ReviewCommentDTO> insertComment(ReviewCommentDTO rdto){
 		service.insertReviewCommentProcess(rdto);
-		
-		
 		return service.getReviewCommentProcess(rdto.getUpno());
-		
+	}
+	
+	@RequestMapping(value="/deleteComment.kh")
+	public @ResponseBody List<ReviewCommentDTO> deleteComment(ReviewCommentDTO rdto){
+		service.deleteReviewCommentProcess(rdto);
+		return service.getReviewCommentProcess(rdto.getUpno());
 	}
 	
 	@RequestMapping(value="/serialMove.kh")
@@ -117,5 +124,68 @@ public class SerialController {
 		mav.setViewName("serialView");
 		return mav;
 	}
+	
+	@RequestMapping("gradeCheck.kh")
+	public @ResponseBody int gradeCheck(int bno, int rm, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bno", bno);
+		map.put("rm", rm);
+		SerialDTO sdto = service.getSerialProcess(map);
+		map.put("upno", sdto.getUpno());
+		map.put("id", session.getAttribute("id"));
+		return service.gradeCheckProcess(map);
+	}
+	
+	@RequestMapping("gradeInsert.kh")
+	public void gradeInsert(int bno, int rm, int grade, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bno", bno);
+		map.put("rm", rm);
+		SerialDTO sdto = service.getSerialProcess(map);
+		map.put("upno", sdto.getUpno());
+		map.put("id", session.getAttribute("id"));
+		map.put("grade", grade);
+		service.gradeInsertProcess(map);
+	}
+	
+	@RequestMapping("gradeUpdate.kh")
+	public void gradeUpdate(int bno, int rm, int grade, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bno", bno);
+		map.put("rm", rm);
+		SerialDTO sdto = service.getSerialProcess(map);
+		map.put("upno", sdto.getUpno());
+		map.put("id", session.getAttribute("id"));
+		map.put("grade", grade);
+		service.gradeUpdateProcess(map);
+	}
+	
+	@RequestMapping("bookInfo.kh")
+	public @ResponseBody BookDTO bookInfo(int bno) {
+		return service.bookInfoProcess(bno);
+	}
+	
+	@RequestMapping("authorBook.kh")
+	public @ResponseBody List<BookDTO> authorBook(int auno, int bno) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bno", bno);
+		map.put("auno", auno);
+		return service.authorBookProcess(map);
+	}
+	
+	@RequestMapping(value="/serialNumGet.kh")
+	public @ResponseBody int serialNumGet(int bno, int upno) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bno", bno);
+		map.put("upno", upno);
+
+		return service.getSerialMyCountProcess(map);
+	}
+	
+	@RequestMapping(value="/getAllComment.kh")
+	public @ResponseBody List<ReviewCommentDTO> getAllComment(){
+		return service.getAllReviewCommentProcess();
+	}
+	
 
 }
