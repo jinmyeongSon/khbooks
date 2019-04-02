@@ -26,7 +26,7 @@ div::-webkit-scrollbar {
 #novel {
 	width: 65%;
 	height: 650px;
-	margin-left: 15px;
+	margin-left: 22px;
 	padding: 10px;
 	float: left;
 	border: 2px solid #a9a9a9;
@@ -76,6 +76,7 @@ div::-webkit-scrollbar {
         <div class="span4 sidebar page-sidebar" style="display:none;" id="serial-sidebar"><!-- Begin sidebar column -->
 
             <!--Latest News-->
+            <div style="height: 10px;"></div>
             <h5 class="title-bg">현재 보고 있는 작품</h5>
             <ul class="popular-posts" id="bookInfo">
                 <li style="border-bottom: 0px solid;">
@@ -125,7 +126,7 @@ div::-webkit-scrollbar {
 					<p id="context">${sdto.scontent}</p>
 					
 				</div>
-				<div style="width: 23%; height: 300px; margin-left:30px; float: left; border: 2px solid #333333; padding:2px;">
+				<div style="width: 22%;height: 270px;margin-left:23px;float: left;border: 2px solid #ddd;padding: 2px;padding-top: 6px;border-radius: 15px;background-color: #f5f5f5;">
             		<div align="center" id="secnt" style="font-size:20px; margin-top:5px; margin-bottom: 8px;">${myCount} / ${totalCount}</div>
             		<div align="center">
             			<select style="width: 40%;" id="sesel">
@@ -160,8 +161,8 @@ div::-webkit-scrollbar {
             			<a href="bookDetai	l.kh?bno=${sdto.bno}"><button class="btn" id="prev" style="width:24%; padding:3px;"><img class="btn-img" style="width:auto; max-height: 100%;" src="img/book-main.png" ></button></a>
             			<button class="btn" id="next" style="width:24%;"><img class="btn-img" src="img/right_icon.png"></button>
             		</div>
-            		<div align="center"><button class="btn" id="add">나의 서재에 추가</button></div>
-            		<div align="center" style="margin-top: -1px; width:72%"><a href="favBookList.kh" id="myBook"><button class="btn" id="add">서재로 이동</button></a></div>
+            		<div align="center"><button class="btn" id="serialview-btn" style="width: 72%;">작품 정보 보기</button></div>
+            		<div align="center" style="margin-top: -1px;" ><button class="btn" id="fbgo" style="width: 72%;">나의 관심 작품 </button></div>
 				</div>
 			</div>
             
@@ -216,6 +217,7 @@ var rm='';
 var totalCount='';
 var id ='';
 var sGrade = '';
+var sideShow = 0;
 
 $(document).ready(function(){
 	bno=${bno};
@@ -223,6 +225,8 @@ $(document).ready(function(){
 	totalCount=${totalCount};
 	id='${sessionScope.id}';
 	sGrade=${sdto.sgrade};
+	
+	$(document).scrollTop(200);
 	
 	$.ajax({
 		type : 'GET',
@@ -275,7 +279,7 @@ $(document).ready(function(){
 	$('#gradebtn').on('click', function() {
 		if(id == ''){
 			alert('로그인 후 이용 가능합니다.');
-			href.location='loginForm.kh';
+			location.href='loginForm.kh';
 		}else {
 			$.ajax({
 				type : 'GET',
@@ -292,6 +296,27 @@ $(document).ready(function(){
 	$(document).on('click', '.timeline button', reply_delete);
 	
 	$("#sGradeBar").attr('style','width:'+sGrade*20+'%');	
+	
+	$("#serialview-btn").on("click",function(){
+		if($(this).text()=="작품 정보 보기"){
+			$("#serial-sidebar").attr("style","");
+			$("#blank").attr("style","display:none");
+			$(this).html("작품 정보 닫기");
+		}else{
+			$("#serial-sidebar").attr("style","display:none");
+			$("#blank").attr("style","");
+			$(this).html("작품 정보 보기");
+		}
+	})
+	
+	$("#fbgo").on("click",function(){
+		if(id==''){
+			alert("로그인 후 사용할수 있는 기능입니다.")
+			location.href='loginForm.kh';
+		}else{
+			location.href='favBookList.kh';
+		}
+	});
 
 });
 

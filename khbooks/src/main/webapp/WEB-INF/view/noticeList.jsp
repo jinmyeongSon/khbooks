@@ -103,14 +103,9 @@ color : #d8450b;
                 </c:if>	
                 </ul>
             </div>
-        </div>
-
-        <!-- Blog Sidebar
-        ================================================== --> 
-        <div class="span4 sidebar">
-
-            <!--검색 -->
-            <section>
+            
+            
+        <section>
             <form id="searchForm" action="noticeList.kh" method="post">
                 <div class="input-append">
                     <input name="bname" size="16" type="text" placeholder="제목 검색">
@@ -118,33 +113,11 @@ color : #d8450b;
                     <!-- <input type="submit" value="검색"><i class="icon-search"></i> -->
                 </div>
             </form>    
-            </section>
-            
-            
-            <button class="btn" type="button" onclick="javascript:location.href='noticeWrite.kh'"><i>글쓰기</i></button>
-			
-            <!--Categories-->
-            <h5 class="title-bg">카테고리</h5>
-            <ul class="post-category-list">
-                <li><a href="noticeList.kh"><i class="icon-plus-sign"></i>공지사항</a></li>
-                <li><a href="boardList.kh"><i class="icon-plus-sign"></i>자유게시판</a></li>
-            </ul>
-
-            <!--Popular Posts-->
-            <h5 class="title-bg">인기 게시물</h5>
-            <c:forEach items="${popular }" var="p">
-            <ul class="popular-posts">
-                <li>
-                    <a href="noticeView.kh?currentPage=${pdto.currentPage}&nnum=${p.nnum}">${p.bname }</a>
-                    <span id="rc">조회수&#91;${p.ncount}&#93;</span>
-                </li>
-            </ul>
-            </c:forEach>
+        </section>
+        <button class="btn" type="button" onclick="javascript:location.href='noticeWrite.kh'"><i>글쓰기</i></button>
+        
         </div>
-
-    </div>
-    
-    </div> <!-- End Container -->
+        
 
     <!-- Footer Area
         ================================================== -->
