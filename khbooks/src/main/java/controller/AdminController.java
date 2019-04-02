@@ -3,7 +3,9 @@ package controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -19,6 +21,7 @@ import dto.AdminPageDTO;
 import dto.AuthorDTO;
 import dto.BookDTO;
 import dto.GenreDTO;
+import dto.SerialDTO;
 import dto.UserDTO;
 import service.AdminService;
 
@@ -83,7 +86,7 @@ public class AdminController {
 	public String bookInsert(BookDTO dto) {
 		MultipartFile file = dto.getFile();
 		// 첨부파일 경로 수정 필요
-		if(!file.isEmpty()) {
+		if(file != null) {
 			String fileName = file.getOriginalFilename();
 			// 중복파일명 방지 위한 난수 발생
 			UUID random = UUID.randomUUID();
@@ -98,7 +101,7 @@ public class AdminController {
 			// 경로와 파일명 갖는 파일 생성
 			File ff = new File(saveDirectory, random + "_" + fileName);
 			try {
-				// 위 파일에 실제 파일 붙여넣기
+				// 위 파일 위치에 실제 파일 붙여넣기
 				FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(ff));
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -114,7 +117,6 @@ public class AdminController {
 	
 	@RequestMapping("authorInsert.kh")
 	public String authorInsert(AuthorDTO adto) {
-		ModelAndView mav = new ModelAndView();
 		service.authorInsertProcess(adto);
 		return "redirect:/authorList.kh";
 	}
@@ -161,7 +163,10 @@ public class AdminController {
 		}
 		
 		if(adto.getSearchWord() != null && !adto.getSearchWord().equals("")) {
+			System.out.println(adto.getSearchKey());
+			System.out.println(adto.getSearchWord());
 			totalCount = service.getBookSearchCountProcess(adto);
+			System.out.println(totalCount);
 			dto = new AdminPageDTO(currentPage, totalCount, adto.getSearchKey(), adto.getSearchWord());
 			bList = service.getBookSearchProcess(dto);
 		} else {
@@ -208,10 +213,12 @@ public class AdminController {
 	
 	// 책 상세정보
 	@RequestMapping("bookDetailForm.kh")
-	public ModelAndView bookDetailForm(int bno, AdminPageDTO adto) {
+	public ModelAndView bookDetailForm(int bno) {
 		ModelAndView mav = new ModelAndView();
+		List<GenreDTO> gList = service.getGenreListProcess();
+		mav.addObject("gList", gList);
+		mav.addObject("sList", service.getSerialListProcess(bno));
 		mav.addObject("book", service.getBookOneProcess(bno));
-		mav.addObject("adto", adto);
 		mav.setViewName("bookDetailForm");
 		return mav;
 	}
@@ -238,18 +245,82 @@ public class AdminController {
 		return mav;
 	}
 	
-	// 유저 업데이트 폼
+	// 유저 업데이트
 	@RequestMapping("userUpdate.kh")
 	public String userUpdate(UserDTO udto) {
 		service.userUpdateProcess(udto);
 		return "redirect:/userList.kh";
 	}
 	
-	// author 업데이트 폼
+	// author 업데이트
 	@RequestMapping("authorUpdate.kh")
 	public String authorUpdate(AuthorDTO adto) {
 		service.authorUpdateProcess(adto);
 		return "redirect:/authorList.kh";
+	}
+	
+	// book 업데이트
+	@RequestMapping("bookUpdate.kh")
+	public String bookUpdate(BookDTO bdto) {
+		MultipartFile file = bdto.getFile();
+		// 첨부파일 경로 수정 필요
+		if(file != null) {
+			String fileName = file.getOriginalFilename();
+			// 중복파일명 방지 위한 난수 발생
+			UUID random = UUID.randomUUID();
+			// 파일 저장될 경로만들기
+			String root = "C:\\temp\\test";
+			//root + "temp/"와 같음
+			String saveDirectory = root+File.separator;
+			// 위의 경로를 갖은 파일 클래스 생성
+			File fe = new File(saveDirectory);
+			if(!fe.exists())
+				fe.mkdir();
+			// 경로와 파일명 갖는 파일 생성
+			File ff = new File(saveDirectory, random + "_" + fileName);
+			try {
+				// 위 파일 위치에 실제 파일 붙여넣기
+				FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(ff));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			// 파일이름저장
+			bdto.setBthumb(random + "_" + fileName);
+		}
+		service.bookUpdateProcess(bdto);
+		return "redirect:/bookDetailForm.kh?bno="+bdto.getBno();
+	}
+
+	// serial 업데이트
+	@RequestMapping("serialUpdate.kh")
+	public String serialUpdate(SerialDTO sdto) {
+		MultipartFile file = sdto.getFilename();
+		// 첨부파일 경로 수정 필요
+		if(file != null) {
+			String fileName = file.getOriginalFilename();
+			// 중복파일명 방지 위한 난수 발생
+			UUID random = UUID.randomUUID();
+			// 파일 저장될 경로만들기
+			String root = "C:\\temp\\test";
+			//root + "temp/"와 같음
+			String saveDirectory = root+File.separator;
+			// 위의 경로를 갖은 파일 클래스 생성
+			File fe = new File(saveDirectory);
+			if(!fe.exists())
+				fe.mkdir();
+			// 경로와 파일명 갖는 파일 생성
+			File ff = new File(saveDirectory, random + "_" + fileName);
+			try {
+				// 위 파일 위치에 실제 파일 붙여넣기
+				FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(ff));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			// 파일이름저장
+			sdto.setScontent(random + "_" + fileName);
+		}
+		service.serialUpdateProcess(sdto);
+		return "redirect:/bookDetailForm.kh?bno="+sdto.getBno();
 	}
 
 	// 유저 delete
@@ -271,6 +342,23 @@ public class AdminController {
 	public String authorDelete(int auno) {
 		service.authorDeleteProcess(auno);
 		return "redirect:/authorList.kh";
+	}
+
+	// serial delete
+	@RequestMapping("serialDelete.kh")
+	public String serialDelete(int bno, int upno) {
+		service.serialDeleteProcess(upno);
+		return "redirect:/bookDetailForm.kh?bno="+bno;
+	}
+	
+	// serial delete
+	@RequestMapping("bookAuthorDelete.kh")
+	public String bookAuthorDelete(int bno, int auno) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bno", bno);
+		map.put("auno", auno);
+		service.bookAuthorDeleteProcess(map);
+		return "redirect:/bookDetailForm.kh?bno="+bno;
 	}
 	
 }

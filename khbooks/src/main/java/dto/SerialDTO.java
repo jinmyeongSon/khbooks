@@ -11,7 +11,6 @@ public class SerialDTO {
 	private String scontent;
 	private int sprice;
 	private int ncount;
-	private int auno;
 	private String stitle;
 	private int sgrade;
 	private MultipartFile filename;
@@ -57,12 +56,6 @@ public class SerialDTO {
 	}
 	public void setNcount(int ncount) {
 		this.ncount = ncount;
-	}
-	public int getAuno() {
-		return auno;
-	}
-	public void setAuno(int auno) {
-		this.auno = auno;
 	}
 	public String getStitle() {
 		return stitle;

@@ -6,8 +6,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta charset="UTF-8">
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <title>KH BOOKs</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="css/adminList.css">
@@ -76,5 +74,11 @@
 			</c:choose>
 		</ul>
     </div>
+    <select style="margin-left: 350px; margin-bottom: 0px; width:100px;" id="searchKey" name="searchKey">
+	    	<option value="auname">이름</option>
+	    	<option value="auintro">소개글</option>
+	</select>
+	<input style="margin-bottom: 0px;" type="text" id="searchWord" name="searchWord" placeholder="검색어 입력" />
+	<button id="authorSearch">검색</button>
 </body>
 </html>

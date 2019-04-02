@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="css/custom-styles.css">
 <style  type="text/css">
 ul::-webkit-scrollbar { 
-    display: none; 
+    display: none;
 }
 </style>
 

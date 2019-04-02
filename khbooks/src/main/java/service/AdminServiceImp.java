@@ -1,12 +1,14 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 
 import dao.AdminDAO;
 import dto.AdminPageDTO;
 import dto.AuthorDTO;
 import dto.BookDTO;
 import dto.GenreDTO;
+import dto.SerialDTO;
 import dto.UserDTO;
 
 public class AdminServiceImp implements AdminService {
@@ -141,4 +143,33 @@ public class AdminServiceImp implements AdminService {
 		dao.authorDelete(auno);
 	}
 
+	@Override
+	public String getBookGenreProcess(int bno) {
+		return dao.getBookGenre(bno);
+	}
+
+	@Override
+	public List<SerialDTO> getSerialListProcess(int bno) {
+		return dao.getSerialList(bno);
+	}
+
+	@Override
+	public void serialDeleteProcess(int upno) {
+		dao.serialDelete(upno);
+	}
+
+	@Override
+	public void serialUpdateProcess(SerialDTO sdto) {
+		dao.serialUpdate(sdto);
+	}
+
+	@Override
+	public void bookUpdateProcess(BookDTO bdto) {
+		dao.bookUpdate(bdto);
+	}
+
+	@Override
+	public void bookAuthorDeleteProcess(Map<String, Object> map) {
+		dao.bookAuthorDelete(map);
+	}
 }

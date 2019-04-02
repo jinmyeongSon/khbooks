@@ -32,28 +32,28 @@
 	</select>
 	
 	<select id="userSearchCount" parameterType="dto.AdminPageDTO" resultType="int">
-		select count(*) from kh_user where #{searchKey} like '%' || #{searchWord} || '%'
+		select count(*) from kh_user where ${searchKey} like '%' || #{searchWord} || '%'
 	</select>
 	
 	<select id="userSearch" parameterType="dto.AdminPageDTO" resultType="dto.UserDTO">
 		select rownum, b.*
 		from(select rownum as rm, a.*
 		from(select * from kh_user 
-		where #{searchKey} like '%' || #{searchWord} || '%'
+		where ${searchKey} like '%' || #{searchWord} || '%'
 		order by id
 		)a)b
 		<![CDATA[where b.rm>=#{startRow} and b.rm <=#{endRow}]]>
 	</select>
 	
 	<select id="bookSearchCount" parameterType="dto.AdminPageDTO" resultType="int">
-		select count(*) from book where #{searchKey} like '%' || #{searchWord} || '%'
+		select count(*) from book where ${searchKey} like '%' || #{searchWord} || '%'
 	</select>
 	
 	<select id="bookSearch" parameterType="dto.AdminPageDTO" resultType="dto.BookDTO">
 		select rownum, b.*
 		from(select rownum as rm, a.*
 		from(select * from book 
-		where #{searchKey} like '%' || #{searchWord} || '%'
+		where ${searchKey} like '%' || #{searchWord} || '%'
 		order by bno
 		)a)b
 		<![CDATA[where b.rm>=#{startRow} and b.rm <=#{endRow}]]>
@@ -111,8 +111,10 @@
 		update book 
 		set bname=#{bname}
 		, gno=#{gno}
-		, bthumb=#{bthumb}
 		, binfo=#{binfo}
+		<if test="bthumb != null">
+			, bthumb=#{bthumb}
+		</if>
 		where bno=#{bno}
 	</update>
 	
@@ -128,14 +130,14 @@
 	</select>
 	
 	<select id="authorSearchCount" parameterType="dto.AdminPageDTO" resultType="int">
-		select count(*) from author where #{searchKey} like '%' || #{searchWord} || '%' order by auno
+		select count(*) from author where ${searchKey} like '%' || #{searchWord} || '%' order by auno
 	</select>
 	
 	<select id="authorSearch" parameterType="dto.AdminPageDTO" resultType="dto.AuthorDTO">
 		select rownum, b.*
 		from(select rownum as rm, a.*
 		from(select * from author 
-		where #{searchKey} like '%' || #{searchWord} || '%'
+		where ${searchKey} like '%' || #{searchWord} || '%'
 		)a)b
 		<![CDATA[where b.rm>=#{startRow} and b.rm <=#{endRow}]]>
 	</select>
@@ -161,6 +163,36 @@
 		insert into book values(book_bno_seq.nextval, #{bname}, #{gno}, sysdate, 0, 0, #{bthumb}, #{binfo})
 	</insert>
 	
+	<delete id="serialDelete" parameterType="int">
+		delete serial where upno=#{upno}
+	</delete>
+	
+	<select id="getContent" parameterType="int" resultType="string">
+		select scontent from serial where upno=#{upno}
+	</select>
+	
+	<update id="serialUpdate" parameterType="dto.SerialDTO">
+		update serial
+		set 
+		<choose>
+			<when test="stitle != null and scontent != null">
+				stitle=#{stitle}, scontent=#{scontent}
+			</when>
+			<when test="stitle != null">
+				stitle=#{stitle}
+			</when>
+			<otherwise>
+				scontent=#{scontent}
+			</otherwise>
+		</choose>
+		where upno=#{upno}
+	</update>
+	
+	<delete id="baDelete" parameterType="map">
+		delete from book_author
+		where bno = #{bno}
+		and auno = #{auno}
+	</delete>
 </mapper>
 
 

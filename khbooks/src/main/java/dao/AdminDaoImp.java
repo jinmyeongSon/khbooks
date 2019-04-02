@@ -1,15 +1,22 @@
 package dao;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import dto.AdminPageDTO;
 import dto.AuthorDTO;
 import dto.BookDTO;
 import dto.GenreDTO;
+import dto.SerialDTO;
 import dto.UserDTO;
 
 public class AdminDaoImp implements AdminDAO {
@@ -146,4 +153,46 @@ public class AdminDaoImp implements AdminDAO {
 		sqlSession.delete("admin.authorDelete", auno);
 	}
 
+	@Override
+	public String getBookGenre(int bno) {
+		return sqlSession.selectOne("book.bookGenre", bno);
+	}
+
+	@Override
+	public List<SerialDTO> getSerialList(int bno) {
+		return sqlSession.selectList("book.serialList", bno);
+	}
+
+	@Override
+	public void serialDelete(int upno) {
+		String scontent = sqlSession.selectOne("admin.getContent", upno);
+		if(scontent != null) {
+			File oldFile = new File("C:\\temp\\test", scontent);
+			oldFile.delete();
+		}
+		sqlSession.delete("admin.serialDelete", upno);
+	}
+
+	@Override
+	public void serialUpdate(SerialDTO sdto) {
+		if(sdto.getScontent() != null) {
+			String scontent = sqlSession.selectOne("admin.getContent", sdto.getUpno());
+			if(scontent != null) {
+				File oldFile = new File("C:\\temp\\test", scontent);
+				oldFile.delete();
+			}
+		}
+		sqlSession.update("admin.serialUpdate", sdto);
+	}
+
+	@Override
+	public void bookUpdate(BookDTO bdto) {
+		sqlSession.update("admin.bookUpdate", bdto);
+	}
+
+	@Override
+	public void bookAuthorDelete(Map<String, Object> map) {
+		sqlSession.delete("admin.baDelete", map);
+	}
+	
 }

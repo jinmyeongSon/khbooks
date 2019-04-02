@@ -140,7 +140,7 @@
 	</select>
 	
 	<select id="serialList" parameterType="int" resultType="dto.SerialDTO">
-		select upno, stitle from serial
+		select upno, stitle, scontent from serial
 		where bno=#{bno}
 		order by upno desc
 	</select>

@@ -4,12 +4,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta charset="UTF-8">
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <title>KH BOOKs</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="css/adminList.css">
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -84,5 +80,12 @@
 			</c:choose>
 		</ul>
     </div>
+    <select style="margin-left: 350px; margin-bottom: 0px; width:100px;" id="searchKey" name="searchKey">
+	    	<option value="id">아이디</option>
+	    	<option value="uname">이름</option>
+	    	<option value="uemail">이메일</option>
+	</select>
+	<input style="margin-bottom: 0px;" type="text" id="searchWord" name="searchWord" placeholder="검색어 입력" />
+	<button id="userSearch">검색</button>
 </body>
 </html>

@@ -1,11 +1,13 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import dto.AdminPageDTO;
 import dto.AuthorDTO;
 import dto.BookDTO;
 import dto.GenreDTO;
+import dto.SerialDTO;
 import dto.UserDTO;
 
 public interface AdminDAO {
@@ -57,5 +59,17 @@ public interface AdminDAO {
 	public void bookDelete(int bno);
 
 	public void authorDelete(int auno);
+	
+	public String getBookGenre(int bno);
+	
+	public List<SerialDTO> getSerialList(int bno);
+
+	public void serialDelete(int upno);
+
+	public void serialUpdate(SerialDTO sdto);
+
+	public void bookUpdate(BookDTO bdto);
+
+	public void bookAuthorDelete(Map<String, Object> map);
 
 }

@@ -1,11 +1,13 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 
 import dto.AdminPageDTO;
 import dto.AuthorDTO;
 import dto.BookDTO;
 import dto.GenreDTO;
+import dto.SerialDTO;
 import dto.UserDTO;
 
 public interface AdminService {
@@ -57,5 +59,17 @@ public interface AdminService {
 	public void bookDeleteProcess(int bno);
 
 	public void authorDeleteProcess(int auno);
+	
+	public String getBookGenreProcess(int bno);
+	
+	public List<SerialDTO> getSerialListProcess(int bno);
+
+	public void serialDeleteProcess(int upno);
+
+	public void serialUpdateProcess(SerialDTO sdto);
+
+	public void bookUpdateProcess(BookDTO bdto);
+
+	public void bookAuthorDeleteProcess(Map<String, Object> map);
 
 }
