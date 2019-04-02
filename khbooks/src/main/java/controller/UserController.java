@@ -174,10 +174,11 @@ public class UserController {
 	}*/
 	
 	@RequestMapping(value="/logout.kh")
-	public ModelAndView logoutChk(HttpSession session) {
-
+	public ModelAndView logoutChk(HttpSession session,HttpServletRequest req) {
+		ModelAndView mav = new ModelAndView();
+		String path = (String)req.getHeader("Referer");
+		mav.setViewName("redirect:"+path);
 		session.invalidate();		
-		ModelAndView mav= new ModelAndView("redirect:/mainpage.kh");
 		return mav;
 	}
 	

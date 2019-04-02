@@ -125,36 +125,43 @@ div::-webkit-scrollbar {
 					<p id="context">${sdto.scontent}</p>
 					
 				</div>
-				<div style="width: 25%; height: 300px; margin-left:30px; float: left; border: 2px solid black;">
-            		<div align="center" id="secnt">${myCount} / ${totalCount}</div>
+				<div style="width: 23%; height: 300px; margin-left:30px; float: left; border: 2px solid #333333; padding:2px;">
+            		<div align="center" id="secnt" style="font-size:20px; margin-top:5px; margin-bottom: 8px;">${myCount} / ${totalCount}</div>
             		<div align="center">
-            			<select style="width: 30%;" id="sesel">
+            			<select style="width: 40%;" id="sesel">
             				<c:forEach begin="1" end="${totalCount}" var="i">
             					<c:choose>
             						<c:when test="${i == myCount}">
-            							<option value="${i}" selected="selected">${i}</option>
+            							<option value="${i}" selected="selected">${i}화</option>
             						</c:when>
             						<c:otherwise>
-            							<option value="${i}">${i}</option>
+            							<option value="${i}">${i}화</option>
             						</c:otherwise>
             					</c:choose>
             				</c:forEach>
-            			</select>
-            			<button class="btn btn-mini" style="margin-bottom: 8px;" id="go">GO</button>
+            			</select> 
+            				<button class="btn" style="margin-bottom: 9px;" id="go">GO</button>
             		</div>
             		<div align="center">
-            			<select style="width: 30%;" id="gradesel">
-            					<option selected="selected">5</option>
-            					<option>4</option>
-            					<option>3</option>
-            					<option>2</option>
-            					<option>1</option>
+            			<select style="width: 72%; margin-bottom: -1px;" id="gradesel">
+            					<option selected="selected" value="5">★★★★★</option>
+            					<option value="4">★★★★☆</option>
+            					<option value="3">★★★☆☆</option>
+            					<option value="2">★★☆☆☆</option>
+            					<option value="1">★☆☆☆☆</option>
             			</select>
-            			<button class="btn btn-mini" style="margin-bottom: 8px;" id="gradebtn">별점 주기</button>
             		</div>
-            		<div align="center"><button class="btn btn-mini" id="prev">이전화</button><button class="btn btn-mini" id="next">다음화</button></div>
-            		<div align="center"><button class="btn btn-mini" id="add">나의 서재에 추가</button></div>
-            		<div align="center"><a href="favBookList.kh" id="myBook">나의 서재로 이동하기</a></div>
+            		<div align="center">
+            			<button class="btn" style="margin-top:0px; margin-bottom: 10px; width: 72%;" id="gradebtn">별점</button>
+            		</div>
+            		
+            		<div align="center" style="margin-bottom: 13px;">
+            			<button class="btn" id="prev" style="width:24%;"><img class="btn-img" style="width:auto; max-height: 100%;;" src="img/left_icon.png"></button>
+            			<a href="bookDetai	l.kh?bno=${sdto.bno}"><button class="btn" id="prev" style="width:24%; padding:3px;"><img class="btn-img" style="width:auto; max-height: 100%;" src="img/book-main.png" ></button></a>
+            			<button class="btn" id="next" style="width:24%;"><img class="btn-img" src="img/right_icon.png"></button>
+            		</div>
+            		<div align="center"><button class="btn" id="add">나의 서재에 추가</button></div>
+            		<div align="center" style="margin-top: -1px; width:72%"><a href="favBookList.kh" id="myBook"><button class="btn" id="add">서재로 이동</button></a></div>
 				</div>
 			</div>
             
@@ -301,7 +308,7 @@ function grade_check_complete(res) {
 			}
 		});
 	} else{
-		var check = confirm('수정하시겠습니까?');
+		var check = confirm('변경하시겠습니까?');
 		if(check){
 			$.ajax({
 				type : 'GET',
@@ -309,10 +316,11 @@ function grade_check_complete(res) {
 				url : 'gradeUpdate.kh',
 				data : 'bno=' + bno + '&rm=' + rm + '&grade=' + grade,
 				success : function(res) {
-					alert('입력 완료');
+					alert('변경 완료');
 				}
 			});
 		}else{
+			alert("취소되었습니다.")
 			return;
 		}
 	}
