@@ -39,7 +39,51 @@ ul::-webkit-scrollbar {
 <script src="js/jquery.prettyPhoto.js"></script>
 <script src="js/jquery.quicksand.js"></script>
 <script src="js/jquery.custom.js"></script>
-<title>Insert title here</title>
+<script type="text/javascript">
+var bno = ${book.bno};
+var chk = 0;
+var id = '';
+
+
+ 	$(document).on('click','#favBook-btn',function(){
+		chk = $(this).attr('value');
+		alert(chk);
+		bno=${book.bno};
+		id='${sessionScope.id}';
+		if(id==''){
+			alert('로그인후 사용할수 있는 기능입니다.');
+			return;
+		}
+ 		
+ 		if(chk>0){
+ 			$.ajax({
+ 				type : 'GET',
+ 				dataType : 'text',
+ 				url : 'favBookDelete.kh?bno='+bno,
+ 				success : function(){
+ 					$('#favBook-btn').attr('class','btn btn-small');
+ 					$('#favBook-btn').attr('value',0);
+ 					$('#favBook-btn').text('관심 작품 담기');
+ 				}
+ 			})
+ 		}else{
+			$.ajax({
+ 				type : 'GET',
+ 				dataType : 'text',
+ 				url : 'favinsert.kh?bno='+bno,
+ 				success : function(){
+ 					$('#favBook-btn').attr('class','btn btn-small btn-inverse');
+ 					$('#favBook-btn').attr('value',1);
+ 					$('#favBook-btn').text('관심 작품 빼기');
+ 				}
+ 			})
+ 		}
+ 		
+ 	});
+
+</script>
+
+<title>KH BOOKS - ${book.bname}</title>
 </head>
 <body>
 	<div class="color-bar-1"></div>
@@ -69,8 +113,18 @@ ul::-webkit-scrollbar {
                         <li style="padding:5px;"><h6>장르:</h6> ${genre} / <h6>별점:</h6> ${book.bgrade} / <h6>조회수:</h6> ${book.bview}</li>
                         <li style="padding:5px;"><h6>작가:</h6> <c:forEach items="${book.aList}" var="author">${author.auname} </c:forEach></li>
                         <li style="padding:5px;"><h6>최신 연재일:</h6> ${book.bupdate}</li>
-                        <li style="padding:5px; border: 0px;">dfs</li>
-                        <li  style="padding:5px; border: 0px;"><button class="btn btn-small">첫회보기</button></li>
+                        <li  style="padding:5px; margin-top: 30px; border-bottom: 0px solid;">
+                        	<a href="serialView.kh?bno=${book.bno}&rm=1" id="serialFirst"><button class="btn btn-small">첫 화 보기</button></a>
+                        	<c:choose>
+                        		<c:when test="${fbchk==0 || sessionScope.id == ''}">
+                        			<button class="btn btn-small" id="favBook-btn"  value="${fbchk}">관심 작품 담기</button>
+                        		</c:when>
+                        		<c:otherwise>
+                        			<button class="btn btn-small btn-inverse" id="favBook-btn" value="${fbchk}">관심 작품 빼기</button>
+                        		</c:otherwise>
+                        	
+                        	</c:choose>
+                        </li>
                     </ul>
                     <!-- <div style="float:left; width:58%; height: 160px; position:relative;">
                     <button style="position:absolute; bottom:60px; right: 20px;"> aa </button>

@@ -29,8 +29,8 @@ public class BoardController {
 		this.service = service;
 	}
 	
-	@RequestMapping("/boardList.kh")
-	public ModelAndView list(PageDTO pdto) {
+	@RequestMapping(value="/boardList.kh", method=RequestMethod.GET)
+	public ModelAndView list(PageDTO pdto, ReplyDTO rdto) {
 		ModelAndView mav = new ModelAndView();
 		int totalRecord = service.countProcess();
 		//System.out.println("totalRecord : " + totalRecord);
@@ -52,36 +52,83 @@ public class BoardController {
 			
 			mav.addObject("currentPage", currentPage);
 			mav.addObject("pdto", pdto);
-			mav.addObject("aList", aList);	
+			mav.addObject("aList", aList);
+			mav.addObject("popular", service.popularPost());
+			mav.addObject("reply", service.replyRecent());
+			
 		}
 		mav.setViewName("boardList");
 		
 		return mav;
 	}//end list()
 	
+	@RequestMapping(value="/boardList.kh", method=RequestMethod.POST) //제목 검색 메소드
+	public ModelAndView list(PageDTO pv, String bname) {
+		ModelAndView mav = new ModelAndView();
+		
+		if(bname == null) {
+			bname = "";
+		}
+		
+		int totalRecord = service.SearchTotalRecord(bname);
+		System.out.println("검색 총 갯수 : " + totalRecord);
+		
+		if(totalRecord >= 1) {
+			if(pv.getCurrentPage() == 0) {
+				currentPage = 1;
+			} else {
+				currentPage = pv.getCurrentPage();
+			}
+			
+			pdto = new PageDTO(currentPage, totalRecord);
+			List<BoardDTO> aList = service.getSearchList(bname, pdto);
+			for(int i=aList.size(); i>0; i--) {
+				aList.get(aList.size()-i).setReplyCount(service.replyCountProcess(aList.get(aList.size()-i).getBonum()));
+				//System.out.println(service.replyCountProcess(i) + "    " + i);
+			}
+			
+			
+			for(BoardDTO dto : aList) {
+				System.out.println("제목 : " + dto.getBname());
+			}
+			
+			mav.addObject("currentPage", currentPage);
+			mav.addObject("pdto", pdto);
+			mav.addObject("aList", aList);
+			mav.addObject("popular", service.popularPost());
+			mav.addObject("reply", service.replyRecent());
+		}
+		
+		mav.setViewName("boardList");
+		
+		return mav;
+	}
+	
 	
 	@RequestMapping("/boardView.kh")
 	public ModelAndView view(int currentPage, int bonum, ReplyDTO rdto) {
 		ModelAndView mav = new ModelAndView();
 		int commentRecord = service.replyCountProcess(bonum);
+		
 		mav.addObject("commentRecord", commentRecord);
-		//System.out.println("commentRecord : " + commentRecord);
-		
 		mav.addObject("bdto", service.contentProcess(bonum)); //BoardDTO
-		//System.out.println("bdto의 bonum : " + service.contentProcess(bonum).getBonum());
-		
 		mav.addObject("currentPage", currentPage);
-		//System.out.println("currentPage : " + currentPage);
-		
 		mav.addObject("ReplyDTO", service.replyListProcess(rdto)); //댓글 리스트 ReplyDTO
+		mav.addObject("popular", service.popularPost());
+		mav.addObject("reply", service.replyRecent());
 		mav.setViewName("boardView");
 		
 		return mav;
 	}
 	
 	@RequestMapping("/boardWrite.kh")
-	public String boardWrite() {
-		return "boardWrite";
+	public ModelAndView boardWrite() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("popular", service.popularPost());
+		mav.addObject("reply", service.replyRecent());
+		mav.setViewName("boardWrite");
+		
+		return mav;
 	}
 	
 	@RequestMapping("/boardWritePro.kh")
@@ -116,6 +163,8 @@ public class BoardController {
 		mav.addObject("dto", service.updateSelectProcess(bonum));
 		mav.addObject("ReplyDTO", service.replyListProcess(rdto));
 		mav.addObject("currentPage", currentPage);
+		mav.addObject("popular", service.popularPost());
+		mav.addObject("reply", service.replyRecent());
 		mav.setViewName("boardUpdateForm");
 		return mav;
 	}
@@ -130,10 +179,9 @@ public class BoardController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/commentInsert.kh", method=RequestMethod.POST)
+	@RequestMapping(value="/commentInsert.kh", method=RequestMethod.GET)
 	public @ResponseBody List<ReplyDTO> commentInsert(ReplyDTO rdto) {
-		service.replyInsertProcess(rdto);
-		return service.replyListProcess(rdto);
+		return service.replyInsertProcess(rdto);
 	}
 	
 	@RequestMapping(value="/commentUpdate.kh", method=RequestMethod.GET)
@@ -145,7 +193,6 @@ public class BoardController {
 	public @ResponseBody List<ReplyDTO> commentDelete(ReplyDTO rdto) {
 		return service.replyDeleteProcess(rdto);
 	}
-	
-	
+
 	
 }//end class

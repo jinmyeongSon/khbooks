@@ -96,11 +96,11 @@ $(document).ready(function () {
         <div class="span8">
             <div class="flexslider">
               <ul class="slides">
-                <li><a href="gallery-single.htm"><img src="img/gallery/slider-img-1.jpg" alt="slider" /></a></li>
-                <li><a href="gallery-single.htm"><img src="img/gallery/slider-img-1.jpg" alt="slider" /></a></li>
-                <li><a href="gallery-single.htm"><img src="img/gallery/slider-img-1.jpg" alt="slider" /></a></li>
-                <li><a href="gallery-single.htm"><img src="img/gallery/slider-img-1.jpg" alt="slider" /></a></li>
-                <li><a href="gallery-single.htm"><img src="img/gallery/slider-img-1.jpg" alt="slider" /></a></li>
+                <li><a href="gallery-single.htm"><img src="img/main/main1.png" alt="slider" /></a></li>
+                <li><a href="gallery-single.htm"><img src="img/main/main2.jpg" alt="slider" /></a></li>
+                <li><a href="gallery-single.htm"><img src="img/main/main3.jpg" alt="slider" /></a></li>
+                <li><a href="gallery-single.htm"><img src="img/main/main4.jpg" alt="slider" /></a></li>
+                <li><a href="gallery-single.htm"><img src="img/main/main5.png" alt="slider" /></a></li>
               </ul>
             </div>
         </div>
@@ -128,9 +128,9 @@ $(document).ready(function () {
                     <li class="span3 blog-post-item">
                         <div class="blog-post-hover hidden-phone hidden-tablet">
                             <p><a href="bookDetail.kh?bno=${list.bno}" class="clearfix">${list.bname}</a>
-                            posted on 9/01/15<br /> 12 comments<br /> posted in photoshop</p>
+                        최신업로드: ${list.bupdate}   <br />평점 : ${list.bgrade }<br /> 조회수 : ${list.bview}<br /> </p>
                         </div>
-                        <a href="blog-single.htm"><img src="img/gallery/gallery-img-1-4col.jpg" alt="Post Thumb"></a>
+                        <a href="blog-single.htm"><img src="img/bthumb/${list.bthumb }" alt="Post Thumb"></a>
                     </li>
                     </c:forEach>
 

@@ -18,6 +18,35 @@
 		]]>
 	</select>
 	
+	<select id="searchList" parameterType="hashmap" resultType="dto.BoardDTO">
+		<![CDATA[
+	 	select rownum, b.* 
+	 	from (select rownum as rm, a.*
+     		  from(select * from board
+     	]]>	  
+     		  <if test="bname != null">
+     	<![CDATA[	WHERE bname LIKE '%${bname}%'  ]]>
+     		  </if>
+     	<![CDATA[	  
+     		   order by bonum desc)a)b
+     	where b.rm>=#{startRow} and b.rm<=#{endRow}
+		]]>
+	</select>
+	
+	<select id="searchCount" parameterType="hashmap" resultType="int">
+		select count(*) from board
+		where bname like '%${bname}%'
+	</select>
+	
+	<select id="popular" resultType="dto.BoardDTO">
+		<![CDATA[
+		select rownum, b.*
+		from (select rownum as rm, a.*
+              from( select * from board order by bcount desc)a)b
+		where b.rm <= 3
+		]]>   
+	</select>
+	
 	<insert id="insert" parameterType="dto.BoardDTO">
 	    insert into	board
 		values(board_seq.nextval,#{id},#{bname},#{btext},sysdate,0)
@@ -44,13 +73,6 @@
 	<delete id="delete" parameterType="int">
 		delete from board where	bonum=#{bonum}
 	</delete>
-	
-	<update id="reStepCount" parameterType="dto.BoardDTO">
-     <![CDATA[
-         update board set re_step=re_step+1 
-         where ref=#{ref} and re_step>#{re_step}
-     ]]>
-	</update>
 	
 	<select id="uploadFile" parameterType="int" resultType="String">
 		select upload from board where num=#{num}

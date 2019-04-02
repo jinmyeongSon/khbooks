@@ -33,6 +33,6 @@ public interface SerialDAO {
 
 	BookDTO bookInfo(int bno);
 
-	List<BookDTO> authorBook(int auno);
+	List<BookDTO> authorBook(Map<String, Object> map);
 	
 }

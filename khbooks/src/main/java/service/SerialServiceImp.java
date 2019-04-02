@@ -70,9 +70,10 @@ public class SerialServiceImp implements SerialService {
 		return dao.bookInfo(bno);
 	}
 
+
 	@Override
-	public List<BookDTO> authorBookProcess(int auno) {
-		return dao.authorBook(auno);
+	public List<BookDTO> authorBookProcess(Map<String, Object> map) {
+		return dao.authorBook(map);
 	}
 
 	@Override

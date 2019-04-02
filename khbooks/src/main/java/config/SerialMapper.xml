@@ -11,6 +11,12 @@
 		where a.rm=#{rm} 
 	</select>
 	
+	<update id="serialCountUp" parameterType="int">
+		update serial
+		set ncount = ncount+1
+		where upno=#{upno}
+	</update>
+	
 	<select id="count" parameterType="int" resultType="int">
 		select count(upno) from serial where bno=#{bno}
 	</select>
@@ -79,6 +85,10 @@
 				)a
 			)b
 		<![CDATA[where rm<=5]]>
+	</select>
+	
+	<select id="getBookCount" resultType="int" parameterType="int">
+		select bgrade from book where bno=#{bno}
 	</select>
 
 </mapper>

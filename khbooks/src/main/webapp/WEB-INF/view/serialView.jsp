@@ -19,8 +19,22 @@
 <link rel="stylesheet" href="css/bootstrap-responsive.css">
 <link rel="stylesheet" href="css/custom-styles.css">
 <style type="text/css">
-div::-webkit-scrollbar { 
-    display: none; 
+div::-webkit-scrollbar {
+	display: none;
+}
+
+#novel {
+	width: 65%;
+	height: 650px;
+	margin-left: 15px;
+	padding: 10px;
+	float: left;
+	border: 2px solid #a9a9a9;
+	background-color: #CEFBC9;
+	overflow: scroll;
+	word-wrap: break-word;
+	font-size: 16px;
+	user-select: none;
 }
 </style>
 
@@ -41,6 +55,159 @@ div::-webkit-scrollbar {
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.custom.js"></script>
 
+
+</head>
+
+<body>
+	<div class="color-bar-1"></div>
+    <div class="color-bar-2 color-bg"></div>
+    
+    <div class="container main-container">
+    	<!-- header -->
+    	<jsp:include page="khbooks_header.jsp"></jsp:include>
+ 
+     
+    <!-- Page Content
+    ================================================== --> 
+    <div class="row"><!--Container row-->
+
+        <!-- Page Sidebar
+        ================================================== --> 
+        <div class="span4 sidebar page-sidebar" style="display:none;" id="serial-sidebar"><!-- Begin sidebar column -->
+
+            <!--Latest News-->
+            <h5 class="title-bg">현재 보고 있는 작품</h5>
+            <ul class="popular-posts" id="bookInfo">
+                <li style="border-bottom: 0px solid;">
+                    <a href="#"><img src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post" id="bookImage"></a>
+                    <h6><a href="" id="bookTitle">제목</a></h6>
+                    <h6 id="bookAuthor"></h6>
+                </li>
+            </ul>
+            
+
+            <!--Progress Bars-->
+            <c:set var="sGrade" value="${sdto.sgrade*20}"/>
+            <h5 class="title-bg" style="margin-top:0px;">이번 화 반응 </h5>
+   			<c:choose>
+            	<c:when test="${sGrade<=25}">
+            		<div class="progress progress-danger progress-striped">
+            	</c:when>
+            	<c:when test="${sGrade<=50&&sGrade>25}">
+           			<div class="progress progress-warning progress-striped">
+            	</c:when>
+            	<c:when test="${sGrade<=75&&sGrade>50}">
+           			<div class="progress progress-success progress-striped">
+            	</c:when>
+            	<c:otherwise>
+            		<div class="progress progress-info progress-striped">
+            	</c:otherwise>
+            </c:choose>
+            	<div class="bar" style="" id="sGradeBar"></div>
+            </div> 
+
+        </div><!-- End sidebar column -->
+        
+       	<div class="span2" id="blank" style=""></div>
+       
+        
+
+        <!-- Page Content
+        ================================================== --> 
+        <div class="span8"><!--Begin page content column-->
+
+            <h4 class="title-bg" id="btitle" style="margin-left: 16px; margin-right: 22px;" ></h4>
+
+			<div style="width: 100%;">
+				<div oncontextmenu="return false" id="novel" >
+					<p id="stitle" style="text-align: center; font-size: 20px; font-weight: bold;">${sdto.stitle}</p>
+					<br/>
+					<p id="context">${sdto.scontent}</p>
+					
+				</div>
+				<div style="width: 23%; height: 300px; margin-left:30px; float: left; border: 2px solid #333333; padding:2px;">
+            		<div align="center" id="secnt" style="font-size:20px; margin-top:5px; margin-bottom: 8px;">${myCount} / ${totalCount}</div>
+            		<div align="center">
+            			<select style="width: 40%;" id="sesel">
+            				<c:forEach begin="1" end="${totalCount}" var="i">
+            					<c:choose>
+            						<c:when test="${i == myCount}">
+            							<option value="${i}" selected="selected">${i}화</option>
+            						</c:when>
+            						<c:otherwise>
+            							<option value="${i}">${i}화</option>
+            						</c:otherwise>
+            					</c:choose>
+            				</c:forEach>
+            			</select> 
+            				<button class="btn" style="margin-bottom: 9px;" id="go">GO</button>
+            		</div>
+            		<div align="center">
+            			<select style="width: 72%; margin-bottom: -1px;" id="gradesel">
+            					<option selected="selected" value="5">★★★★★</option>
+            					<option value="4">★★★★☆</option>
+            					<option value="3">★★★☆☆</option>
+            					<option value="2">★★☆☆☆</option>
+            					<option value="1">★☆☆☆☆</option>
+            			</select>
+            		</div>
+            		<div align="center">
+            			<button class="btn" style="margin-top:0px; margin-bottom: 10px; width: 72%;" id="gradebtn">별점</button>
+            		</div>
+            		
+            		<div align="center" style="margin-bottom: 13px;">
+            			<button class="btn" id="prev" style="width:24%;"><img class="btn-img" style="width:auto; max-height: 100%;;" src="img/left_icon.png"></button>
+            			<a href="bookDetai	l.kh?bno=${sdto.bno}"><button class="btn" id="prev" style="width:24%; padding:3px;"><img class="btn-img" style="width:auto; max-height: 100%;" src="img/book-main.png" ></button></a>
+            			<button class="btn" id="next" style="width:24%;"><img class="btn-img" src="img/right_icon.png"></button>
+            		</div>
+            		<div align="center"><button class="btn" id="add">나의 서재에 추가</button></div>
+            		<div align="center" style="margin-top: -1px; width:72%"><a href="favBookList.kh" id="myBook"><button class="btn" id="add">서재로 이동</button></a></div>
+				</div>
+			</div>
+            
+      		<!-- box box-success 시작 -->
+	  <div class="box box-success" style="clear: both;">
+	   <div class="box-header">
+		 <h3 class="box-title" style="margin-left:3%; text-shadow: none;" id="comment">Comment (${fn:length(review)})</h3>
+	   </div>
+	   <div class="box-body">
+	     <input class="form-control" type="text" placeholder="REPLY TEXT" id="newReplyText" style="width: 78%; height: 100px; margin-left:3%; float:left;">
+		<div class="box-footer" style="float:left; width: 17%;">
+		 <button class="btn" type="button" id="replyAddBtn" style=" width:100%; height: 110px;">ADD REPLY</button>
+		</div>		
+	  </div>	
+	  </div>
+	  <!-- box box-success 끝 -->
+            
+            
+	  <ul class="timeline" style="clear: both;">
+	   <c:forEach items="${review}" var="rev">
+		<li class="time_sub"  id="${rev.rno}" style="list-style: none; clear:both; padding-top: 20px;">
+		 <div style="float:left; font-size:13px; width: 15%;"><div style=" font-size:20px;"><i class="icon-leaf"></i>${rev.id}</div>
+		 <fmt:formatDate pattern="yyyy/MM/dd" dateStyle="short" value="${rev.rdate}" />
+		 <button class="btn btn-mini" type="button" id="${rev.rno}">delete</button></div>
+		 <div style="float:right; font-size:16px; word-wrap:break-word; width: 85%;">${rev.rtext}</div>
+	   </li>
+	  </c:forEach>
+	  </ul>
+	  <div style="clear:both; margin-bottom: 20px"></div>
+
+        </div> <!--End page content column--> 
+
+    </div><!-- End container row -->
+    
+    </div> <!-- End Container -->
+
+    <!-- Footer Area
+        ================================================== -->
+
+	<jsp:include page="khbooks_footer.jsp"/>
+
+    <!-- Scroll to Top -->  
+    <div id="toTop" class="hidden-phone hidden-tablet">Back to Top</div>
+    
+</body>
+
 <script type="text/javascript">
 var urno='';
 var fileList='';
@@ -48,12 +215,14 @@ var bno='';
 var rm='';
 var totalCount='';
 var id ='';
+var sGrade = '';
 
 $(document).ready(function(){
 	bno=${bno};
 	rm=${rm};
 	totalCount=${totalCount};
 	id='${sessionScope.id}';
+	sGrade=${sdto.sgrade};
 	
 	$.ajax({
 		type : 'GET',
@@ -121,6 +290,9 @@ $(document).ready(function(){
 	$("#replyAddBtn").on("click", reply_insert);
 	// 수정 삭제 이벤트 동적 추가
 	$(document).on('click', '.timeline button', reply_delete);
+	
+	$("#sGradeBar").attr('style','width:'+sGrade*20+'%');	
+
 });
 
 function grade_check_complete(res) {
@@ -136,7 +308,7 @@ function grade_check_complete(res) {
 			}
 		});
 	} else{
-		var check = confirm('수정하시겠습니까?');
+		var check = confirm('변경하시겠습니까?');
 		if(check){
 			$.ajax({
 				type : 'GET',
@@ -144,10 +316,11 @@ function grade_check_complete(res) {
 				url : 'gradeUpdate.kh',
 				data : 'bno=' + bno + '&rm=' + rm + '&grade=' + grade,
 				success : function(res) {
-					alert('입력 완료');
+					alert('변경 완료');
 				}
 			});
 		}else{
+			alert("취소되었습니다.")
 			return;
 		}
 	}
@@ -157,6 +330,7 @@ function info_success(res) {
 		var source = '{{bname}}';
 		var template = Handlebars.compile(source);
 		$('#bookTitle').text(template(res));
+		$('#btitle').text(template(res));
 		var auname='';
 		$.each(res.aList, function(index, value) {
 			// 작품정보에 작가이름 추가
@@ -172,12 +346,13 @@ function info_success(res) {
 			$.ajax({
 				type : 'GET',
 				dataType : 'json',
-				url : 'authorBook.kh?auno=' + template(value),
+				url : 'authorBook.kh?auno=' + template(value)+'&bno='+bno,
 				success : function(result) {
 					var src = '<h5 class="title-bg">작가의 다른 작품</h5>'
 		            	 +'<ul class="popular-posts">';
 					$.each(result, function(idx, val) {
-						source = '<li style="min-height: 0px;"><h6><a href="bookDetail.kh?bno={{bno}}">{{bname}}</a></h6></li>';
+						source = '<li style="width:100px; display:inline-block; clear:both; border-bottom: 0px solid;"><a href="bookDetail.kh?bno={{bno}}"><div style="height:80px; width:80px; overflow:hidden; float:left; margin-right:5px;" title="{{bname}}" >'
+						+'<img src="img/gallery/flickr-img-1.jpg"></div></a></li>';
 						template = Handlebars.compile(source);
 						src += template(val);
 					});
@@ -201,16 +376,16 @@ function serial_move(){
 function change_serial(res) {
 	$('#secnt').text(rm + ' / ${totalCount}');
 	$('#sesel').val(rm);
-	$('#novel').html('');
-	var source = '{{{scontent}}}';
+	$('#stitle').text('');
+	$('#context').text('');
+	var source = '{{stitle}}';
 	var template = Handlebars.compile(source);
-	$('#novel').html(template(res));
-	$('#stitle').html('');
-	source = '{{stitle}}';
-	template2 = Handlebars.compile(source);
-	$('#stitle').html(template2(res));
-	source = '{{upno}}';
-	template3 = Handlebars.compile(source);
+	var source2 = '{{{scontent}}}';
+	var template2 = Handlebars.compile(source2);
+	$('#stitle').text(template(res));
+	$('#context').html(template2(res));
+	var source3 = '{{upno}}';
+	var template3 = Handlebars.compile(source3);
 	var upno = template3(res);
 	$.ajax({
 		type:'GET',
@@ -226,11 +401,11 @@ function change_comment(res) {
 	$('#comment').text('Comment (' + res.length + ')');
 	
 	$.each(res, function(index, value) {
-		var source = '<li class="time_sub"  id="{{rno}}" style="list-style: none; clear:both; margin-top: 20px;">'
-		 +'<div style="float:left; font-size:25px;"> <i class="icon-leaf"></i>{{id}}</div>'
-		 +'<div style="float:right">{{newDate rdate}}</div>'
-		 +'<div style="clear:both; font-size:18px; ">{{rtext}}'
-		 +'<button style="float:right" class="btn btn-mini" type="button" id="{{rno}}">delete</button></div>'
+		var source = '<li class="time_sub"  id="{{rno}}" style="list-style: none; clear:both; padding-top: 20px;">'
+		 +'<div style="float:left; font-size:13px; width: 15%;"><div style=" font-size:20px;"> <i class="icon-leaf"></i>{{id}}</div>'
+		 +'{{newDate rdate}}<br/>'
+		 +'<button class="btn btn-mini" type="button" id="{{rno}}">delete</button></div>'
+		 +'<div style="float:right; font-size:16px; word-wrap:break-word; width: 85%;">{{rtext}}</div>'
 	     +'</li>';
 		var template = Handlebars.compile(source);
 		$('.timeline').append(template(value));
@@ -289,218 +464,4 @@ Handlebars.registerHelper("newUpload",function(uploadFile){
 		return uploadFile;
 });
 </script>
-
-</head>
-
-<body>
-	<div class="color-bar-1"></div>
-    <div class="color-bar-2 color-bg"></div>
-    
-    <div class="container main-container">
-    	<!-- header -->
-    	<jsp:include page="khbooks_header.jsp"></jsp:include>
- 
-     
-    <!-- Page Content
-    ================================================== --> 
-    <div class="row"><!--Container row-->
-
-        <!-- Page Sidebar
-        ================================================== --> 
-        <div class="span4 sidebar page-sidebar" style="" id="serial-sidebar"><!-- Begin sidebar column -->
-
-            <!--Latest News-->
-            <h5 class="title-bg">현재 보고 있는 작품</h5>
-            <ul class="popular-posts" id="bookInfo">
-                <li>
-                    <a href="#"><img src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post" id="bookImage"></a>
-                    <h6><a href="#" id="bookTitle">제목</a></h6>
-                    <h6 id="bookAuthor"></h6>
-                </li>
-            </ul>
-            
-
-            <!--Progress Bars-->
-            <h5 class="title-bg">화수 작품 총 평점</h5> 
-            <div class="progress progress-info progress-striped">
-                <div class="bar" style="width: 20%"></div>
-            </div>
-           <!--  <div class="progress progress-success progress-striped">
-                <div class="bar" style="width: 40%"></div>
-            </div>
-            <div class="progress progress-warning progress-striped">
-                <div class="bar" style="width: 60%"></div>
-            </div>
-            <div class="progress progress-danger progress-striped">
-                <div class="bar" style="width: 80%"></div>
-            </div> -->
-
-            <!--Testimonials-->
-            <h5 class="title-bg">Testimonials</h5>
-    
-            <p class="quote-text side">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. In interdum felis fermentum ipsum molestie sed porttitor ligula rutrum."<cite>- Client Name, Big Company</cite></p>
-        
-            <p class="quote-text side">"Adipiscing elit. In interdum felis fermentum ipsum molestie sed porttitor ligula rutrum. Morbi blandit ultricies ultrices."<cite>- Another Client Name, Big Company</cite></p>
-                 
-
-        </div><!-- End sidebar column -->
-        
-       	<div class="span2" id="blank" style="display:none;"></div>
-        
-
-        <!-- Page Content
-        ================================================== --> 
-        <div class="span8"><!--Begin page content column-->
-
-            <h2 class="title-bg" id="stitle">${sdto.stitle}</h2>
-
-			<div style="width: 100%;">
-				<div style="width: 65%; height:650px; margin-left:15px; float: left; border: 2px solid #a9a9a9; background-color:#CEFBC9; overflow: scroll; word-wrap:break-word; font-size: 16px; user-select:none;" oncontextmenu="return false" id="novel">
-					${sdto.scontent}
-				</div>
-				<div style="width: 25%; height: 300px; margin-left:30px; float: left; border: 2px solid black;">
-            		<div align="center" id="secnt">${myCount} / ${totalCount}</div>
-            		<div align="center">
-            			<select style="width: 30%;" id="sesel">
-            				<c:forEach begin="1" end="${totalCount}" var="i">
-            					<c:choose>
-            						<c:when test="${i == myCount}">
-            							<option value="${i}" selected="selected">${i}</option>
-            						</c:when>
-            						<c:otherwise>
-            							<option value="${i}">${i}</option>
-            						</c:otherwise>
-            					</c:choose>
-            				</c:forEach>
-            			</select>
-            			<button class="btn btn-mini" style="margin-bottom: 8px;" id="go">GO</button>
-            		</div>
-            		<div align="center">
-            			<select style="width: 30%;" id="gradesel">
-            					<option selected="selected">5</option>
-            					<option>4</option>
-            					<option>3</option>
-            					<option>2</option>
-            					<option>1</option>
-            			</select>
-            			<button class="btn btn-mini" style="margin-bottom: 8px;" id="gradebtn">별점 주기</button>
-            		</div>
-            		<div align="center"><button class="btn btn-mini" id="prev">이전화</button><button class="btn btn-mini" id="next">다음화</button></div>
-            		<div align="center"><button class="btn btn-mini" id="add">나의 서재에 추가</button></div>
-            		<div align="center"><a href="favBookList.kh" id="myBook">나의 서재로 이동하기</a></div>
-				</div>
-			</div>
-            
-      		<!-- box box-success 시작 -->
-	  <div class="box box-success" style="clear: both;">
-	   <div class="box-header">
-		 <h3 class="box-title" style="margin-left:3%; text-shadow: none;" id="comment">Comment (${fn:length(review)})</h3>
-	   </div>
-	   <div class="box-body">
-	     <input class="form-control" type="text" placeholder="REPLY TEXT" id="newReplyText" style="width: 78%; height: 100px; margin-left:3%; float:left;">
-		<div class="box-footer" style="float:left; width: 17%;">
-		 <button class="btn" type="button" id="replyAddBtn" style=" width:100%; height: 110px;">ADD REPLY</button>
-		</div>		
-	  </div>	
-	  </div>
-	  <!-- box box-success 끝 -->
-            
-            
-	  <ul class="timeline" style="clear: both;">
-	   <c:forEach items="${review}" var="rev">
-		<li class="time_sub"  id="${rev.rno}" style="list-style: none; clear:both; padding-top: 20px;">
-		 <div style="float:left; font-size:13px; width: 15%;"><div style=" font-size:20px;"><i class="icon-leaf"></i>${rev.id}</div>
-		 <fmt:formatDate pattern="yyyy/MM/dd" dateStyle="short" value="${rev.rdate}" />
-		 <button class="btn btn-mini" type="button" id="${rev.rno}">delete</button></div>
-		 <div style="float:right; font-size:16px; word-wrap:break-word; width: 85%;">${rev.rtext}</div>
-	   </li>
-	  </c:forEach>
-	  </ul>
-	  <div style="clear:both; margin-bottom: 20px"></div>
-
-        </div> <!--End page content column--> 
-
-    </div><!-- End container row -->
-    
-    </div> <!-- End Container -->
-
-    <!-- Footer Area
-        ================================================== -->
-
-	<div class="footer-container"><!-- Begin Footer -->
-    	<div class="container">
-        	<div class="row footer-row">
-                <div class="span3 footer-col">
-                    <h5>About Us</h5>
-                   <img src="img/piccolo-footer-logo.png" alt="Piccolo" /><br /><br />
-                    <address>
-                        <strong>Design Team</strong><br />
-                        123 Main St, Suite 500<br />
-                        New York, NY 12345<br />
-                    </address>
-                    <ul class="social-icons">
-                        <li><a href="#" class="social-icon facebook"></a></li>
-                        <li><a href="#" class="social-icon twitter"></a></li>
-                        <li><a href="#" class="social-icon dribble"></a></li>
-                        <li><a href="#" class="social-icon rss"></a></li>
-                        <li><a href="#" class="social-icon forrst"></a></li>
-                    </ul>
-                </div>
-                <div class="span3 footer-col">
-                    <h5>Latest Tweets</h5>
-                    <ul>
-                        <li><a href="#">@room122</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                        <li><a href="#">@room122</a> In interdum felis fermentum ipsum molestie sed porttitor ligula rutrum. Morbi blandit ultricies ultrices.</li>
-                        <li><a href="#">@room122</a> Vivamus nec lectus sed orci molestie molestie. Etiam mattis neque eu orci rutrum aliquam.</li>
-                    </ul>
-                </div>
-                <div class="span3 footer-col">
-                    <h5>Latest Posts</h5>
-                     <ul class="post-list">
-                        <li><a href="#">Lorem ipsum dolor sit amet</a></li>
-                        <li><a href="#">Consectetur adipiscing elit est lacus gravida</a></li>
-                        <li><a href="#">Lectus sed orci molestie molestie etiam</a></li>
-                        <li><a href="#">Mattis consectetur adipiscing elit est lacus</a></li>
-                        <li><a href="#">Cras rutrum, massa non blandit convallis est</a></li>
-                    </ul>
-                </div>
-                <div class="span3 footer-col">
-                    <h5>Flickr Photos</h5>
-                    <ul class="img-feed">
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="row"><!-- Begin Sub Footer -->
-                <div class="span12 footer-col footer-sub">
-                    <div class="row no-margin">
-                        <div class="span6"><span class="left">Copyright 2012 Piccolo Theme. All rights reserved.</span></div>
-                        <div class="span6">
-                            <span class="right">
-                            <a href="#">Home</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Features</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Gallery</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Blog</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Contact</a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- End Sub Footer -->
-
-        </div>
-    </div><!-- End Footer -->
-
-    <!-- Scroll to Top -->  
-    <div id="toTop" class="hidden-phone hidden-tablet">Back to Top</div>
-    
-</body>
 </html>

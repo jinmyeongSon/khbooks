@@ -1,25 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=UTF-8">
-<title>Insert title here</title>
-<!-- CSS
-================================================== -->
-
-
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- JS
 ================================================== -->
 <!-- <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script> -->
 <script src="js/jquery.easing.1.3.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery.prettyPhoto.js"></script>
 <script src="js/jquery.quicksand.js"></script>
+<script src="js/jquery.custom.js"></script>
+<script src="js/jquery.flexslider.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.1/handlebars.js"></script>
 
-
 <script type="text/javascript">
+
 $(document).ready(function(){
 	$.ajax({
 		type : 'GET',
@@ -61,11 +58,7 @@ $(document).ready(function(){
 	});
 	
 });
-
-
 </script>
-
-
 </head>
 <body>
     <!-- Footer Area
@@ -86,7 +79,6 @@ $(document).ready(function(){
                     <h5>Latest Tweets</h5>
                     <ul class="post-list" id="tweet-list">
                     </ul>
-
                 </div>
                 <div class="span3 footer-col">
                     <h5>Notice</h5>
@@ -99,7 +91,6 @@ $(document).ready(function(){
                     </ul>
                 </div>
             </div>
-
             <div class="row"><!-- Begin Sub Footer -->
                 <div class="span12 footer-col footer-sub">
                     <div class="row no-margin">
@@ -115,10 +106,8 @@ $(document).ready(function(){
                     </div>
                 </div>
             </div><!-- End Sub Footer -->
-
         </div>
     </div><!-- End Footer -->
-
     <!-- Scroll to Top -->  
     <div id="toTop" class="hidden-phone hidden-tablet">Back to Top</div>
     

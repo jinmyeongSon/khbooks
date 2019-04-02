@@ -122,7 +122,7 @@ $(document).ready(function(){
 <body>
 <!-- header -->
 	<div class="container" style="margin-top: 20px; margin-left:30%; margin-right:30%; width: 40%;">
-		<a href="index.htm" style="width: 300px; color: #333333; font-size: 25px; text-decoration: none;"><img src="img/khbooks_logo.png" alt="for every novel" style="padding-right: 0px;"/>
+		<a href="mainpage.kh" style="width: 300px; color: #333333; font-size: 25px; text-decoration: none;"><img src="img/khbooks_logo.png" alt="for every novel" style="padding-right: 0px;"/>
 		For every Novel</a>
 	</div>
 	<hr/>

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import dto.BookDTO;
 import dto.BookPageDTO;
 import service.BookService;
+import service.FavBookService;
 import twitter4j.*;
 //http://localhost:8090/khbook/bookMain.kh
 
@@ -20,9 +23,15 @@ import twitter4j.*;
 @Controller
 public class BookListController {
 	BookService service;
+	FavBookService fbservice;
+
 	
 	public void setService(BookService service) {
 		this.service = service;
+	}
+	
+	public void setFbservice(FavBookService fbservice) {
+		this.fbservice = fbservice;
 	}
 	
 	
@@ -64,16 +73,23 @@ public class BookListController {
 		mav.addObject("gList", service.genreListProcess());
 		mav.addObject("pdto", dto);
 		mav.setViewName("bookMain");
-		System.out.println(pdto);
 		return mav;
 	}
 	
 	@RequestMapping(value="/bookDetail.kh", method=RequestMethod.GET)
-	public ModelAndView bookDetail(int bno) {
+	public ModelAndView bookDetail(int bno, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("book", service.bookDetailProcess(bno));
 		mav.addObject("genre", service.getBookGenreProcess(bno));
 		mav.addObject("serial", service.getSerialListProcess(bno));
+		if(session.getAttribute("id")!=null) {
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("id", session.getAttribute("id"));
+			map.put("bno", bno);
+			mav.addObject("fbchk", fbservice.searchprocess(map));
+		}else {
+			mav.addObject("fbchk", 0);
+		}
 		mav.setViewName("bookDetail");
 		return mav;
 	}

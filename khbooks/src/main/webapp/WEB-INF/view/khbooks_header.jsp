@@ -1,34 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- CSS
-================================================== -->
-<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/bootstrap-responsive.css">
-<link rel="stylesheet" href="css/custom-styles.css">
-<link rel="stylesheet" href="css/_button-group.css">
-<link rel="stylesheet" href="css/_buttons.css">
-<link rel="stylesheet" href="css/flexslider.css" />
-
-
-
-<!-- JS
-================================================== -->
-<!-- <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script> -->
 <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.prettyPhoto.js"></script>
 <script src="js/jquery.flexslider.js"></script>
 <script src="js/jquery.custom.js"></script>
 <script type="text/javascript">
-
 $(document).ready(function(){
 	var url = window.location.pathname;
 	var split_start = url.lastIndexOf("/");
@@ -68,7 +49,6 @@ $(document).ready(function(){
 		$(".board-list").attr('class','board-list dropdown');
 		$(".profile").attr('class','profile dropdown');
 	}
-
 </script>
 
 </head>
@@ -77,7 +57,7 @@ $(document).ready(function(){
         <!-- Logo
         ================================================== -->
         <div class="span6 logo">
-        	<a href="index.htm" style="width: 300px;"><img src="img/khbooks_logo.png" alt="for every novel" style="padding-right: 0px;"/></a>
+        	<a href="mainpage.kh" style="width: 300px;"><img src="img/khbooks_logo.png" alt="for every novel" style="padding-right: 0px;"/></a>
             <h5 style="color: #333333; font-size: 25px;">For every Novel </h5>
         </div>
         
@@ -108,8 +88,9 @@ $(document).ready(function(){
              </li>
              <c:choose>
              	<c:when test="${sessionScope.id==null}">
-             		<li><a href="loginForm.kh" style=" font-weight: bold; font-size: 15px;">로그인  / 회원 가입</a></li>
-              	</c:when>
+             		<li><a href="loginForm.kh" style=" font-weight: bold; font-size: 15px;">로그인</a></li>
+             		<li><a href="signUp.kh" style=" font-weight: bold; font-size: 15px;">회원가입</a></li>
+             	</c:when>
              	<c:otherwise>
              		<li class="profile dropdown"><a href="memberInfor.kh" style=" font-weight: bold; font-size: 15px;">회원 정보 
 	                <b class="caret"></b></a>

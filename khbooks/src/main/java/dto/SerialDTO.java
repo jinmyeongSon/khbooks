@@ -12,7 +12,7 @@ public class SerialDTO {
 	private int sprice;
 	private int ncount;
 	private String stitle;
-	private int sgrade;
+	private float sgrade;
 	private MultipartFile filename;
 	
 	public MultipartFile getFilename() {
@@ -63,10 +63,10 @@ public class SerialDTO {
 	public void setStitle(String stitle) {
 		this.stitle = stitle;
 	}
-	public int getSgrade() {
+	public float getSgrade() {
 		return sgrade;
 	}
-	public void setSgrade(int sgrade) {
+	public void setSgrade(float sgrade) {
 		this.sgrade = sgrade;
 	}
 }

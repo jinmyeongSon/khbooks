@@ -56,6 +56,7 @@
 	<!-- controller -->
 	<bean class="controller.BookListController">
 		<property name="service" ref="serviceBook" />
+		<property name="fbservice" ref="FavBookservice"/>
 	</bean>
 	
 	<bean class="controller.SerialController">
@@ -165,8 +166,7 @@
 	</bean>
 	
 	<!-- viewResolver -->
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
@@ -175,7 +175,6 @@
 	<bean id="daoBook" class="dao.BookDaoImp">
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
-	
 	<!-- Service -->
 	<bean id="serviceBook" class="service.BookServiceImp">
 		<property name="dao" ref="daoBook" />
@@ -199,9 +198,22 @@
 			</props>
 		</property>
 	</bean>
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order">
+			<value>0</value>
+		</property>
+	</bean>
+	
+	<bean id="download" class="controller.DownloadController" />
 	
 	
-
+	<!-- webSocket 등록 -->
+	<!-- <bean id="chatWebSocketHandler" class="part01.ChatWebSocketHandler" />
+	
+	<websocket:handlers>
+		<websocket:mapping handler="chatWebSocketHandler" path="/chatws.do"/>
+	</websocket:handlers> -->
+	
 	
 	<!-- 파일 업로드 시작 -->
 	
