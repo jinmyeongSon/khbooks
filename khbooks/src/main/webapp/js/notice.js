@@ -137,7 +137,7 @@ function notice_list(){
 	var form_data = new FormData();
 	form_data.append('aid', $('#aid').val());
 	form_data.append('bname', $('#bname').val());
-	form_data.append('btext', $('#btext').val());
+	form_data.append('btext', $('#btext').val($('#btext').val.replace(/\n/gi, '<br/>')));
 	
 	
 	if(fileList) {

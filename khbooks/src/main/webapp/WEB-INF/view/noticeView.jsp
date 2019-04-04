@@ -43,7 +43,7 @@
 
         <!-- Blog Full Post
         ================================================== --> 
-        <div class="span8 blog">
+        <div class="span8 blog" style="margin-left: 15%;margin-right: 20%;width: 74%;margin-top: -20px;" >
 
             <!-- Blog Post 1 -->
             <article>
@@ -55,32 +55,33 @@
                     </div>
 
                     <div class="post-summary-footer">
+                    	<ul>
+                    		<div class="file">
+            					<c:choose>
+                    				<c:when test="${!empty view.uList }">
+                        				<c:forEach items="${view.uList }" var="up">
+                       			 		<c:set var="numload" value="${(fn:indexOf(up.upname,'_'))+1}" />
+                        				<c:set var="strlength" value="${fn:length(up.upname)}"/>
+                      				  	<li style="float: right; list-style: none;"><a href="noticeDownload.kh?upname=${up.upname }&path=c:/khNotice/" style="color:#333333;"><i class="icon-download-alt"></i>${fn:substring(up.upname,numload,strlength)}</a></li>
+                        				<br/>
+                        				</c:forEach>
+                     			   </c:when>
+           			            </c:choose>
+                  			</div>
+                    	</ul>
                         <ul class="post-data">
                             <li><i class="icon-calendar"></i><fmt:formatDate pattern="yy/MM/dd" dateStyle="short" value="${view.ndate }" /></li>
                             <li><i class="icon-user"></i>${view.aid }</li>
-                            <li><button type="button" class="btn btn-outline-dark" id="${view.nnum }">수정</button></li>
-                            <li><button type="button" class="btn btn-outline-dark" id="${view.nnum }">삭제</button></li>
-                            <li><button type="button" class="btn btn-outline-dark" id="li"  onclick="href:">목록</button></li>
+                            <c:if test="sessionScope.admin!=null">
+	                            <li><button type="button" class="btn btn-outline-dark" id="${view.nnum }">수정</button></li>
+	                            <li><button type="button" class="btn btn-outline-dark" id="${view.nnum }">삭제</button></li>
+	                        </c:if>
+                            <li><button type="button" class="btn btn-outline-dark" id="li"  onclick="location.href='noticeList.kh?currentPage=${currentPage}'">목록</button></li>
                         </ul>
                     </div>
             	</div>
             	
-            	<form>
-            	<div class="file">
-            		<c:choose>
-                    	<c:when test="${!empty view.uList }">
-                        	<c:forEach items="${view.uList }" var="up">
-                        		<c:set var="numload" value="${(fn:indexOf(up.upname,'_'))+1}" />
-                        		<c:set var="strlength" value="${fn:length(up.upname)}"/>
-                        	<p><a href="noticeDownload.kh?upname=${up.upname }&path=c:/khNotice/">● ${fn:substring(up.upname,numload,strlength)}</a></p>
-                        	</c:forEach>
-                        </c:when>
-                        <c:otherwise>
-                        	<p>첨부파일이 없습니다.</p>
-                        </c:otherwise>	
-                        </c:choose>
-                    </div>
-                </form>    
+
                </c:forEach>
             </article>
 

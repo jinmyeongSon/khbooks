@@ -172,8 +172,6 @@ public class NoticeController {
 		
 		nservice.noticeInsertPro(ndto);
 		
-		
-		
 		return nservice.noticeListPro(pv);
 		
 	}//end noticeWritePro()

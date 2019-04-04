@@ -393,6 +393,55 @@ function serial_move(){
 	$.ajax({
 		type:'GET',
 		dataType:'json',
+		url: 'serialPrice.kh?bno='+bno+'&rm='+rm,
+		success : check_price
+	});
+}
+
+function check_price(res) {
+	var source = '{{sprice}}';
+	var template = Handlebars.compile(source);
+	if(price > 0){
+		$.ajax({
+			type:'GET',
+			dataType:'json',
+			url: 'serialCheck.kh?bno='+bno+'&rm='+rm,
+			success : chceck_res
+		});
+	}else{
+		serial_move();
+	}
+}
+
+function chceck_res(res){
+	if(JSON.stringify(res) == '결제됨'){
+		serial_move();
+	} else {
+		if(confirm('결제 ㄱㄱ?')){
+			$.ajax({
+				type:'GET',
+				dataType:'json',
+				url: 'serialPay.kh?bno='+bno+'&rm='+rm,
+				success : pay_res
+			});
+		}
+	}
+}
+
+function pay_res(res) {
+	if(JSON.stringify(res) == '결제됨'){
+		serial_move();
+	} else {
+		if(confirm('충전 ㄱㄱ?')){
+			href.location="payment.kh";
+		}
+	}
+}
+
+function serial_move() {
+	$.ajax({
+		type:'GET',
+		dataType:'json',
 		url: 'serialMove.kh?bno='+bno+'&rm='+rm,
 		success : change_serial
 	});
