@@ -27,12 +27,16 @@ public class AuthorController {
 	@RequestMapping("/author.kh")
 	public ModelAndView mak(int auno,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		Map<String, Object> map = new HashMap<String,Object>();
-		map.put("id", (String)session.getAttribute("id"));
-		map.put("auno", auno);
 		mav.addObject("aList",service.authorProcess(auno));
 		mav.addObject("bList",service.bookListProcess(auno));
-		mav.addObject("fbchk",service.searchProcess(map));
+		if(session.getAttribute("id")!=null) {
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("id", (String)session.getAttribute("id"));
+			map.put("auno", auno);
+			mav.addObject("fbchk",service.searchProcess(map));
+		}else {
+			mav.addObject("fbchk", 0);
+		}
 		mav.setViewName("author");
 		return mav;
 	}

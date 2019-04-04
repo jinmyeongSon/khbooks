@@ -54,11 +54,7 @@ var chk = 0;
 var id = '';
 
 $(document).ready(function () {
-	var id = '${sessionScope.id}';
-	if(id==''){
-		alert('로그인을 해주세요.');
-		location.href='http://localhost:8090/khbook/mainpage.kh';
-	}
+	
 	$(document).on('click','#move',function(){
 		var au=$(this).parent().prev().children().val();
 		var ak=$(this).parent().prev().children().children("option:selected").text();
