@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 
 import dao.AuthorDAO;
 import dto.AuthorDTO;
@@ -24,6 +25,15 @@ public class AuthorServiceImp implements AuthorService {
 	@Override
 	public AuthorDTO authorProcess(int auno) {
 		return dao.Author(auno);
+	}
+	@Override
+	public void insertProcess(Map<String, Object> map) {
+		dao.insert(map);
+		
+	}
+	@Override
+	public int searchProcess(Map<String, Object> map) {
+		return dao.search(map);
 	}
 	
 }

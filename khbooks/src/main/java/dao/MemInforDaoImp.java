@@ -23,5 +23,10 @@ public class MemInforDaoImp implements MemInforDAO{
 	public void update(UserDTO dto) {
 		sqlSession.update("memInfor.update",dto);
 	}
+	@Override
+	public void delete(String id) {
+		sqlSession.delete("memInfor.delete",id);
+		
+	}
 
 }

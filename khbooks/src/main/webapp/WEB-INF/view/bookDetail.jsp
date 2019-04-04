@@ -47,7 +47,6 @@ var id = '';
 
  	$(document).on('click','#favBook-btn',function(){
 		chk = $(this).attr('value');
-		alert(chk);
 		bno=${book.bno};
 		id='${sessionScope.id}';
 		if(id==''){
@@ -106,12 +105,19 @@ var id = '';
                 <div class="span8">
                 <div style="width: 90%;  margin-left: 50px;">
                 	<div style="width: 100%; height: 200px;">
-                    <img src="img/gallery/gallery-img-1-full.jpg" style="width: 150px; height: 100%;" class="align-left thumbnail" alt="image">
+                    <c:choose>
+                   <c:when test="${book.bthumb==null }">
+                   	<img src="img/gallery/gallery-img-1-full.jpg" style="width: 150px; height: 100%;" class="align-left thumbnail" alt="image">
+                   </c:when>
+                   <c:otherwise>
+                   	<img src="img/bthumb/${book.bthumb }" style="width: 150px; height: 100%;" class="align-left thumbnail" alt="image">
+                   </c:otherwise>
+                   </c:choose>
                     <h2>${book.bname}</h2>
                     <!-- <div style="margin-left:170px;"> -->
                     <ul style="width:40%; float:left; " class="project-info">
                         <li style="padding:5px;"><h6>장르:</h6> ${genre} / <h6>별점:</h6> ${book.bgrade} / <h6>조회수:</h6> ${book.bview}</li>
-                        <li style="padding:5px;"><h6>작가:</h6> <c:forEach items="${book.aList}" var="author">${author.auname} </c:forEach></li>
+                        <li style="padding:5px;"><h6>작가:</h6> <c:forEach items="${book.aList}" var="author"><a href="http://localhost:8090/khbook/author.kh?auno=${author.auno }">${author.auname}</a> </c:forEach></li>
                         <li style="padding:5px;"><h6>최신 연재일:</h6> ${book.bupdate}</li>
                         <li  style="padding:5px; margin-top: 30px; border-bottom: 0px solid;">
                         	<a href="serialView.kh?bno=${book.bno}&rm=1" id="serialFirst"><button class="btn btn-small">첫 화 보기</button></a>

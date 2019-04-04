@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -26,6 +27,17 @@ public class AuthorDaoImp implements AuthorDAO{
 	@Override
 	public AuthorDTO Author(int auno) {
 		return sqlSession.selectOne("author.authorin",auno);
+	}
+
+	@Override
+	public void insert(Map<String, Object> map) {
+		sqlSession.insert("author.insert",map);
+		
+	}
+
+	@Override
+	public int search(Map<String, Object> map) {
+		return sqlSession.selectOne("author.search",map);
 	}
 	
 }

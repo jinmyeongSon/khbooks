@@ -60,5 +60,13 @@ public class MemberController {
 		mav.setViewName("redirect:/memberInfor.kh");
 		return mav;
 	}
-	
+	@RequestMapping("/delete.kh")
+	public ModelAndView deleteMethod(HttpSession session) {
+		ModelAndView mav= new ModelAndView();
+		String id=(String)session.getAttribute("id");
+		service.deleteProcess(id);
+		session.invalidate();
+		mav.setViewName("redirect:/mainpage.kh");
+		return mav;
+	}
 }

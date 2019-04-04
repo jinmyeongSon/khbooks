@@ -112,7 +112,7 @@
                             <p style="font-style: normal; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><a href="bookDetail.kh?bno=${list.bno}" class="clearfix">${list.bname}</a>
                         	   최신 업로드 ${list.bupdate}<br /> 평점 ${list.bgrade}<br />총 조회수 ${list.bview}<br/>${list.binfo}</p>
                         </div>
-                        <img src="img/bthumb/${list.bthumb}" style="height: 220px; width: 270px;"alt="Post Thumb">
+                        <img src="img/bthumb/${list.bthumb}" style="height: 220px; width: 160px; text-align: center; " "alt="Post Thumb">
                     </li>
                     </c:forEach>
                 </ul>

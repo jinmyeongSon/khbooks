@@ -18,5 +18,13 @@
 	where b.auno=#{auno} AND a.auno=b.auno
 	</select>
 	
+	<insert id="insert" parameterType="map">
+	insert into fav_author values(#{id},#{auno})
+	</insert>
+	
+	<select id="search" parameterType="map" resultType="int">
+		select count(*) from fav_author where id=#{id} AND auno=#{auno} 
+	</select>
+	
 
 </mapper>

@@ -1,7 +1,13 @@
 package controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import service.AuthorService;
@@ -19,11 +25,28 @@ public class AuthorController {
 		this.service = service;
 	}
 	@RequestMapping("/author.kh")
-	public ModelAndView mak(int auno) {
+	public ModelAndView mak(int auno,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("id", (String)session.getAttribute("id"));
+		map.put("auno", auno);
 		mav.addObject("aList",service.authorProcess(auno));
 		mav.addObject("bList",service.bookListProcess(auno));
+		mav.addObject("fbchk",service.searchProcess(map));
 		mav.setViewName("author");
 		return mav;
 	}
+	
+	@RequestMapping("/authorinsert.kh")
+	public @ResponseBody int insertmethod(HttpSession session,int auno) {
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("id", (String)session.getAttribute("id"));
+		map.put("auno", auno);
+		int num = service.searchProcess(map);
+		if(num==0) {
+			service.insertProcess(map);
+		}
+		return num;
+	}
+	
 }

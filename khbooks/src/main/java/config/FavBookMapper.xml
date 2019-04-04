@@ -15,7 +15,7 @@
 		AND f.bno=b.bno
 		AND s.bno=f.bno
         group by b.BNO, b.bname, b.bupdate, b.bgrade, b.bview
-        order by bno desc)a)b
+        order by bupdate desc)a)b
      where b.rm>=#{pdto.startRow} and b.rm<=#{pdto.endRow}
 	]]>
 	</select>

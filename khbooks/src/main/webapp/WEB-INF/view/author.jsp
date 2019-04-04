@@ -49,8 +49,12 @@ text-align: center;
 <script src="js/jquery.quicksand.js"></script>
 <script src="js/jquery.custom.js"></script>
 <script type="text/javascript">
-var id = '${sessionScope.id}';
+var auno = ${aList.auno};
+var chk = 0;
+var id = '';
+
 $(document).ready(function () {
+	var id = '${sessionScope.id}';
 	if(id==''){
 		alert('로그인을 해주세요.');
 		location.href='http://localhost:8090/khbook/mainpage.kh';
@@ -70,6 +74,42 @@ $(document).ready(function () {
 			return false;
 		}
 	});
+	
+	$(document).on('click','#favAuthor-btn',function(){
+		chk = $(this).attr('value');
+		auno=${aList.auno};
+		id='${sessionScope.id}';
+		if(id==''){
+			alert('로그인후 사용할수 있는 기능입니다.');
+			return;
+		}
+ 		
+ 		if(chk>0){
+ 			$.ajax({
+ 				type : 'GET',
+ 				dataType : 'text',
+ 				url : 'favAuthorDelete2.kh?auno='+auno,
+ 				success : function(){
+ 					$('#favAuthor-btn').attr('class','btn btn-small');
+ 					$('#favAuthor-btn').attr('value',0);
+ 					$('#favAuthor-btn').text('관심 작품 담기');
+ 				}
+ 			})
+ 		}else{
+			$.ajax({
+ 				type : 'GET',
+ 				dataType : 'text',
+ 				url : 'authorinsert.kh?auno='+auno,
+ 				success : function(){
+ 					$('#favAuthor-btn').attr('class','btn btn-small btn-inverse');
+ 					$('#favAuthor-btn').attr('value',1);
+ 					$('#favAuthor-btn').text('관심 작품 빼기');
+ 				}
+ 			})
+ 		}
+ 		
+ 	});
+	
 });
 
 </script>
@@ -82,106 +122,21 @@ $(document).ready(function () {
     
     <div class="container main-container">
     
-      <div class="row header"><!-- Begin Header -->
-      
-        <!-- Logo
-        ================================================== -->
-        <div class="span5 logo">
-        	<a href="index.htm"><img src="img/piccolo-logo.png" alt="" /></a>
-            <h5>Big Things... Small Packages</h5>
-        </div>
-        
-        <!-- Main Navigation
-        ================================================== -->
-        <div class="span7 navigation">
-            <div class="navbar hidden-phone">
-            
-           <ul class="nav">
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="index.htm">Home <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="index.htm">Full Page</a></li>
-                    <li><a href="index-gallery.htm">Gallery Only</a></li>
-                    <li><a href="index-slider.htm">Slider Only</a></li>
-                </ul>
-            </li>
-           <li><a href="features.htm">Features</a></li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="page-full-width.htm">Pages <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="page-full-width.htm">Full Width</a></li>
-                    <li><a href="page-right-sidebar.htm">Right Sidebar</a></li>
-                    <li><a href="page-left-sidebar.htm">Left Sidebar</a></li>
-                    <li><a href="page-double-sidebar.htm">Double Sidebar</a></li>
-                </ul>
-            </li>
-             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="gallery-4col.htm">Gallery <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="gallery-3col.htm">Gallery 3 Column</a></li>
-                    <li><a href="gallery-4col.htm">Gallery 4 Column</a></li>
-                    <li><a href="gallery-6col.htm">Gallery 6 Column</a></li>
-                    <li><a href="gallery-4col-circle.htm">Gallery 4 Round</a></li>
-                    <li><a href="gallery-single.htm">Gallery Single</a></li>
-                </ul>
-             </li>
-             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="blog-style1.htm">Blog <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="blog-style1.htm">Blog Style 1</a></li>
-                    <li><a href="blog-style2.htm">Blog Style 2</a></li>
-                    <li><a href="blog-style3.htm">Blog Style 3</a></li>
-                    <li><a href="blog-style4.htm">Blog Style 4</a></li>
-                    <li><a href="blog-single.htm">Blog Single</a></li>
-                </ul>
-             </li>
-             <li class="active"><a href="page-contact.htm">Contact</a></li>
-            </ul>
-           
-            </div>
-
-             <!-- Mobile Nav
-            ================================================== -->
-            <form action="#" id="mobile-nav" class="visible-phone">
-                <div class="mobile-nav-select">
-                <select onchange="window.open(this.options[this.selectedIndex].value,'_top')">
-                    <option value="">Navigate...</option>
-                    <option value="index.htm">Home</option>
-                        <option value="index.htm">- Full Page</option>
-                        <option value="index-gallery.htm">- Gallery Only</option>
-                        <option value="index-slider.htm">- Slider Only</option>
-                    <option value="features.htm">Features</option>
-                    <option value="page-full-width.htm">Pages</option>
-                        <option value="page-full-width.htm">- Full Width</option>
-                        <option value="page-right-sidebar.htm">- Right Sidebar</option>
-                        <option value="page-left-sidebar.htm">- Left Sidebar</option>
-                        <option value="page-double-sidebar.htm">- Double Sidebar</option>
-                    <option value="gallery-4col.htm">Gallery</option>
-                        <option value="gallery-3col.htm">- 3 Column</option>
-                        <option value="gallery-4col.htm">- 4 Column</option>
-                        <option value="gallery-6col.htm">- 6 Column</option>
-                        <option value="gallery-4col-circle.htm">- Gallery 4 Col Round</option>
-                        <option value="gallery-single.htm">- Gallery Single</option>
-                    <option value="blog-style1.htm">Blog</option>
-                        <option value="blog-style1.htm">- Blog Style 1</option>
-                        <option value="blog-style2.htm">- Blog Style 2</option>
-                        <option value="blog-style3.htm">- Blog Style 3</option>
-                        <option value="blog-style4.htm">- Blog Style 4</option>
-                        <option value="blog-single.htm">- Blog Single</option>
-                    <option value="page-contact.htm">Contact</option>
-                </select>
-                </div>
-                </form>
-
-        </div>
-        
-      </div><!-- End Header -->
+      <jsp:include page="khbooks_header.jsp"></jsp:include>
      
     <!-- Page Content
     ================================================== --> 
     <div class="row"><!--Container row-->
         <div class="span6 gallery-single">
-        <h3>${aList.auname }님의 작품</h3>
+        <h3 >${aList.auname }님의 작품 
+        <c:choose>
+            <c:when test="${fbchk==0 || sessionScope.id == ''}">
+            	<button class="btn btn-small" id="favAuthor-btn"  value="${fbchk}">관심 작가 추가</button>
+            </c:when>
+            <c:otherwise>
+              <button class="btn btn-small btn-inverse" id="favauthor-btn" value="${fbchk}">관심 작가 제거</button>
+            </c:otherwise>
+           	</c:choose></h3>
         <c:forEach var="dto" items="${bList}" >
                 <div class="span8">
                 <div style="width: 90%; ">
@@ -236,77 +191,7 @@ $(document).ready(function () {
     <!-- Footer Area
         ================================================== -->
 
-	<div class="footer-container"><!-- Begin Footer -->
-    	<div class="container">
-        	<div class="row footer-row">
-                <div class="span3 footer-col">
-                    <h5>About Us</h5>
-                   <img src="img/piccolo-footer-logo.png" alt="Piccolo" /><br /><br />
-                    <address>
-                        <strong>Design Team</strong><br />
-                        123 Main St, Suite 500<br />
-                        New York, NY 12345<br />
-                    </address>
-                    <ul class="social-icons">
-                        <li><a href="#" class="social-icon facebook"></a></li>
-                        <li><a href="#" class="social-icon twitter"></a></li>
-                        <li><a href="#" class="social-icon dribble"></a></li>
-                        <li><a href="#" class="social-icon rss"></a></li>
-                        <li><a href="#" class="social-icon forrst"></a></li>
-                    </ul>
-                </div>
-                <div class="span3 footer-col">
-                    <h5>Latest Tweets</h5>
-                    <ul>
-                        <li><a href="#">@room122</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                        <li><a href="#">@room122</a> In interdum felis fermentum ipsum molestie sed porttitor ligula rutrum. Morbi blandit ultricies ultrices.</li>
-                        <li><a href="#">@room122</a> Vivamus nec lectus sed orci molestie molestie. Etiam mattis neque eu orci rutrum aliquam.</li>
-                    </ul>
-                </div>
-                <div class="span3 footer-col">
-                    <h5>Latest Posts</h5>
-                     <ul class="post-list">
-                        <li><a href="#">Lorem ipsum dolor sit amet</a></li>
-                        <li><a href="#">Consectetur adipiscing elit est lacus gravida</a></li>
-                        <li><a href="#">Lectus sed orci molestie molestie etiam</a></li>
-                        <li><a href="#">Mattis consectetur adipiscing elit est lacus</a></li>
-                        <li><a href="#">Cras rutrum, massa non blandit convallis est</a></li>
-                    </ul>
-                </div>
-                <div class="span3 footer-col">
-                    <h5>Flickr Photos</h5>
-                    <ul class="img-feed">
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="row"><!-- Begin Sub Footer -->
-                <div class="span12 footer-col footer-sub">
-                    <div class="row no-margin">
-                        <div class="span6"><span class="left">Copyright 2012 Piccolo Theme. All rights reserved.</span></div>
-                        <div class="span6">
-                            <span class="right">
-                            <a href="#">Home</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Features</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Gallery</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Blog</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Contact</a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- End Sub Footer -->
-
-        </div>
-    </div><!-- End Footer -->
+	<jsp:include page="khbooks_footer.jsp"/>
 
     <!-- Scroll to Top -->  
     <div id="toTop" class="hidden-phone hidden-tablet">Back to Top</div>

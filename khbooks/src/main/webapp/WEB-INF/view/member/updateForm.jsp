@@ -77,7 +77,15 @@ $(document).ready(function () {
 			alert('비밀번호가 일치하지 않습니다.');
 			return false;
 		}
-		
+	});
+	$('#deletebtn').on('click',function(){
+		var del=confirm("정말 탈퇴 하시겠습니까 ?");
+		if(del){
+			$('form').attr("action","delete.kh");
+			$('form').submit();
+		}else{
+			return false;
+		}
 	});
 });
 
@@ -138,6 +146,7 @@ $(document).ready(function () {
                     </table>
                    
                     <button class="btn btn-inverse pull-left" id="updatebtn" type="button">수정 완료</button>
+                    <button class="btn btn-inverse pull-left" id="deletebtn" type="button" style="margin-left:20px;">회원 탈퇴</button>
                     </form>
                     </div>
                     
