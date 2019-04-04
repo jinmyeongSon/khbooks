@@ -351,7 +351,17 @@ public class AdminController {
 		return "redirect:/bookDetailForm.kh?bno="+bno;
 	}
 	
-	// serial delete
+	// bookAuthor insert
+	@RequestMapping("bookAuthorInsert.kh")
+	public String bookAuthorInsert(int bno, int auno) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bno", bno);
+		map.put("auno", auno);
+		service.bookAuthorInsertProcess(map);
+		return "redirect:/bookDetailForm.kh?bno="+bno;
+	}
+	
+	// bookAuthor delete
 	@RequestMapping("bookAuthorDelete.kh")
 	public String bookAuthorDelete(int bno, int auno) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -360,5 +370,17 @@ public class AdminController {
 		service.bookAuthorDeleteProcess(map);
 		return "redirect:/bookDetailForm.kh?bno="+bno;
 	}
+	
+	// bookAuthor search
+		@RequestMapping("bookAuthorSearch.kh")
+		public ModelAndView bookAuthorSearch(int bno, String searchWord) {
+			ModelAndView mav = new ModelAndView();
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("bno", bno);
+			map.put("searchWord", searchWord);
+			mav.addObject("aList", service.bookAuthorSearchProcess(map));
+			mav.setViewName("authorSearchResultForm");
+			return mav;
+		}
 	
 }

@@ -1,6 +1,6 @@
 var searchKey='';
 var searchWord='';
-var currentPage='';
+var currentPage=0;
 $(document).ready(function(){
 	$('#userManage').on("click", userManage);
 	$('#bookManage').on("click", bookManage);
@@ -102,7 +102,6 @@ $(document).on('click', '#authorDel', function() {
 	if(confirm('삭제하시겠습니까?')){
 		var bno=$('#bno').val();
 		var auno = $(this).prev().prev().val();
-		alert(bno + ' ' + auno);
 		$('#managePlace').empty();
 		$('#managePlace').load("bookAuthorDelete.kh?bno="+bno+"&auno="+auno);
 	}
@@ -113,10 +112,22 @@ $(document).on('click', '#authorDel', function() {
 $(document).on('click', '#authorAdd', function() {
 	if(confirm('추가하시겠습니까?')){
 		var bno=$('#bno').val();
-		var auno = $(this).prev().val();
+		var auno = $(this).parent().attr('id');
 		$('#managePlace').empty();
 		$('#managePlace').load("bookAuthorInsert.kh?bno="+bno+"&auno="+auno);
+		$('body').removeClass('modal-open');
+		$('div').removeClass('modal-backdrop');
+		$('div').removeClass('fade');
+		$('div').removeClass('in');
 	}
+	return false;
+});
+
+//책 리스트 페이지 이동
+$(document).on('click', '#back', function() {
+	$('#managePlace').empty();
+	$('#managePlace').load("bookList.kh?currentPage="+currentPage+"&searchKey="+searchKey+"&searchWord="+searchWord);
+	return false;
 });
 
 // 책 리스트 페이지 이동
@@ -153,7 +164,6 @@ $(document).on('click', '#sdelete', function() {
 	if(confirm('삭제하시겠습니까?')){
 		var upno=$(this).parent().attr('id');
 		var bno=$('#bno').val();
-		alert(upno + "+" + bno);
 		$('#managePlace').empty();
 		$('#managePlace').load("serialDelete.kh?bno="+bno+"&upno="+upno);
 	}
@@ -164,6 +174,44 @@ $(document).on('click', '#sdelete', function() {
 $(document).on('click', '#bookAuthor', function() {
    	$('#authorModal').modal();
    	return false;
+});
+
+//bookAuthor 검색
+$(document).on('click', '#authSearch', function() {
+	var bno = $('#bno').val();
+	var searchWord = '';
+	searchWord = $('#searchName').val();
+	if(searchWord == ''){
+		alert('검색어를 입력하세요.');
+		return false;
+	} else {
+		$.ajax({
+			type : 'GET',
+			dataType : 'text',
+			url : 'bookAuthorSearch.kh?bno='+bno+'&searchWord='+searchWord,
+			success : function(res) {
+				$('#searchRes').empty();
+				$('#searchRes').html(res);
+			}
+			
+		});
+	}
+	return false;
+});
+
+// user update
+$(document).on('click', '#uupdate', function() {
+	$('#managePlace').empty();
+	var data = $(this).parent().serialize();
+	$('#managePlace').load("userUpdate.kh?"+data);
+	return false;
+});
+
+//user update cancel
+$(document).on('click', '#ucancel', function() {
+	$('#managePlace').empty();
+	$('#managePlace').load("userList.kh?currentPage="+currentPage+"&searchKey="+searchKey+"&searchWord="+searchWord);
+	return false;
 });
 
 //serial insert 폼
@@ -220,7 +268,6 @@ $(document).on('click', '#serialIns', function() {
 	var file = document.getElementById("serialFile").files.length;
 	var price = 0;
 	price = $('#price').val();
-	alert(price);
 	var formData = new FormData();
 	if(title == '' || file == 0){
 		alert('가격을 제외한 모든 내용을 입력하세요');
@@ -248,7 +295,7 @@ $(document).on('click', '#serialIns', function() {
 
 // 모달 캔슬버튼 시 내용 삭제
 $(document).on('click', '#modalCancel', function() {
-	$('#searchWord').val('');
+	$('#searchName').val('');
 	$('#serialFile').val('');
 	$('#price').val('');
 	$('#serialTitle').val('');

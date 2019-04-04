@@ -72,4 +72,8 @@ public interface AdminDAO {
 
 	public void bookAuthorDelete(Map<String, Object> map);
 
+	public List<AuthorDTO> bookAuthorSearch(Map<String, Object> map);
+
+	public void bookAuthorInsert(Map<String, Object> map);
+
 }
