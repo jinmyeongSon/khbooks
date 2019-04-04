@@ -66,6 +66,14 @@ public class AdminController {
 		}
 	}
 	
+	// 관리자 로그인 시도 시 체크
+	@RequestMapping("adminLogout.kh")
+	public String adminLogout(HttpSession session) {
+		session.removeAttribute("admin");
+		String path = (String)session.getAttribute("prev");
+		return "redirect:/mainpage.kh";
+	}
+	
 	// book insert form
 	@RequestMapping("bookInsertForm.kh")
 	public ModelAndView bookInsertForm() {

@@ -99,6 +99,10 @@
 	</bean>
 	
 	<bean id="download" class="controller.DownloadController" />
+	
+	<bean class="controller.PaymentController">
+		<property name="service" ref="uservice" />
+	</bean>
 
 
 
@@ -219,9 +223,6 @@
 	    <property name="javaMailSender" ref="javaMailSender" />
 	</bean>
 
-
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
-		up static resources in the ${webappRoot}/resources directory -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
 </beans>

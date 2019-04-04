@@ -39,9 +39,7 @@ color : #d8450b;
     <div class="color-bar-2 color-bg"></div>
     
     <div class="container main-container">    
-      <div class="row header"><!-- Begin Header -->
-      	<jsp:include page="khbooks_header.jsp"></jsp:include>
-      </div><!-- End Header -->
+      	<jsp:include page="khbooks_header.jsp" />
      
     <!-- Blog Content
     ================================================== --> 
