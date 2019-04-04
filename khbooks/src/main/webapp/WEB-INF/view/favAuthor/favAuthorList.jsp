@@ -56,7 +56,7 @@ var id = '${sessionScope.id}';
 $(document).ready(function () {
 	if(id==''){
 		alert('로그인을 해주세요.');
-		return false;
+		location.href="loginForm.kh";
 	}
 	
 	$(document).on('click','#deletebtn',function(){

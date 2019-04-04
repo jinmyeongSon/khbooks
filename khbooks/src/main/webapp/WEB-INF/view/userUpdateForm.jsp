@@ -14,11 +14,12 @@
 		searchKey='${adto.searchKey}';
 		searchWord='${adto.searchWord}';
 		currentPage='${adto.currentPage}';
-		$('#update').on('click', update_click);
+		$('#uupdate').on('click', update_click);
 		$('#cancel').on('click', cancel_click);
 		function update_click() {
 			$('#managePlace').empty();
 			var data = $(this).parent().serialize();
+			alert(data);
 			$('#managePlace').load("userUpdate.kh?"+data);
 			return false;
 		}
@@ -46,7 +47,7 @@ input{
 		<input type="text" id="uphone" name="uphone" value="${udto.uphone}"/>
 		<input type="text" id="ubirth" name="ubirth" value="${udto.ubirth}"/>
 		<input type="text" id="ugender" name="ugender" value="${udto.ugender}"/>
-		<input type="button" id="update" value="수정하기"/>
+		<input type="button" id="uupdate" value="수정하기"/>
 		<input type="button" id="cancel" value="취소"/>
 	</form>
 </body>

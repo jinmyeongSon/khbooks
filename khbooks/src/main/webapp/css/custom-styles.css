@@ -36,9 +36,23 @@ h5 small {font-size: 14px;}
 h6 small {font-size: 12px;}
 
 /*제목글 css 적용 안되게*/
+
+#noticeTitle span{
+	font-size : 17px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color : black;
+	text-shadow : 0;
+}
+
+#notice{
+	font-size : 17px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color : black;
+	text-shadow : 0;
+}
 #noticeCalendar:not(article) {
 	float : right;
-	font-size : 15px;
+	font-size : 17px;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	color : black;
 	text-shadow : 0;
@@ -46,11 +60,11 @@ h6 small {font-size: 12px;}
 
 #noticeAdmin:not(article) {
 	float : right;
-	font-size : 15px;
+	font-size : 17px;
 	margin-right : 10px;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	color : black;
-	text-shadow : 0 important;
+	text-shadow : 0;
 }
 
 #noticeCalendar:not(h3) {

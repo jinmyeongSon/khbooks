@@ -130,7 +130,7 @@ $(document).on('click', '.movePage', function() {
 	return false;
 });
 
-// 유저 업데이트
+//유저 업데이트 form
 $(document).on('click', '#update', function() {
 	var id=$(this).parent().attr('id');
 	$('#managePlace').empty();

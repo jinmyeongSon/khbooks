@@ -87,6 +87,10 @@ $(document).ready(function(){
                 </ul>
              </li>
              <c:choose>
+             	<c:when test="${sessionScope.admin!=null}">
+             		<li><a href="adminMain.kh" style=" font-weight: bold; font-size: 15px;">관리 페이지</a></li>
+             		<li><a href="adminLogout.kh" style=" font-weight: bold; font-size: 15px;">로그아웃</a></li>
+             	</c:when>
              	<c:when test="${sessionScope.id==null}">
              		<li><a href="loginForm.kh" style=" font-weight: bold; font-size: 15px;">로그인</a></li>
              		<li><a href="signUp.kh" style=" font-weight: bold; font-size: 15px;">회원가입</a></li>
