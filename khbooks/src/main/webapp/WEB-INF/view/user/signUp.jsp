@@ -59,28 +59,7 @@ label{
 
 <fmt:formatDate value="${bean.date}" pattern="yyyy-MM-dd" />
 <script type="text/javascript">
-function checkEmail(){
-	var userEmail = $('#userEmail').val();
-	
-	$.ajax({
-		async: true,
-		url : 'checkEmail.kh',
-        type : 'POST',
-        data : userEmail,
-        dataType : "json",
-		contentType: "application/json; charset=UTF-8",
-		success : function(data) {
-			 if(data.cnt > 0){
-	                $('#chkMsg').html("사용불가");  
-	                document.getElementById('chkMsg').innerHTML = '사용불가';
-	            }else{
-	                $('#chkMsgOk').html("사용가능");
-	                document.getElementById('chkMsgOk').innerHTML = '사용가능';
-	            }
-		}
 
-	});
-}
 </script>
 </head>
 

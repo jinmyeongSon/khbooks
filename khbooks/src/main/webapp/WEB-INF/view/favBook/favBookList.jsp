@@ -54,7 +54,11 @@ var id = '${sessionScope.id}';
 $(document).ready(function () {
 	if(id==''){
 		alert('로그인을 해주세요.');
+<<<<<<< HEAD
 		location.href='http://localhost:8090/khbook/mainpage.kh';
+=======
+		location.href="loginForm.kh";
+>>>>>>> branch 'book' of https://github.com/jinmyeongSon/khbooks.git
 	}
 	$(document).on('click','#move',function(){
 		var au=$(this).parent().prev().children().val();

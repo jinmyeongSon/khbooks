@@ -23,17 +23,6 @@ color : #d8450b;
 }
 </style>
 
-<!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <link rel="stylesheet" href="css/style-ie.css"/>
-<![endif]--> 
-
-<!-- Favicons
-================================================== -->
-<link rel="shortcut icon" href="img/favicon.ico">
-<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
 
 <!-- JS
 ================================================== -->
@@ -50,9 +39,7 @@ color : #d8450b;
     <div class="color-bar-2 color-bg"></div>
     
     <div class="container main-container">    
-      <div class="row header"><!-- Begin Header -->
-      	<jsp:include page="khbooks_header.jsp"></jsp:include>
-      </div><!-- End Header -->
+      	<jsp:include page="khbooks_header.jsp" />
      
     <!-- Blog Content
     ================================================== --> 
@@ -60,22 +47,33 @@ color : #d8450b;
 
         <!-- Blog Posts
         ================================================== --> 
-        <div class="span8 blog">
-      
+        <div class="span8 blog" style="margin-left: 13%;margin-right: 20%;width: 77%; margin-top: -40px;" >
+        	
+        	<h3 class="title-bg" style="font-weight: bold; " ><a href="noticeList.kh" style="color: #333333; text-decoration: none;">공지 사항</a></h3>
+        	<c:if test="sessionScope.admin!=null">
+        	        <button class="btn" type="button" onclick="javascript:location.href='noticeWrite.kh'"><i>글쓰기</i></button>
+        	</c:if>
+      		
             <!-- Blog Post 1 -->
+            <div id="noticeTitle" style="border-bottom: 2px solid #e5e5e5; height: 25px; margin-bottom: 8px;">
+                <span id="titleNoticeNum" style="float:left; width: 35px; margin-left: 5px;">번호</span>
+                <span id="titleNoticeName" style="float:left; width: 100px; margin-left: 22px; ">제목</span>
+                <span id="titleNoticeCalendar" style="float:right; width: 65px; margin-left: 5px;">날자</span>
+                <span id="titlenoticeAdmin"style="float:right; width: 96px; margin-left: 5px;">작성자</span>
+            </div>
             <c:forEach items="${noticeList }" var="ndto">
-            <article id="article">
-                <h3 class="title-bg"><a href="noticeView.kh?currentPage=${pdto.currentPage }&nnum=${ndto.nnum }">&nbsp; &nbsp; ${ndto.bname }</a>
-                <span id="noticeCalendar">${ndto.ndate }</span>
-                <span id="noticeAdmin">${ndto.aid }</span>
-                </h3>
-            </article>
+            <div id="notice" style="clear: both;height: 20px;margin-bottom: 5px;border-bottom: 1px dashed #e5e5e5;margin-top: 5px;">
+                <span id="noticeNum" style="float:left; width: 30px; margin-left: 10px;">${ndto.nnum}</span>
+                <a href="noticeView.kh?currentPage=${pdto.currentPage }&nnum=${ndto.nnum }" style="float:left; width: 100px; color: black; margin-left: 20px;">${ndto.bname }</a>
+                <span id="noticeCalendar"  style="float:right; width: 90px; margin-left: 5px;">${ndto.ndate }</span>
+                <span id="noticeAdmin" style="float:right; width: 60px;  margin-left: 5px;">${ndto.aid }</span>
+            </div>
             </c:forEach>
            
          
             <!-- Pagination -->
-            <div class="pagination">
-                <ul class="noticeListUl">
+            <div class="pagination" >
+                <ul class="noticeListUl" style="margin-left: 426px; ">
                 <!-- 이전 출력 -->
                 <c:if test="${pdto.startPage > 1 }">
                 <li class="active"><a href="noticeList.kh?currentPage=${pdto.startPage-pdto.blockPage }">이전</a></li>
@@ -90,7 +88,7 @@ color : #d8450b;
                				 </li>
                 		</c:when>
                 		<c:otherwise>
-                			<li class="active">
+                			<li>
                 				<a href="noticeList.kh?currentPage=${i }">${i }</a>
                				 </li>
                 		</c:otherwise>
@@ -103,48 +101,20 @@ color : #d8450b;
                 </c:if>	
                 </ul>
             </div>
-        </div>
-
-        <!-- Blog Sidebar
-        ================================================== --> 
-        <div class="span4 sidebar">
-
-            <!--검색 -->
-            <section>
+            
+        <section >
             <form id="searchForm" action="noticeList.kh" method="post">
-                <div class="input-append">
-                    <input name="bname" size="16" type="text" placeholder="제목 검색">
+                <div class="input-append" style="margin-left: 328px;">
+                    <input name="bname" size="16" type="text" placeholder="검색">
                     <button class="btn" type="button" onClick="document.getElementById('searchForm').submit();"><i class="icon-search"></i></button>
                     <!-- <input type="submit" value="검색"><i class="icon-search"></i> -->
                 </div>
             </form>    
-            </section>
-            
-            
-            <button class="btn" type="button" onclick="javascript:location.href='noticeWrite.kh'"><i>글쓰기</i></button>
-			
-            <!--Categories-->
-            <h5 class="title-bg">카테고리</h5>
-            <ul class="post-category-list">
-                <li><a href="noticeList.kh"><i class="icon-plus-sign"></i>공지사항</a></li>
-                <li><a href="boardList.kh"><i class="icon-plus-sign"></i>자유게시판</a></li>
-            </ul>
-
-            <!--Popular Posts-->
-            <h5 class="title-bg">인기 게시물</h5>
-            <c:forEach items="${popular }" var="p">
-            <ul class="popular-posts">
-                <li>
-                    <a href="noticeView.kh?currentPage=${pdto.currentPage}&nnum=${p.nnum}">${p.bname }</a>
-                    <span id="rc">조회수&#91;${p.ncount}&#93;</span>
-                </li>
-            </ul>
-            </c:forEach>
+        </section>
         </div>
-
     </div>
-    
-    </div> <!-- End Container -->
+    </div>
+        
 
     <!-- Footer Area
         ================================================== -->

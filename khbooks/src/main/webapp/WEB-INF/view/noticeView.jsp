@@ -21,13 +21,6 @@
 	color : tomato;
 }
 </style>
-<!-- Favicons
-================================================== -->
-<link rel="shortcut icon" href="img/favicon.ico">
-<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
-
 <!-- JS
 ================================================== -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -43,9 +36,7 @@
     <div class="color-bar-2 color-bg"></div>
     
     <div class="container main-container">
-      <div class="row header"><!-- Begin Header -->
-        <jsp:include page="khbooks_header.jsp"></jsp:include>
-      </div><!-- End Header -->
+        <jsp:include page="khbooks_header.jsp"/>
     <!-- Blog Content
     ================================================== --> 
     <div class="row"><!--Container row-->
@@ -69,7 +60,7 @@
                             <li><i class="icon-user"></i>${view.aid }</li>
                             <li><button type="button" class="btn btn-outline-dark" id="${view.nnum }">수정</button></li>
                             <li><button type="button" class="btn btn-outline-dark" id="${view.nnum }">삭제</button></li>
-                            <li><button type="button" class="btn btn-outline-dark" id="li"  onclick="javascript:history.go(-1)">목록</button></li>
+                            <li><button type="button" class="btn btn-outline-dark" id="li"  onclick="href:">목록</button></li>
                         </ul>
                     </div>
             	</div>
@@ -93,44 +84,7 @@
                </c:forEach>
             </article>
 
-       
-
-
         </div><!--Close container row-->
-
-        <!-- Blog Sidebar
-        ================================================== --> 
-        <div class="span4 sidebar">
-
-            <!--검색 -->
-            <section>
-            <form id="searchForm" action="noticeList.kh" method="post">
-                <div class="input-append">
-                    <input name="bname" size="16" type="text" placeholder="제목 검색">
-                    <button class="btn" type="button" onClick="document.getElementById('searchForm').submit();"><i class="icon-search"></i></button>
-                    <!-- <input type="submit" value="검색"><i class="icon-search"></i> -->
-                </div>
-            </form>    
-            </section>
-			
-            <!--Categories-->
-            <h5 class="title-bg">카테고리</h5>
-            <ul class="post-category-list">
-                <li><a href="noticeList.kh"><i class="icon-plus-sign"></i>공지사항</a></li>
-                <li><a href="boardList.kh"><i class="icon-plus-sign"></i>자유게시판</a></li>
-            </ul>
-
-            <!--Popular Posts-->
-            <h5 class="title-bg">인기 게시물</h5>
-            <c:forEach items="${popular }" var="p">
-            <ul class="popular-posts">
-                <li>
-                    <a href="noticeView.kh?currentPage=${pdto.currentPage}&nnum=${p.nnum}">${p.bname }</a>
-                    <span id="rc">조회수&#91;${p.ncount}&#93;</span>
-                </li>
-            </ul>
-            </c:forEach>
-        </div>
 
     </div>
     
