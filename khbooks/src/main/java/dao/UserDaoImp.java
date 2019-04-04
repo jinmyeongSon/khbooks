@@ -76,6 +76,16 @@ public class UserDaoImp implements UserDAO{
 	}
 
 
+	@Override
+	public void paypay(Map<String, Object> map) {
+		sqlSession.update("user.pointupt", map);
+		
+	}
+
+
+	
+
+
 
 	
 	

@@ -51,6 +51,9 @@
 		<property name="service" ref="service" />
 		<property name="mailService" ref="mailService" />
 	</bean>
+	<bean class="controller.PaymentController">
+		<property name="service" ref="service" />
+	</bean>
 
 	<bean id="naverLoginDTO" class="dto.NaverLoginDTO" />
 

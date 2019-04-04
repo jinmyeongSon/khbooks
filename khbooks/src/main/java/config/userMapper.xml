@@ -45,12 +45,25 @@
 	</update>
 	
 	
-	
 	<!-- 이메일 중복확인.. 인증번호 -->
 	<update id="authNum" parameterType="string">
 		update kh_user set authnum=#{authnum}
 	  	where  email=#{uemail}
 	</update>
+	
+	<!-- 결제 -->
+	<update id="pointupt" parameterType="map">
+		update kh_user set point=point+#{coin} where id=#{id}
+	</update>
+	
+	
+	
+	<!--카카오페이 전화번호 체크 -->
+	<update id="phone_chk" parameterType="int">
+		select count(*) from kh_user
+		where tel = #{uphone}
+	</update>
+	
 
 	
 	<delete id="u_delete" parameterType="string" >

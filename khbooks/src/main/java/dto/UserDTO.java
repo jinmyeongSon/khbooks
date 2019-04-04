@@ -11,6 +11,7 @@ public class UserDTO {
 	private String uphone;
 	private Date ubirth;
 	private int ugender;
+	private int point;
 	private boolean rememberId;
 	
 	public UserDTO() {
@@ -115,11 +116,19 @@ public class UserDTO {
 	}
 
 
+	public int getPoint() {
+		return point;
+	}
+	
+	
+	public void setPoint(int point) {
+		this.point = point;
+	}
+	
 
 	public boolean isRememberId() {
 		return rememberId;
 	}
-
 
 
 	public void setRememberId(boolean rememberId) {
