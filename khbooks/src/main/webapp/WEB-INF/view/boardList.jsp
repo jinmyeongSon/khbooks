@@ -83,7 +83,7 @@ color : #d8450b;
             <c:forEach items="${aList }" var="dto">
             <div id="notice" style="clear: both;height: 20px;margin-bottom: 5px;border-bottom: 1px dashed #e5e5e5;margin-top: 5px;">
                 <span id="noticeNum" style="float:left; width: 30px; margin-left: 10px;">${dto.bonum}</span>
-                <a href="boardView.kh?currentPage=${pdto.currentPage }&bonum=${dto.bonum }" style="float:left; width: 100px; color: black; margin-left: 20px;">${dto.bname }</a>
+                <a href="boardView.kh?currentPage=${pdto.currentPage }&bonum=${dto.bonum }" style="float:left; width: 600px; color: black; margin-left: 20px;">${dto.bname }</a>
                 <span id="noticeCalendar"  style="float:right; width: 90px; margin-left: 5px;">${dto.bdate }</span>
                 <span id="noticeAdmin" style="float:right; width: 60px;  margin-left: 5px;">${dto.id }</span>
                 <span id="noticeAdmin" style="float:right; width: 60px;  margin-left: 5px;">${dto.bcount }</span>

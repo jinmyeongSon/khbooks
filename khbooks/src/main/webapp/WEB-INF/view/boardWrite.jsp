@@ -48,12 +48,12 @@
 
         <!-- Blog Full Post
         ================================================== --> 
-        <div class="span8 blog">
+        <div class="span8 blog"style="margin-left:15%; margin-right:20%; width:74%; margin-top:-20px;">
         <form id="frm">
         <input type="hidden" name="id" value="${sessionScope.id}">
             <!-- Blog Post 1 -->
             <article>
-                <h3 class="title-bg"><input type="text" name="bname" style="width:500px"></h3>
+                <h3 class="title-bg">글 제목 :  <input type="text" name="bname" style="width:500px"></h3>
                 <div class="post-content">
                     <!-- <img src="img/gallery/notice.jpg" alt="Post Thumb"> -->
 
@@ -71,55 +71,6 @@
             </article>
        </form>
      </div><!--Close container row-->
-
-        <!-- Blog Sidebar
-        ================================================== --> 
-		<div class="span4 sidebar">
-
-            <!--Search-->
-            <section>
-                <div class="input-append">
-                    <form id="searchForm" action="boardList.kh" method="post">
-                        <input name="bname" size="16" type="text" placeholder="제목검색">
-                        <button class="btn" type="button" onClick="document.getElementById('searchForm').submit();"><i class="icon-search"></i></button>
-                    </form>
-                </div>
-            </section>
-            
-            <!-- 카테고리 -->
-            <h5 class="title-bg">게시판 카테고리</h5>
-            <ul class="post-category-list">
-                <li><a href="noticeList.kh"><i class="icon-plus-sign"></i>공지사항</a></li>
-                <li><a href="boardList.kh"><i class="icon-plus-sign"></i>자유게시판</a></li>
-            </ul>
-
-            <!-- 인기 게시물 -->
-            <h5 class="title-bg">인기 게시물</h5>
-           <c:forEach items="${popular }" var="p">
-            <ul class="popular-posts">
-                <li>
-                    <a href="boardView.kh?currentPage=${pdto.currentPage }&bonum=${p.bonum }">${p.bname }</a>
-                    <span id="rc">조회수&#91;${p.bcount}&#93;</span>
-                </li>
-            </ul>
-            </c:forEach>
-
-            <!-- 최신 댓글 -->
-            <h5 class="title-bg">최근 댓글</h5>
-            
-            <div class="tab-content">
-                <div class="tab-pane active" id="comments">
-                <c:forEach  items="${reply }" var="r">
-                     <ul>
-                        <li><i class="icon-comment"></i>${r.id } > <a href="boardView.kh?currentPage=${pdto.currentPage}&bonum=${r.bonum}">${r.bctext }</a></li>
-                    </ul>
-                </c:forEach>
-                </div>
-
-            
-        </div>
-
-    </div>
 
     </div>
     

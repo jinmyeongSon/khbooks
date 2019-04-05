@@ -59,7 +59,7 @@
 
         <!-- Blog Full Post
         ================================================== --> 
-        <div class="span8 blog">
+        <div class="span8 blog" style="margin-left:15%; margin-right:20%; width:74%; margin-top:-20px;">
 
             <!-- Blog Post 1 -->
             <article>
@@ -67,7 +67,7 @@
                 <div class="post-content">
                     
                     <div class="post-body">
-                        <p>${bdto.btext }</p>
+                        <p style="font-size:15px;">${bdto.btext }</p>
                     </div>
 
                     <div class="post-summary-footer">
@@ -95,10 +95,10 @@
                			<span class="comment-name">${rdto.id }</span>
                			<span>&nbsp;&nbsp;</span>
                			<span class="comment-date"><fmt:formatDate pattern="yy/MM/dd" dateStyle="short" value="${rdto.bcdate}"/></span>
-               			<div class="comment-content">${rdto.bctext }</div>
+               			<div class="comment-content" style="font-size:20px;">${rdto.bctext }</div>
                			<c:if test="${sessionScope.id ==rdto.id || sessionScope.admin != null}">
-               			<button id="${rdto.bcno }" class="${rdto.bonum }">수정</button>
-               			<button id="${rdto.bcno }" class="${rdto.bonum }">삭제</button>
+               			<button id="${rdto.bcno }" class="${rdto.bonum }" style="margin-top:15px;">수정</button>
+               			<button id="${rdto.bcno }" class="${rdto.bonum }" style="margin-top:15px;">삭제</button>
                			</c:if>
                		</li>
 
@@ -111,15 +111,14 @@
                     <h6>Leave a Comment</h6>
                     <form action="commentInsert.kh" method="post" id="comment-form">
                         <div class="input-prepend">
-                            <span class="add-on"><i class="icon-user"></i></span>
                             <%-- <c:forEach items="${ReplyDTO }" var="rdto"> --%>
-                            	<input class="span4" id="prependedInput" size="16" type="text" value="${sessionScope.id}" readonly>
+                            	<input class="span4" id="prependedInput" size="16" type="hidden" value="${sessionScope.id}" readonly>
                            <%--  </c:forEach> --%>
                         </div>
-                       <textarea id="textarea" class="span6" placeholder="댓글을 입력해주세요"></textarea>    
                         <div class="row">
-                            <div class="span2" id="${bdto.bonum }">
-                                <input type="button" class="btn btn-inverse" id="addComment" value="입력">
+                            <div class="span8" id="${bdto.bonum }">
+                            <textarea id="textarea" class="span4" placeholder="댓글을 입력해주세요" style="height:100px;"></textarea>
+                                <input type="button" class="btn btn-inverse" id="addComment" value="입력" style="height:110px; margin-top:0px;">
                             </div>
                         </div>
                     </form>
