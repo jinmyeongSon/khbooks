@@ -142,7 +142,6 @@ function comment_list_result(res) {
 		
 		$.each(res, function(index, value){
 			var source = '<li class="commList" id="{{bcno}}">'
-				+'<img src="img/user-avatar.jpg" alt="Image" />'
 				+'<span class="comment-name">{{id}}</span>'
 				+'<span>&nbsp;&nbsp;</span>'
 				+'<span class="comment-date">{{newDate bcdate}}</span>'
