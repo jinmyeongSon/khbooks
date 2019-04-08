@@ -128,7 +128,7 @@ public class UserController {
 		return mav;
 	}
 	
-	
+
 	// 아이디 중복체크
 	@RequestMapping(value="/checkId.kh", method=RequestMethod.POST)
 	public @ResponseBody int idcheck(@RequestBody String id) {
@@ -149,6 +149,9 @@ public class UserController {
 		session.invalidate();
 		return "index";
 	}
+	
+	
+
 	
 	
 	 // 이메일 인증

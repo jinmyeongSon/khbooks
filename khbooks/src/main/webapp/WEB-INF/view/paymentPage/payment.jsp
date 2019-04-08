@@ -45,6 +45,13 @@
 		
 		
 		$("#pay").click(function(){
+			.ajax({
+				url: 'dsds.kh?total_amount='+coin,
+	            method: 'GET',
+	            dataType: 'json',
+			});
+			
+			
 			var IMP = window.IMP; // 생략가능
 			var coin = $('input[type="radio"]:checked').val();
 			IMP.init('imp39904934'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
@@ -56,7 +63,7 @@
 			    name : '주문명:KH BOOKs 코인충전',
 			    amount : coin,
 			    buyer_email : 'iamport@siot.do',
-			    buyer_name : '구매자이름',
+			    buyer_name : '구매자 이름',
 			    buyer_tel : '010-1234-5678',
 			    buyer_addr : '서울특별시 강남구 테헤란로',
 			    buyer_postcode : '123-456',
@@ -88,7 +95,7 @@
 	
 	});
 	
-	function bank_payment(){
+	/* function bank_payment(){
 		var coin = $('input[type="radio"]:checked').val();
 		var id= ${sessionScope.id};
 		if(coin != null){
@@ -104,7 +111,7 @@
 			alert("결제금액을 선택해주세요");
 		}
 	}
-	
+	 */
 	function payment(){
 		$.ajax({
             url: 'searchOpen.kh?total_amount='+$('input[type="radio"]:checked').val(),
