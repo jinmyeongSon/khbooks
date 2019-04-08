@@ -18,6 +18,29 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
 
+<style type="text/css">
+	.id-form{
+		
+		padding:15px;
+		width:400px;
+		margin-bottom: 5px;
+		
+	}
+	
+	.align-center {text-align: center;}
+	.align-justify {text-align: justify;}
+	.margin-center {
+		margin-left:auto;
+		margin-right:auto;
+	}
+	.a {
+	  text-decoration: none;
+	  color: #008CBA;
+	  font-size: 15px;
+	  text-align: right;
+	}
+	
+</style>
 
 <!-- JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -154,7 +177,8 @@ $(document).ready(function(){
 			     <label for="useCookie">
 			         <input type="checkbox" id="rememberId" name="rememberId" value="true" /><p style="font-size: 12px;display: inline-block;">아이디 기억</p>
 			     </label>
-		  			 <a href="http://localhost:8090/khbook/findId.kh">아이디</a>·<a href="http://localhost:8090/khbook/findPwd.kh">비밀번호 찾기</a>
+		  			 <a id="idf" class="a" href="tryit.asp?filename=trycss_text" data-toggle="modal" data-target="#exampleModal1">아이디</a>·
+					 <a id="pwf" class="a" href="tryit.asp?filename=trycss_text" data-toggle="modal" data-target="#exampleModal2">비밀번호 찾기</a>
 					<c:if test="${msg == 'fail'}">
 					<div style="color: red">아이디 또는 비밀번호가 일치하지 않습니다.</div>
 					</c:if>
@@ -169,6 +193,77 @@ $(document).ready(function(){
 	  <div id="naver_id_login"></div>
 	</div>
 </div>
+
+
+
+
+
+<!-- Find ID Modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">아이디 찾기</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+		<form  id="sendIdForm" action="sendMail/id.kh" method="post">
+	        <div id="" class="margin-center id-form">
+	        	<span class="align-center badge badge-info">입력하신 이메일로 아이디가 전송됩니다.</span>
+				<div class="input-group mb-3">
+				  <input type="text" id="email" name="email" class="form-control" placeholder="이메일을 입력하세요" autofocus required>
+				  <div class="input-group-append">
+				    <button type="submit" id="sendId" class="btn btn-outline-secondary">보내기</button>
+				  </div>
+				</div>
+			</div>
+		</form>
+		
+      </div>
+    </div>
+  </div>
+</div>
+<!--Find ID Modal END -->
+
+
+
+<!-- Find PWD Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">비밀번호 찾기</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+	        
+		<form id="sendPwdForm" action="sendMail/password.kh" method="post">
+		 
+				<div id="" class="margin-center id-form">
+			       	<span class="align-center badge badge-info">입력하신 이메일로 임시 비밀번호가 전송됩니다.</span>
+			        <div class="form-group">
+					  <input type="text" class="form-control" id="id" name="id" autofocus placeholder="아이디" required>
+					</div>
+			        <div class="form-group">
+					  <input type="email" id="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="이메일을 입력하세요" required>
+					</div>
+				</div>
+      
+		      <div class="modal-footer">
+		       <button type="submit" id="sendPwd" class="btn btn-outline-secondary">보내기</button>
+		      </div>
+		</form>
+      
+      </div>
+    </div>
+  </div>
+</div>
+<!--Find Pwd Modal END -->
 
 </body>
 <script type="text/javascript">
