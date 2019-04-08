@@ -121,7 +121,7 @@ $(document).ready(function(){
 </head>
 <body>
 <!-- header -->
-	<div class="container" style="margin-top: 20px; margin-left:30%; margin-right:30%; width: 40%;">
+	<div class="container" style="margin-top: 20px; margin-left:auto; margin-right:auto; width: 540px;">
 		<a href="mainpage.kh" style="width: 300px; color: #333333; font-size: 25px; text-decoration: none;"><img src="img/khbooks_logo.png" alt="for every novel" style="padding-right: 0px;"/>
 		For every Novel</a>
 	</div>
