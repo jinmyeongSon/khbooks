@@ -53,41 +53,56 @@ color : #d8450b;
     <div class="color-bar-2 color-bg"></div>
     
     <div class="container main-container">
-    <div class="row header"><!-- Begin Header -->
       
     <jsp:include page="khbooks_header.jsp"></jsp:include>
 
-    </div><!-- End Header -->
   
     <!-- Blog Content
     ================================================== --> 
-    <div class="row">
+   <div class="row">
+
         <!-- Blog Posts
         ================================================== --> 
-        <div class="span8 blog">
-           
+        <div class="span8 blog" style="margin-left: 13%;margin-right: 20%;width: 77%; margin-top: -40px;" >
+        	
+        	<h3 class="title-bg" style="font-weight: bold; " ><a href="noticeList.kh" style="color: #333333; text-decoration: none;">자유게시판</a></h3>
+        	<c:if test="sessionScope.admin!=null">
+        	        <button class="btn" type="button" onclick="javascript:location.href='noticeWrite.kh'"><i>글쓰기</i></button>
+        	</c:if>
+      		
             <!-- Blog Post 1 -->
+            <div id="noticeTitle" style="border-bottom: 2px solid #e5e5e5; height: 25px; margin-bottom: 8px;">
+                <span id="titleNum" style="float:left; width: 35px; margin-left: 5px;">번호</span>
+                <span id="titleName" style="float:left; width: 100px; margin-left: 22px; ">제목</span>
+                <span id="titleCalendar" style="float:right; width: 65px; margin-left: 5px;">날자</span>
+                <span id="titleId"style="float:right; width: 96px; margin-left: 5px;">작성자</span>
+                <span id="titleCount"style="float:right; width: 96px; margin-left: 5px;">조회수</span>
+            </div>
             <c:forEach items="${aList }" var="dto">
-            <article class="clearfix">
-               <a href=""><img src="img/thumbnail.png" alt="Post Thumb" class="align-left"></a>
-                <h4 class="title-bg"><a href="boardView.kh?currentPage=${pdto.currentPage }&bonum=${dto.bonum }">${dto.bname }</a></h4>
-                    <%-- <p>${dto.btext }</p> --%>
-                    <a href="boardView.kh?currentPage=${pdto.currentPage }&bonum=${dto.bonum }"><button class="btn btn-mini btn-inverse" type="button">자세히</button></a>
-                    <div class="post-summary-footer">
-                        <ul class="post-data-3">
-                            <li><i class="icon-calendar"></i><fmt:formatDate pattern="yy/MM/dd" dateStyle="short" value="${dto.bdate }" /></li>
-                            <li><i class="icon-user"></i>${dto.id }</li>
-                            <li><i class="icon-comment"></i>댓글&#91;${dto.replyCount}&#93;</li>
-                            <li>조회수&nbsp;${dto.bcount}</li>
-                        </ul>
-                    </div>
-            </article>
+            <div id="notice" style="clear: both;height: 20px;margin-bottom: 5px;border-bottom: 1px dashed #e5e5e5;margin-top: 5px;">
+                <span id="noticeNum" style="float:left; width: 30px; margin-left: 10px;">${dto.bonum}</span>
+                <a href="boardView.kh?currentPage=${pdto.currentPage }&bonum=${dto.bonum }" style="float:left; width: 600px; color: black; margin-left: 20px;">${dto.bname }</a>
+                <span id="noticeCalendar"  style="float:right; width: 90px; margin-left: 5px;">${dto.bdate }</span>
+                <span id="noticeAdmin" style="float:right; width: 60px;  margin-left: 5px;">${dto.id }</span>
+                <span id="noticeAdmin" style="float:right; width: 60px;  margin-left: 5px;">${dto.bcount }</span>
+            </div>
             </c:forEach>
+           <div>
+            	<span id="noticeAdmin" style="float:right; width: 80px;  margin-left: 5px;">
+					<c:choose>
+            <c:when test="${sessionScope.id == null }">
+              	<button class="btn" type="button" onclick="alert('로그인 먼저 해주세요')"><i>글쓰기</i></button>
+            </c:when>
+            <c:otherwise>
+             	<button class="btn" type="button" onclick="javascript:location.href='boardWrite.kh'"><i>글쓰기</i></button>
+			</c:otherwise>
+			</c:choose>
+				</span>
+           	</div>
          
-
             <!-- Pagination -->
-            <div class="pagination">
-                <ul>
+            <div class="pagination" >
+                <ul class="boardListUl" style="margin-left: 426px; ">
                 <!-- 이전 출력 -->
                 <c:if test="${pdto.startPage > 1 }">
                 <li class="active"><a href="boardList.kh?currentPage=${pdto.startPage-pdto.blockPage }">이전</a></li>
@@ -102,7 +117,7 @@ color : #d8450b;
                				 </li>
                 		</c:when>
                 		<c:otherwise>
-                			<li class="active">
+                			<li>
                 				<a href="boardList.kh?currentPage=${i }">${i }</a>
                				 </li>
                 		</c:otherwise>
@@ -115,68 +130,17 @@ color : #d8450b;
                 </c:if>	
                 </ul>
             </div>
-        </div>
-
-        <!-- Blog Sidebar
-        ================================================== --> 
-        <div class="span4 sidebar">
-
-            <!--Search-->
-            <section>
-                <div class="input-append">
-                    <form id="searchForm" action="boardList.kh" method="post">
-                        <input name="bname" size="16" type="text" placeholder="제목검색">
-                        <button class="btn" type="button" onClick="document.getElementById('searchForm').submit();"><i class="icon-search"></i></button>
-                    </form>
+            
+        <section >
+            <form id="searchForm" action="noticeList.kh" method="post">
+                <div class="input-append" style="margin-left: 328px;">
+                    <input name="bname" size="16" type="text" placeholder="검색">
+                    <button class="btn" type="button" onClick="document.getElementById('searchForm').submit();"><i class="icon-search"></i></button>
+                    <!-- <input type="submit" value="검색"><i class="icon-search"></i> -->
                 </div>
-            </section>
-            
-            <!-- 글쓰기 -->
-           <c:choose>
-            <c:when test="${sessionScope.id == null }">
-              	<button class="btn" type="button" onclick="alert('로그인 먼저 해주세요')"><i>글쓰기</i></button>
-            </c:when>
-            <c:otherwise>
-             	<button class="btn" type="button" onclick="javascript:location.href='boardWrite.kh'"><i>글쓰기</i></button>
-			</c:otherwise>
-			</c:choose>
-			<!-- <button class="btn" type="button" onclick="javascript:location.href='boardWrite.kh'"><i>글쓰기</i></button> -->
-            
-            <!-- 카테고리 -->
-            <h5 class="title-bg">게시판 카테고리</h5>
-            <ul class="post-category-list">
-                <li><a href="noticeList.kh"><i class="icon-plus-sign"></i>공지사항</a></li>
-                <li><a href="boardList.kh"><i class="icon-plus-sign"></i>자유게시판</a></li>
-            </ul>
-
-            <!-- 인기 게시물 -->
-            <h5 class="title-bg">인기 게시물</h5>
-           <c:forEach items="${popular }" var="p">
-            <ul class="popular-posts">
-                <li>
-                    <a href="boardView.kh?currentPage=${pdto.currentPage }&bonum=${p.bonum }">${p.bname }</a>
-                    <span id="rc">조회수&#91;${p.bcount}&#93;</span>
-                </li>
-            </ul>
-            </c:forEach>
-
-            <!-- 최신 댓글 -->
-            <h5 class="title-bg">최근 댓글</h5>
-            
-            <div class="tab-content">
-                <div class="tab-pane active" id="comments">
-                <c:forEach  items="${reply }" var="r">
-                     <ul>
-                        <li><i class="icon-comment"></i>${r.id } > <a href="boardView.kh?currentPage=${pdto.currentPage}&bonum=${r.bonum}">${r.bctext }</a></li>
-                    </ul>
-                </c:forEach>
-                </div>
-
-            
+            </form>    
+        </section>
         </div>
-
-    </div>
-    
     </div>
     
     </div> <!-- End Container -->
@@ -185,9 +149,6 @@ color : #d8450b;
         ================================================== -->
         
 	<jsp:include page="khbooks_footer.jsp"/>
-
-    <!-- Scroll to Top -->  
-    <div id="toTop" class="hidden-phone hidden-tablet">Back to Top</div>
     
 </body>
 </html>

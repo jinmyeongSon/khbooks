@@ -6,10 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript">
-$(document).ready(function(){
-});
-</script>
 <style type="text/css">
 #wrap::-webkit-scrollbar { 
     display: none; 
@@ -44,7 +40,7 @@ $(document).ready(function(){
 					</c:choose>
 				</c:forEach>
 			</select><br/>
-			<button id="bookUpdate">수정하기</button><button id="newSerial">새 화 추가</button>
+			<button id="bookUpdate">수정하기</button><button id="newSerial">새 화 추가</button><button id="back">돌아가기</button>
 		</div>
 		<div id="wrap" style="width:30%;height: 100%;float:left; padding-top: 10px;">
 			작가<br/>
@@ -104,8 +100,8 @@ $(document).ready(function(){
             <h5 id="myModalLabel">작가 추가</h5>
         </div>
         <div class="modal-body">
-            <input style="margin-bottom: 0px;" type="text" id="searchWord" name="searchWord" placeholder="작가 이름 입력" /><button id="authSearch">검색</button>
-            <div id="searchRes"></div>
+            <input style="margin-bottom: 0px;" type="text" id="searchName" name="searchName" placeholder="작가 이름 입력" /><button id="authSearch">검색</button>
+            <div id="searchRes" style="margin-top: 10px;"></div>
         </div>
         <div class="modal-footer">
             <button class="btn" data-dismiss="modal" aria-hidden="true" id="modalCancel">취소</button>

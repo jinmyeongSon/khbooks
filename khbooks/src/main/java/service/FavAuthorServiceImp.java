@@ -27,8 +27,8 @@ public class FavAuthorServiceImp implements FavAuthorService {
 	}
 
 	@Override
-	public void deleteprocess(int num) {
-		dao.FavDelete(num);
+	public void deleteprocess(Map<String, Object> map) {
+		dao.FavDelete(map);
 		
 	}
 

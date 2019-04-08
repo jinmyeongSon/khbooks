@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html >
 <html>
 <head>
@@ -9,6 +10,18 @@
 
 <!-- CSS
 ================================================== -->
+<style type="text/css">
+#ca{
+margin-left:140px;
+}
+#mem{
+margin-left:320px;
+font-size:20px;
+}
+#nextbtn{
+margin-left:140px;
+}
+</style>
 <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/bootstrap-responsive.css">
@@ -64,18 +77,25 @@ $(document).ready(function () {
     ================================================== --> 
     <div class="row"><!--Container row-->
 
-        <div class="span8 contact"><!--Begin page content column-->
+        <div class="span4 contact" id="mem"><!--Begin page content column-->
                    <form method="GET">
                     <h2>회원정보</h2>
                    
                     <ul class="project-info">
                     <input type="hidden" value="${dto.id }" name="id" id="name"/>
-                        <li><h6>아이디:</h6> ${dto.id }</li>
-                        <li><h6>이름:</h6> ${dto.uname }</li>
-                        <li><h6>이메일:</h6> ${dto.uemail }</li>
-                        <li><h6>연락처:</h6> ${dto.uphone }</li>
-                        <li><h6>생일:</h6> ${dto.ubirth }</li>
-                        <li><h6>성별:</h6>${dto.ugender }</li>
+                        <li><h5>아이디:</h5> ${dto.id }</li>
+                        <li><h5>이름:</h5> ${dto.uname }</li>
+                        <li><h5>이메일:</h5> ${dto.uemail }</li>
+                        <li><h5>연락처:</h5> ${dto.uphone }</li>
+                        <li><h5>생일:</h5> ${dto.ubirth }</li>
+                        <li><h5>성별:</h5><c:choose>
+                        <c:when test="${dto.ugender==1 }">
+                        	남자
+                        </c:when>
+                        <c:otherwise>
+                        	여자
+                        </c:otherwise>
+                        </c:choose></li>
                     </ul>
                    
                     <button class="btn btn-inverse pull-left" id="nextbtn" type="button">정보 수정</button>
@@ -86,7 +106,7 @@ $(document).ready(function () {
 
         <!-- Sidebar
         ================================================== --> 
-        <div class="span4 sidebar page-sidebar"><!-- Begin sidebar column -->
+        <div class="span4 sidebar page-sidebar" id="ca"><!-- Begin sidebar column -->
              <h5 class="title-bg">Categories</h5>
             <ul class="post-category-list">
                 <li><a href="http://localhost:8090/khbook/memberInfor.kh"><i class="icon-plus-sign"></i>회원정보</a></li>

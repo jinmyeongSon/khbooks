@@ -39,9 +39,7 @@ color : #d8450b;
     <div class="color-bar-2 color-bg"></div>
     
     <div class="container main-container">    
-      <div class="row header"><!-- Begin Header -->
-      	<jsp:include page="khbooks_header.jsp"></jsp:include>
-      </div><!-- End Header -->
+      	<jsp:include page="khbooks_header.jsp" />
      
     <!-- Blog Content
     ================================================== --> 
@@ -67,6 +65,7 @@ color : #d8450b;
             <div id="notice" style="clear: both;height: 20px;margin-bottom: 5px;border-bottom: 1px dashed #e5e5e5;margin-top: 5px;">
                 <span id="noticeNum" style="float:left; width: 30px; margin-left: 10px;">${ndto.nnum}</span>
                 <a href="noticeView.kh?currentPage=${pdto.currentPage }&nnum=${ndto.nnum }" style="float:left; width: 600px; color: black; margin-left: 20px; overflow: hidden;" >${ndto.bname }</a>
+
                 <span id="noticeCalendar"  style="float:right; width: 90px; margin-left: 5px;">${ndto.ndate }</span>
                 <span id="noticeAdmin" style="float:right; width: 60px;  margin-left: 5px;">${ndto.aid }</span>
             </div>

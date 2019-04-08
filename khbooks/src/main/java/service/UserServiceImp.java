@@ -1,5 +1,7 @@
 package service;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -18,16 +20,10 @@ public class UserServiceImp implements UserService {
 		this.dao = dao;
 	}
 
-	/*@Override
-	public UserDTO login(UserDTO udto) throws Exception {
-		return dao.login(udto);
-	}*/
-
 	@Override
 	public boolean login(UserDTO udto, HttpSession session) {
 		boolean res = dao.login(udto);
 		if(res) {
-			
 			session.setAttribute("userId", udto.getId());
 		}
 		return res;
@@ -55,7 +51,13 @@ public class UserServiceImp implements UserService {
 
 	@Override
 	public int CheckDuplicationEmail(String email) {
-		return dao.CheckDuplication(email);
+		return dao.CheckDuplicationEmail(email);
+	}
+
+
+	@Override
+	public void paypay(Map<String, Object> map) {
+		dao.paypay(map);
 	}
 
 	

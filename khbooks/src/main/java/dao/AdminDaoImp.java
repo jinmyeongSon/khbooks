@@ -194,5 +194,15 @@ public class AdminDaoImp implements AdminDAO {
 	public void bookAuthorDelete(Map<String, Object> map) {
 		sqlSession.delete("admin.baDelete", map);
 	}
+
+	@Override
+	public List<AuthorDTO> bookAuthorSearch(Map<String, Object> map) {
+		return sqlSession.selectList("admin.newAuth", map);
+	}
+
+	@Override
+	public void bookAuthorInsert(Map<String, Object> map) {
+		sqlSession.insert("admin.baInsert", map);
+	}
 	
 }

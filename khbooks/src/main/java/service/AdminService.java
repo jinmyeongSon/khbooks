@@ -72,4 +72,8 @@ public interface AdminService {
 
 	public void bookAuthorDeleteProcess(Map<String, Object> map);
 
+	public List<AuthorDTO> bookAuthorSearchProcess(Map<String, Object> map);
+
+	public void bookAuthorInsertProcess(Map<String, Object> map);
+
 }

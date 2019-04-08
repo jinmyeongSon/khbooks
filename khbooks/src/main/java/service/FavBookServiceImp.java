@@ -22,8 +22,8 @@ public class FavBookServiceImp implements FavBookService{
 		return dao.FavList(map);
 	}
 	@Override
-	public void deleteprocess(int num) {
-		dao.delete(num);
+	public void deleteprocess(Map<String, Object> map) {
+		dao.delete(map);
 	}
 
 	@Override

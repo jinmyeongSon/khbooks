@@ -16,7 +16,13 @@
 <link rel="stylesheet" href="css/prettyPhoto.css" />
 <link rel="stylesheet" href="css/flexslider.css" />
 <link rel="stylesheet" href="css/custom-styles.css">
+<style type="text/css">
 
+table{
+width:550px;
+}
+
+</style>
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <link rel="stylesheet" href="css/style-ie.css"/>
@@ -96,11 +102,11 @@ $(document).ready(function () {
         <div class="span8">
             <div class="flexslider">
               <ul class="slides">
-                <li><a href="gallery-single.htm"><img src="img/main/main1.png" alt="slider" /></a></li>
-                <li><a href="gallery-single.htm"><img src="img/main/main2.jpg" alt="slider" /></a></li>
-                <li><a href="gallery-single.htm"><img src="img/main/main3.jpg" alt="slider" /></a></li>
-                <li><a href="gallery-single.htm"><img src="img/main/main4.jpg" alt="slider" /></a></li>
-                <li><a href="gallery-single.htm"><img src="img/main/main5.png" alt="slider" /></a></li>
+                <li><img src="img/main/main1.png" alt="slider" /></li>
+                <li><img src="img/main/main2.jpg" alt="slider" /></li>
+                <li><img src="img/main/main3.jpg" alt="slider" /></li>
+                <li><img src="img/main/main4.jpg" alt="slider" /></li>
+                <li><img src="img/main/main5.png" alt="slider" /></li>
               </ul>
             </div>
         </div>
@@ -126,11 +132,22 @@ $(document).ready(function () {
 
 					<c:forEach items="${bList}" var="list"  begin="0" end="7" step="1" >
                     <li class="span3 blog-post-item">
-                        <div class="blog-post-hover hidden-phone hidden-tablet">
-                            <p><a href="bookDetail.kh?bno=${list.bno}" class="clearfix">${list.bname}</a>
-                        최신업로드: ${list.bupdate}   <br />평점 : ${list.bgrade }<br /> 조회수 : ${list.bview}<br /> </p>
-                        </div>
-                        <a href="blog-single.htm"><img src="img/bthumb/${list.bthumb }" alt="Post Thumb"></a>
+                    <div style="float: none;heigt=41px;width=100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:bold;font-size:18px;padding-left: 5px;margin-bottom: 3px;">
+								<a href="bookDetail.kh?bno=${list.bno }">${list.bname }</a></div>
+                        <a href="bookDetail.kh?bno=${list.bno }">
+                        <c:choose>
+                   <c:when test="${list.bthumb==null }">
+                   	<img src="img/gallery/gallery-img-1-full.jpg" style="width: 150px; height: 230px;" class="align-left thumbnail" alt="image">
+                   </c:when>
+                   <c:otherwise>
+                   	<img src="img/bthumb/${list.bthumb }" style="width: 150px; height: 230px;" class="align-left thumbnail" alt="image"/>
+                   </c:otherwise>
+                   </c:choose>
+						</a>
+						<ul >
+							<li style="float: none; margin-top:60px;">평점 : ${list.bgrade }</li>
+							<li style="float: none;">최신 등록일 : ${list.bupdate }</li>
+						</ul>
                     </li>
                     </c:forEach>
 
@@ -152,11 +169,15 @@ $(document).ready(function () {
                 <button class="btn btn-mini btn-inverse hidden-phone" id="noticemove" type="button">페이지로 이동</button>
             </h5>
              <div class="tab-pane" id="notice">
-                    <ul>
+                    <table>
                     	<c:forEach items="${noticeList }" var="ndto" begin="0" end="5" step="1">
-                    	<li style="heigt=41px; width=100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><a id="noti"href="noticeView.kh?currentPage=${pdto.currentPage }&nnum=${ndto.nnum }"> ${ndto.bname }</a> ${ndto.ndate}</li>
+                    	<tr>
+                    		<td id="af">
+                    		<a style="heigt=41px; width=100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:right" id="noti"href="noticeView.kh?currentPage=${pdto.currentPage }&nnum=${ndto.nnum }"> ${ndto.bname }</a></td>
+                    		<td id="back"style="text-align:right"> ${ndto.ndate}</td>
+                    		</tr>
                     	</c:forEach>
-                    </ul>
+                    </table>
                 </div>
         
             

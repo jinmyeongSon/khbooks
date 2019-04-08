@@ -42,12 +42,10 @@ public class BoardController {
 				currentPage = pdto.getCurrentPage();
 			} 
 			pdto = new PageDTO(currentPage, totalRecord);
-			//System.out.println("현재 페이지 : " + currentPage);
 			
 			List<BoardDTO> aList = service.listProcess(pdto); //BoardDTO
 			for(int i=aList.size(); i>0; i--) {
 				aList.get(aList.size()-i).setReplyCount(service.replyCountProcess(aList.get(aList.size()-i).getBonum()));
-				//System.out.println(service.replyCountProcess(i) + "    " + i);
 			}
 			
 			mav.addObject("currentPage", currentPage);
@@ -71,7 +69,6 @@ public class BoardController {
 		}
 		
 		int totalRecord = service.SearchTotalRecord(bname);
-		System.out.println("검색 총 갯수 : " + totalRecord);
 		
 		if(totalRecord >= 1) {
 			if(pv.getCurrentPage() == 0) {
@@ -86,12 +83,7 @@ public class BoardController {
 				aList.get(aList.size()-i).setReplyCount(service.replyCountProcess(aList.get(aList.size()-i).getBonum()));
 				//System.out.println(service.replyCountProcess(i) + "    " + i);
 			}
-			
-			
-			for(BoardDTO dto : aList) {
-				System.out.println("제목 : " + dto.getBname());
-			}
-			
+		
 			mav.addObject("currentPage", currentPage);
 			mav.addObject("pdto", pdto);
 			mav.addObject("aList", aList);

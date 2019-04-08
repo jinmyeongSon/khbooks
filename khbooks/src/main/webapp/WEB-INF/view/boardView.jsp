@@ -59,24 +59,25 @@
 
         <!-- Blog Full Post
         ================================================== --> 
-        <div class="span8 blog">
+        <div class="span8 blog" style="margin-left:15%; margin-right:20%; width:74%; margin-top:-20px;">
 
             <!-- Blog Post 1 -->
             <article>
-                <h3 class="title-bg">${bdto.bname }</h3>
+                <div><h3 class="title-bg">${bdto.bname }</h3></div>
                 <div class="post-content">
-                    <img src="img/gallery/notice.jpg" alt="Post Thumb">
-
+                    
                     <div class="post-body">
-                        <p>${bdto.btext }</p>
+                        <p style="font-size:15px;">${bdto.btext }</p>
                     </div>
 
                     <div class="post-summary-footer">
                         <ul class="post-data">
                             <li><i class="icon-calendar"></i><fmt:formatDate pattern="yy/MM/dd" dateStyle="short" value="${bdto.bdate }" /></li>
                             <li><i class="icon-user"></i> <a href="#">${bdto.id }</a></li>
+                            <c:if test="${sessionScope.id ==bdto.id || sessionScope.admin != null}">
                             <li><button type="button" class="btn btn-outline-dark" id="${bdto.bonum }">수정</button></li>
                             <li><button type="button" class="btn btn-outline-dark" id="${bdto.bonum }">삭제</button></li>
+                            </c:if>
                             <li><a href="boardList.kh?currentPage=${currentPage}"><button type="button" class="btn btn-outline-dark" id="li">목록</button></a></li>
                         </ul>
                     </div>
@@ -86,18 +87,19 @@
         <!-- Post Comments
         ================================================== --> 
             <section class="comments">
-                <h4 class="title-bg" id="replycntSmall"><a name="comments"></a>댓글&#91;${commentRecord}&#93;</h4>
+                <h5 class="title-bg" id="replycntSmall"><a name="comments"></a>댓글&#91;${commentRecord}&#93;</h5>
                <!-- 댓글 리스트 --> 
                <ul class="listUl">
                	<c:forEach items="${ReplyDTO }" var="rdto">
                		<li class="commList" id="${rdto.bcno }">
-               			<img src="img/user-avatar.jpg" alt="Image" />
                			<span class="comment-name">${rdto.id }</span>
                			<span>&nbsp;&nbsp;</span>
                			<span class="comment-date"><fmt:formatDate pattern="yy/MM/dd" dateStyle="short" value="${rdto.bcdate}"/></span>
-               			<div class="comment-content">${rdto.bctext }</div>
-               			<button id="${rdto.bcno }" class="${rdto.bonum }">수정</button>
-               			<button id="${rdto.bcno }" class="${rdto.bonum }">삭제</button>
+               			<div class="comment-content" style="font-size:20px;">${rdto.bctext }</div>
+               			<c:if test="${sessionScope.id ==rdto.id || sessionScope.admin != null}">
+               			<button id="${rdto.bcno }" class="${rdto.bonum }" style="margin-top:15px;">수정</button>
+               			<button id="${rdto.bcno }" class="${rdto.bonum }" style="margin-top:15px;">삭제</button>
+               			</c:if>
                		</li>
 
                	</c:forEach>
@@ -109,15 +111,14 @@
                     <h6>Leave a Comment</h6>
                     <form action="commentInsert.kh" method="post" id="comment-form">
                         <div class="input-prepend">
-                            <span class="add-on"><i class="icon-user"></i></span>
                             <%-- <c:forEach items="${ReplyDTO }" var="rdto"> --%>
-                            	<input class="span4" id="prependedInput" size="16" type="text" value="${sessionScope.id}" readonly>
+                            	<input class="span4" id="prependedInput" size="16" type="hidden" value="${sessionScope.id}" readonly>
                            <%--  </c:forEach> --%>
                         </div>
-                       <textarea id="textarea" class="span6" placeholder="댓글을 입력해주세요"></textarea>    
                         <div class="row">
-                            <div class="span2" id="${bdto.bonum }">
-                                <input type="button" class="btn btn-inverse" id="addComment" value="입력">
+                            <div class="span8" id="${bdto.bonum }">
+                            <textarea id="textarea" class="span4" placeholder="댓글을 입력해주세요" style="height:100px;"></textarea>
+                                <input type="button" class="btn btn-inverse" id="addComment" value="입력" style="height:110px; margin-top:0px;">
                             </div>
                         </div>
                     </form>
@@ -141,60 +142,7 @@
 
         <!-- Blog Sidebar
         ================================================== --> 
-         <div class="span4 sidebar">
-
-            <!--Search-->
-            <section>
-                <div class="input-append">
-                    <form id="searchForm" action="boardList.kh" method="post">
-                        <input name="bname" size="16" type="text" placeholder="제목검색">
-                        <button class="btn" type="button" onClick="document.getElementById('searchForm').submit();"><i class="icon-search"></i></button>
-                    </form>
-                </div>
-            </section>
-            
-            <!-- 글쓰기 -->
-           <c:choose>
-            <c:when test="${sessionScope.id == null }">
-              	<button class="btn" type="button" onclick="alert('로그인 먼저 해주세요')"><i>글쓰기</i></button>
-            </c:when>
-            <c:otherwise>
-             	<button class="btn" type="button" onclick="javascript:location.href='boardWrite.kh'"><i>글쓰기</i></button>
-			</c:otherwise>
-			</c:choose>
-			<!-- <button class="btn" type="button" onclick="javascript:location.href='boardWrite.kh'"><i>글쓰기</i></button> -->
-            
-            <!-- 카테고리 -->
-            <h5 class="title-bg">게시판 카테고리</h5>
-            <ul class="post-category-list">
-                <li><a href="noticeList.kh"><i class="icon-plus-sign"></i>공지사항</a></li>
-                <li><a href="boardList.kh"><i class="icon-plus-sign"></i>자유게시판</a></li>
-            </ul>
-
-            <!-- 인기 게시물 -->
-            <h5 class="title-bg">인기 게시물</h5>
-           <c:forEach items="${popular}" var="p">
-            <ul class="popular-posts">
-                <li>
-                    <a href="boardView.kh?currentPage=${currentPage}&bonum=${p.bonum }">${p.bname }</a>
-                    <span id="rc">조회수&#91;${p.bcount}&#93;</span>
-                </li>
-            </ul>
-            </c:forEach>
-
-            <!-- 최신 댓글 -->
-            <h5 class="title-bg">최근 댓글</h5>
-            
-            <div class="tab-content">
-                <div class="tab-pane active" id="comments">
-                <c:forEach  items="${reply }" var="r">
-                     <ul>
-                        <li><i class="icon-comment"></i>${r.id } > <a href="boardView.kh?currentPage=${currentPage}&bonum=${r.bonum}">${r.bctext }</a></li>
-                    </ul>
-                </c:forEach>
-                </div>
-        </div>
-    </div>
+        
    </div>  
  </div> <!-- End Container -->
 

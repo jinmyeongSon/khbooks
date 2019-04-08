@@ -37,7 +37,7 @@ function board_update_delete(){
 	
 	if($(this).text() == "삭제") {
 		var delbonum = $(this).prop("id");
-		alert(delbonum);
+		/*alert(delbonum);*/
 		
 		$.ajax({
 			type : 'GET',
@@ -51,7 +51,7 @@ function board_update_delete(){
 		
 	} else if($(this).text() == "수정") {
 		var upbonum = $(this).prop("id");
-		alert("뷰페이지 수정 번호 : " + upbonum);
+		/*alert("뷰페이지 수정 번호 : " + upbonum);*/
 		location.href = 'boardUpdate.kh?bonum='+upbonum
 		
 	} else if($(this).text() == "등록") {
@@ -67,10 +67,10 @@ function board_update_delete(){
 
 function comment_list(){
 	var text = $('#textarea').val();
-	alert(text);
+	/*alert(text);*/
 	
 	var bonum = $(this).parent().prop("id");
-	alert(bonum);
+	/*alert(bonum);*/
 	
 	/*var form_data=new FormData();
 	form_data.append('bonum', '${bdto.bonum}');
@@ -92,7 +92,7 @@ function comment_update_delete(){
 	
 	if($(this).text() == '수정') {
 		upbcno = $(this).prop("id");
-		alert('수정 댓글 번호 : ' + upbcno);
+		/*alert('수정 댓글 번호 : ' + upbcno);*/
 		
 		$('#modifyModal').css({
 			 "position" : "absolute",
@@ -106,8 +106,8 @@ function comment_update_delete(){
 	} else if($(this).text() == "삭제") {
 		var delbcno = $(this).prop("id");
 		var bonum = $(this).prop("class"); //ReplyDTO의 bonum임
-		alert('삭제 댓글 번호 ' + delbcno);
-		alert('삭제 댓글의 게시글 번호' + bonum);
+		/*alert('삭제 댓글 번호 ' + delbcno);
+		alert('삭제 댓글의 게시글 번호' + bonum);*/
 		
 		$.ajax({
 			type : 'GET',
@@ -121,7 +121,7 @@ function comment_update_delete(){
 function comment_update_send() {
 	
 	var bonum = $('#btnModify').prop("class");
-	alert(bonum);
+	/*alert(bonum);*/
 	
 	$.ajax({
 		type : 'GET',
@@ -142,7 +142,6 @@ function comment_list_result(res) {
 		
 		$.each(res, function(index, value){
 			var source = '<li class="commList" id="{{bcno}}">'
-				+'<img src="img/user-avatar.jpg" alt="Image" />'
 				+'<span class="comment-name">{{id}}</span>'
 				+'<span>&nbsp;&nbsp;</span>'
 				+'<span class="comment-date">{{newDate bcdate}}</span>'

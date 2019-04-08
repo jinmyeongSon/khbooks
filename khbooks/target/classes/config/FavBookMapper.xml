@@ -15,17 +15,18 @@
 		AND f.bno=b.bno
 		AND s.bno=f.bno
         group by b.BNO, b.bname, b.bupdate, b.bgrade, b.bview
-        order by bno desc)a)b
+        order by bupdate desc)a)b
      where b.rm>=#{pdto.startRow} and b.rm<=#{pdto.endRow}
 	]]>
 	</select>
 	
-	<delete id="delete" parameterType="int">
-		delete from Fav_Book  where bno=#{bno} 
+	<delete id="delete" parameterType="map">
+		delete from Fav_Book  where bno=#{bno} AND id=#{id}
+
 	</delete>
-	
 	<delete id="deleteFb" parameterType="map">
 		delete from Fav_Book  where id=#{id} and bno=#{bno}  
+
 	</delete>
 	
 	<select id="count" parameterType="string" resultType="int">

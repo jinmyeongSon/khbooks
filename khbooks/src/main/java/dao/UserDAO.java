@@ -1,6 +1,8 @@
 package dao;
 
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import dto.UserDTO;
@@ -19,6 +21,8 @@ public interface UserDAO {
 	//아이디 중복체크
 	public int CheckDuplicationEmail(String email);
 
+	public void paypay(Map<String, Object> map);
+	
 	//네이버 로그인
 	public String naverinfo(String email);
 	

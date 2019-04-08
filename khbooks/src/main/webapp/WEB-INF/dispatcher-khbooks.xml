@@ -24,6 +24,15 @@
 		<property name="password" value="a1234" />
 	</bean>
 
+	<!-- controller -->
+	<bean class="controller.MainController">
+		<property name="nservice" ref="nservice" />
+		<property name="service" ref="serviceBook" />
+	</bean>
+	<bean class="controller.AuthorController">
+		<property name="service" ref="Authorservice"/>
+	</bean>
+
 	
 	<!-- [2] SqlSessionFactoryBean 빈 선언 -->
 
@@ -40,6 +49,7 @@
 				<value>classpath:config/noticeMapper.xml</value>
 				<value>classpath:config/uploadMapper.xml</value>
 				<value>classpath:config/BookMapper.xml</value>
+				<value>classpath:config/authorMapper.xml</value>
 				<value>classpath:config/SerialMapper.xml</value>
 				<value>classpath:config/userMapper.xml</value>
 				<value>classpath:config/adminMapper.xml</value>
@@ -81,16 +91,32 @@
 		<property name="nservice" ref="nservice" />
 	</bean>	
 	
-	<bean class="controller.MainController">
-		<property name="nservice" ref="nservice"/>
-		<property name="service" ref="serviceBook"/>
+
+	
+	<bean class="controller.FavBookController">
+		<property name="service" ref="FavBookservice"/>
 	</bean>
 	
+	<bean class="controller.FavAuthorController">
+		<property name="service" ref="FavAuthorservice"/>
+	</bean>
 	
+	<bean class="controller.AdminController">
+		<property name="service" ref="adminservice"/>
+	</bean>
+	
+	<bean id="download" class="controller.DownloadController" />
+	
+	<bean class="controller.PaymentController">
+		<property name="service" ref="uservice" />
+	</bean>
 
 
 
 	<!-- [7] DAO 빈 선언 -->
+	<bean id="Authordao" class="dao.AuthorDaoImp">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
 
 	<bean id="MemInfordao" class="dao.MemInforDaoImp">
 		<property name="sqlSession" ref="sqlSession" />
@@ -98,122 +124,81 @@
 	
 	<bean id="FavBookdao" class="dao.FavBookDaoImp">
 		<property name="sqlSession" ref="sqlSession" />
-		<!-- <constructor-arg> <ref bean="sqlSession/></constructor-arg> -->
 	</bean>
+	
 	<bean id="FavAuthordao" class="dao.FavAuthorDaoImp">
 		<property name="sqlSession" ref="sqlSession" />
-		<!-- <constructor-arg> <ref bean="sqlSession/></constructor-arg> -->
 	</bean>
+	
 	<bean id="admindao" class="dao.AdminDaoImp">
 		<property name="sqlSession" ref="sqlSession" />
-		<!-- <constructor-arg> <ref bean="sqlSession/></constructor-arg> -->
 	</bean>
-
-	<!-- [8] Service 빈 선언 -->
-	<bean id="MemInforservice" class="service.MemInforServiceImp">
-		<property name="dao" ref="MemInfordao"/>
-	</bean>
-	<bean id="FavBookservice" class="service.FavBookServiceImp">
-		<property name="dao" ref="FavBookdao"/>
-	</bean>
-	<bean id="FavAuthorservice" class="service.FavAuthorServiceImp">
-		<property name="dao" ref="FavAuthordao"/>
-	</bean>
-	<bean id="adminservice" class="service.AdminServiceImp">
-		<property name="dao" ref="admindao"/>
-	</bean>
-
-
-	<bean class="controller.FavBookController">
-		<property name="service" ref="FavBookservice"/>
-	</bean>
-	<bean class="controller.FavAuthorController">
-		<property name="service" ref="FavAuthorservice"/>
-	</bean>
-	<bean class="controller.AdminController">
-		<property name="service" ref="adminservice"/>
-	</bean>
-
-
-	<bean id="naverLoginDTO" class="dto.NaverLoginDTO" />
-
-	<!-- DAO -->
+	
 	<bean id="udao" class="dao.UserDaoImp">
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
+	
 	<bean class="dao.BoardDaoImp" id="bdao">
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
+	
 	<bean class="dao.NoticeDaoImp" id="ndao">
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
+	
 	<bean id="daoSerial" class="dao.SerialDaoImp">
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
-
 	
-	<!-- Service -->
+	<bean id="daoBook" class="dao.BookDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+
+	<!-- [8] Service 빈 선언 -->
+	<bean id="Authorservice" class="service.AuthorServiceImp">
+		<property name="dao" ref="Authordao"/>
+	</bean>
+	<bean id="MemInforservice" class="service.MemInforServiceImp">
+		<property name="dao" ref="MemInfordao"/>
+	</bean>
+	
+	<bean id="FavBookservice" class="service.FavBookServiceImp">
+		<property name="dao" ref="FavBookdao"/>
+	</bean>
+	
+	<bean id="FavAuthorservice" class="service.FavAuthorServiceImp">
+		<property name="dao" ref="FavAuthordao"/>
+	</bean>
+	
+	<bean id="adminservice" class="service.AdminServiceImp">
+		<property name="dao" ref="admindao"/>
+	</bean>
+	
 	<bean class="service.BoardServiceImp" id="bservice">
 		<property name="dao" ref="bdao"></property>
 	</bean>
+	
 	<bean class="service.NoticeServiceImp" id="nservice">
 		<property name="ndao" ref="ndao" />
 	</bean>
 	
-
-	
 	<bean id="serviceSerial" class="service.SerialServiceImp">
 		<property name="dao" ref="daoSerial" />
+	</bean>
+	
+	<bean id="serviceBook" class="service.BookServiceImp">
+		<property name="dao" ref="daoBook" />
+	</bean>
+	
+	<bean id="uservice" class="service.UserServiceImp">
+		<property name="dao" ref="udao" />
 	</bean>
 	
 	<!-- viewResolver -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
-	</bean>
-
-    <!-- DAO -->
-	<bean id="daoBook" class="dao.BookDaoImp">
-		<property name="sqlSession" ref="sqlSession" />
-	</bean>
-	<!-- Service -->
-	<bean id="serviceBook" class="service.BookServiceImp">
-		<property name="dao" ref="daoBook" />
-	</bean>
-	
-	<!-- Service -->
-	<bean id="uservice" class="service.UserServiceImp">
-		<property name="dao" ref="udao" />
-	</bean>
-
-	<!-- mail -->
-	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.gmail.com" />
-		<property name="port" value="587" />
-		<property name="username" value="soap8317@gmail.com" />
-		<property name="password" value="zgdrf901" />
-		<property name="javaMailProperties">
-			<props>
-				<prop key="mail.smtp.auth">true</prop>
-				<prop key="mail.smtp.starttls.enable">true</prop>
-			</props>
-		</property>
-	</bean>
-	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
-		<property name="order">
-			<value>0</value>
-		</property>
-	</bean>
-	
-	<bean id="download" class="controller.DownloadController" />
-	
-	
-	<!-- webSocket 등록 -->
-	<!-- <bean id="chatWebSocketHandler" class="part01.ChatWebSocketHandler" />
-	
-	<websocket:handlers>
-		<websocket:mapping handler="chatWebSocketHandler" path="/chatws.do"/>
-	</websocket:handlers> -->
+	</bean>	
 	
 	
 	<!-- 파일 업로드 시작 -->
@@ -230,11 +215,10 @@
 		<property name="maxUploadSize" value="1000000000" />
 	</bean>
 	
-
-	
 	<!-- 파일 업로드 끝 -->
+	
 
-		<!-- 이메일 관련 -->
+	<!-- 이메일 관련 -->
 	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
     <property name="host" value="smtp.gmail.com" />
     <property name="port" value="587" />
@@ -252,21 +236,7 @@
 	    <property name="javaMailSender" ref="javaMailSender" />
 	</bean>
 
-
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
-		up static resources in the ${webappRoot}/resources directory -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
-
-
-
-	<!-- Interceptor 설정 -->
-	<!--<mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/signUp.kh"/> 
-		<mvc:mapping path="/loginForm.kh"/> <mvc:mapping path="/loginPro.kh"/> <bean 
-		class="commons.AuthenticationInterceptor"/> </mvc:interceptor> </mvc:interceptors> -->
-
-	<!-- <context:component-scan base-package="web" /> <context:component-scan 
-		base-package="controller" /> -->
-
 
 </beans>
 

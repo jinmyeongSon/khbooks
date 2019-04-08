@@ -8,16 +8,33 @@
 <title>Insert title here</title>
 <style type="text/css">
 td{
-border:1px solid black;
+border: 2px solid #a9a9a9;
+border-radius: 6px;
 text-align: center; 
 
 }
 .pagination{
 text-align: center;
 }
+.pagination ul{
+margin-left:0px;
+}
 table{
 	width:650px;
+	font-size:20px;
 }
+td{
+	height:60px;
+}
+#ul{
+margin-left:-70px;
+text-align: center;
+
+}
+#au{
+	font-size:20px;
+}
+
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -56,14 +73,18 @@ var id = '${sessionScope.id}';
 $(document).ready(function () {
 	if(id==''){
 		alert('로그인을 해주세요.');
+<<<<<<< HEAD
+		location.href='http://localhost:8090/khbook/mainpage.kh';
+=======
 		location.href="loginForm.kh";
+>>>>>>> branch 'book' of https://github.com/jinmyeongSon/khbooks.git
 	}
 	
 	$(document).on('click','#deletebtn',function(){
 		var del=confirm("정말 삭제 하시겠습니까 ?");
 		if(del){
 			var bno= $(this).parent().prev().val();
-			$(this).parent().prev().prev().attr("action","favAuthorDelte.kh");
+			$(this).parent().prev().prev().attr("action","favAuthorDelete.kh");
 			$(this).parent().prev().prev().submit(); 
 		}else{
 			return false;
@@ -93,7 +114,7 @@ $(document).ready(function () {
                     	<thead>
 							<tr>
 								<th width="1%" ></th>
-								<th width="10%">작품 이름</th>
+								<th width="10%">작가 이름</th>
 								<th width="10%">작가 소개</th>
 							</tr>
 						</thead>
@@ -104,51 +125,69 @@ $(document).ready(function () {
 									<td colspan="3">저장된 데이터가 없습니다.</td>
 								</tr>
 								</c:when>
-							</c:choose>
-							<c:forEach var="dto" items="${aList}" >
 							<c:otherwise>
+							<c:forEach var="dto" items="${aList}" >
 								<tr>
 									<form method="POST">
 									<input type="hidden" value="${dto.auno }" name="num"/>
-									<td><input class="icon-trash" style="width:40%; height:90%;" type="button" id="deletebtn"/></td>
-									<td>${dto.auname }</td>
-									<td>${dto.auintro }</td>
+									<td><input class="icon-trash" style=" height:20px;" type="button" id="deletebtn"/></td>
+									<td><a href="author.kh?auno=${dto.auno }">${dto.auname }</a></td>
+									<td style="font-size: 15px; padding:10px;">${dto.auintro }</td>
+									 <input type="hidden" name="currentPage" value="${pv.currentPage }"/>
 									 </form>
 								</tr>
+								</c:forEach>
 							</c:otherwise>
-							</c:forEach>
+							</c:choose>
 					 </tbody>
                     </table>
                    <!--  <button class="btn btn-inverse pull-left" id="deletebtn" type="button">삭제</button> -->
                     <c:if test="${not empty aList }">
+                    
                     	<div class="pagination">
-                	<ul>
-                		<c:if test="${pv.startPage>1 }">
-							<li class="active"><a href="favAuthorList.kh.kh?currentPage=${pv.startPage-pv.blockPage }">이전</a></li>
-						</c:if>
-               			<!-- 페이지 -->
-						<c:forEach begin="${pv.startPage}" end="${pv.endPage }" var="i">
-							
-							<c:choose>
-							<c:when test="${i==pv.currentPage }">
-						<li class="active"><a href="favAuthorList.kh?currentPage=${i}" class="pagecolor">${i}</a></li>
-		</c:when>
-		<c:otherwise>
-			<li class="active"><a href="favAuthorList.kh?currentPage=${i}">${i}</a></li>
-		</c:otherwise>
-		</c:choose>
-		
-		</c:forEach>
-		<!-- 다음 -->
-		<c:if test="${pv.endPage<pv.totalPage}">
-			<li class="active"><a href="favAuthorList.kh?currentPage=${pv.startPage+pv.blockPage }">다음</a></li>
-		</c:if>
+                	 <ul id="ul">
+                	
+                <c:choose>
+                	<c:when test="${pv.currentPage==1}">
+                		<li class="active"><a href="favAuthorList.kh?currentPage=1">Prev</a></li>
+                	</c:when>
+					<c:when test="${pv.currentPage>1&&pv.currentPage<pv.blockPage/2+2}">
+                		<li><a href="favAuthorList.kh?currentPage=1">Prev</a></li>
+                	</c:when>
+                	<c:otherwise>
+                		<li><a href="favAuthorList.kh?currentPage=${pv.currentPage-1}">Prev</a></li>
+                	</c:otherwise>
+                </c:choose>
+                <c:forEach var="i" begin="${-blockPage/2}" end="${pv.blockPage/2}" step="1" >
+                	<c:if test="${(pv.currentPage+i-1)>0 && ((pv.currentPage+i-2)<(pv.endPage))}">
+                		<c:choose>
+                			<c:when test="${(i+pv.currentPage-1) == pv.currentPage}">
+                				<li class="active">
+                			</c:when>
+                			<c:otherwise>
+                				<li>
+                			</c:otherwise>
+                		</c:choose>
+                		<a href="favAuthorList.kh?currentPage=${pv.currentPage + (i - 1)}">${pv.currentPage + (i-1)}</a></li>
+                	</c:if>
+                </c:forEach>
+             
+                <c:choose>
+                	<c:when test="${pv.currentPage==pv.endPage}">
+                		<li class="active"><a href="favAuthorList.kh?currentPage=${pv.endPage}">Next</a></li>
+                	</c:when>
+                	<c:when test="${pv.endPage-pv.currentPage > 0 && pv.endPage-pv.currentPage<pv.blockPage/2}">
+                		<li><a href="favAuthorList.kh?currentPage=${pv.endPage}">Next</a></li>
+                	</c:when>
+                	<c:otherwise>
+                		<li><a href="favAuthorList.kh?currentPage=${pv.currentPage+pv.blockPage/2+1}">Next</a></li>
+                	</c:otherwise>
+                </c:choose>
                 </ul>
-        
-            </div>
-                    </c:if>
-                
-                    </div>
+			</div>
+			
+          </c:if>
+		 </div>
                     
            
 
@@ -170,77 +209,7 @@ $(document).ready(function () {
     <!-- Footer Area
         ================================================== -->
 
-	<div class="footer-container"><!-- Begin Footer -->
-    	<div class="container">
-        	<div class="row footer-row">
-                <div class="span3 footer-col">
-                    <h5>About Us</h5>
-                   <img src="img/piccolo-footer-logo.png" alt="Piccolo" /><br /><br />
-                    <address>
-                        <strong>Design Team</strong><br />
-                        123 Main St, Suite 500<br />
-                        New York, NY 12345<br />
-                    </address>
-                    <ul class="social-icons">
-                        <li><a href="#" class="social-icon facebook"></a></li>
-                        <li><a href="#" class="social-icon twitter"></a></li>
-                        <li><a href="#" class="social-icon dribble"></a></li>
-                        <li><a href="#" class="social-icon rss"></a></li>
-                        <li><a href="#" class="social-icon forrst"></a></li>
-                    </ul>
-                </div>
-                <div class="span3 footer-col">
-                    <h5>Latest Tweets</h5>
-                    <ul>
-                        <li><a href="#">@room122</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                        <li><a href="#">@room122</a> In interdum felis fermentum ipsum molestie sed porttitor ligula rutrum. Morbi blandit ultricies ultrices.</li>
-                        <li><a href="#">@room122</a> Vivamus nec lectus sed orci molestie molestie. Etiam mattis neque eu orci rutrum aliquam.</li>
-                    </ul>
-                </div>
-                <div class="span3 footer-col">
-                    <h5>Latest Posts</h5>
-                     <ul class="post-list">
-                        <li><a href="#">Lorem ipsum dolor sit amet</a></li>
-                        <li><a href="#">Consectetur adipiscing elit est lacus gravida</a></li>
-                        <li><a href="#">Lectus sed orci molestie molestie etiam</a></li>
-                        <li><a href="#">Mattis consectetur adipiscing elit est lacus</a></li>
-                        <li><a href="#">Cras rutrum, massa non blandit convallis est</a></li>
-                    </ul>
-                </div>
-                <div class="span3 footer-col">
-                    <h5>Flickr Photos</h5>
-                    <ul class="img-feed">
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                        <li><a href="#"><img src="img/gallery/flickr-img-1.jpg" alt="Image Feed"></a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="row"><!-- Begin Sub Footer -->
-                <div class="span12 footer-col footer-sub">
-                    <div class="row no-margin">
-                        <div class="span6"><span class="left">Copyright 2012 Piccolo Theme. All rights reserved.</span></div>
-                        <div class="span6">
-                            <span class="right">
-                            <a href="#">Home</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Features</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Gallery</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Blog</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">Contact</a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- End Sub Footer -->
-
-        </div>
-    </div><!-- End Footer -->
+	<jsp:include page="../khbooks_footer.jsp"/>
 
     <!-- Scroll to Top -->  
     <div id="toTop" class="hidden-phone hidden-tablet">Back to Top</div>

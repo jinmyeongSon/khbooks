@@ -17,7 +17,14 @@
 <link rel="stylesheet" href="css/bootstrap-responsive.css">
 <link rel="stylesheet" href="css/jquery.lightbox-0.5.css">
 <link rel="stylesheet" href="css/custom-styles.css">
+<style type="text/css">
 
+#mem{
+margin-left:450px;
+margin-top:100px;
+}
+
+</style>
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <link rel="stylesheet" href="css/style-ie.css"/>
@@ -67,7 +74,7 @@ $(document).ready(function () {
     ================================================== --> 
     <div class="row"><!--Container row-->
 
-        <div class="span8 contact"><!--Begin page content column-->
+        <div class="span4 contact" id="mem"><!--Begin page content column-->
 
             <h2>비밀번호 확인</h2>
             <p>회원 정보를 수정하기 위해서는 비밀번호를 입력해야 합니다.</p>

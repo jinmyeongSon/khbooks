@@ -193,6 +193,23 @@
 		where bno = #{bno}
 		and auno = #{auno}
 	</delete>
+	
+	<insert id="baInsert" parameterType="map">
+		insert into book_author
+		values(#{bno}, #{auno})
+	</insert>
+	
+	<select id="newAuth" parameterType="map" resultType="dto.AuthorDTO">
+		select * 
+		from author 
+		where auname like '%' || #{searchWord} || '%'
+		and auno not in(
+			select auno
+			from book_author
+			where bno=#{bno}
+		)
+	</select>
+	
 </mapper>
 
 

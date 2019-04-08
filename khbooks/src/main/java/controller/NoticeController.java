@@ -48,7 +48,6 @@ public class NoticeController {
 	public ModelAndView noticeList(PageDTO pv) {
 		ModelAndView mav = new ModelAndView();
 		int totalRecord = nservice.noticeCountPro();
-		System.out.println("공지사항 총 갯수 : " + totalRecord);
 		
 		if(totalRecord >= 1) {
 			if(pv.getCurrentPage() == 0) {
@@ -96,7 +95,6 @@ public class NoticeController {
 		}
 		
 		int totalRecord = nservice.SearchTotalRecord(bname);
-		System.out.println("검색 총 갯수 : " + totalRecord);
 		
 		if(totalRecord >= 1) {
 			if(pv.getCurrentPage() == 0) {
@@ -107,10 +105,6 @@ public class NoticeController {
 			
 			pdto = new PageDTO(currentPage, totalRecord);
 			List<NoticeDTO> aList = nservice.getSearchList(bname, pdto);
-			
-			for(NoticeDTO dto : aList) {
-				System.out.println("제목 : " + dto.getBname());
-			}
 			
 			mav.addObject("currentPage", currentPage);
 			mav.addObject("pdto", pdto);
@@ -218,7 +212,6 @@ public class NoticeController {
 		if(files != null) {
 			for(MultipartFile file : files) {
 				String fileName = file.getOriginalFilename();
-				System.out.println("파일 이름 : " + fileName);
 				UUID random = UUID.randomUUID();
 				File fe = new File(path);
 				if(!fe.exists()) {
@@ -239,8 +232,6 @@ public class NoticeController {
 			
 		}
 		
-		System.out.println("수정 게시글 번호 : " + ndto.getNnum());
-		
 		nservice.noticeUpdatePro(ndto);
 		
 		return nservice.noticeListPro(pv);
@@ -251,8 +242,6 @@ public class NoticeController {
 	@RequestMapping("/noticeDownload.kh")
 	public ModelAndView download(String upname, String path) {
 		String fullPath = path + "\\" + upname;
-		System.out.println("fullPath : " + fullPath);
-		
 		File file = new File(fullPath);
 		
 		return new ModelAndView("download", "downloadFile", file);
@@ -262,7 +251,6 @@ public class NoticeController {
 	
 	@RequestMapping("/fileDelete.kh")
 	public @ResponseBody void fileDelete(int upno) {
-		System.out.println(upno);
 		nservice.fileDelete(upno);
 	}//end fileDelete
 	
@@ -270,8 +258,6 @@ public class NoticeController {
 	@RequestMapping("/noticeKeyword.kh")
 	public @ResponseBody List<NoticeDTO> search(String bname) {
 
-		System.out.println("키워드 : " + bname);
-		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("searchList", nservice.search(bname));
 		mav.addObject("bname", bname);

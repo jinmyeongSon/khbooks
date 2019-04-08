@@ -172,4 +172,14 @@ public class AdminServiceImp implements AdminService {
 	public void bookAuthorDeleteProcess(Map<String, Object> map) {
 		dao.bookAuthorDelete(map);
 	}
+
+	@Override
+	public List<AuthorDTO> bookAuthorSearchProcess(Map<String, Object> map) {
+		return dao.bookAuthorSearch(map);
+	}
+
+	@Override
+	public void bookAuthorInsertProcess(Map<String, Object> map) {
+		dao.bookAuthorInsert(map);
+	}
 }

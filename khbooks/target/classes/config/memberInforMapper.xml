@@ -13,6 +13,10 @@
 		update kh_user set upass=#{upass}, uname=#{uname}, uemail=#{uemail}, uphone=#{uphone},
 		where id=#{id}
 	</update>
+	
+	<delete id="delete" parameterType="String" >
+		delete from kh_user where id=#{id}
+	</delete>
 </mapper>
 
 

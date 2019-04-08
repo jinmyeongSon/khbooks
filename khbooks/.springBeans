@@ -8,6 +8,7 @@
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
 		<config>src/main/java/config/boardMapper.xml</config>
+		<config>src/main/java/config/authorMapper.xml</config>
 	</configs>
 	<autoconfigs>
 		<config>src/main/webapp/WEB-INF/dispatcher-khbooks.xml</config>

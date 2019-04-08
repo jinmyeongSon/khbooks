@@ -27,4 +27,11 @@ public class MemInforServiceImp implements MemInforService{
 		dao.update(dto);
 	}
 
+
+	@Override
+	public void deleteProcess(String id) {
+		dao.delete(id);
+		
+	}
+
 }

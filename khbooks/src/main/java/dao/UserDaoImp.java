@@ -29,11 +29,6 @@ public class UserDaoImp implements UserDAO{
 		sqlSession.insert("user.u_ins", udto);
 	}
 	
-
-	/*@Override
-	public UserDTO login(UserDTO udto) {
-		return sqlSession.selectOne("user.login", udto);
-	}*/
 	@Override
 	public boolean login(UserDTO udto) {
 		String id =  sqlSession.selectOne("user.login", udto);
@@ -74,6 +69,16 @@ public class UserDaoImp implements UserDAO{
 	public int CheckDuplicationEmail(String email) {
 		return sqlSession.selectOne("user.email_chk", email);
 	}
+
+
+	@Override
+	public void paypay(Map<String, Object> map) {
+		sqlSession.update("user.pointupt", map);
+		
+	}
+
+
+	
 
 
 

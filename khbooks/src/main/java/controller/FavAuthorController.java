@@ -32,7 +32,6 @@ public class FavAuthorController {
 		ModelAndView mav = new ModelAndView();
 		Map<String, Object> map = new HashMap<String,Object>();
 		String id=(String)session.getAttribute("id");
-		System.out.println(id);
 		session.setAttribute("id", id);
 		if(id==null) {
 			mav.setViewName("/favAuthor/favAuthorList");
@@ -58,10 +57,19 @@ public class FavAuthorController {
 		}
 		return mav;
 	}
-	@RequestMapping("/favAuthorDelte.kh")
-	public ModelAndView favAuthorDelete(int num) {
+	@RequestMapping("/favAuthorDelete.kh")
+	public ModelAndView favAuthorDelete(HttpSession session,int num,int currentPage) {
 		ModelAndView mav = new ModelAndView();
-		service.deleteprocess(num);
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("id", (String)session.getAttribute("id"));
+		map.put("auno", num);
+		service.deleteprocess(map);
+		PageDTO pv= new PageDTO(currentPage,service.countprocess((String)session.getAttribute("id")));
+		if(pv.getTotalPage() <= currentPage)
+			mav.addObject("currentPage",pv.getTotalPage());
+		else 
+			mav.addObject("currentPage",pv.getTotalPage());
+		mav.addObject("currentPage",currentPage);
 		mav.setViewName("redirect:/favAuthorList.kh");
 		return mav;
 	}
@@ -76,6 +84,14 @@ public class FavAuthorController {
 		}
 		
 		return num; 
+	}
+	@RequestMapping("/favAuthorDelete2.kh")
+	public @ResponseBody int favAuthorDelete2(HttpSession session,int auno) {
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("id", (String)session.getAttribute("id"));
+		map.put("auno", auno);
+		service.deleteprocess(map);
+		return 1;
 	}
 	
 }
