@@ -83,7 +83,7 @@ public class PaymentController {
 		System.out.println(total);
 
 		return total;
-	}// end process()
+	}// end process() 
 
 	@RequestMapping(value = "/paysuccess.kh")
 	public ModelAndView paysuccess(String finish, HttpSession session) {

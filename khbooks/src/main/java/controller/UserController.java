@@ -54,7 +54,7 @@ public class UserController {
 		return "index";
 	}
 	
-	
+	 
 	// 네이버 로그인
 	@RequestMapping(value = "/index-naver.kh", method = RequestMethod.GET)
 	public String naverlogin(String email, String gender) {
