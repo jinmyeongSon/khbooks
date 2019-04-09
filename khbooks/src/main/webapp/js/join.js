@@ -31,25 +31,30 @@ $(document).ready(function() {
 	function joinChk() {
 		var pwd = $('#userPwd').val();
 		var pwdchk = $('#userPwdChk').val();
-		var regpw=/(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/
+		var regpw=/(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/;
 		var regid= /^[0-9a-zA-Z]{4,20}$/;
-
+		alert("조인진입");
+/*
 		document.getElementById('pwrong').innerHTML = '';
-		document.getElementById('idwrong').innerHTML = '';
-		
+		document.getElementById('idwrong').innerHTML = '';*/
+		alert("조인진입2");
+
 		if(confirm("회원가입을 하시겠습니까?")){
-	        if(idchk==0){
-	        	document.getElementById('idwrong').innerHTML = '아이디 중복체크를 해주세요.';
+	        if(idchk==0){/*
+	        	document.getElementById('idwrong').innerHTML = '아이디 중복체크를 해주세요.';*/
+	        	alert("아이디 중복체크를 해주세요.");
 	            return false;
 	        }
 	        
 	        if(emailchk==0){
-	        	document.getElementById('emailwrong').innerHTML = '이메일 중복체크를 해주세요.';
-	            return false;
+/*	        	document.getElementById('emailwrong').innerHTML = '이메일 중복체크를 해주세요.';
+ */		     	alert("이메일 중복체크를 해주세요.")
+	        	return false;
 	        }
 	        
 	        if(!regid.test($("input[id='id']").val())){
-	        	document.getElementById('idwrong').innerHTML = '아이디는 최소 4자 이상. 숫자, 영문만 입력이 가능합니다.';
+/*	        	document.getElementById('idwrong').innerHTML = '아이디는 최소 4자 이상. 숫자, 영문만 입력이 가능합니다.';
+*/	        	alert("아이디는 최소 4자 이상. 숫자, 영문만 입력이 가능합니다.")
 	        	return false;
 	        }
 	       
@@ -59,12 +64,14 @@ $(document).ready(function() {
 			}
 	        
 	        if (pwd != pwdchk) {
-				document.getElementById('pwrong').innerHTML = '비밀번호가 틀렸습니다. 다시 입력해 주세요';
-				return false;
+/*				document.getElementById('pwrong').innerHTML = '비밀번호가 틀렸습니다. 다시 입력해 주세요';
+*/				alert("비밀 번호와 비밀 번호 확인이 다릅니다. 다시 입력해 주세요.");
+	        	return false;
 			}
 	        
 	        if(!regpw.test($("input[id='userPwd']").val())){
-	        	document.getElementById('pwrong').innerHTML = '특수문자, 문자, 숫자를 포함한 8자리 이상의 비밀번호를 작성해주세요.';
+/*	        	document.getElementById('pwrong').innerHTML = '특수문자, 문자, 숫자를 포함한 8자리 이상의 비밀번호를 작성해주세요.';
+*/	        	alert("특수문자, 문자, 숫자를 포함한 8자리 이상의 비밀번호를 작성해주세요.");
 	        	return false;
 	        }
 			
@@ -126,12 +133,10 @@ $(document).ready(function() {
 			success : function(data) {
 				alert(JSON.stringify(data));
 			if(data > 0){
-	               $('#chkMsg').html("사용불가");  
-	               document.getElementById('chkMsg').innerHTML = '사용불가';
+				alert("이메일이 존재합니다. 다른 이메일을 입력해주세요.");
 	               emailchk = 0;
 	        }else {
-	               $('#chkMsgOk').html("사용가능");
-	               document.getElementById('chkMsgOk').innerHTML = '사용가능';
+				alert("사용 가능한 이메일 입니다.");
 	               emailchk = 1;
 		        }
 			}

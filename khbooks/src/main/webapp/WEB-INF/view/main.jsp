@@ -173,7 +173,7 @@ $(document).ready(function () {
                     	<c:forEach items="${noticeList }" var="ndto" begin="0" end="5" step="1">
                     	<tr>
                     		<td id="af">
-                    		<a style="heigt=41px; width=100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:right" id="noti"href="noticeView.kh?currentPage=${pdto.currentPage }&nnum=${ndto.nnum }"> ${ndto.bname }</a></td>
+                    		<a style="heigt=41px; width=100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:right; color: #333333; font-weight: bold;" id="noti"href="noticeView.kh?currentPage=${pdto.currentPage }&nnum=${ndto.nnum }"> ${ndto.bname }</a></td>
                     		<td id="back"style="text-align:right"> ${ndto.ndate}</td>
                     		</tr>
                     	</c:forEach>

@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<% request.setCharacterEncoding("UTF-8"); session=request.getSession(true); String id=request.getParameter("id"); request.getSession().setAttribute("id", id); %>
+	
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Piccolo Theme</title>
+<title>KH BOOKs 코인충전</title>
 
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,30 +43,26 @@
 			alert($('input[type="radio"]:checked').val());
 		}
 		
-		$("#noBBpay").click(function(){
-			$(location).attr('href','http://localhost:8090/khbook/cash.kh');
-		});
 		
 		$("#pay").click(function(){
 			var IMP = window.IMP; // 생략가능
 			var coin = $('input[type="radio"]:checked').val();
-			IMP.init('imp70973919'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+			IMP.init('imp39904934'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 			if(coin != null){
 			IMP.request_pay({
 			    pg : 'inicis', // version 1.1.0부터 지원.
 			    pay_method : 'card',
 			    merchant_uid : 'merchant_' + new Date().getTime(),
-			    name : '주문명:결제테스트',
+			    name : '주문명:KH BOOKs 코인충전',
 			    amount : coin,
 			    buyer_email : 'iamport@siot.do',
 			    buyer_name : '구매자이름',
 			    buyer_tel : '010-1234-5678',
-			    buyer_addr : '서울특별시 강남구 삼성동',
+			    buyer_addr : '서울특별시 강남구 테헤란로',
 			    buyer_postcode : '123-456',
 			    m_redirect_url : 'http://localhost:8090/khbook/dsds.kh'
 			}, function(rsp) {
 			    if ( rsp.success ) {
-			    	
 			        var msg = '결제가 완료되었습니다.';
 			        msg += '고유ID : ' + rsp.imp_uid;
 			        msg += '상점 거래ID : ' + rsp.merchant_uid;
@@ -75,8 +72,6 @@
 				        	url: 'dsds.kh?total_amount='+coin,
 				            method: 'GET',
 				            dataType: 'json',
-				            success:function(){
-				            }
 				        });
 			    } else {
 			        var msg = '결제에 실패하였습니다.';
@@ -90,9 +85,25 @@
 			
 		});
 		
-
-		
+	
 	});
+	
+	function bank_payment(){
+		var coin = $('input[type="radio"]:checked').val();
+		var id= ${sessionScope.id};
+		if(coin != null){
+			alert(coin);
+		$.ajax({
+			url: 'cash.kh',
+			data: 'total_amount='+$('input[type="radio"]:checked').val()+"&id="+id,
+	        success: function(total){
+	        	window.open('http://localhost:8090/khbook/cash.kh', 'bank_cash', 'top=10, left=10, width=500, height=600');
+	        }
+	    });
+		}else {
+			alert("결제금액을 선택해주세요");
+		}
+	}
 	
 	function payment(){
 		$.ajax({
@@ -173,7 +184,7 @@
 
 			
 				<div>
-					<button type="button" id="noBBpay">무통장입금</button>
+					<button type="button" id="noBBpay" onclick="bank_payment();">무통장입금</button>
 					<button type="button" id="pay">카드결제</button>
 					<button type="button" class="btn_pay btn_pay_hover" id="kakaopay_btn" onclick="payment();">카카오페이</button>
 				</div>

@@ -1,9 +1,10 @@
 package controller;
 
 import java.util.Random;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -103,11 +104,15 @@ public class UserController {
 	public ModelAndView loginPost(@ModelAttribute UserDTO udto, HttpSession session) {
 		boolean res= service.login(udto, session);
 		ModelAndView mav = new ModelAndView();
-		
 		if(res == true) {
 			session.setAttribute("id", udto.getId());
-			String path = (String)session.getAttribute("prev");
-			mav.setViewName("redirect:"+path);
+			if(session.getAttribute("prev")!=null) {
+				String path = (String)session.getAttribute("prev");
+				session.removeAttribute("prev");
+				mav.setViewName("redirect:"+path);
+			}else {
+				mav.setViewName("redirect:mainpage.kh");
+			}
 		} else {
 			mav.setViewName("user/login");
 			mav.addObject("msg", "fail");
@@ -124,6 +129,7 @@ public class UserController {
 	// 이메일 중복체크
 	@RequestMapping(value="/checkEmail.kh", method=RequestMethod.POST)
 	public @ResponseBody int emailCheck(@RequestBody String email) {
+		System.out.println(email);
         return service.CheckDuplicationEmail(email);
 	}
 	

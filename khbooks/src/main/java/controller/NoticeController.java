@@ -59,14 +59,6 @@ public class NoticeController {
 			pdto = new PageDTO(currentPage, totalRecord);
 			List<NoticeDTO> aList = nservice.noticeListPro(pdto);
 			
-			for(NoticeDTO dto : aList) {
-				System.out.println("제목 : " + dto.getBname());
-			}
-			
-			for(NoticeDTO d : nservice.popularPost()) {
-				System.out.println(d.getBname());
-			}
-			
 			mav.addObject("currentPage", currentPage);
 			mav.addObject("pdto", pdto);
 			mav.addObject("noticeList", aList);

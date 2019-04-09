@@ -32,14 +32,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
 
-
-
 <script type="text/javascript">
 $(document).ready(function() {
 
 	$('#agree').on('click', function () {
 		  if(!$("input[id='ag1']:checked").val()||!$("input[id='ag2']:checked").val()||!$("input[id='ag3']:checked").val()){
 			  alert("약관에 모두 동의하셔야 결제를 진행할 수 있습니다.");
+			  
 			  return false
 		  }else{
 			  alert("결제진행");
@@ -49,10 +48,28 @@ $(document).ready(function() {
 	
 });
 
+function cashcash(){
+	
+	alert("afaafwfawfa");
+	$.ajax({
+		url: 'dsds.kh?total_amount='+coin,
+        method: 'GET',
+        dataType: 'json',
+        success: function(total){
+        	alert("afaafwf");
+        	window.open(total.bank_pay, 'payment_popup', 'width=426,height=510,toolbar=no,location=no');
+        }
+    });
+}
+
+
+
 </script>
 
 </head>
 <body>
+
+
 
 	<form class="margin-center id-form">
 		일반 결제 <button type="button" id="agree" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="float: right; margin: -7px 4px 0px 0px;">다음 ></button>
@@ -413,8 +430,6 @@ $(document).ready(function() {
 	</form>
 
 
-
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -495,7 +510,7 @@ $(document).ready(function() {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">결제 취소</button>
-        <button type="button" class="btn btn-primary">결제 완료</button>
+        <button type="button" class="btn btn-primary" onclick="cashcash();">결제 완료</button>
       </div>
     </div>
   </div>

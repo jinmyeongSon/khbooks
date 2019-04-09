@@ -91,7 +91,7 @@ label{
 			<div class="row">
 				<div class="col-8" style="margin-bottom: 2px;">
 				<label for="userPwd">비밀 번호</label>
-				<input type="password" class="form-control" id="userPwd" name="upass" placeholder="영문, 숫자, 특수문자만 입력" required>
+				<input type="password" class="form-control" id="userPwd" name="upass" placeholder="영문,숫자,특수문자 포함 8자 이상" required>
 				</div>
 				<div class="col-8">
 					<label for="userPwdChk">비밀 번호 확인</label>
@@ -110,8 +110,13 @@ label{
 			<div class="row">
 				<div class="col-8">
 					<label for="userEmail">이메일</label>
-					<input type="email" class="form-control" id="userEmail"	name="uemail" aria-describedby="emailHelp" placeholder="이메일 형식에 맞게 입력" required> 
-				</div><p id="chkMsg" style="color: red;"></p></div><p id="chkMsgOk" style="color: blue;"></p>
+					<input type="email" class="form-control" id="uemail" name="uemail" aria-describedby="emailHelp" placeholder="형식에 맞게 입력" required> 
+				</div>
+				<div class="col-md-2" style="padding-left:0px; margin-top:26px; margin-left: -105px;">
+					<input class="btn btn-primary" type="button" id="emailchk_btn" value="중복확인" />
+				</div>
+					<p id="emailwrong" style="color: red;"></p>
+					<p id="chkMsg" style="color: red;"></p></div><p id="chkMsgOk" style="color: blue;"></p>
 			
 			<div class="row">
 				<div class="col-6">
@@ -261,7 +266,7 @@ label{
 				</div>
 				<div class="row" style="clear: both; width: 100%; ">
 					<div class="col-2" style="margin-left: auto; margin-right: auto;" >
-						<input type="submit" id="signUp_btn" class="form-control btn btn-primary signupbtn" value="회원가입">
+						<input type="submit" id="_btn" class="form-control btn btn-primary signupbtn" value="회원가입">
 					</div>
 				</div>
 			</form>
