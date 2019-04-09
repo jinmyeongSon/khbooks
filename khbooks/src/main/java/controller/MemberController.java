@@ -19,7 +19,7 @@ import service.MemInforService;
 public class MemberController {
 	private MemInforService service;
 	
-	
+	 
 	public MemberController() {
 	}
 	public void setService(MemInforService service) {
