@@ -195,7 +195,7 @@ $(document).ready(function () {
              <div class="tab-pane" id="tweets">
                     <ul>
                     	<c:forEach items="${tweet}" var="tweet">
-                    	<li style="heigt=41px; width=100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size: 13px; "><a href="#">@${tweet.user.screenName}</a> ${tweet.text}</li>
+                    	<li style="heigt=41px; width=100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size: 13px; "><a href="javascript:void(window.open('https://twitter.com/khBooks1/'))">@${tweet.user.screenName}</a> ${tweet.text}</li>
                     	</c:forEach>
                     </ul>
                 </div>

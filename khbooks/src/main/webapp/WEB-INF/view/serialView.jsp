@@ -30,7 +30,7 @@ div::-webkit-scrollbar {
 	padding: 10px;
 	float: left;
 	border: 2px solid #a9a9a9;
-	background-color: #CEFBC9;
+	background-color: #c3f5be;
 	overflow: scroll;
 	word-wrap: break-word;
 	font-size: 16px;
@@ -186,7 +186,10 @@ div::-webkit-scrollbar {
 		<li class="time_sub"  id="${rev.rno}" style="list-style: none; clear:both; padding-top: 20px;">
 		 <div style="float:left; font-size:13px; width: 15%;"><div style=" font-size:20px;"><i class="icon-leaf"></i>${rev.id}</div>
 		 <fmt:formatDate pattern="yyyy/MM/dd" dateStyle="short" value="${rev.rdate}" />
-		 <button class="btn btn-mini" type="button" id="${rev.rno}">delete</button></div>
+		 <c:if test="${rev.id eq sessionScope.id}">
+		 <button class="btn btn-mini" type="button" id="${rev.rno}">delete</button>
+		 </c:if>
+		 </div>
 		 <div style="float:right; font-size:16px; word-wrap:break-word; width: 85%;">${rev.rtext}</div>
 	   </li>
 	  </c:forEach>
@@ -482,10 +485,17 @@ function change_comment(res) {
 	$.each(res, function(index, value) {
 		var source = '<li class="time_sub"  id="{{rno}}" style="list-style: none; clear:both; padding-top: 20px;">'
 		 +'<div style="float:left; font-size:13px; width: 15%;"><div style=" font-size:20px;"> <i class="icon-leaf"></i>{{id}}</div>'
-		 +'{{newDate rdate}}<br/>'
-		 +'<button class="btn btn-mini" type="button" id="{{rno}}">delete</button></div>'
-		 +'<div style="float:right; font-size:16px; word-wrap:break-word; width: 85%;">{{rtext}}</div>'
-	     +'</li>';
+		 +'{{newDate rdate}}<br/>';
+		 var idForm ="{{id}}";
+		 var temp = Handlebars.compile(idForm);
+		 if(id == temp(value)){
+		 	source+='<button class="btn btn-mini" type="button" id="{{rno}}">delete</button></div>'
+		 	+'<div style="float:right; font-size:16px; word-wrap:break-word; width: 85%;">{{rtext}}</div>'
+	     	+'</li>';
+		 }else{
+			 source+='</div><div style="float:right; font-size:16px; word-wrap:break-word; width: 85%;">{{rtext}}</div>'
+			 +'</li>';	 
+		 }
 		var template = Handlebars.compile(source);
 		$('.timeline').append(template(value));
 	});
