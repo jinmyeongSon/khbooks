@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="upload">
+
+	<select id="list" parameterType="int" resultType="dto.UploadDTO">
+		select * from upload
+		where nnum=#{nnum}
+	</select>
+	
+	<insert id="insert">
+		insert into upload
+		select upno_seq.nextval, A.* from(
+			<foreach collection="list" item="upload" separator="union all">
+				select #{upload.nnum} as nnum, #{upload.aid} as aid, #{upload.upname} as upname
+ 				from dual
+			</foreach>
+		)A
+	</insert>
+	
+	
+	<delete id="delete" parameterType="int">
+		delete from upload where upno=#{upno}
+	</delete>
+	
+	<update id="update" parameterType="dto.UploadDTO">
+		update upload set upno=#{upno}, upname=#{upname}
+		where nnum=#{nnum}
+	</update>
+
+</mapper>

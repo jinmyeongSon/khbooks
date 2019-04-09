@@ -40,7 +40,7 @@
 	
 	<!-- 이메일 중복확인.. 인증번호 -->
 	<update id="temp_pwd" parameterType="java.util.Map">
-		update kh_user set upass = #{pwd}
+		update kh_user set upass = #{upass}
 	  	where  id=#{id}
 	</update>
 	

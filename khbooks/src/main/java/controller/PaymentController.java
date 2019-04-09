@@ -27,31 +27,12 @@ import service.UserService;
 public class PaymentController {
 	private UserService service;
 
-	public PaymentController() {
-
-	}
-
+	public PaymentController() { }
+ 
 	public void setService(UserService service) {
 		this.service = service;
 	}
 
-	/*// 캐시
-	@RequestMapping(value = "/cash.kh", method = {RequestMethod.GET, RequestMethod.POST})
-	public String cash(int total_amount, HttpSession session) {
-		String total = "";
-		String url = "http://localhost:8090/khbook/cash.kh";
-		url += "?id=" + session.getAttribute("id");
-		url += "&total_amount=" + total_amount;
-		session.setAttribute("total_amount", total_amount);
-		Map<String, Object> map = new HashMap<String, Object>();
-		String id = (String) session.getAttribute("id");
-		int coin = total_amount / 100;
-		map.put("id", id);
-		map.put("coin", coin);
-		service.paypay(map);
-		return "paymentPage/pay";
-		
-	}*/
 	
 	@RequestMapping("/cash.kh")
 	public ModelAndView cash(int total_amount, HttpSession session) {
@@ -66,12 +47,11 @@ public class PaymentController {
 	
 
 	@RequestMapping(value = "/payment.kh", method = RequestMethod.GET)
-	public String cassh() {
+	public String cassh(HttpSession session) {
 		return "paymentPage/payment";
 	}
 	
-	
-	
+
 
 	@RequestMapping(value = "/searchOpen.kh", produces = "application/json;charset=UTF-8")
 	public @ResponseBody String process(int total_amount, HttpSession session) throws IOException {

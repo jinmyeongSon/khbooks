@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reply">
+
+	<select id="count" parameterType="int" resultType="int">
+		select count(*) from board_comment where bonum=#{bonum}
+	</select>
+	
+	<select id="list" parameterType="int" resultType="dto.ReplyDTO">
+		select * from
+		board_comment 
+		where bonum=#{bonum} order by bcno desc
+	</select>
+	
+	<select id="recent" resultType="dto.ReplyDTO">
+	<![CDATA[
+		select rownum, b.*
+		from (select rownum as rm, a.*
+              from(select * from board_comment order by bcdate desc)a)b
+        where b.rm <= 3   
+    ]]>       
+	</select>
+	
+
+	<insert id="insert" parameterType="dto.ReplyDTO">
+		insert into board_comment
+		values(comment_seq.nextval,#{bonum},#{id},#{bctext},sysdate)
+	</insert>
+	
+	<delete id="delete" parameterType="int" >
+	  delete from board_comment
+	  where bcno=#{bcno}
+	</delete>
+	
+	<update id="update" parameterType="dto.ReplyDTO">
+	  update board_comment set bctext=#{bctext}, bcdate=sysdate
+	  where bcno=#{bcno}
+	</update>
+</mapper>  
+
+
+
+
+
+  

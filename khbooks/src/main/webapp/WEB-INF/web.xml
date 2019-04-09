@@ -41,7 +41,7 @@
 		
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -67,6 +67,7 @@
 		<url-pattern>*.jpg</url-pattern>
 		<url-pattern>*.png</url-pattern>
 		<url-pattern>*.htm</url-pattern>
+		<url-pattern>*.txt</url-pattern>
 	</servlet-mapping>
 
 </web-app>

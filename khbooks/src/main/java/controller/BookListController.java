@@ -1,0 +1,166 @@
+package controller;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import dto.BookDTO;
+import dto.BookPageDTO;
+import service.BookService;
+import service.FavBookService;
+import twitter4j.*;
+//http://localhost:8090/khbook/bookMain.kh
+
+
+@Controller
+public class BookListController {
+	BookService service;
+	FavBookService fbservice;
+
+	
+	public void setService(BookService service) {
+		this.service = service;
+	}
+	
+	public void setFbservice(FavBookService fbservice) {
+		this.fbservice = fbservice;
+	}
+	
+	
+	
+	@RequestMapping(value="/bookMain.kh")
+	public ModelAndView bookMain(BookPageDTO pdto) {
+		ModelAndView mav = new ModelAndView();
+		BookPageDTO dto = null;
+		int totalCount = 0;
+		int genreCount = 0;
+		int sortKey = 1;
+		int currentPage = 1;
+		
+		if(pdto.getCurrentPage() != 0) {
+			currentPage = pdto.getCurrentPage();
+		}
+		
+		if(pdto.getSortkey() != 0) {
+			sortKey = pdto.getSortkey();
+		}
+		
+		if(pdto.getSortgenre() != 0) {
+			genreCount = service.getBookGenreCountProcess(pdto.getSortgenre());
+			dto = new BookPageDTO(currentPage, genreCount, pdto.getSortgenre(), sortKey, "", 9);
+		} else {
+			totalCount = service.getBookCountProcess();
+			dto = new BookPageDTO(currentPage, totalCount, 0, sortKey, "", 9);
+		}
+		
+	    try {
+	        Twitter twitter = TwitterFactory.getSingleton();
+	        Paging page = new Paging (1, 5);
+	        List<Status> tweet = twitter.getUserTimeline(page);
+			mav.addObject("tweet", tweet);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+		mav.addObject("bList", service.bookListProcess(dto));
+		mav.addObject("gList", service.genreListProcess());
+		mav.addObject("pdto", dto);
+		mav.setViewName("bookMain");
+		return mav;
+	}
+	
+	@RequestMapping(value="/bookDetail.kh", method=RequestMethod.GET)
+	public ModelAndView bookDetail(int bno, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("book", service.bookDetailProcess(bno));
+		mav.addObject("genre", service.getBookGenreProcess(bno));
+		mav.addObject("serial", service.getSerialListProcess(bno));
+		if(session.getAttribute("id")!=null) {
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("id", session.getAttribute("id"));
+			map.put("bno", bno);
+			mav.addObject("fbchk", fbservice.searchprocess(map));
+		}else {
+			mav.addObject("fbchk", 0);
+		}
+		mav.setViewName("bookDetail");
+		return mav;
+	}
+	
+	@RequestMapping(value="/bookSearch.kh")
+	public ModelAndView bookSearch(BookPageDTO pdto) {
+		ModelAndView mav = new ModelAndView();
+		BookPageDTO dto = null;
+		int totalCount = 0;
+		int genreCount = 0;
+		int sortKey = 1;
+		int currentPage = 1;
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(pdto.getCurrentPage() != 0) {
+			currentPage = pdto.getCurrentPage();
+		}
+		
+		if(pdto.getSortkey() != 0) {
+			sortKey = pdto.getSortkey();
+		}
+		
+		if(pdto.getSortgenre() != 0) {
+			map.put("sortgenre", pdto.getSortgenre());
+			map.put("searchWord", pdto.getSearchWord());
+			genreCount = service.getBookSearchCountProcess(map);
+			dto = new BookPageDTO(currentPage, genreCount, pdto.getSortgenre(), sortKey, pdto.getSearchWord(), 8);
+		} else {
+			map.put("sortgenre", 0);
+			map.put("searchWord", pdto.getSearchWord());
+			totalCount = service.getBookSearchCountProcess(map);
+			dto = new BookPageDTO(currentPage, totalCount, 0, sortKey, pdto.getSearchWord(), 8);
+		}
+		
+		mav.addObject("bList", service.bookSearchProcess(dto));
+		mav.addObject("pdto", dto);
+		mav.setViewName("bookSearch");
+		return mav;
+	}
+	
+	@RequestMapping(value="/twitterGet.kh")
+	public @ResponseBody List<Status> twitterGet() {
+	List<Status> tweet = null;
+    try {
+        Twitter twitter = TwitterFactory.getSingleton();
+        Paging page = new Paging (1, 5);
+        tweet = twitter.getUserTimeline(page);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    
+    return tweet;
+    }
+	
+
+	@RequestMapping(value="/bookGet.kh", method=RequestMethod.GET)
+	public @ResponseBody List<BookDTO> bookGet() {
+		BookPageDTO dto = null;
+		int totalCount = 0;
+		int sortKey = 1;
+		int currentPage = 1;
+
+		totalCount = service.getBookCountProcess();
+		dto = new BookPageDTO(currentPage, totalCount, 0, sortKey, "", 12);
+		
+		return service.bookListProcess(dto);
+	}
+	
+	
+	
+
+
+}

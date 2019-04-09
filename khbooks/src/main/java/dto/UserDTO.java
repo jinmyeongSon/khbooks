@@ -19,31 +19,11 @@ public class UserDTO {
 	}
 	
 	
-
 	public UserDTO(String id) {
 		super();
 		this.id = id;
 	}
 
-	public UserDTO(String id, String upass) {
-		super();
-		this.id = id;
-		this.upass = upass;
-	}
-
-	
-	public UserDTO(int uno, String id, String upass, String uname, String uemail, String uphone, Date ubirth,
-			int ugender) {
-		super();
-		this.uno = uno;
-		this.id = id;
-		this.upass = upass;
-		this.uname = uname;
-		this.uemail = uemail;
-		this.uphone = uphone;
-		this.ubirth = ubirth;
-		this.ugender = ugender;
-	}
 
 
 
@@ -56,7 +36,6 @@ public class UserDTO {
 		this.uno = uno;
 	}
 
-	
 	public String getId() {
 		return id;
 	}
@@ -64,7 +43,6 @@ public class UserDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-
 
 	public String getUpass() {
 		return upass;
@@ -125,24 +103,12 @@ public class UserDTO {
 		this.point = point;
 	}
 	
-
 	public boolean isRememberId() {
 		return rememberId;
 	}
 
-
 	public void setRememberId(boolean rememberId) {
 		this.rememberId = rememberId;
 	}
-
-
-
 	
-
-	
-	
-	
-	
-	
-
 }//end class

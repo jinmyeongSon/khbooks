@@ -1,13 +1,8 @@
 package controller;
 
-
-
 import java.util.Random;
 
-
 import javax.servlet.http.HttpSession;
-
-
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,7 +53,6 @@ public class UserController {
 	public String index() {
 		return "index";
 	}
-	
 	
 	
 	// 네이버 로그인

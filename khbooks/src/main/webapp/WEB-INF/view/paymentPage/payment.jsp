@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<% request.setCharacterEncoding("UTF-8"); session=request.getSession(true); String id=request.getParameter("id"); request.getSession().setAttribute("id", id); %>
-	
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -37,94 +37,6 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		if($('input[type="radio"]:checked').val() !=null){
-			alert($('input[type="radio"]:checked').val());
-		}
-		
-		
-		$("#pay").click(function(){
-			.ajax({
-				url: 'dsds.kh?total_amount='+coin,
-	            method: 'GET',
-	            dataType: 'json',
-			});
-			
-			
-			var IMP = window.IMP; // 생략가능
-			var coin = $('input[type="radio"]:checked').val();
-			IMP.init('imp39904934'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-			if(coin != null){
-			IMP.request_pay({
-			    pg : 'inicis', // version 1.1.0부터 지원.
-			    pay_method : 'card',
-			    merchant_uid : 'merchant_' + new Date().getTime(),
-			    name : '주문명:KH BOOKs 코인충전',
-			    amount : coin,
-			    buyer_email : 'iamport@siot.do',
-			    buyer_name : '구매자 이름',
-			    buyer_tel : '010-1234-5678',
-			    buyer_addr : '서울특별시 강남구 테헤란로',
-			    buyer_postcode : '123-456',
-			    m_redirect_url : 'http://localhost:8090/khbook/dsds.kh'
-			}, function(rsp) {
-			    if ( rsp.success ) {
-			        var msg = '결제가 완료되었습니다.';
-			        msg += '고유ID : ' + rsp.imp_uid;
-			        msg += '상점 거래ID : ' + rsp.merchant_uid;
-			        msg += '결제 금액 : ' + rsp.paid_amount;
-			        msg += '카드 승인번호 : ' + rsp.apply_num;
-			    	$.ajax({
-				        	url: 'dsds.kh?total_amount='+coin,
-				            method: 'GET',
-				            dataType: 'json',
-				        });
-			    } else {
-			        var msg = '결제에 실패하였습니다.';
-			        msg += '에러내용 : ' + rsp.error_msg;
-			    }
-			    alert(msg);
-			});
-			}else {
-				alert("결제금액을 선택해주세요");
-			}
-			
-		});
-		
-	
-	});
-	
-	/* function bank_payment(){
-		var coin = $('input[type="radio"]:checked').val();
-		var id= ${sessionScope.id};
-		if(coin != null){
-			alert(coin);
-		$.ajax({
-			url: 'cash.kh',
-			data: 'total_amount='+$('input[type="radio"]:checked').val()+"&id="+id,
-	        success: function(total){
-	        	window.open('http://localhost:8090/khbook/cash.kh', 'bank_cash', 'top=10, left=10, width=500, height=600');
-	        }
-	    });
-		}else {
-			alert("결제금액을 선택해주세요");
-		}
-	}
-	 */
-	function payment(){
-		$.ajax({
-            url: 'searchOpen.kh?total_amount='+$('input[type="radio"]:checked').val(),
-            method: 'POST',
-            dataType: 'json',
-            success: function(total){
-            	window.open(total.next_redirect_pc_url, 'payment_popup', 'width=426,height=510,toolbar=no,location=no');
-            }
-        });
-     
-    }
-
-</script>
 </head>
 
 <body>
@@ -133,111 +45,10 @@
 
 	<div class="container main-container">
 
-		<div class="row header">
-			<!-- Begin Header -->
+		<jsp:include page="../khbooks_header.jsp"/>
 
-			<!-- Logo
-        ================================================== -->
-			<div class="span5 logo">
-				<a href="index.htm"><img src="img/piccolo-logo.png" alt="" /></a>
-				<h5>Big Things... Small Packages</h5>
-			</div>
-
-			<!-- Main Navigation
-        ================================================== -->
-			<div class="span7 navigation">
-				<div class="navbar hidden-phone">
-
-					<ul class="nav">
-						<li class="dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="index.htm">Home <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="index.htm">Full Page</a></li>
-								<li><a href="index-gallery.htm">Gallery Only</a></li>
-								<li><a href="index-slider.htm">Slider Only</a></li>
-							</ul></li>
-						<li><a href="features.htm">Features</a></li>
-						<li class="dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="page-full-width.htm">Pages <b
-								class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="page-full-width.htm">Full Width</a></li>
-								<li><a href="page-right-sidebar.htm">Right Sidebar</a></li>
-								<li><a href="page-left-sidebar.htm">Left Sidebar</a></li>
-								<li><a href="page-double-sidebar.htm">Double Sidebar</a></li>
-							</ul></li>
-						<li class="dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="gallery-4col.htm">Gallery <b
-								class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="gallery-3col.htm">Gallery 3 Column</a></li>
-								<li><a href="gallery-4col.htm">Gallery 4 Column</a></li>
-								<li><a href="gallery-6col.htm">Gallery 6 Column</a></li>
-								<li><a href="gallery-4col-circle.htm">Gallery 4 Round</a></li>
-								<li><a href="gallery-single.htm">Gallery Single</a></li>
-							</ul></li>
-						<li class="dropdown active"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="blog-style1.htm">Blog <b
-								class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="blog-style1.htm">Blog Style 1</a></li>
-								<li><a href="blog-style2.htm">Blog Style 2</a></li>
-								<li><a href="blog-style3.htm">Blog Style 3</a></li>
-								<li><a href="blog-style4.htm">Blog Style 4</a></li>
-								<li><a href="blog-single.htm">Blog Single</a></li>
-							</ul></li>
-						<li><a href="page-contact.htm">Contact</a></li>
-					</ul>
-
-				</div>
-
-				<!-- Mobile Nav
-            ================================================== -->
-				<form action="#" id="mobile-nav" class="visible-phone">
-					<div class="mobile-nav-select">
-						<select
-							onchange="window.open(this.options[this.selectedIndex].value,'_top')">
-							<option value="">Navigate...</option>
-							<option value="index.htm">Home</option>
-							<option value="index.htm">- Full Page</option>
-							<option value="index-gallery.htm">- Gallery Only</option>
-							<option value="index-slider.htm">- Slider Only</option>
-							<option value="features.htm">Features</option>
-							<option value="page-full-width.htm">Pages</option>
-							<option value="page-full-width.htm">- Full Width</option>
-							<option value="page-right-sidebar.htm">- Right Sidebar</option>
-							<option value="page-left-sidebar.htm">- Left Sidebar</option>
-							<option value="page-double-sidebar.htm">- Double Sidebar</option>
-							<option value="gallery-4col.htm">Gallery</option>
-							<option value="gallery-3col.htm">- 3 Column</option>
-							<option value="gallery-4col.htm">- 4 Column</option>
-							<option value="gallery-6col.htm">- 6 Column</option>
-							<option value="gallery-4col-circle.htm">- Gallery 4 Col
-								Round</option>
-							<option value="gallery-single.htm">- Gallery Single</option>
-							<option value="blog-style1.htm">Blog</option>
-							<option value="blog-style1.htm">- Blog Style 1</option>
-							<option value="blog-style2.htm">- Blog Style 2</option>
-							<option value="blog-style3.htm">- Blog Style 3</option>
-							<option value="blog-style4.htm">- Blog Style 4</option>
-							<option value="blog-single.htm">- Blog Single</option>
-							<option value="page-contact.htm">Contact</option>
-						</select>
-					</div>
-				</form>
-
-			</div>
-
-		</div>
-		<!-- End Header -->
-
-		<!-- Blog Content
-    ================================================== -->
+    
 		<div class="row">
-
-			<!-- http://lemon421.cafe24.com/blog/textyle/17265 
-    https://okky.kr/article/409286
-    -->
 			
 				<table class="table">
 					<tr>
@@ -287,7 +98,6 @@
 
 			
 				<div>
-					<button type="button" id="noBBpay" onclick="bank_payment();">무통장입금</button>
 					<button type="button" id="pay">카드결제</button>
 					<button type="button" class="btn_pay btn_pay_hover" id="kakaopay_btn" onclick="payment();">카카오페이</button>
 				</div>
@@ -300,110 +110,85 @@
 
 	<!-- Footer Area
         ================================================== -->
-	<div class="footer-container">
-		<!-- Begin Footer -->
-		<div class="container">
-			<div class="row footer-row">
-				<div class="span3 footer-col">
-					<h5>About Us</h5>
-					<img src="img/piccolo-footer-logo.png" alt="Piccolo" /><br />
-					<br />
-					<address>
-						<strong>Design Team</strong><br /> 123 Main St, Suite 500<br />
-						New York, NY 12345<br />
-					</address>
-					<ul class="social-icons">
-						<li><a href="#" class="social-icon facebook"></a></li>
-						<li><a href="#" class="social-icon twitter"></a></li>
-						<li><a href="#" class="social-icon dribble"></a></li>
-						<li><a href="#" class="social-icon rss"></a></li>
-						<li><a href="#" class="social-icon forrst"></a></li>
-					</ul>
-				</div>
-				<div class="span3 footer-col">
-					<h5>Latest Tweets</h5>
-					<ul>
-						<li><a href="#">@room122</a> Lorem ipsum dolor sit amet,
-							consectetur adipiscing elit.</li>
-						<li><a href="#">@room122</a> In interdum felis fermentum
-							ipsum molestie sed porttitor ligula rutrum. Morbi blandit
-							ultricies ultrices.</li>
-						<li><a href="#">@room122</a> Vivamus nec lectus sed orci
-							molestie molestie. Etiam mattis neque eu orci rutrum aliquam.</li>
-					</ul>
-				</div>
-				<div class="span3 footer-col">
-					<h5>Latest Posts</h5>
-					<ul class="post-list">
-						<li><a href="#">Lorem ipsum dolor sit amet</a></li>
-						<li><a href="#">Consectetur adipiscing elit est lacus
-								gravida</a></li>
-						<li><a href="#">Lectus sed orci molestie molestie etiam</a></li>
-						<li><a href="#">Mattis consectetur adipiscing elit est
-								lacus</a></li>
-						<li><a href="#">Cras rutrum, massa non blandit convallis
-								est</a></li>
-					</ul>
-				</div>
-				<div class="span3 footer-col">
-					<h5>Flickr Photos</h5>
-					<ul class="img-feed">
-						<li><a href="#"><img src="img/gallery/flickr-img-1.jpg"
-								alt="Image Feed"></a></li>
-						<li><a href="#"><img src="img/gallery/flickr-img-1.jpg"
-								alt="Image Feed"></a></li>
-						<li><a href="#"><img src="img/gallery/flickr-img-1.jpg"
-								alt="Image Feed"></a></li>
-						<li><a href="#"><img src="img/gallery/flickr-img-1.jpg"
-								alt="Image Feed"></a></li>
-						<li><a href="#"><img src="img/gallery/flickr-img-1.jpg"
-								alt="Image Feed"></a></li>
-						<li><a href="#"><img src="img/gallery/flickr-img-1.jpg"
-								alt="Image Feed"></a></li>
-						<li><a href="#"><img src="img/gallery/flickr-img-1.jpg"
-								alt="Image Feed"></a></li>
-						<li><a href="#"><img src="img/gallery/flickr-img-1.jpg"
-								alt="Image Feed"></a></li>
-						<li><a href="#"><img src="img/gallery/flickr-img-1.jpg"
-								alt="Image Feed"></a></li>
-						<li><a href="#"><img src="img/gallery/flickr-img-1.jpg"
-								alt="Image Feed"></a></li>
-						<li><a href="#"><img src="img/gallery/flickr-img-1.jpg"
-								alt="Image Feed"></a></li>
-						<li><a href="#"><img src="img/gallery/flickr-img-1.jpg"
-								alt="Image Feed"></a></li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="row">
-				<!-- Begin Sub Footer -->
-				<div class="span12 footer-col footer-sub">
-					<div class="row no-margin">
-						<div class="span6">
-							<span class="left">Copyright 2012 Piccolo Theme. All
-								rights reserved.</span>
-						</div>
-						<div class="span6">
-							<span class="right"> <a href="#">Home</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a
-								href="#">Features</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a
-								href="#">Gallery</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a
-								href="#">Blog</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a
-								href="#">Contact</a>
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- End Sub Footer -->
-
-		</div>
-	</div>
+	<jsp:include page="../khbooks_footer.jsp"/>
 	<!-- End Footer -->
 
 	<!-- Scroll to Top -->
 	<div id="toTop" class="hidden-phone hidden-tablet">Back to Top</div>
 
 </body>
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		if($('input[type="radio"]:checked').val() !=null){
+			alert($('input[type="radio"]:checked').val());
+		}
+		 
+		
+		$("#pay").click(function(){
+			var coin = $('input[type="radio"]:checked').val();
+			if(coin != null){
+				
+			$.ajax({
+				url: 'paymentPro.kh',
+	            method: 'GET',
+	            dataType: 'json',
+	            success : function(res){
+	            	
+	            	var IMP = window.IMP; // 생략가능
+	    			IMP.init('imp39904934'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+	    			IMP.request_pay({
+	    			    pg : 'inicis', // version 1.1.0부터 지원.
+	    			    pay_method : 'card',
+	    			    merchant_uid : 'merchant_' + new Date().getTime(),
+	    			    name : '주문명:KH BOOKs 코인충전',
+	    			    amount : coin,
+	    			    buyer_email : res.uemail,
+	    			    buyer_name : res.id,//https://ojava.tistory.com/124
+	    			    buyer_tel : res.uphone,	    			    
+	    			    m_redirect_url : 'http://localhost:8090/khbook/dsds.kh'
+	    			}, function(rsp) {
+	    			    if ( rsp.success ) {
+	    			        var msg = '결제가 완료되었습니다.';
+	    			    	$.ajax({
+	    				        	url: 'dsds.kh?total_amount='+coin,
+	    				            method: 'GET',
+	    				            dataType: 'json',
+	    				        });
+	    			    } else {
+	    			        var msg = '결제에 실패하였습니다.';
+	    			        msg += '에러내용 : ' + rsp.error_msg;
+	    			    }
+	    			    alert(msg);
+	    			});//end function(rsp)
+	    			
+	    		}//ens success
+			});//end ajax
+					}else {
+						alert("결제금액을 선택해주세요");
+					}
+		});//end pay 
+			
+			
+		
+		
+	
+	
+	});
+	
+	function payment(){
+		$.ajax({
+            url: 'searchOpen.kh?total_amount='+$('input[type="radio"]:checked').val(),
+            method: 'POST',
+            dataType: 'json',
+            success: function(total){
+            	window.open(total.next_redirect_pc_url, 'payment_popup', 'width=426,height=510,toolbar=no,location=no');
+            }
+        });
+     
+    }
+
+</script>
 
 </html>

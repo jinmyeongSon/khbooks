@@ -24,7 +24,6 @@ public class UserServiceImp implements UserService {
 	public boolean login(UserDTO udto, HttpSession session) {
 		boolean res = dao.login(udto);
 		if(res) {
-			
 			session.setAttribute("userId", udto.getId());
 		}
 		return res;
