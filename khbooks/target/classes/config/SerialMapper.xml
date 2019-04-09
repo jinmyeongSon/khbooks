@@ -90,5 +90,28 @@
 	<select id="getBookCount" resultType="int" parameterType="int">
 		select bgrade from book where bno=#{bno}
 	</select>
+	
+	<select id="getSerialPrice" resultType="int" parameterType="java.util.Map">
+		select  a.sprice
+		from (select rownum as rm, serial.* from serial where bno=#{bno} order by upno)a
+		where a.rm=#{rm} 	
+	</select>
+	
+	<select id="upno" resultType="int" parameterType="java.util.Map">
+		select  a.upno
+		from (select rownum as rm, serial.* from serial where bno=#{bno} order by upno)a
+		where a.rm=#{rm} 	
+	</select>
+	
+	<select id="getSerialCheck" resultType="int" parameterType="java.util.Map">
+		select count(bno) from buy_list where id=#{id} and upno=#{upno}
+	</select>
+	
+	<insert id="serialPay" parameterType="map">
+		insert into buy_list values(#{id}, #{upno}, #{bno}, sysdate)
+	</insert>
+	
+	
+	
 
 </mapper>

@@ -61,9 +61,9 @@ $(document).ready(function(){
 	}
 	
 	if(id!=''){
-		$("#userPoint").attr('style','font-weight: bold; font-size: 13px; width: 80px;');
-		$("#userPoint").text("dd");
-		
+		var point = '';
+		point = '${sessionScope.point}';
+		$("#userPoint").html('현재 포인트<br/>&nbsp;' +point+' 포인트');
 	}
 	
 	
@@ -122,7 +122,7 @@ $(document).ready(function(){
              		<li class="profile dropdown"><a href="memberInfor.kh" style=" font-weight: bold; font-size: 15px;">회원 정보 
 	                <b class="caret"></b></a>
 	                <ul class="dropdown-menu"  style="min-width: 80px;">
-	                	<li style="display:none;"id="userPoint"><a href="memberInfor.kh" style=" font-weight: bold; font-size: 15px;"></a></li>
+	                	<li ><a id="userPoint" style=" font-weight: bold; font-size: 13px;"></a></li>
 	                    <li><a href="favBookList.kh" style=" font-weight: bold; font-size: 13px; width: 80px;">나의 관심 작품</a></li>
 	                    <li><a href="favAuthorList.kh" style=" font-weight: bold; font-size: 13px;">나의 관심 작가</a></li>
 	                </ul>

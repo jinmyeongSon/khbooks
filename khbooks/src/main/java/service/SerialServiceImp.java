@@ -1,5 +1,6 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -80,5 +81,31 @@ public class SerialServiceImp implements SerialService {
 	public List<ReviewCommentDTO> getAllReviewCommentProcess() {
 		return dao.getAllReviewComment();
 	}
+	
+	@Override
+	public int getSerialPriceProcess(int bno, int rm) {
+		return dao.getSerialPrice(bno, rm);
+	}
+	
+	@Override
+	public int getSerialCheckProcess(int bno, int rm, String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bno", bno);
+		map.put("rm", rm);
+		int upno = dao.getUpno(map);
+		return dao.getSerialCheck(upno, id);
+	}
+	
+@Override
+	public void serialPayProcess(int bno, int rm, String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bno", bno);
+		map.put("rm", rm);
+		int upno = dao.getUpno(map);
+		map.put("upno", upno);
+		map.put("id", id);
+		dao.serialPay(map);
+	}
+
 	
 }

@@ -173,8 +173,8 @@ $(document).ready(function () {
                     	<c:forEach items="${noticeList }" var="ndto" begin="0" end="5" step="1">
                     	<tr>
                     		<td id="af">
-                    		<a style="heigt=41px; width=100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:right; color: #333333; font-weight: bold;" id="noti"href="noticeView.kh?currentPage=${pdto.currentPage }&nnum=${ndto.nnum }"> ${ndto.bname }</a></td>
-                    		<td id="back"style="text-align:right"> ${ndto.ndate}</td>
+                    		<a style="heigt=41px; width=100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:right; color: #333333; font-weight: bold; font-size: 13px;"  id="noti"href="noticeView.kh?currentPage=${pdto.currentPage }&nnum=${ndto.nnum }"> ${ndto.bname }</a></td>
+                    		<td id="back"style="text-align:right; font-size: 13px;"> ${ndto.ndate}</td>
                     		</tr>
                     	</c:forEach>
                     </table>
@@ -195,7 +195,7 @@ $(document).ready(function () {
              <div class="tab-pane" id="tweets">
                     <ul>
                     	<c:forEach items="${tweet}" var="tweet">
-                    	<li style="heigt=41px; width=100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><a href="#">@${tweet.user.screenName}</a> ${tweet.text}</li>
+                    	<li style="heigt=41px; width=100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size: 13px; "><a href="#">@${tweet.user.screenName}</a> ${tweet.text}</li>
                     	</c:forEach>
                     </ul>
                 </div>

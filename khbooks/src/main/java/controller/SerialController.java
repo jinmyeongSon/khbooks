@@ -187,5 +187,31 @@ public class SerialController {
 		return service.getAllReviewCommentProcess();
 	}
 	
+	@RequestMapping(value="serialPrice.kh")
+	public @ResponseBody int getSerialPrice(int bno, int rm ) {
+		return service.getSerialPriceProcess(bno, rm);
+		
+	}
+	
+	@RequestMapping(value="serialCheck.kh")
+	public @ResponseBody int getSerialCheck(int bno, int rm, HttpSession session) {
+		return service.getSerialCheckProcess(bno, rm, (String)session.getAttribute("id"));
+	}
+	
+	@RequestMapping(value="serialPay.kh")
+	public @ResponseBody int serialPay(int bno, int rm, int price, HttpSession session) {
+		int point = (int)session.getAttribute("point");
+		if(point<price) {
+			return 0;
+		}else {
+			String id = (String)session.getAttribute("id");
+			service.serialPayProcess(bno, rm, id);
+			point -= price;
+			session.setAttribute("point", point);
+			return 1;
+		}
+		
+	}
+	
 
 }

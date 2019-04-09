@@ -95,6 +95,7 @@ function notice_update_delete() {
 
 
 function notice_upload_send() {
+	alert($('#btext').val());
 
 	var form_data = new FormData();
 	form_data.append('nnum', $('#nnum').val());
@@ -119,7 +120,7 @@ function notice_upload_send() {
 		success : notice_list_result
 	});
 	
-	$('#btext').val();
+	$('#btext').val('');
 	$('.fileDrop').empty();
 	fileList = [];
 	
@@ -137,7 +138,7 @@ function notice_list(){
 	var form_data = new FormData();
 	form_data.append('aid', $('#aid').val());
 	form_data.append('bname', $('#bname').val());
-	form_data.append('btext', $('#btext').val($('#btext').val.replace(/\n/gi, '<br/>')));
+	form_data.append('btext', $('#btext')[0].value.replace(/\n/gi, '<br/>'));
 	
 	
 	if(fileList) {

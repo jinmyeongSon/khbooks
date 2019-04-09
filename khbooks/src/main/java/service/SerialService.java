@@ -22,5 +22,8 @@ public interface SerialService {
 	BookDTO bookInfoProcess(int bno);
 	List<BookDTO> authorBookProcess(Map<String, Object> map);
 	List<ReviewCommentDTO> getAllReviewCommentProcess();
+	int getSerialPriceProcess(int bno, int rm);
+	int getSerialCheckProcess(int bno, int rm, String id);
+	void serialPayProcess(int bno, int rm, String id);
 	
 }

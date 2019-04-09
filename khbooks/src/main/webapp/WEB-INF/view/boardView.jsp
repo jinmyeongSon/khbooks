@@ -87,15 +87,15 @@
         <!-- Post Comments
         ================================================== --> 
             <section class="comments">
-                <h5 class="title-bg" id="replycntSmall"><a name="comments"></a>댓글&#91;${commentRecord}&#93;</h5>
+                <h5 class="title-bg" id="replycntSmall">댓글&#91;${commentRecord}&#93;</h5>
                <!-- 댓글 리스트 --> 
                <ul class="listUl">
                	<c:forEach items="${ReplyDTO }" var="rdto">
                		<li class="commList" id="${rdto.bcno }">
                			<span class="comment-name">${rdto.id }</span>
                			<span>&nbsp;&nbsp;</span>
-               			<span class="comment-date"><fmt:formatDate pattern="yy/MM/dd" dateStyle="short" value="${rdto.bcdate}"/></span>
-               			<div class="comment-content" style="font-size:20px;">${rdto.bctext }</div>
+               			<span class="comment-date"><fmt:formatDate pattern="yyyy/MM/dd" dateStyle="short" value="${rdto.bcdate}"/></span>
+               			<div class="comment-content" style="font-size:15px;">${rdto.bctext }</div>
                			<c:if test="${sessionScope.id ==rdto.id || sessionScope.admin != null}">
                			<button id="${rdto.bcno }" class="${rdto.bonum }" style="margin-top:15px;">수정</button>
                			<button id="${rdto.bcno }" class="${rdto.bonum }" style="margin-top:15px;">삭제</button>
@@ -117,7 +117,7 @@
                         </div>
                         <div class="row">
                             <div class="span8" id="${bdto.bonum }">
-                            <textarea id="textarea" class="span4" placeholder="댓글을 입력해주세요" style="height:100px;"></textarea>
+                            <textarea id="textarea" class="span4 commentInput" placeholder="댓글을 입력해주세요" style="height:100px;"></textarea>
                                 <input type="button" class="btn btn-inverse" id="addComment" value="입력" style="height:110px; margin-top:0px;">
                             </div>
                         </div>

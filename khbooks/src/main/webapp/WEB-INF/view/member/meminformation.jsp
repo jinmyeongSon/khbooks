@@ -49,8 +49,8 @@ margin-left:140px;
 <script src="js/jquery.quicksand.js"></script>
 <script src="js/jquery.custom.js"></script>
 <script type="text/javascript">
-var id = '${sessionScope.id}';
 $(document).ready(function () {
+	var id = '${sessionScope.id}';
 	if(id==''){
 		alert('로그인을 해주세요.');
 		location.href="loginForm.kh";
@@ -77,7 +77,7 @@ $(document).ready(function () {
     ================================================== --> 
     <div class="row"><!--Container row-->
 
-        <div class="span4 contact" id="mem"><!--Begin page content column-->
+        <div class="span4 contact" id="mem" style="margin-left: 270px; margin-right: 50px; margin-bottom: 20px;"><!--Begin page content column-->
                    <form method="GET">
                     <h2>회원정보</h2>
                    

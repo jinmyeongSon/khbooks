@@ -125,7 +125,10 @@ public class PaymentController {
 		map.put("id", id);
 		map.put("coin", coin);
 		service.paypay(map);
-		return "index";
+		int ncoin = (int)session.getAttribute("point");
+		ncoin += coin;
+		session.setAttribute("point", ncoin);
+		return "redirect:mainpage.kh";
 	}
 	
 }// endclass

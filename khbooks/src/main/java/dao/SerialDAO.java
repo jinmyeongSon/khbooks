@@ -34,5 +34,11 @@ public interface SerialDAO {
 	BookDTO bookInfo(int bno);
 
 	List<BookDTO> authorBook(Map<String, Object> map);
+
+	int getSerialPrice(int bno, int rm);
+
+	int getSerialCheck(int upno, String id);
+
+	void serialPay(Map<String, Object> map);
 	
 }

@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -83,5 +84,26 @@ public class SerialDaoImp implements SerialDAO {
 	@Override
 	public List<ReviewCommentDTO> getAllReviewComment() {
 		return sqlSession.selectList("serial.getAllReviewComment");
+	}
+	
+	@Override
+	public int getSerialPrice(int bno, int rm) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bno", bno);
+		map.put("rm", rm);
+		return sqlSession.selectOne("serial.getSerialPrice",map);
+	}
+	
+	@Override
+	public int getSerialCheck(int upno, String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("upno", upno);
+		map.put("id", id);
+		return sqlSession.selectOne("serial.getSerialCheck", map);
+	}
+	
+	@Override
+	public void serialPay(Map<String, Object> map) {
+		sqlSession.insert("serial.serialPay", map);
 	}
 }

@@ -67,10 +67,8 @@ function board_update_delete(){
 
 function comment_list(){
 	var text = $('#textarea').val();
-	/*alert(text);*/
 	
 	var bonum = $(this).parent().prop("id");
-	/*alert(bonum);*/
 	
 	/*var form_data=new FormData();
 	form_data.append('bonum', '${bdto.bonum}');
@@ -84,7 +82,7 @@ function comment_list(){
 		success : comment_list_result 
 	});
 	
-	$('.span6').val('');
+	$('.commentInput').val('');
 	
 }//end comment_list
 
@@ -138,16 +136,16 @@ function comment_update_send() {
 
 function comment_list_result(res) {
 		$('.listUl .commList').remove();
-		//$('#replycntSmall').text('댓글 ['+res.length+']');
+		$('#replycntSmall').text('댓글['+res.length+']');
 		
 		$.each(res, function(index, value){
 			var source = '<li class="commList" id="{{bcno}}">'
 				+'<span class="comment-name">{{id}}</span>'
 				+'<span>&nbsp;&nbsp;</span>'
 				+'<span class="comment-date">{{newDate bcdate}}</span>'
-				+'<div class="comment-content">{{bctext}}</div>'
-				+'<button id="{{bcno}}">수정</button>'
-				+'<button id="{{bcno}}">삭제</button></li>';
+				+'<div style="font-size:15px;" class="comment-content">{{bctext}}</div>'
+				+'<button id="{{bcno}}" class="{{bonum}}" style="margin-top:15px;">수정</button>'
+				+'<button id="{{bcno}}" class="{{bonum}}" style="margin-top:15px;">삭제</button></li>';
 
 			var template = Handlebars.compile(source);
 			$('.listUl').append(template(value));
@@ -161,7 +159,13 @@ Handlebars.registerHelper("newDate", function(timeValue){ //function 함수에�
 	var dateObj = new Date(timeValue);
 	var year = dateObj.getFullYear();
 	var month = dateObj.getMonth()+1;
+	if(month < 10){
+		month = "0" + month;
+	}
 	var date = dateObj.getDate();
+	if(date < 10){
+		date = "0" + date;
+	}
 	
 	return year + "/" + month + "/" + date;
 });

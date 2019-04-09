@@ -89,6 +89,7 @@
 	
 	<bean class="controller.NoticeController">
 		<property name="nservice" ref="nservice" />
+		<property name="path" ref="path"/>
 	</bean>	
 	
 
@@ -200,8 +201,22 @@
 		<property name="suffix" value=".jsp" />
 	</bean>	
 	
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order">
+			<value>0</value>
+		</property>
+	</bean>
+	
+	
+	
 	
 	<!-- 파일 업로드 시작 -->
+	
+	<!-- 업로드 경로 -->
+	
+	<bean id="path" class="java.lang.String">
+		<constructor-arg value="c:/khnotice/"/>
+	</bean>
 	
 	<!-- 첨부파일의 임시기억장치 경로 설정 -->
 	<bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">

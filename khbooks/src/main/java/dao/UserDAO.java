@@ -13,7 +13,7 @@ public interface UserDAO {
 	
 	// 로그인 
 	//public UserDTO login(UserDTO udto);
-	public boolean login(UserDTO udto);
+	public UserDTO login(UserDTO udto);
 	
 	//아이디 중복체크
 	public int CheckDuplication(String id);

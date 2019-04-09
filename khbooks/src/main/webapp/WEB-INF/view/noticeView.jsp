@@ -72,7 +72,7 @@
                         <ul class="post-data">
                             <li><i class="icon-calendar"></i><fmt:formatDate pattern="yy/MM/dd" dateStyle="short" value="${view.ndate }" /></li>
                             <li><i class="icon-user"></i>${view.aid }</li>
-                            <c:if test="sessionScope.admin!=null">
+                            <c:if test="${sessionScope.admin!=null}">
 	                            <li><button type="button" class="btn btn-outline-dark" id="${view.nnum }">수정</button></li>
 	                            <li><button type="button" class="btn btn-outline-dark" id="${view.nnum }">삭제</button></li>
 	                        </c:if>

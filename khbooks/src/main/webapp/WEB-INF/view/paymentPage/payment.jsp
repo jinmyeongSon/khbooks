@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<% request.setCharacterEncoding("UTF-8"); session=request.getSession(true); String id=request.getParameter("id"); request.getSession().setAttribute("id", id); %>
 	
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -90,7 +89,7 @@
 	
 	function bank_payment(){
 		var coin = $('input[type="radio"]:checked').val();
-		var id= ${sessionScope.id};
+		var id= '${sessionScope.id}';
 		if(coin != null){
 			alert(coin);
 		$.ajax({

@@ -30,9 +30,9 @@ public class UserDaoImp implements UserDAO{
 	}
 	
 	@Override
-	public boolean login(UserDTO udto) {
-		String id =  sqlSession.selectOne("user.login", udto);
-		return (id == null) ? false : true;
+	public UserDTO login(UserDTO udto) {
+		UserDTO gudto =  sqlSession.selectOne("user.login", udto);
+		return gudto;
 	}
 
 

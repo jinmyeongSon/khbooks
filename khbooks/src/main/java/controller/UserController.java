@@ -102,10 +102,11 @@ public class UserController {
 	// 로그인 체크
 	@RequestMapping(value = "/loginPost.kh", method = RequestMethod.POST)
 	public ModelAndView loginPost(@ModelAttribute UserDTO udto, HttpSession session) {
-		boolean res= service.login(udto, session);
+		UserDTO gudto = service.login(udto);
 		ModelAndView mav = new ModelAndView();
-		if(res == true) {
-			session.setAttribute("id", udto.getId());
+		if(gudto != null) {
+			session.setAttribute("id", gudto.getId());
+			session.setAttribute("point", gudto.getPoint());
 			if(session.getAttribute("prev")!=null) {
 				String path = (String)session.getAttribute("prev");
 				session.removeAttribute("prev");

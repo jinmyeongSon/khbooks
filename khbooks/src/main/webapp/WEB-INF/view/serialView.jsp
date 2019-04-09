@@ -121,9 +121,9 @@ div::-webkit-scrollbar {
 
 			<div style="width: 100%;">
 				<div oncontextmenu="return false" id="novel" >
-					<p id="stitle" style="text-align: center; font-size: 20px; font-weight: bold;">${sdto.stitle}</p>
+					<p id="stitle" style="text-align: center; font-size: 20px; font-weight: bold;"></p>
 					<br/>
-					<p id="context">${sdto.scontent}</p>
+					<p id="context"></p>
 					
 				</div>
 				<div style="width: 22%;height: 270px;margin-left:23px;float: left;border: 2px solid #ddd;padding: 2px;padding-top: 6px;border-radius: 15px;background-color: #f5f5f5;">
@@ -218,6 +218,7 @@ var totalCount='';
 var id ='';
 var sGrade = '';
 var sideShow = 0;
+var price = 0;
 
 $(document).ready(function(){
 	bno=${bno};
@@ -228,12 +229,16 @@ $(document).ready(function(){
 	
 	$(document).scrollTop(200);
 	
+	
 	$.ajax({
 		type : 'GET',
 		dataType : 'json',
 		url : 'bookInfo.kh?bno='+bno,
 		success : info_success
-	})
+	});
+	
+	serial_move();
+	
 	$('#add').on('click',function(){
 		if(id==''){
 			alert('로그인 후 이용하세요.');
@@ -255,7 +260,7 @@ $(document).ready(function(){
 	
 	$('#prev').on('click', function() {
 		if(rm == 1){
-			alert('첫화임 ㅅㄱ');
+			alert('첫화입니다.');
 		} else{
 			rm--;
 			serial_move();
@@ -264,7 +269,7 @@ $(document).ready(function(){
 	
 	$('#next').on('click', function() {
 		if(rm == totalCount){
-			alert('막화임 ㅅㄱ');
+			alert('마지막화 입니다.');
 		} else{
 			rm++;
 			serial_move();
@@ -399,9 +404,9 @@ function serial_move(){
 }
 
 function check_price(res) {
-	var source = '{{sprice}}';
-	var template = Handlebars.compile(source);
-	if(price > 0){
+	price = JSON.stringify(res);
+	price *= 1;
+	if(price != 0){
 		$.ajax({
 			type:'GET',
 			dataType:'json',
@@ -409,19 +414,19 @@ function check_price(res) {
 			success : chceck_res
 		});
 	}else{
-		serial_move();
+		serial_load();
 	}
 }
 
 function chceck_res(res){
-	if(JSON.stringify(res) == '결제됨'){
-		serial_move();
+	if(JSON.stringify(res) == '1'){
+		serial_load();
 	} else {
-		if(confirm('결제 ㄱㄱ?')){
+		if(confirm(price + '포인트입니다.<br/>결제하시겠습니까?')){
 			$.ajax({
 				type:'GET',
 				dataType:'json',
-				url: 'serialPay.kh?bno='+bno+'&rm='+rm,
+				url: 'serialPay.kh?bno='+bno+'&rm='+rm+'&price='+price,
 				success : pay_res
 			});
 		}
@@ -429,16 +434,16 @@ function chceck_res(res){
 }
 
 function pay_res(res) {
-	if(JSON.stringify(res) == '결제됨'){
-		serial_move();
+	if(JSON.stringify(res) == '1'){
+		serial_load();
 	} else {
-		if(confirm('충전 ㄱㄱ?')){
+		if(confirm('포인트가 부족합니다.<br/>포인트 샵으로 이동하시겠습니까?')){
 			href.location="payment.kh";
 		}
 	}
 }
 
-function serial_move() {
+function serial_load() {
 	$.ajax({
 		type:'GET',
 		dataType:'json',

@@ -50,7 +50,7 @@ color : #d8450b;
         <div class="span8 blog" style="margin-left: 13%;margin-right: 20%;width: 77%; margin-top: -40px;" >
         	
         	<h3 class="title-bg" style="font-weight: bold; " ><a href="noticeList.kh" style="color: #333333; text-decoration: none;">공지 사항</a></h3>
-        	<c:if test="sessionScope.admin!=null">
+        	<c:if test="${sessionScope.admin!=null}">
         	        <button class="btn" type="button" onclick="javascript:location.href='noticeWrite.kh'"><i>글쓰기</i></button>
         	</c:if>
       		

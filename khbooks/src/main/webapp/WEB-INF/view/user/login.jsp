@@ -61,7 +61,7 @@ $(document).ready(function(){
 		history.go(-1);
 	}
 	
-	var res='${resultMsg}'
+	var res='${resultMsg}';
 	
 
 	$("#login_btn").click(function(){
@@ -138,7 +138,7 @@ $(document).ready(function(){
         }
         return unescape(cookieValue);
     }
-
+});
 </script>
 
 </head>

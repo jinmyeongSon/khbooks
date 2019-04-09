@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.servlet.view.AbstractView;
 
@@ -40,6 +41,7 @@ public class DownloadController extends AbstractView {
 		} else {
 			fileName = new String(file.getName().getBytes("utf-8"));
 		}
+		fileName = fileName.substring(fileName.indexOf("_")+1); 
 		
 		response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\";");
         
