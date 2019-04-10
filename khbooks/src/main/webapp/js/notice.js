@@ -158,7 +158,7 @@ function notice_list(){
 	});
 	
 	
-	$('#btext').val();
+	$('#btext').val('');
 	$('.fileDrop').empty();
 	fileList = [];
 	

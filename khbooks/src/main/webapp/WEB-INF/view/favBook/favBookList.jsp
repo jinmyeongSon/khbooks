@@ -49,35 +49,6 @@ text-align: center;
 <script src="js/jquery.prettyPhoto.js"></script>
 <script src="js/jquery.quicksand.js"></script>
 <script src="js/jquery.custom.js"></script>
-<script type="text/javascript">
-var id = '${sessionScope.id}';
-$(document).ready(function () {
-	if(id==''){
-		alert('로그인을 해주세요.');
-<<<<<<< HEAD
-		location.href='http://localhost:8090/khbook/mainpage.kh';
-=======
-		location.href="loginForm.kh";
->>>>>>> branch 'book' of https://github.com/jinmyeongSon/khbooks.git
-	}
-	$(document).on('click','#move',function(){
-		var au=$(this).parent().prev().children().val();
-		var ak=$(this).parent().prev().children().children("option:selected").text();
-		location.href='http://localhost:8090/khbook/serialView.kh?bno='+au+'&rm='+ak;
-	});
-	$(document).on('click','#deletebtn',function(){
-		var del=confirm("정말 삭제 하시겠습니까 ?");
-		if(del){
-			var bno= $(this).parent().prev().val();
-			$(this).parent().prev().prev().attr("action","favDelete.kh");
-			$(this).parent().prev().prev().submit(); 
-		}else{
-			return false;
-		}
-	});
-});
-
-</script>
 
 </head>
 
@@ -213,9 +184,31 @@ $(document).ready(function () {
         ================================================== -->
 
 	<jsp:include page="../khbooks_footer.jsp"/>
-
-    <!-- Scroll to Top -->  
-    <div id="toTop" class="hidden-phone hidden-tablet">Back to Top</div>
     
 </body>
+<script type="text/javascript">
+var id = '${sessionScope.id}';
+$(document).ready(function () {
+	if(id==''){
+		alert('로그인을 해주세요.');
+		location.href="loginForm.kh";
+	}
+	$(document).on('click','#move',function(){
+		var au=$(this).parent().prev().children().val();
+		var ak=$(this).parent().prev().children().children("option:selected").text();
+		location.href='http://localhost:8090/khbook/serialView.kh?bno='+au+'&rm='+ak;
+	});
+	$(document).on('click','#deletebtn',function(){
+		var del=confirm("정말 삭제 하시겠습니까 ?");
+		if(del){
+			var bno= $(this).parent().prev().val();
+			$(this).parent().prev().prev().attr("action","favDelete.kh");
+			$(this).parent().prev().prev().submit(); 
+		}else{
+			return false;
+		}
+	});
+});
+
+</script>
 </html>

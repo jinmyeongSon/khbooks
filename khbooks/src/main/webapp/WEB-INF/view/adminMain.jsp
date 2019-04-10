@@ -56,7 +56,7 @@
                	<li><div class="changeCursor" id="authorInsert">작가 등록</div></li>
            	</ul>
 		</div>
-    	<div style="float:left; width: 99%; height: 700px; background-color: #d8450b; margin: 0px 0px 20px 10px;" id="managePlace">
+    	<div style="float:left; width: 99%; height: 700px; margin: 0px 0px 20px 10px;" id="managePlace">
     		
     	</div>
     </div>
