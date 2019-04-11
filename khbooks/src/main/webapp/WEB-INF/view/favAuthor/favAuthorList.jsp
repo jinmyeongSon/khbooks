@@ -67,17 +67,13 @@ text-align: center;
 <script src="js/jquery.quicksand.js"></script>
 <script src="js/jquery.custom.js"></script>
 <script type="text/javascript">
-var id = '${sessionScope.id}';
 
 
 $(document).ready(function () {
+	var id = '${sessionScope.id}';
 	if(id==''){
 		alert('로그인을 해주세요.');
-<<<<<<< HEAD
-		location.href='http://localhost:8090/khbook/mainpage.kh';
-=======
 		location.href="loginForm.kh";
->>>>>>> branch 'book' of https://github.com/jinmyeongSon/khbooks.git
 	}
 	
 	$(document).on('click','#deletebtn',function(){

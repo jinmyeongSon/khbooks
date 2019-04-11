@@ -67,7 +67,10 @@ function board_update_delete(){
 
 function comment_list(){
 	var text = $('#textarea').val();
-	
+	if(text==''){
+		alert("내용을 입력해 주십시오.");
+		return false;
+	}
 	var bonum = $(this).parent().prop("id");
 	
 	/*var form_data=new FormData();

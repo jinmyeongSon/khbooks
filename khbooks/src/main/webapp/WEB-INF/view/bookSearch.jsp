@@ -34,7 +34,7 @@
 <script src="js/jquery.prettyPhoto.js"></script>
 <script src="js/jquery.quicksand.js"></script>
 <script src="js/jquery.custom.js"></script>
-<title>Insert title here</title>
+<title>KH BOOKs</title>
 </head>
 <body>
 

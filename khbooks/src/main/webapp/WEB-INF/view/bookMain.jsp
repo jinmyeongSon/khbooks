@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>KH BOOKs</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- CSS
 ================================================== -->
@@ -199,7 +199,7 @@
                 <div class="tab-pane" id="tweets">
                     <ul>
                     	<c:forEach items="${tweet}" var="tweet">
-                    	<li style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><a href="#">@${tweet.user.screenName}</a> ${tweet.text}</li>
+                    	<li style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><a href="javascript:void(window.open('https://twitter.com/khBooks1/'))">@${tweet.user.screenName}</a> ${tweet.text}</li>
                     	</c:forEach>
                     </ul>
                 </div>

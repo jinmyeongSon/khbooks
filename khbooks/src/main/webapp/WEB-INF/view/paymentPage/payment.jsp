@@ -183,7 +183,6 @@
 
 			
 				<div>
-					<button type="button" id="noBBpay" onclick="bank_payment();">무통장입금</button>
 					<button type="button" id="pay">카드결제</button>
 					<button type="button" class="btn_pay btn_pay_hover" id="kakaopay_btn" onclick="payment();">카카오페이</button>
 				</div>

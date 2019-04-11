@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>KH BOOKs</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
 <script type="ajaxsrc/jquery01.js"></script>
@@ -410,6 +410,11 @@ function check_price(res) {
 	price = JSON.stringify(res);
 	price *= 1;
 	if(price != 0){
+		if(id==''){
+			alert("로그인 후 사용할수 있는 기능입니다.")
+			location.href='loginForm.kh';
+			return false;
+		}
 		$.ajax({
 			type:'GET',
 			dataType:'json',

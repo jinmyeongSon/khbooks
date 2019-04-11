@@ -15,7 +15,7 @@
 	height: 400px;
 }
 </style>
-<title>Insert title here</title>
+<title>KH BOOKs</title>
 </head>
 <body>
 	<div style="height: 270px;">

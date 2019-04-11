@@ -82,7 +82,7 @@ var id = '';
 
 </script>
 
-<title>KH BOOKS - ${book.bname}</title>
+<title>KH BOOKs</title>
 </head>
 <body>
 	<div class="color-bar-1"></div>

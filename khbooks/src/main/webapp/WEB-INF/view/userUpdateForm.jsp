@@ -11,18 +11,6 @@
 		searchKey='${adto.searchKey}';
 		searchWord='${adto.searchWord}';
 		currentPage='${adto.currentPage}';
-<<<<<<< HEAD
-=======
-		$('#uupdate').on('click', update_click);
-		$('#cancel').on('click', cancel_click);
-		function update_click() {
-			$('#managePlace').empty();
-			var data = $(this).parent().serialize();
-			alert(data);
-			$('#managePlace').load("userUpdate.kh?"+data);
-			return false;
-		}
->>>>>>> branch 'book' of https://github.com/jinmyeongSon/khbooks.git
 	});
 	
 </script>
@@ -42,11 +30,7 @@ input{
 		<input type="text" id="ubirth" name="ubirth" value="${udto.ubirth}"/>
 		<input type="text" id="ugender" name="ugender" value="${udto.ugender}"/>
 		<input type="button" id="uupdate" value="수정하기"/>
-<<<<<<< HEAD
 		<input type="button" id="ucancel" value="취소"/>
-=======
-		<input type="button" id="cancel" value="취소"/>
->>>>>>> branch 'book' of https://github.com/jinmyeongSon/khbooks.git
 	</form>
 </body>
 </html>

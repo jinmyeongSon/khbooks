@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>KH BOOKs</title>
 <style type="text/css">
 td{
 border:1px solid black;

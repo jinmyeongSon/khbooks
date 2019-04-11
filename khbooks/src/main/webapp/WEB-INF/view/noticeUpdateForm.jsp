@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>KH BOOKs</title>
 <style type="text/css">
 .fileDrop {
 	height : 250px;
