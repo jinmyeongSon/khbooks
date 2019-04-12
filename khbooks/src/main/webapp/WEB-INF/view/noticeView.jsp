@@ -62,7 +62,7 @@
                         				<c:forEach items="${view.uList }" var="up">
                        			 		<c:set var="numload" value="${(fn:indexOf(up.upname,'_'))+1}" />
                         				<c:set var="strlength" value="${fn:length(up.upname)}"/>
-                      				  	<li style="float: right; list-style: none;"><a href="noticeDownload.kh?upname=${up.upname }&path=c:/khNotice/" style="color:#333333;"><i class="icon-download-alt"></i>${fn:substring(up.upname,numload,strlength)}</a></li>
+                      				  	<li style="clear:both; float: right; list-style: none;"><a href="noticeDownload.kh?upname=${up.upname }&path=c:/khNotice/" style="color:#333333;"><i class="icon-download-alt"></i>${fn:substring(up.upname,numload,strlength)}</a></li>
                         				<br/>
                         				</c:forEach>
                      			   </c:when>

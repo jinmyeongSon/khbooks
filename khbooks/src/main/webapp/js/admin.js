@@ -231,17 +231,19 @@ $(document).on('click', '#supdate', function() {
 //serial 업데이트
 $(document).on('click', '#saveUpdate', function() {
 	var title = $('#updateTitle').val();
+	var sprice = $('#updatePrice').val();
 	var file = document.getElementById("updateFile").files.length;
 	var formData = new FormData();
-	if(title == '' && file == 0){
+	if(title == '' && file == 0 && price == ''){
 		alert('바꿀 내용이 없습니다!');
-	} else if(title != '' && file != 0) {
-		formData.append('stitle', title);
-		formData.append('filename', $("input[id=updateFile]")[0].files[0]);
 	} else {
 		if(title != ''){
 			formData.append('stitle', title);
-		}else{
+		}
+		if(price != ''){
+			formData.append('sprice', sprice);
+		}
+		if(file != 0){
 			formData.append('filename', $("input[id=updateFile]")[0].files[0]);
 		}
 	}
@@ -273,6 +275,7 @@ $(document).on('click', '#serialIns', function() {
 		alert('가격을 제외한 모든 내용을 입력하세요');
 		return false;
 	} else {
+		formData.append('bno', $('#bno').val());
 		formData.append('stitle', title);
 		formData.append('sprice', price);
 		formData.append('filename', $("input[id=serialFile]")[0].files[0]);
@@ -363,7 +366,7 @@ $(document).on('click', '#addAuthor', function() {
 });
 
 // 작가 업데이트
-$(document).on('click', '#aupdate', author_update_click);
+$(document).on('click', '#authorUpdate', author_update_click);
 function author_update_click() {
 	$('#managePlace').empty();
 	var data = $(this).parent().serialize();

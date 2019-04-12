@@ -58,7 +58,7 @@ $(document).ready(function () {
 	$(document).on('click','#move',function(){
 		var au=$(this).parent().prev().children().val();
 		var ak=$(this).parent().prev().children().children("option:selected").text();
-		location.href='http://localhost:8090/khbook/serialView.kh?bno='+au+'&rm='+ak;
+		location.href='serialView.kh?bno='+au+'&rm='+ak;
 	});
 	$(document).on('click','#deletebtn',function(){
 		var del=confirm("정말 삭제 하시겠습니까 ?");
@@ -152,7 +152,7 @@ $(document).ready(function () {
                         <li style="padding:5px;"><h6>최신 연재일:</h6> ${dto.bupdate}</li>
                         <li  style="padding:5px; margin-top: 10px; border-bottom: 0px solid;">
                            <a href="serialView.kh?bno=${dto.bno}&rm=1" id="serialFirst"><button class="btn btn-small">첫 화 보기</button></a>
-                            <a href="http://localhost:8090/khbook/bookDetail.kh?bno=${dto.bno }">
+                            <a href="bookDetail.kh?bno=${dto.bno }">
                             <button class="btn btn-small btn-inverse" id="favBook-btn" >작품 페이지로 가기</button></a>
                         </li>
                     </ul>

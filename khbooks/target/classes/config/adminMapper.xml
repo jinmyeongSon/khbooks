@@ -92,8 +92,8 @@
 		delete from kh_user where id=#{id}
 	</delete>
 	
-	<delete id="bookDelete" parameterType="string">
-		delete from kh_user where id=#{id}
+	<delete id="bookDelete" parameterType="int">
+		delete from book where bno=#{bno}
 	</delete>
 	
 	<update id="userUpdate" parameterType="dto.UserDTO">
@@ -167,24 +167,28 @@
 		delete serial where upno=#{upno}
 	</delete>
 	
+	<insert id="serialInsert" parameterType="dto.SerialDTO">
+		insert into serial
+		values(serial_upno_seq.nextval, #{bno}, sysdate, #{scontent}, #{sprice}, 0, #{stitle}, 0)
+	</insert>
+	
 	<select id="getContent" parameterType="int" resultType="string">
 		select scontent from serial where upno=#{upno}
 	</select>
 	
 	<update id="serialUpdate" parameterType="dto.SerialDTO">
 		update serial
-		set 
-		<choose>
-			<when test="stitle != null and scontent != null">
-				stitle=#{stitle}, scontent=#{scontent}
-			</when>
-			<when test="stitle != null">
+		<trim prefix="set" prefixOverrides=",">
+			<if test="stitle != null">
 				stitle=#{stitle}
-			</when>
-			<otherwise>
-				scontent=#{scontent}
-			</otherwise>
-		</choose>
+			</if>
+			<if test="scontent != null">
+				,scontent=#{scontent}
+			</if>
+			<if test="sprice != null">
+				,sprice=#{sprice}
+			</if>
+		</trim>
 		where upno=#{upno}
 	</update>
 	

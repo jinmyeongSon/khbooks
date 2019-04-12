@@ -78,7 +78,7 @@
                                 	<a href="gallery-single.htm" class="item-details-link"></a>
                             	</span>
                         	</span>
-                        	<a href="gallery-single.htm"><img src="img/gallery/gallery-img-1-4col.jpg" alt="Gallery"></a>
+                        	<a href="gallery-single.htm"><img src="img/bthumb/${list.bthumb}" alt="Gallery"></a>
                         	<span class="project-details"><a href="gallery-single.htm">${list.bname}</a>For an international ad campaign.</span>
                     	</li>
                     </c:forEach>

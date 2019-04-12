@@ -10,7 +10,7 @@
 	</select>
 	
 	<update id="update" parameterType="dto.UserDTO">
-		update kh_user set upass=#{upass}, uname=#{uname}, uemail=#{uemail}, uphone=#{uphone},
+		update kh_user set upass=#{upass}, uname=#{uname}, uemail=#{uemail}, uphone=#{uphone}
 		where id=#{id}
 	</update>
 	

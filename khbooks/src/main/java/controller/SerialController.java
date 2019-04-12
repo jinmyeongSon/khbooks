@@ -2,9 +2,11 @@ package controller;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,10 +64,9 @@ public class SerialController {
             File file = new File("C:\\temp\\test");
             System.out.println(file.isDirectory());
             file = new File("C:\\temp\\test\\" + fileName);
-            //입력 스트림 생성
-            FileReader filereader = new FileReader(file);
-            //입력 버퍼 생성
-            BufferedReader bufReader = new BufferedReader(filereader);
+            //입력 버퍼 생성 및 스트림 생성
+            BufferedReader bufReader = new BufferedReader(new InputStreamReader(new FileInputStream(file),"euc-kr"));
+
             String line = "";
             while((line = bufReader.readLine()) != null){
             	text += line + "<br/>";
@@ -97,10 +98,8 @@ public class SerialController {
 		try{
             //파일 객체 생성
             File file = new File("C:\\temp\\test\\" + fileName);
-            //입력 스트림 생성
-            FileReader filereader = new FileReader(file);
             //입력 버퍼 생성
-            BufferedReader bufReader = new BufferedReader(filereader);
+            BufferedReader bufReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "euc-kr") );
             String line = "";
             while((line = bufReader.readLine()) != null){
             	text += line + "<br/>";

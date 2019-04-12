@@ -99,7 +99,7 @@ public class AdminController {
 			// 중복파일명 방지 위한 난수 발생
 			UUID random = UUID.randomUUID();
 			// 파일 저장될 경로만들기
-			String root = "C:\\temp\\test";
+			String root = "C:\\Users\\user2\\git\\khbooks\\khbooks\\src\\main\\webapp\\img\\bthumb";
 			//root + "temp/"와 같음
 			String saveDirectory = root+File.separator;
 			// 위의 경로를 갖은 파일 클래스 생성
@@ -121,6 +121,39 @@ public class AdminController {
 		service.bookInsertProcess(dto);
 		
 		return "redirect:/bookList.kh";
+	}
+	
+	@RequestMapping(value="serialInsert.kh", method=RequestMethod.POST)
+	public String serialInsert(SerialDTO dto) {
+		MultipartFile file = dto.getFilename();
+		// 첨부파일 경로 수정 필요
+		if(file != null) {
+			String fileName = file.getOriginalFilename();
+			// 중복파일명 방지 위한 난수 발생
+			UUID random = UUID.randomUUID();
+			// 파일 저장될 경로만들기
+			String root = "C:\\temp\\test";
+			//root + "temp/"와 같음
+			String saveDirectory = root+File.separator;
+			// 위의 경로를 갖은 파일 클래스 생성
+			File fe = new File(saveDirectory);
+			if(!fe.exists())
+				fe.mkdir();
+			// 경로와 파일명 갖는 파일 생성
+			File ff = new File(saveDirectory, random + "_" + fileName);
+			try {
+				// 위 파일 위치에 실제 파일 붙여넣기
+				FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(ff));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			// 파일이름저장
+			dto.setScontent(random + "_" + fileName);
+		}
+		
+		service.serialInsertProcess(dto);
+		
+		return "redirect:/bookDetailForm.kh?bno="+dto.getBno();
 	}
 	
 	@RequestMapping("authorInsert.kh")
@@ -277,7 +310,7 @@ public class AdminController {
 			// 중복파일명 방지 위한 난수 발생
 			UUID random = UUID.randomUUID();
 			// 파일 저장될 경로만들기
-			String root = "C:\\temp\\test";
+			String root = "C:\\Users\\user2\\git\\khbooks\\khbooks\\src\\main\\webapp\\img\\bthumb";
 			//root + "temp/"와 같음
 			String saveDirectory = root+File.separator;
 			// 위의 경로를 갖은 파일 클래스 생성
@@ -341,6 +374,15 @@ public class AdminController {
 	// book delete
 	@RequestMapping("bookDelete.kh")
 	public String bookDelete(int bno) {
+		List<SerialDTO> sList = service.getSerialListProcess(bno);
+		for (SerialDTO sdto : sList) {
+			service.serialDeleteProcess(sdto.getUpno());
+		}
+		BookDTO bdto = service.getBookOneProcess(bno);
+		if(bdto.getBthumb() != null) {
+			File oldFile = new File("C:\\Users\\user2\\git\\khbooks\\khbooks\\src\\main\\webapp\\img\\bthumb", bdto.getBthumb());
+			oldFile.delete();
+		}
 		service.bookDeleteProcess(bno);
 		return "redirect:/bookList.kh";
 	}

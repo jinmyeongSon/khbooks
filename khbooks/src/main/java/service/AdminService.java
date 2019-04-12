@@ -76,4 +76,6 @@ public interface AdminService {
 
 	public void bookAuthorInsertProcess(Map<String, Object> map);
 
+	public void serialInsertProcess(SerialDTO dto);
+
 }

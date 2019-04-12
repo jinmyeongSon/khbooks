@@ -85,9 +85,9 @@ public class PaymentController {
 		url += "&quantity=1";
 		url += "&total_amount=" + total_amount;
 		url += "&tax_free_amount=" + total_amount;
-		url += "&approval_url=http://localhost:8090/khbook/paysuccess.kh?finish=success";
-		url += "&cancel_url=http://localhost:8090/khbook/paysuccess.kh?finish=cancle";
-		url += "&fail_url=http://localhost:8090/khbook/paysuccess.kh?finish=fail";
+		url += "&approval_url=http://192.168.10.61:8090/khbook/paysuccess.kh?finish=success";
+		url += "&cancel_url=http://192.168.10.61:8090/khbook/paysuccess.kh?finish=cancle";
+		url += "&fail_url=http://192.168.10.61:8090/khbook/paysuccess.kh?finish=fail";
 		session.setAttribute("total_amount", total_amount);
 		URL url2 = new URL(url);
 		URLConnection conn = url2.openConnection();

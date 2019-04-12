@@ -152,7 +152,7 @@
 	<select id="authorBook" parameterType="java.util.Map" resultType="dto.BookDTO">
 		select rownum, c.*
 		from(select rownum as rm, a.*
-		from(select b.bno, b.bname, b.gno
+		from(select b.bno, b.bname, b.gno, b.bthumb
 		from  book b, book_author ba
 		where ba.auno = #{auno}
 		and b.bno=ba.bno and b.bno!=#{bno})a)c

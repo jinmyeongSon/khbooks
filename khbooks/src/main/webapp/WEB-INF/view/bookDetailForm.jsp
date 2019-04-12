@@ -70,6 +70,7 @@
         </div>
         <div class="modal-body">
             <label for="updateTitle">제목 입력</label><input type="text" id="updateTitle"><br/>
+            <label for="updatePrice">가격 입력</label><input type="text" id="updatePrice"><br/>
             <label for="updateFile">파일 첨부</label><input type="file" id="updateFile">
         </div>
         <div class="modal-footer">

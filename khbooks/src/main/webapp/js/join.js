@@ -33,11 +33,9 @@ $(document).ready(function() {
 		var pwdchk = $('#userPwdChk').val();
 		var regpw=/(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/;
 		var regid= /^[0-9a-zA-Z]{4,20}$/;
-		alert("조인진입");
 /*
 		document.getElementById('pwrong').innerHTML = '';
 		document.getElementById('idwrong').innerHTML = '';*/
-		alert("조인진입2");
 
 		if(confirm("회원가입을 하시겠습니까?")){
 	        if(idchk==0){/*
@@ -107,7 +105,6 @@ $(document).ready(function() {
 				dataType : "json",
 				contentType: "application/json; charset=UTF-8",
 				success : function(data) {
-					alert(data);
 				if(data > 0) {
 					alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");
 				    idchk = 0;
@@ -131,7 +128,6 @@ $(document).ready(function() {
 	        dataType : "json",
 			contentType: "application/json; charset=UTF-8",
 			success : function(data) {
-				alert(JSON.stringify(data));
 			if(data > 0){
 				alert("이메일이 존재합니다. 다른 이메일을 입력해주세요.");
 	               emailchk = 0;

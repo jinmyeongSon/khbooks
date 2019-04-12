@@ -56,7 +56,6 @@ function cashcash(){
         method: 'GET',
         dataType: 'json',
         success: function(total){
-        	alert("afaafwf");
         	window.open(total.bank_pay, 'payment_popup', 'width=426,height=510,toolbar=no,location=no');
         }
     });

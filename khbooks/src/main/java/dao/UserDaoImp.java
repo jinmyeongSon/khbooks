@@ -58,7 +58,7 @@ public class UserDaoImp implements UserDAO{
 	public void updateInfo(String id, String pwd) {
 		Map<String, Object> map =new HashMap<String, Object>();
 		map.put("id", id);
-		map.put("pwd", pwd);
+		map.put("upass", pwd);
 		
 		sqlSession.update("user.temp_pwd", map);
 		

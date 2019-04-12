@@ -79,8 +79,8 @@ div::-webkit-scrollbar {
             <div style="height: 10px;"></div>
             <h5 class="title-bg">현재 보고 있는 작품</h5>
             <ul class="popular-posts" id="bookInfo">
-                <li style="border-bottom: 0px solid;">
-                    <a href="#"><img src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post" id="bookImage"></a>
+                <li style="border-bottom: 0px solid; height: 115px;">
+                    <a href="#"><img style="width:100px;" src="img/gallery/gallery-img-2-thumb.jpg" alt="Popular Post" id="bookImage"></a>
                     <h6><a href="" id="bookTitle">제목</a></h6>
                     <h6 id="bookAuthor"></h6>
                 </li>
@@ -89,7 +89,7 @@ div::-webkit-scrollbar {
 
             <!--Progress Bars-->
             <c:set var="sGrade" value="${sdto.sgrade*20}"/>
-            <h5 class="title-bg" style="margin-top:0px;">이번 화 반응 </h5>
+            <h5 class="title-bg" style="margin-top:0px;">이번 화 평점 </h5>
    			<c:choose>
             	<c:when test="${sGrade<=25}">
             		<div class="progress progress-danger progress-striped">
@@ -232,13 +232,7 @@ $(document).ready(function(){
 	
 	$(document).scrollTop(200);
 	
-	
-	$.ajax({
-		type : 'GET',
-		dataType : 'json',
-		url : 'bookInfo.kh?bno='+bno,
-		success : info_success
-	});
+	bookLoad();
 	
 	serial_move();
 	
@@ -338,6 +332,7 @@ function grade_check_complete(res) {
 			data : 'bno=' + bno + '&rm=' + rm + '&grade=' + grade,
 			success : function(res) {
 				alert('입력 완료');
+				bookLoad();
 			}
 		});
 	} else{
@@ -350,6 +345,7 @@ function grade_check_complete(res) {
 				data : 'bno=' + bno + '&rm=' + rm + '&grade=' + grade,
 				success : function(res) {
 					alert('변경 완료');
+					bookLoad();
 				}
 			});
 		}else{
@@ -364,6 +360,9 @@ function info_success(res) {
 		var template = Handlebars.compile(source);
 		$('#bookTitle').text(template(res));
 		$('#btitle').text(template(res));
+		source = 'img/bthumb/{{bthumb}}';
+		template = Handlebars.compile(source);
+		$('#bookImage').attr('src', template(res));
 		var auname='';
 		$.each(res.aList, function(index, value) {
 			// 작품정보에 작가이름 추가
@@ -384,8 +383,8 @@ function info_success(res) {
 					var src = '<h5 class="title-bg">작가의 다른 작품</h5>'
 		            	 +'<ul class="popular-posts">';
 					$.each(result, function(idx, val) {
-						source = '<li style="width:100px; display:inline-block; clear:both; border-bottom: 0px solid;"><a href="bookDetail.kh?bno={{bno}}"><div style="height:80px; width:80px; overflow:hidden; float:left; margin-right:5px;" title="{{bname}}" >'
-						+'<img src="img/gallery/flickr-img-1.jpg"></div></a></li>';
+						source = '<li style="width:100px; display:inline-block; clear:both; border-bottom: 0px solid;"><a href="bookDetail.kh?bno={{bno}}"><div style="height:120px; width:80px; overflow:hidden; float:left; margin-right:5px;" title="{{bname}}" >'
+						+'<img src="img/bthumb/{{bthumb}}"></div></a></li>';
 						template = Handlebars.compile(source);
 						src += template(val);
 					});
@@ -430,7 +429,7 @@ function chceck_res(res){
 	if(JSON.stringify(res) == '1'){
 		serial_load();
 	} else {
-		if(confirm(price + '포인트입니다.<br/>결제하시겠습니까?')){
+		if(confirm(price + '포인트입니다. 결제하시겠습니까?')){
 			$.ajax({
 				type:'GET',
 				dataType:'json',
@@ -445,7 +444,7 @@ function pay_res(res) {
 	if(JSON.stringify(res) == '1'){
 		serial_load();
 	} else {
-		if(confirm('포인트가 부족합니다.<br/>포인트 샵으로 이동하시겠습니까?')){
+		if(confirm('포인트가 부족합니다. 포인트 샵으로 이동하시겠습니까?')){
 			href.location="payment.kh";
 		}
 	}
@@ -536,6 +535,15 @@ function reply_insert() {
 	$('#newReplyText').val('');
 	
 	
+}
+
+function bookLoad(){
+	$.ajax({
+		type : 'GET',
+		dataType : 'json',
+		url : 'bookInfo.kh?bno='+bno,
+		success : info_success
+	});
 }
 
 // http://handlebarsjs.com/

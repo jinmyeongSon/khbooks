@@ -192,9 +192,9 @@ $(document).ready(function () {
         <div class="span4 sidebar page-sidebar"><!-- Begin sidebar column -->
              <h5 class="title-bg">Categories</h5>
             <ul class="post-category-list">
-                <li><a href="http://localhost:8090/khbook/memberInfor.kh"><i class="icon-plus-sign"></i>회원정보</a></li>
-                <li><a href="http://localhost:8090/khbook/favAuthorList.kh"><i class="icon-plus-sign"></i>관심작가</a></li>
-                <li><a href="http://localhost:8090/khbook/favBookList.kh"><i class="icon-plus-sign"></i>관심작품</a></li>
+                <li><a href="memberInfor.kh"><i class="icon-plus-sign"></i>회원정보</a></li>
+                <li><a href="favAuthorList.kh"><i class="icon-plus-sign"></i>관심작가</a></li>
+                <li><a href="favBookList.kh"><i class="icon-plus-sign"></i>관심작품</a></li>
             </ul>
         </div><!-- End sidebar column -->
 

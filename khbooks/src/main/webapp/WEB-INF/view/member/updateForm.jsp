@@ -140,8 +140,9 @@ $(document).ready(function () {
                     	</tr>  
                     	<tr>
                     		<td>성별</td>
-                    		<td><input class="span4" id="ugender" name="ugender" type="text" value="<c:choose><c:when test="${dto.ugender==1 }">남자 </c:when><c:otherwise>여자</c:otherwise>
-                        </c:choose>" readonly/></td>
+                    		<td><input class="span4" id="ugender" name="ugender" type="hidden" value="${dto.ugender}"/>
+                    		<input class="span4" type="text" value="<c:choose><c:when test="${dto.ugender==1}">남자 </c:when><c:otherwise>여자</c:otherwise></c:choose>" readonly/>
+                    		</td>
                     	</tr>  
                     </table>
                    
@@ -157,9 +158,9 @@ $(document).ready(function () {
         <div class="span4 sidebar page-sidebar"id="ca"><!-- Begin sidebar column -->
              <h5 class="title-bg">Categories</h5>
             <ul class="post-category-list">
-                <li><a href="http://localhost:8090/khbook/memberInfor.kh"><i class="icon-plus-sign"></i>회원정보</a></li>
-                <li><a href="http://localhost:8090/khbook/favAuthorList.kh"><i class="icon-plus-sign"></i>관심작가</a></li>
-                <li><a href="http://localhost:8090/khbook/favBookList.kh"><i class="icon-plus-sign"></i>관심작품</a></li>
+               <li><a href="memberInfor.kh"><i class="icon-plus-sign"></i>회원정보</a></li>
+                <li><a href="favAuthorList.kh"><i class="icon-plus-sign"></i>관심작가</a></li>
+                <li><a href="favBookList.kh"><i class="icon-plus-sign"></i>관심작품</a></li>
 
             </ul>
         </div><!-- End sidebar column -->

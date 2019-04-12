@@ -60,7 +60,7 @@ $(document).ready(function () {
 	$(document).on('click','#move',function(){
 		var au=$(this).parent().prev().children().val();
 		var ak=$(this).parent().prev().children().children("option:selected").text();
-		location.href='http://localhost:8090/khbook/serialView.kh?bno='+au+'&rm='+ak;
+		location.href='http://192.168.10.61:8090/khbook/serialView.kh?bno='+au+'&rm='+ak;
 	});
 	$(document).on('click','#deletebtn',function(){
 		var del=confirm("정말 삭제 하시겠습니까 ?");
@@ -196,9 +196,9 @@ $(document).ready(function () {
         <div class="span4 sidebar page-sidebar"><!-- Begin sidebar column -->
              <h5 class="title-bg">Categories</h5>
             <ul class="post-category-list">
-                <li><a href="http://localhost:8090/khbook/memberInfor.kh"><i class="icon-plus-sign"></i>회원정보</a></li>
-                <li><a href="http://localhost:8090/khbook/favAuthorList.kh"><i class="icon-plus-sign"></i>관심작가</a></li>
-                <li><a href="http://localhost:8090/khbook/favBookList.kh"><i class="icon-plus-sign"></i>관심작품</a></li>
+               <li><a href="memberInfor.kh"><i class="icon-plus-sign"></i>회원정보</a></li>
+                <li><a href="favAuthorList.kh"><i class="icon-plus-sign"></i>관심작가</a></li>
+                <li><a href="favBookList.kh"><i class="icon-plus-sign"></i>관심작품</a></li>
             </ul>
         </div><!-- End sidebar column -->
 

@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.UserDTO;
@@ -68,5 +69,10 @@ public class MemberController {
 		session.invalidate();
 		mav.setViewName("redirect:/mainpage.kh");
 		return mav;
+	}
+	@RequestMapping("/paymentPro.kh")
+	public @ResponseBody UserDTO paymentPro(HttpSession session) {
+		String id=(String)session.getAttribute("id");
+		return service.listprocess(id);
 	}
 }

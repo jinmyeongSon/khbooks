@@ -250,10 +250,10 @@ $(document).ready(function(){
 <!--Find Pwd Modal END -->
 </body>
 <script type="text/javascript">
-	var naver_id_login = new naver_id_login("Fl00fuSEpWs8hOdJ0F2n", "http://localhost:8090/khbook/index-naver.kh");
+	var naver_id_login = new naver_id_login("Fl00fuSEpWs8hOdJ0F2n", "http://192.168.10.61:8090/khbook/index-naver.kh");
 	var state = naver_id_login.getUniqState();
 	naver_id_login.setButton("green", 2,40);
-	naver_id_login.setDomain("http://localhost:8090");
+	naver_id_login.setDomain("http://192.168.10.61:8090");
 	naver_id_login.setState(state);
 	naver_id_login.setPopup();
 	naver_id_login.init_naver_id_login();

@@ -182,4 +182,9 @@ public class AdminServiceImp implements AdminService {
 	public void bookAuthorInsertProcess(Map<String, Object> map) {
 		dao.bookAuthorInsert(map);
 	}
+
+	@Override
+	public void serialInsertProcess(SerialDTO dto) {
+		dao.serialInsert(dto);
+	}
 }

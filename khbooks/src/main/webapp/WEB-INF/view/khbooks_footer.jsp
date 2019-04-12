@@ -50,7 +50,7 @@ $(document).ready(function(){
 		url : 'bookGet.kh',
 		success : function(res){
 			$.each(res, function(index, value) {
-				var source = '<li><a href="bookDetail.kh?bno={{bno}}"><div style="height:60px; width:60px; overflow:hidden;" ><img src="img/gallery/flickr-img-1.jpg" rel="popover" title="{{bname}}" data-content="{{binfo}}" data-animation="true"></div></a></li>';
+				var source = '<li><a href="bookDetail.kh?bno={{bno}}"><div style="height:60px; width:60px; overflow:hidden;" ><img src="img/bthumb/{{bthumb}}" rel="popover" title="{{bname}}" data-content="{{binfo}}" data-animation="true"></div></a></li>';
 				var template = Handlebars.compile(source);
 				$('#latest-novel').append(template(value));
 			});

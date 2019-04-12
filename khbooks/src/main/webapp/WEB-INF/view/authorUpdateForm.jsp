@@ -26,7 +26,7 @@ input{
 		<input type="text" id="auno" name="auno" value="${dto.auno}" readonly="readonly"/>
 		<input type="text" id="auname" name="auname" value="${dto.auname}"/>
 		<textarea rows="5" cols="100" name="auintro" required>${dto.auintro}</textarea>
-		<input type="button" id="aupdate" value="수정하기"/>
+		<input type="button" id="authorUpdate" value="수정하기"/>
 		<input type="button" id="acancel" value="취소"/>
 	</form>
 </body>

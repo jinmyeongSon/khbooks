@@ -204,5 +204,10 @@ public class AdminDaoImp implements AdminDAO {
 	public void bookAuthorInsert(Map<String, Object> map) {
 		sqlSession.insert("admin.baInsert", map);
 	}
+
+	@Override
+	public void serialInsert(SerialDTO dto) {
+		sqlSession.insert("admin.serialInsert", dto);
+	}
 	
 }

@@ -76,4 +76,6 @@ public interface AdminDAO {
 
 	public void bookAuthorInsert(Map<String, Object> map);
 
+	public void serialInsert(SerialDTO dto);
+
 }

@@ -42,10 +42,9 @@ public class UserController {
 		this.mailService = mailService;
 	}
 	
-	// 홈
-	@RequestMapping(value = "/index.kh", method = RequestMethod.GET)
-	public String index() {
-		return "index";
+	@RequestMapping(value = "/naloCallback.kh", method = RequestMethod.GET)
+	public String naloCallback() {
+		return "indexCallback";
 	}
 	
 	// 네이버 로그인
@@ -109,8 +108,13 @@ public class UserController {
 			session.setAttribute("point", gudto.getPoint());
 			if(session.getAttribute("prev")!=null) {
 				String path = (String)session.getAttribute("prev");
-				session.removeAttribute("prev");
-				mav.setViewName("redirect:"+path);
+				if(path.equals("http://192.168.10.61:8090/khbook/loginForm.kh")) {
+					session.removeAttribute("prev");
+					mav.setViewName("redirect:mainpage.kh");
+				} else {
+					session.removeAttribute("prev");
+					mav.setViewName("redirect:"+path);
+				}
 			}else {
 				mav.setViewName("redirect:mainpage.kh");
 			}
@@ -144,16 +148,6 @@ public class UserController {
 		return mav;
 	}
 	
-	 // 이메일 인증
-	@RequestMapping(value = "/findId.kh", method = RequestMethod.GET)
-	public String findId() {
-		return "user/findId";
-	}
-	@RequestMapping(value = "/findPwd.kh", method = RequestMethod.GET)
-	public String findIdPwd() {
-		return "user/findPwd";
-	}
-    
     // 아이디 찾기
    @RequestMapping(value = "/sendMail/id.kh", method = RequestMethod.POST)
     public String sendMailId(HttpSession session, @RequestParam String email, RedirectAttributes ra) {

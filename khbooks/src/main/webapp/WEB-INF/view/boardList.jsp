@@ -132,7 +132,7 @@ color : #d8450b;
             </div>
             
         <section >
-            <form id="searchForm" action="noticeList.kh" method="post">
+            <form id="searchForm" action="boardList.kh" method="post">
                 <div class="input-append" style="margin-left: 328px;">
                     <input name="bname" size="16" type="text" placeholder="검색">
                     <button class="btn" type="button" onClick="document.getElementById('searchForm').submit();"><i class="icon-search"></i></button>

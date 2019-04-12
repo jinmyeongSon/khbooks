@@ -142,13 +142,21 @@ function comment_list_result(res) {
 		$('#replycntSmall').text('댓글['+res.length+']');
 		
 		$.each(res, function(index, value){
+			var src = '{{id}}';
+			var temp = Handlebars.compile(src);
+			var check = temp(value);
 			var source = '<li class="commList" id="{{bcno}}">'
 				+'<span class="comment-name">{{id}}</span>'
 				+'<span>&nbsp;&nbsp;</span>'
 				+'<span class="comment-date">{{newDate bcdate}}</span>'
-				+'<div style="font-size:15px;" class="comment-content">{{bctext}}</div>'
-				+'<button id="{{bcno}}" class="{{bonum}}" style="margin-top:15px;">수정</button>'
+				+'<div style="font-size:15px;" class="comment-content">{{bctext}}</div>';
+			
+			if(id == check){
+				source+= '<button id="{{bcno}}" class="{{bonum}}" style="margin-top:15px;">수정</button>'
 				+'<button id="{{bcno}}" class="{{bonum}}" style="margin-top:15px;">삭제</button></li>';
+			}else{
+				source+= '</li>';
+			}
 
 			var template = Handlebars.compile(source);
 			$('.listUl').append(template(value));

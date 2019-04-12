@@ -22,8 +22,6 @@
 			if(res=="success"){
 			var total = ${total_amount};
 		    opener.location.href='dsds.kh?total_amount='+total;
-		    alert(total);
-		    alert(res);
 		    window.close();
 			}else{
 			    window.close();
