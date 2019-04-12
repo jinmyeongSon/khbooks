@@ -99,7 +99,7 @@
         <div class="span9 blog">
 			<div class ="check">
 				<ul id="filterOptions" class="gallery-cats clearfix"> 
-                	<li><a href="bookMain.kh?sortkey=1&sortgenre=${pdto.sortgenre}">날짜순 정렬</a></li>
+                	<li><a href="bookMain.kh?sortkey=1&sortgenre=${pdto.sortgenre}">최신순 정렬</a></li>
                 	<li><a href="bookMain.kh?sortkey=2&sortgenre=${pdto.sortgenre}">점수순 정렬</a></li>
                 	<li><a href="bookMain.kh?sortkey=3&sortgenre=${pdto.sortgenre}">조회순 정렬</a></li>
             	</ul>

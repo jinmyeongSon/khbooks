@@ -63,9 +63,9 @@ public class UserController {
 	
 	@RequestMapping(value = "/naloCallback.kh", method = RequestMethod.GET)
 	public String naloCallback() {
-		return "indexCallback";
+		return "main";
 	}
-
+ 
 	@RequestMapping(value = "/index-naver2.kh", method = RequestMethod.GET)
 	public ModelAndView naverlogins(String email, String name, String gender, HttpSession session, Model model) {
 		String id = service.naverLogin(email);

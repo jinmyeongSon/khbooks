@@ -61,7 +61,19 @@ label{
 
 <fmt:formatDate value="${bean.date}" pattern="yyyy-MM-dd" />
 
+<script type="text/javascript">
+$(document).ready(function() {
+	if('${gender}' == 'F'){
+		$('#ugender').val(2);
+	}else{
+		$('#ugender').val(1);
+	}
+});
+
+</script>
+
 </head>
+
 
 <body>
 
@@ -115,7 +127,8 @@ label{
 								
 				<input type="hidden" value="${email}" name="uemail">
 				<input type="hidden" value="${name}" name="uname">
-				<input type="hidden" value="${gender}" name="ugender" id="ugender">
+				<input type="hidden" value="${gender}" id="ugen">
+				<input type="hidden" name="ugender" id="ugender" value="">
 			</div>
 
 				<div style="float:left; margin-left: 120px;" >
@@ -250,4 +263,5 @@ label{
 	<!-- End Container -->
 
 </body>
+
 </html>
