@@ -436,6 +436,8 @@ function chceck_res(res){
 				url: 'serialPay.kh?bno='+bno+'&rm='+rm+'&price='+price,
 				success : pay_res
 			});
+		} else{
+			rm--;
 		}
 	}
 }
@@ -445,7 +447,9 @@ function pay_res(res) {
 		serial_load();
 	} else {
 		if(confirm('포인트가 부족합니다. 포인트 샵으로 이동하시겠습니까?')){
-			href.location="payment.kh";
+			location.href="payment.kh";
+		}else{
+			rm--;
 		}
 	}
 }
