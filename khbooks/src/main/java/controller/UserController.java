@@ -63,8 +63,18 @@ public class UserController {
 			// 있으면 로그인 처리
 			session.setAttribute("id", id);
 			model.addAttribute("id");
-			String path = (String)session.getAttribute("prev");
-			mav.setViewName("redirect:"+path);
+			if(session.getAttribute("prev")!=null) {
+				String path = (String)session.getAttribute("prev");
+				if(path.equals("http://192.168.10.61:8090/khbook/loginForm.kh")) {
+					session.removeAttribute("prev");
+					mav.setViewName("redirect:mainpage.kh");
+				} else {
+					session.removeAttribute("prev");
+					mav.setViewName("redirect:"+path);
+				}
+			}else {
+				mav.setViewName("redirect:mainpage.kh");
+			}
 		} else {
 			// 없으면 회원가입
 			mav.addObject("email", email);
