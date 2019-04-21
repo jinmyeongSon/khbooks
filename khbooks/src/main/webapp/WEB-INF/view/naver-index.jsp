@@ -24,7 +24,7 @@
 
 <script type="text/javascript">	
 	  //네아로--------------------------------------------------------------------------------------------------
-	  var naver_id_login = new naver_id_login("Fl00fuSEpWs8hOdJ0F2n", "http://192.168.10.61:8090/khbook/index.kh");
+	  var naver_id_login = new naver_id_login("Fl00fuSEpWs8hOdJ0F2n", "http://192.168.10.61:8090/khbook/mainpage.kh");
 	  // 접근 토큰 값 출력
 	  //alert(naver_id_login.oauthParams.access_token);
 	  // 네이버 사용자 프로필 조회

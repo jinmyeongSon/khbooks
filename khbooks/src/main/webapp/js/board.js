@@ -20,6 +20,8 @@ $(document).ready(function(){
 		$(document).on('click', '.listUl button', comment_update_delete);
 	});
 	
+	id='${sessionScope.id}';
+	
 //////////게시글///////////////////////////////////////////////////////////////////////	
 	
 	//게시글 삭제,수정 이벤트
@@ -70,6 +72,10 @@ function comment_list(){
 	if(text==''){
 		alert("내용을 입력해 주십시오.");
 		return false;
+	}
+	if(id==''){
+		alert("로그인 후 사용 가능한 기능입니다.")
+		location.href("loginForm.kh")
 	}
 	var bonum = $(this).parent().prop("id");
 	
