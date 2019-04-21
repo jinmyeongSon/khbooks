@@ -73,7 +73,7 @@ label{
 	</div>
 	<hr/>
 	<!-- End Header -->
-	<form method="post" action="signUp.kh" onsubmit="return nJoinChk();">
+	<form method="post" action="signUp.kh" onsubmit="return joinChk();">
 		
 	<div class="container" style="width:45%; float: left; border-right: 1px solid grey; padding-right: 0px;margin-left: 4%; height: 550px;"  >
 		<!--User Login-->
@@ -115,7 +115,7 @@ label{
 								
 				<input type="hidden" value="${email}" name="uemail">
 				<input type="hidden" value="${name}" name="uname">
-				<input type="hidden" value="<c:choose><c:when test="${gender=='M'}">1</c:when><c:otherwise>2</c:otherwise></c:choose>" name="ugender" id="ugender">
+				<input type="hidden" value="${gender}" name="ugender" id="ugender">
 			</div>
 
 				<div style="float:left; margin-left: 120px;" >

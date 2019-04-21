@@ -29,34 +29,19 @@ public class DownloadController extends AbstractView {
 		
 		response.setContentType(getContentType());
 		response.setContentLength((int) file.length());
-		/*
-		String userAgent = request.getHeader("User-Agent");*/
-		/*
+		
+		String userAgent = request.getHeader("User-Agent");
+		
 		boolean ie = userAgent.indexOf("MSIE") > -1;
-		*/
-		String fileName = file.getName();
 		
-/*		if(ie) {
-			fileName = URLEncoder.encode(file.getName(), "euc-kr");
+		String fileName = null;
+		
+		if(ie) {
+			fileName = URLEncoder.encode(file.getName(), "utf-8");
 		} else {
-			fileName = new String(file.getName().getBytes("euc-kr"));
-		}*/
-		
+			fileName = new String(file.getName().getBytes("utf-8"));
+		}
 		fileName = fileName.substring(fileName.indexOf("_")+1); 
-		System.out.println(fileName);
-		
-		 StringBuffer sb = new StringBuffer();
-         for (int i = 0; i < fileName.length(); i++) {
-                     char c = fileName.charAt(i);
-                     if (c > '~') {
-                                sb.append(URLEncoder.encode("" + c, "UTF-8"));
-                     } else {
-                             sb.append(c);
-                     }
-         }
-         fileName = sb.toString();
-
-
 		
 		response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\";");
         
